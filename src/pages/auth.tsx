@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import store from "../redux/store";
 import { Provider } from "react-redux";
 import { Fragment, useEffect } from "react";
+import bg1 from "../assets/images/authentication/1.svg";
 
 const Auth = () => {
   useEffect(() => {
@@ -10,9 +11,14 @@ const Auth = () => {
   return (
     <Fragment>
       {/* <Provider store={store}> */}
-      <div className="grid grid-cols-12 authentication mx-0 text-defaulttextcolor text-defaultsize">
-        <div className="xxl:col-span-7 xl:col-span-7 lg:col-span-12 col-span-12">
-          <div className="flex justify-center items-center h-full">
+      <div className="grid grid-cols-12 authentication mx-0 text-defaulttextcolor text-defaultsize relative overflow-hidden">
+        <div className="xxl:col-span-7 xl:col-span-7 lg:col-span-12 col-span-12 bg-light_finance-background1 relative">
+          <div className="flex justify-center h-full">
+            <img
+              className="absolute w-screen sm:max-w-[480px] top-[-1.5rem] bg-cover bg-center"
+              src={bg1}
+              alt=""
+            />
             <Outlet />
           </div>
         </div>
@@ -20,6 +26,7 @@ const Auth = () => {
           <div className="authentication-cover"></div>
         </div>
       </div>
+
       {/* </Provider> */}
     </Fragment>
   );
