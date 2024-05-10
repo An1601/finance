@@ -2,6 +2,7 @@ import { Fragment } from "react/jsx-runtime";
 import logo from "../../assets/images/brand-logos/1.png";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -11,9 +12,29 @@ const ForgotPassword = () => {
     formState: { errors },
   } = useForm<{ email: string }>();
 
-  const HandleForgotPassword = (changePwd_data: { email: string }) => {
-    console.log(changePwd_data);
-    navigate(`/verify-code?email=${changePwd_data.email}&signup=false`);
+  const [forgotError, setforgotErrorr] = useState(null);
+
+  const HandleForgotPassword = async (changePwd_data: { email: string }) => {
+    const response = await fetch(
+      `https://apidev-finance.myzens.net/api/v1/forgot`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(changePwd_data),
+      },
+    );
+
+    if (response.ok) {
+      navigate(`/verify-code?email=${changePwd_data.email}&signup=false`);
+    } else {
+      const error = await response.json();
+      setforgotErrorr(error.message || "Failed");
+    }
+  };
+  const handleInputChange = () => {
+    setforgotErrorr(null);
   };
 
   return (
@@ -37,7 +58,7 @@ const ForgotPassword = () => {
         </div>
         {/* frame input */}
         {/* input field */}
-        <div className="w-full flex flex-col gap-8">
+        <div className="w-full flex flex-col gap-2">
           {/* email filed */}
           <div className="w-full flex flex-col gap-2 relative">
             <div
@@ -55,6 +76,7 @@ const ForgotPassword = () => {
                       message:
                         "This email is incorrect. Please input your email",
                     },
+                    onChange: handleInputChange,
                   })}
                 />
               </div>
@@ -64,13 +86,19 @@ const ForgotPassword = () => {
                 </div>
               </div>
             </div>
-            {errors.email && typeof errors.email?.message === "string" && (
-              <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                {errors.email.message}
-              </div>
-            )}
           </div>
+          {errors.email && typeof errors.email?.message === "string" && (
+            <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
+              {errors.email.message}
+            </div>
+          )}
+          {forgotError && (
+            <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
+              {forgotError}
+            </div>
+          )}
         </div>
+
         {/* frame button */}
         <div className="w-[280px] h-[100px] flex flex-col items-center ">
           <button

@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 const SignUp = () => {
   const [passwordshow1, setpasswordshow1] = useState(false);
   const [passwordshow2, setpasswordshow2] = useState(false);
+
   const navigate = useNavigate();
   const {
     handleSubmit: SubmitSignUp,
@@ -18,8 +19,25 @@ const SignUp = () => {
     getValues,
   } = useForm<SignUpInfo>();
 
-  const HandleSubmitSignUp = (signup_data: SignUpInfo) => {
-    console.log(signup_data);
+  const HandleSubmitSignUp = async (signup_data: SignUpInfo) => {
+    const response = await fetch(
+      `https://apidev-finance.myzens.net/api/v1/register`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(signup_data),
+      },
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      navigate(`/verify-code?email=${signup_data.email}&signup=true`);
+    } else {
+      const error = await response.json();
+      console.error(error);
+    }
   };
 
   return (
@@ -75,29 +93,29 @@ const SignUp = () => {
             {/* phone filed */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.phoneNumber?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.phone?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Your phone number"
-                    {...signup_data("phoneNumber", {
+                    {...signup_data("phone", {
                       required: "Phone number is required",
                     })}
                   />
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.phoneNumber ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${error_signup.phone ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Phone number
                   </div>
                 </div>
               </div>
-              {error_signup.phoneNumber &&
-                typeof error_signup.phoneNumber?.message === "string" && (
+              {error_signup.phone &&
+                typeof error_signup.phone?.message === "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.phoneNumber?.message}
+                    {error_signup.phone?.message}
                   </div>
                 )}
             </div>
@@ -136,32 +154,33 @@ const SignUp = () => {
                   </div>
                 )}
             </div>
-            {/* DoB field */}
+            {/* date_of_birth field */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.DoB?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.date_of_birth?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
+                    type="date"
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Your date of birth"
-                    {...signup_data("DoB", {
+                    {...signup_data("date_of_birth", {
                       required: "Date of Birth is required",
                     })}
                   />
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.DoB ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${error_signup.date_of_birth ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Date of Birth
                   </div>
                 </div>
               </div>
-              {error_signup.DoB &&
-                typeof error_signup.DoB?.message === "string" && (
+              {error_signup.date_of_birth &&
+                typeof error_signup.date_of_birth?.message === "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.DoB?.message}
+                    {error_signup.date_of_birth?.message}
                   </div>
                 )}
             </div>
@@ -250,14 +269,14 @@ const SignUp = () => {
             {/* confirm password field */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.confirmPassword ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.password_confirmation ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Confirm your password"
                     type={passwordshow2 ? "text" : "password"}
-                    {...signup_data("confirmPassword", {
+                    {...signup_data("password_confirmation", {
                       required: "Confirm Password is required",
                       validate: (value) =>
                         value === getValues("password") ||
@@ -284,16 +303,17 @@ const SignUp = () => {
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.confirmPassword ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${error_signup.password_confirmation ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Confirm password
                   </div>
                 </div>
               </div>
-              {error_signup.confirmPassword &&
-                typeof error_signup.confirmPassword?.message === "string" && (
+              {error_signup.password_confirmation &&
+                typeof error_signup.password_confirmation?.message ===
+                  "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.confirmPassword.message}
+                    {error_signup.password_confirmation.message}
                   </div>
                 )}
             </div>

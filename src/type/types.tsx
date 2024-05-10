@@ -1,11 +1,11 @@
 export type SignUpInfo = {
   name: string;
-  phoneNumber?: string;
+  phone?: string;
   email: string;
-  DoB: string;
+  date_of_birth: string;
   address: string;
   password: string;
-  confirmPassword: string;
+  password_confirmation: string;
   policy_agreement: boolean;
 };
 

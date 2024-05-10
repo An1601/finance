@@ -1,16 +1,25 @@
 import { Fragment } from "react/jsx-runtime";
 import logo from "../../assets/images/brand-logos/1.png";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function VerifyOTP() {
   const searchParams = new URLSearchParams(location.search);
   const signup_mode = searchParams.get("signup");
   const email = searchParams.get("email");
+  const navigate = useNavigate();
 
   const ref_otp = useRef<HTMLInputElement[]>(Array(5).fill(null));
   const [otp, setOTP] = useState<string[]>(Array(5).fill(""));
   const [time, setTime] = useState<number>();
+  const [verifyError, setVerifyError] = useState(null);
   let current_time: number;
+
+  const [isFilled, setIsFilled] = useState(false);
+
+  useEffect(() => {
+    setIsFilled(otp.every((o) => o !== ""));
+  }, [otp]);
 
   useEffect(() => {
     if (time && time >= 0) {
@@ -24,7 +33,7 @@ function VerifyOTP() {
   }, [time]);
 
   useEffect(() => {
-    setTime(10);
+    setTime(60);
   }, []);
 
   const focusNextOTPItem = (
@@ -48,15 +57,78 @@ function VerifyOTP() {
         }
       }
     }
+
+    setIsFilled(otp.every((o) => o !== ""));
+  };
+
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (!isFilled) {
+      return;
+    }
+
+    const response = await fetch(
+      "https://apidev-finance.myzens.net/api/v1/verify_otp",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          otp: otp.join(""),
+          email: email,
+        }),
+      },
+    );
+
+    const data = await response.json();
+
+    if (data.message === "Email verification successfull ") {
+      if (signup_mode == "true") {
+        navigate(`/signin`);
+      } else {
+        console.log("reset");
+
+        navigate(`/reset-password`);
+      }
+    } else {
+      setVerifyError(data.message);
+    }
+  };
+
+  const handleResend = async () => {
+    // Call the resend API
+    const response = await fetch(
+      "https://apidev-finance.myzens.net/api/v1/resend_verify_otp",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+        }),
+      },
+    );
+
+    const data = await response.json();
+
+    if (
+      data.message === "Resend Sucessfully. Please check your email to confirm."
+    ) {
+      // Reset the OTP and the timer
+      setOTP(Array(5).fill(""));
+      setTime(60);
+    } else {
+      console.error("Resend failed");
+    }
   };
 
   return (
     <Fragment>
       {/* right col */}
       <form
-        onSubmit={() => {
-          console.log("submit");
-        }}
+        onSubmit={handleSubmit}
         className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col items-center gap-12"
       >
         {/* frame logo */}
@@ -78,7 +150,7 @@ function VerifyOTP() {
             <input
               key={index}
               type="text"
-              className="h-[3.375rem] w-[3.375rem] bg-light_finance-background border-[1px] border-light_finance-texttitle rounded-lg text-2xl font-HelveticaNeue font-medium leading-7"
+              className="h-[3.375rem] w-[3.375rem] bg-light_finance-background border-[1px] border-light_finance-texttitle rounded-lg text-2xl font-HelveticaNeue font-medium leading-7 text-center"
               maxLength={1}
               onKeyUp={(event) => focusNextOTPItem(event, index)}
               ref={(el) => {
@@ -90,7 +162,12 @@ function VerifyOTP() {
           ))}
         </div>
         {/* countdown */}
-        {time && time >= 0 ? (
+
+        {verifyError ? (
+          <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
+            {verifyError}
+          </div>
+        ) : time && time >= 0 ? (
           <div className="font-HelveticaNeue font-bold text-[14px] leading-5 text-light_finance-textbody">
             {`${time ?? ""} second`}
           </div>
@@ -100,7 +177,7 @@ function VerifyOTP() {
               I don’t recevie a code
             </span>
             <span
-              onClick={() => {}}
+              onClick={handleResend}
               className="font-HelveticaNeue font-bold text-[14px] leading-5 text-light_finance-textbody cursor-pointer"
             >
               Resend
@@ -111,11 +188,15 @@ function VerifyOTP() {
         <div className="w-[280px] h-[100px] flex flex-col items-center ">
           <button
             type="submit"
-            disabled={time && time > 0 ? false : true}
-            className={`w-[280px] px-3 py-4 bg-light_finance-primary rounded-[28px] shadow border-2 flex justify-center items-center`}
+            disabled={!isFilled ? false : time && time > 0 ? false : true}
+            className={`w-[280px] px-3 py-4 rounded-[28px] shadow border-2 flex justify-center items-center ${
+              isFilled && (time && time > 0 ? true : false)
+                ? "bg-light_finance-primary text-black"
+                : "bg-gray-500 text-gray-300"
+            }`}
           >
-            <div className="text-light_finance-textbody text-base font-medium font-['Helvetica Neue'] leading-normal tracking-tight">
-              Send
+            <div className="text-base font-medium font-['Helvetica Neue'] leading-normal tracking-tight">
+              Verify
             </div>
           </button>
         </div>

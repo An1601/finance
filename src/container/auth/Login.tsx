@@ -10,14 +10,36 @@ import EyeOpen from "../../components/svg/EyeOpen";
 const Login = () => {
   const navigate = useNavigate();
   const [passwordshow, setpasswordshow] = useState(false);
+  const [loginError, setLoginError] = useState(null);
   const {
     handleSubmit: SubmitLogin,
     register: login_data,
     formState: { errors: error_login },
   } = useForm<LoginInfo>();
 
-  const HandleSubmitLogin = (login_data: LoginInfo) => {
-    console.log(login_data);
+  const HandleSubmitLogin = async (login_data: LoginInfo) => {
+    const response = await fetch(
+      `https://apidev-finance.myzens.net/api/v1/login`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(login_data),
+      },
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+      navigate("/dashboard");
+    } else {
+      const error = await response.json();
+      setLoginError(error.message || "Login failed");
+    }
+  };
+
+  const handleInputChange = () => {
+    setLoginError(null);
   };
 
   return (
@@ -59,6 +81,7 @@ const Login = () => {
                       message:
                         "This email is incorrect. Please input your email",
                     },
+                    onChange: handleInputChange,
                   })}
                 />
               </div>
@@ -95,6 +118,7 @@ const Login = () => {
                       message:
                         "At least 6 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
                     },
+                    onChange: handleInputChange,
                   })}
                 />
                 {passwordshow ? (
@@ -129,6 +153,11 @@ const Login = () => {
                   {error_login.password.message}
                 </div>
               )}
+            {loginError && (
+              <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
+                {loginError}
+              </div>
+            )}
           </div>
           {/* checkbox */}
           <div className="w-full flex items-center justify-between">

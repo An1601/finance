@@ -22,6 +22,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Route path={`forgot-password`} element={<ForgotPassword />} />
           <Route path={`verify-code`} element={<VerifyOTP />} />
           <Route path={`reset-password`} element={<ResetPassword />} />
+          <Route path={`dashboard`} element={<Crm />} />
         </Route>
       </Routes>
     </BrowserRouter>
