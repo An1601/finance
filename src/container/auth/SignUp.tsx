@@ -26,18 +26,18 @@ const SignUp = () => {
   const navigate = useNavigate();
   const {
     handleSubmit: submitSignUp,
-    register: signup_data,
-    formState: { errors: error_signup },
+    register: signupData,
+    formState: { errors: errorSgnup },
     getValues,
   } = useForm<SignUpInfo>();
 
-  const handleSubmitSignUp = async (signup_data: SignUpInfo) => {
+  const handleSubmitSignUp = async (signupData: SignUpInfo) => {
     try {
       dispatch(setLoadingTrue());
-      const response = await api.post("/register", signup_data);
+      const response = await api.post("/register", signupData);
       if (response && response.status === 200) {
         const data = await response?.data;
-        navigate(`/verify-code?email=${signup_data.email}&signup=true`);
+        navigate(`/verify-code?email=${signupData.email}&signup=true`);
         toast.success(data.message || "Sign Up unsuccessfully.");
       }
     } catch (error) {
@@ -89,69 +89,69 @@ const SignUp = () => {
             {/* name field */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 lef bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.name?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 lef bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorSgnup.name?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Your name"
-                    {...signup_data("name", { required: "Name is required" })}
+                    {...signupData("name", { required: "Name is required" })}
                   />
                 </div>{" "}
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.name ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${errorSgnup.name ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Name
                   </div>
                 </div>
               </div>
-              {error_signup.name &&
-                typeof error_signup.name?.message === "string" && (
+              {errorSgnup.name &&
+                typeof errorSgnup.name?.message === "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.name?.message}
+                    {errorSgnup.name?.message}
                   </div>
                 )}
             </div>
             {/* phone filed */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.phone?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorSgnup.phone?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Your phone number"
-                    {...signup_data("phone", {
+                    {...signupData("phone", {
                       required: "Phone number is required",
                     })}
                   />
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.phone ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${errorSgnup.phone ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Phone number
                   </div>
                 </div>
               </div>
-              {error_signup.phone &&
-                typeof error_signup.phone?.message === "string" && (
+              {errorSgnup.phone &&
+                typeof errorSgnup.phone?.message === "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.phone?.message}
+                    {errorSgnup.phone?.message}
                   </div>
                 )}
             </div>
             {/* email filed */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.email?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorSgnup.email?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Your email"
-                    {...signup_data("email", {
+                    {...signupData("email", {
                       required: "Email is required",
                       pattern: {
                         value:
@@ -164,89 +164,89 @@ const SignUp = () => {
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.email ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${errorSgnup.email ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Email
                   </div>
                 </div>
               </div>
-              {error_signup.email &&
-                typeof error_signup.email?.message === "string" && (
+              {errorSgnup.email &&
+                typeof errorSgnup.email?.message === "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.email.message}
+                    {errorSgnup.email.message}
                   </div>
                 )}
             </div>
             {/* date_of_birth field */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.date_of_birth?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorSgnup.date_of_birth?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     type="date"
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Your date of birth"
-                    {...signup_data("date_of_birth", {
+                    {...signupData("date_of_birth", {
                       required: "Date of Birth is required",
                     })}
                   />
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.date_of_birth ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${errorSgnup.date_of_birth ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Date of Birth
                   </div>
                 </div>
               </div>
-              {error_signup.date_of_birth &&
-                typeof error_signup.date_of_birth?.message === "string" && (
+              {errorSgnup.date_of_birth &&
+                typeof errorSgnup.date_of_birth?.message === "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.date_of_birth?.message}
+                    {errorSgnup.date_of_birth?.message}
                   </div>
                 )}
             </div>
             {/* Address field */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.address?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorSgnup.address?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Your address"
-                    {...signup_data("address", {
+                    {...signupData("address", {
                       required: "Address is required",
                     })}
                   />
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.address ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${errorSgnup.address ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Address
                   </div>
                 </div>
               </div>
-              {error_signup.address &&
-                typeof error_signup.address?.message === "string" && (
+              {errorSgnup.address &&
+                typeof errorSgnup.address?.message === "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.address?.message}
+                    {errorSgnup.address?.message}
                   </div>
                 )}
             </div>
             {/* Password field*/}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.password ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorSgnup.password ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Your password"
                     type={`${passwordshow1 ? "text" : "password"}`}
-                    {...signup_data("password", {
+                    {...signupData("password", {
                       required: "Password is required",
                       pattern: {
                         value:
@@ -276,30 +276,30 @@ const SignUp = () => {
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.password ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${errorSgnup.password ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Password
                   </div>
                 </div>
               </div>
-              {error_signup.password &&
-                typeof error_signup.password?.message === "string" && (
+              {errorSgnup.password &&
+                typeof errorSgnup.password?.message === "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.password.message}
+                    {errorSgnup.password.message}
                   </div>
                 )}
             </div>
             {/* confirm password field */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
-                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_signup.password_confirmation ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+                className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorSgnup.password_confirmation ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
               >
                 <div className="w-full gap-2 flex items-center justify-between">
                   <input
                     className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                     placeholder="Confirm your password"
                     type={passwordshow2 ? "text" : "password"}
-                    {...signup_data("password_confirmation", {
+                    {...signupData("password_confirmation", {
                       required: "Confirm Password is required",
                       validate: (value) =>
                         value === getValues("password") ||
@@ -326,17 +326,17 @@ const SignUp = () => {
                 </div>
                 <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                   <div
-                    className={`${error_signup.password_confirmation ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                    className={`${errorSgnup.password_confirmation ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                   >
                     Confirm password
                   </div>
                 </div>
               </div>
-              {error_signup.password_confirmation &&
-                typeof error_signup.password_confirmation?.message ===
+              {errorSgnup.password_confirmation &&
+                typeof errorSgnup.password_confirmation?.message ===
                   "string" && (
                   <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                    {error_signup.password_confirmation.message}
+                    {errorSgnup.password_confirmation.message}
                   </div>
                 )}
             </div>
@@ -344,9 +344,9 @@ const SignUp = () => {
           {/* checkbox */}
           <div className="w-full flex items-center gap-[2px]">
             <input
-              className={`m-1 border-[1.5px] ${error_signup.policy_agreement ? "border-red" : "border-light_finance-textbody "} checked:hover:bg-light_finance-textbody`}
+              className={`m-1 border-[1.5px] ${errorSgnup.policy_agreement ? "border-red" : "border-light_finance-textbody "} checked:hover:bg-light_finance-textbody`}
               type="checkbox"
-              {...signup_data("policy_agreement", {
+              {...signupData("policy_agreement", {
                 required: true,
               })}
             />

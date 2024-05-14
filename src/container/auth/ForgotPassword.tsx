@@ -18,17 +18,17 @@ const ForgotPassword = () => {
   );
   const {
     handleSubmit: SubmitForgotPassword,
-    register: changePwd_data,
+    register: changePwdData,
     formState: { errors },
   } = useForm<{ email: string }>();
 
-  const HandleForgotPassword = async (changePwd_data: { email: string }) => {
+  const HandleForgotPassword = async (changePwdData: { email: string }) => {
     try {
       dispatch(setLoadingTrue());
-      const response = await await api.post("/forgot", changePwd_data);
+      const response = await await api.post("/forgot", changePwdData);
       if (response && response.status === 200) {
         const data = await response?.data;
-        navigate(`/verify-code?email=${changePwd_data.email}&signup=false`);
+        navigate(`/verify-code?email=${changePwdData.email}&signup=false`);
         toast.success(data.message);
       }
     } catch (error) {
@@ -85,7 +85,7 @@ const ForgotPassword = () => {
                 <input
                   className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                   placeholder="Your email"
-                  {...changePwd_data("email", {
+                  {...changePwdData("email", {
                     required: "Email is required",
                     pattern: {
                       value:

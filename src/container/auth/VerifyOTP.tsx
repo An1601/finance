@@ -9,16 +9,19 @@ import { toast } from "react-toastify";
 import Loader from "../../components/common/loader/loader";
 import api from "../../API/axios";
 import axios from "axios";
+import { useLocalStorage } from "../../utils";
 
 function VerifyOTP() {
   const searchParams = new URLSearchParams(location.search);
-  const signup_mode = searchParams.get("signup") === "true" ? true : false;
+  const signupMode = searchParams.get("signup") === "true" ? true : false;
   const email = searchParams.get("email");
 
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
     (state: RootState) => state.rootReducer.commonReducer.isloading,
   );
+
+  const { checkEnableCookie, setItem, getItem, removeItem } = useLocalStorage();
 
   const navigate = useNavigate();
 
@@ -31,22 +34,22 @@ function VerifyOTP() {
   }, [otp]);
 
   useEffect(() => {
-    let current_time: NodeJS.Timeout;
+    let currentTime: NodeJS.Timeout;
     if (time && time >= 0) {
-      current_time = setInterval(() => {
+      currentTime = setInterval(() => {
         setTime((prevTime) => (prevTime && prevTime > 0 ? prevTime - 1 : 0));
       }, 1000);
-      return () => clearInterval(current_time);
+      return () => clearInterval(currentTime);
     } else {
       resetState();
     }
     return () => {
-      clearInterval(current_time);
+      clearInterval(currentTime);
     };
   }, [time]);
 
   useEffect(() => {
-    const storedTime = localStorage.getItem(`${email}_expirationTime`);
+    const storedTime = getItem(`${email}_expirationTime`);
     if (storedTime) {
       setTime(calculateRemainingTime(parseInt(storedTime)));
     } else {
@@ -104,7 +107,7 @@ function VerifyOTP() {
 
   const submitOTP = async () => {
     let requestBody;
-    if (signup_mode) {
+    if (signupMode) {
       requestBody = {
         otp: otp.join(""),
         email: email,
@@ -119,7 +122,7 @@ function VerifyOTP() {
     try {
       dispatch(setLoadingTrue());
       const response = await api.post(
-        `${signup_mode ? "verify_otp" : "check-otp"}`,
+        `${signupMode ? "verify_otp" : "check-otp"}`,
         requestBody,
       );
       if (response && response.status === 200) {
@@ -127,8 +130,8 @@ function VerifyOTP() {
         toast.success(
           data.message || "Your email has been successfully verified.",
         );
-        localStorage.removeItem(`${email}_expirationTime`);
-        if (!signup_mode) {
+        removeItem(`${email}_expirationTime`);
+        if (!signupMode) {
           if (data?.access_token)
             navigate(`/reset-password?token=${data.access_token}`);
         } else {
@@ -203,7 +206,7 @@ function VerifyOTP() {
 
     const expirationTime = new Date(today.getTime() + sec * 1000); // Thời gian hết hạn
 
-    localStorage.setItem(
+    setItem(
       `${email}_expirationTime`,
       JSON.stringify(expirationTime.getTime()),
     );

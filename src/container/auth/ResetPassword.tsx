@@ -27,12 +27,12 @@ const ResetPassword = () => {
   const [passwordshow2, setpasswordshow2] = useState(false);
   const {
     handleSubmit: SubmitResetPassword,
-    register: password_data,
+    register: passwordData,
     formState: { errors },
     getValues,
   } = useForm();
 
-  const HandleSubmitResetPassword = async (password_data: any) => {
+  const HandleSubmitResetPassword = async (passwordData: any) => {
     try {
       dispatch(setLoadingTrue());
       const response = await axios({
@@ -43,8 +43,8 @@ const ResetPassword = () => {
           Authorization: `Bearer ${token}`,
         },
         data: {
-          password: password_data.password,
-          password_confirmation: password_data.confirmPassword,
+          password: passwordData.password,
+          password_confirmation: passwordData.confirmPassword,
         },
       });
       if (response && response.status === 200) {
@@ -107,7 +107,7 @@ const ResetPassword = () => {
                   className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                   placeholder="Your new password"
                   type={passwordshow1 ? "text" : "password"}
-                  {...password_data("password", {
+                  {...passwordData("password", {
                     required: "Password is required",
                     pattern: {
                       value:
@@ -160,7 +160,7 @@ const ResetPassword = () => {
                   className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                   placeholder="Confirm your password"
                   type={passwordshow2 ? "text" : "password"}
-                  {...password_data("confirmPassword", {
+                  {...passwordData("confirmPassword", {
                     required: "Confirm Password is required",
                     validate: (value) =>
                       value === getValues("password") || "Passwords must match",

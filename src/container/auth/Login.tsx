@@ -24,14 +24,14 @@ const Login = () => {
   );
   const {
     handleSubmit: submitLogin,
-    register: login_data,
-    formState: { errors: error_login },
+    register: loginData,
+    formState: { errors: errorLogin },
   } = useForm<LoginInfo>();
 
-  const handleSubmitLogin = async (login_data: LoginInfo) => {
+  const handleSubmitLogin = async (loginData: LoginInfo) => {
     try {
       dispatch(setLoadingTrue());
-      const response = await api.post("/login", login_data);
+      const response = await api.post("/login", loginData);
       if (response && response.status === 200) {
         const data = await response?.data;
         navigate("/dashboard");
@@ -85,13 +85,13 @@ const Login = () => {
           {/* email filed */}
           <div className="w-full flex flex-col gap-2 relative">
             <div
-              className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_login.email ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+              className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorLogin.email ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
             >
               <div className="w-full justify-start items-start gap-2 flex">
                 <input
                   className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                   placeholder="Your email"
-                  {...login_data("email", {
+                  {...loginData("email", {
                     required: "Email is required",
                     pattern: {
                       value:
@@ -104,30 +104,30 @@ const Login = () => {
               </div>
               <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                 <div
-                  className={`${error_login.email ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                  className={`${errorLogin.email ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                 >
                   Email
                 </div>
               </div>
             </div>
-            {error_login.email &&
-              typeof error_login.email?.message === "string" && (
+            {errorLogin.email &&
+              typeof errorLogin.email?.message === "string" && (
                 <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                  {error_login.email.message}
+                  {errorLogin.email.message}
                 </div>
               )}
           </div>
           {/* Password field*/}
           <div className="w-full flex flex-col gap-2 relative">
             <div
-              className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${error_login.password?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
+              className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorLogin.password?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
             >
               <div className="w-full gap-2 flex items-center justify-between">
                 <input
                   className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                   placeholder="Your password"
                   type={passwordshow ? "text" : "password"}
-                  {...login_data("password", {
+                  {...loginData("password", {
                     required: "Password is required",
                     pattern: {
                       value:
@@ -157,16 +157,16 @@ const Login = () => {
               </div>
               <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
                 <div
-                  className={`${error_login.email ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
+                  className={`${errorLogin.email ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                 >
                   Password
                 </div>
               </div>
             </div>
-            {error_login.password &&
-              typeof error_login.password?.message === "string" && (
+            {errorLogin.password &&
+              typeof errorLogin.password?.message === "string" && (
                 <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                  {error_login.password.message}
+                  {errorLogin.password.message}
                 </div>
               )}
           </div>
