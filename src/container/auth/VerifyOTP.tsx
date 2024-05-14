@@ -1,20 +1,29 @@
 import { Fragment } from "react/jsx-runtime";
 import logo from "../../assets/images/brand-logos/1.png";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
+import { toast } from "react-toastify";
+import Loader from "../../components/common/loader/loader";
+import api from "../../API/axios";
+import axios from "axios";
 
 function VerifyOTP() {
   const searchParams = new URLSearchParams(location.search);
-  const signup_mode = searchParams.get("signup");
+  const signup_mode = searchParams.get("signup") === "true" ? true : false;
   const email = searchParams.get("email");
+
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading = useSelector(
+    (state: RootState) => state.rootReducer.commonReducer.isloading,
+  );
+
   const navigate = useNavigate();
 
-  const ref_otp = useRef<HTMLInputElement[]>(Array(5).fill(null));
   const [otp, setOTP] = useState<string[]>(Array(5).fill(""));
-  const [time, setTime] = useState<number>();
-  const [verifyError, setVerifyError] = useState(null);
-  let current_time: number;
-
+  const [time, setTime] = useState<number>(60);
   const [isFilled, setIsFilled] = useState(false);
 
   useEffect(() => {
@@ -22,39 +31,64 @@ function VerifyOTP() {
   }, [otp]);
 
   useEffect(() => {
+    let current_time: NodeJS.Timeout;
     if (time && time >= 0) {
       current_time = setInterval(() => {
         setTime((prevTime) => (prevTime && prevTime > 0 ? prevTime - 1 : 0));
       }, 1000);
       return () => clearInterval(current_time);
-    } else if (time && time < 0) {
-      setOTP(Array(5).fill(""));
+    } else {
+      resetState();
     }
+    return () => {
+      clearInterval(current_time);
+    };
   }, [time]);
 
   useEffect(() => {
-    setTime(60);
+    const storedTime = localStorage.getItem(`${email}_expirationTime`);
+    if (storedTime) {
+      setTime(calculateRemainingTime(parseInt(storedTime)));
+    } else {
+      saveExpireTimeToLocalStorage(60);
+    }
   }, []);
 
   const focusNextOTPItem = (
     event: React.KeyboardEvent<HTMLInputElement>,
     index: number,
   ) => {
+    const currentInputId = `input_${index.toString()}`;
+    const currentInput = document.getElementById(
+      currentInputId,
+    ) as HTMLInputElement;
+
+    if (!currentInput) return;
+
     const newotp = [...otp];
-    newotp[index] = ref_otp.current[index]?.value || "";
+    newotp[index] = currentInput?.value || "";
     setOTP(newotp);
 
     if (event.key === "Backspace") {
       if (index > 0) {
-        ref_otp.current[index].value = "";
-        ref_otp.current[index - 1].focus();
+        const previousInputId = `input_${(index - 1).toString()}`;
+        const previousInput = document.getElementById(
+          previousInputId,
+        ) as HTMLInputElement;
+
+        if (previousInput) {
+          previousInput.focus();
+        }
       }
     } else {
-      if (index < ref_otp.current.length - 1 && event.key !== "Tab") {
-        if (index === 0 && ref_otp.current[index].value === "") {
-        } else {
-          ref_otp.current[index + 1].focus();
-        }
+      const nextInputId = `input_${(index + 1).toString()}`;
+      const nextInput = document.getElementById(
+        nextInputId,
+      ) as HTMLInputElement;
+
+      if (nextInput && index < 4 && event.key !== "Tab") {
+        nextInput.focus();
+        nextInput.value = "";
       }
     }
 
@@ -63,66 +97,132 @@ function VerifyOTP() {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!isFilled) {
-      return;
+    if (isFilled) {
+      submitOTP();
+    }
+  };
+
+  const submitOTP = async () => {
+    let requestBody;
+    if (signup_mode) {
+      requestBody = {
+        otp: otp.join(""),
+        email: email,
+      };
+    } else {
+      requestBody = {
+        verified_code: otp.join(""),
+        email: email,
+      };
     }
 
-    const response = await fetch(
-      "https://apidev-finance.myzens.net/api/v1/verify_otp",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          otp: otp.join(""),
-          email: email,
-        }),
-      },
-    );
-
-    const data = await response.json();
-
-    if (data.message === "Email verification successfull ") {
-      if (signup_mode == "true") {
-        navigate(`/signin`);
-      } else {
-        console.log("reset");
-
-        navigate(`/reset-password`);
+    try {
+      dispatch(setLoadingTrue());
+      const response = await api.post(
+        `${signup_mode ? "verify_otp" : "check-otp"}`,
+        requestBody,
+      );
+      if (response && response.status === 200) {
+        const data = await response?.data;
+        toast.success(
+          data.message || "Your email has been successfully verified.",
+        );
+        localStorage.removeItem(`${email}_expirationTime`);
+        if (!signup_mode) {
+          if (data?.access_token)
+            navigate(`/reset-password?token=${data.access_token}`);
+        } else {
+          navigate("/signin");
+        }
       }
-    } else {
-      setVerifyError(data.message);
+    } catch (error) {
+      if (
+        axios.isAxiosError<
+          {
+            error: string;
+            data: [];
+          },
+          Record<string, unknown>
+        >(error)
+      ) {
+        toast.warning(
+          error.response?.data.error ||
+            "Your email has been unsuccessfully verified.",
+        );
+      } else {
+        toast.error("An error occurred!");
+      }
+    } finally {
+      dispatch(setLoadingFalse());
     }
   };
 
   const handleResend = async () => {
     // Call the resend API
-    const response = await fetch(
-      "https://apidev-finance.myzens.net/api/v1/resend_verify_otp",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email: email,
-        }),
-      },
-    );
-
-    const data = await response.json();
-
-    if (
-      data.message === "Resend Sucessfully. Please check your email to confirm."
-    ) {
-      // Reset the OTP and the timer
-      setOTP(Array(5).fill(""));
-      setTime(60);
-    } else {
-      console.error("Resend failed");
+    try {
+      dispatch(setLoadingTrue());
+      const response = await api.post("resend-otp", { email: email });
+      if (response && response.status === 200) {
+        resetState();
+        saveExpireTimeToLocalStorage(60);
+        setTime(60);
+      }
+    } catch (error) {
+      if (
+        axios.isAxiosError<
+          {
+            message: string;
+            data: [];
+          },
+          Record<string, unknown>
+        >(error)
+      ) {
+        toast.warning(
+          error.response?.data.message || "Resend OTP unsuccessfully.",
+        );
+      } else {
+        toast.error("An error occurred!");
+      }
+    } finally {
+      dispatch(setLoadingFalse());
     }
   };
+
+  //helper func
+  const resetState = () => {
+    setOTP(Array(5).fill(""));
+    const inputs =
+      document.querySelectorAll<HTMLInputElement>("input[type='text']");
+    inputs.forEach((input) => {
+      input.value = "";
+    });
+    inputs[0]?.focus();
+  };
+  const saveExpireTimeToLocalStorage = (sec: number) => {
+    const today = new Date(); // Lấy thời gian hiện tại
+
+    const expirationTime = new Date(today.getTime() + sec * 1000); // Thời gian hết hạn
+
+    localStorage.setItem(
+      `${email}_expirationTime`,
+      JSON.stringify(expirationTime.getTime()),
+    );
+  };
+  const calculateRemainingTime = (expirationTime: number) => {
+    const currentTime = new Date().getTime(); // Thời gian hiện tại
+
+    const timeRemaining = expirationTime - currentTime; // Thời gian còn lại tính bằng milliseconds
+
+    if (timeRemaining >= 0) {
+      const remainingSeconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+      return remainingSeconds;
+    } else {
+      return 0;
+    }
+  };
+
+  if (isLoading) return <Loader />;
 
   return (
     <Fragment>
@@ -149,25 +249,17 @@ function VerifyOTP() {
           {Array.from({ length: 5 }).map((_, index) => (
             <input
               key={index}
+              id={`input_${index.toString()}`}
               type="text"
-              className="h-[3.375rem] w-[3.375rem] bg-light_finance-background border-[1px] border-light_finance-texttitle rounded-lg text-2xl font-HelveticaNeue font-medium leading-7 text-center"
+              className={`h-[3.375rem] w-[3.375rem] bg-light_finance-background border-[1px] focus:!border-light_finance-textsub focus:outline-none border-light_finance-texttitle rounded-lg text-2xl font-HelveticaNeue font-medium leading-7 text-center animate-blink-horizontal`}
               maxLength={1}
               onKeyUp={(event) => focusNextOTPItem(event, index)}
-              ref={(el) => {
-                if (el) {
-                  ref_otp.current[index] = el;
-                }
-              }} // Chuyển đổi kiểu dữ liệu về undefined để tránh lỗi TypeScript
             />
           ))}
         </div>
         {/* countdown */}
 
-        {verifyError ? (
-          <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-            {verifyError}
-          </div>
-        ) : time && time >= 0 ? (
+        {time && time >= 0 ? (
           <div className="font-HelveticaNeue font-bold text-[14px] leading-5 text-light_finance-textbody">
             {`${time ?? ""} second`}
           </div>
@@ -177,7 +269,7 @@ function VerifyOTP() {
               I don’t recevie a code
             </span>
             <span
-              onClick={handleResend}
+              onClick={() => handleResend()}
               className="font-HelveticaNeue font-bold text-[14px] leading-5 text-light_finance-textbody cursor-pointer"
             >
               Resend
@@ -189,10 +281,10 @@ function VerifyOTP() {
           <button
             type="submit"
             disabled={!isFilled ? false : time && time > 0 ? false : true}
-            className={`w-[280px] px-3 py-4 rounded-[28px] shadow border-2 flex justify-center items-center ${
+            className={`w-[280px] px-3 py-4 rounded-[28px] flex justify-center items-center ${
               isFilled && (time && time > 0 ? true : false)
-                ? "bg-light_finance-primary text-black"
-                : "bg-gray-500 text-gray-300"
+                ? "bg-light_finance-primary drop-shadow-[0_6px_6px_rgba(50,215,75,0.35)] text-light_finance-textbody"
+                : "bg-[#BDC2CA] text-light_finance-texttitle"
             }`}
           >
             <div className="text-base font-medium font-['Helvetica Neue'] leading-normal tracking-tight">

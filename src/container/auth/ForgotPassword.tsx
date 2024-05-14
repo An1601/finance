@@ -2,40 +2,57 @@ import { Fragment } from "react/jsx-runtime";
 import logo from "../../assets/images/brand-logos/1.png";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
+import { toast } from "react-toastify";
+import Loader from "../../components/common/loader/loader";
+import api from "../../API/axios";
+import axios from "axios";
 
 const ForgotPassword = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading = useSelector(
+    (state: RootState) => state.rootReducer.commonReducer.isloading,
+  );
   const {
     handleSubmit: SubmitForgotPassword,
     register: changePwd_data,
     formState: { errors },
   } = useForm<{ email: string }>();
 
-  const [forgotError, setforgotErrorr] = useState(null);
-
   const HandleForgotPassword = async (changePwd_data: { email: string }) => {
-    const response = await fetch(
-      `https://apidev-finance.myzens.net/api/v1/forgot`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(changePwd_data),
-      },
-    );
-
-    if (response.ok) {
-      navigate(`/verify-code?email=${changePwd_data.email}&signup=false`);
-    } else {
-      const error = await response.json();
-      setforgotErrorr(error.message || "Failed");
+    try {
+      dispatch(setLoadingTrue());
+      const response = await await api.post("/forgot", changePwd_data);
+      if (response && response.status === 200) {
+        const data = await response?.data;
+        navigate(`/verify-code?email=${changePwd_data.email}&signup=false`);
+        toast.success(data.message);
+      }
+    } catch (error) {
+      if (
+        axios.isAxiosError<
+          {
+            message: string;
+            data: [];
+          },
+          Record<string, unknown>
+        >(error)
+      ) {
+        toast.warning(
+          error.response?.data.message || "Send OTP unsuccessfully.",
+        );
+      } else {
+        toast.error("An error occurred!");
+      }
+    } finally {
+      dispatch(setLoadingFalse());
     }
   };
-  const handleInputChange = () => {
-    setforgotErrorr(null);
-  };
+
+  if (isLoading) return <Loader />;
 
   return (
     <Fragment>
@@ -76,7 +93,6 @@ const ForgotPassword = () => {
                       message:
                         "This email is incorrect. Please input your email",
                     },
-                    onChange: handleInputChange,
                   })}
                 />
               </div>
@@ -90,11 +106,6 @@ const ForgotPassword = () => {
           {errors.email && typeof errors.email?.message === "string" && (
             <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
               {errors.email.message}
-            </div>
-          )}
-          {forgotError && (
-            <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-              {forgotError}
             </div>
           )}
         </div>

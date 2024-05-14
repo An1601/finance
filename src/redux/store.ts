@@ -1,15 +1,34 @@
 import reducer from "./reducer";
-import thunk, { ThunkMiddleware } from "redux-thunk";
+import userReducer from "./userReducers";
+import commonReducer from "./commonReducer";
+import { persistReducer } from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import persistStore from "redux-persist/es/persistStore";
+// import thunk, { ThunkMiddleware } from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";
-import { Middleware } from "redux"; // Import Middleware type
+import { Middleware, combineReducers } from "redux"; // Import Middleware type
 
-const middleware: Middleware[] = [thunk as unknown as ThunkMiddleware]; // Define an array of middleware
+// const middleware: Middleware[] = [thunk as unknown as ThunkMiddleware]; // Define an array of middleware
 
-const root = {};
+const persistedUserReducer = persistReducer(
+  {
+    key: "Token",
+    storage: storage,
+    whitelist: ["access_token", "refresh_token"],
+  },
+  userReducer,
+);
 
-const store = configureStore({
+const rootReducer = combineReducers({
   reducer: reducer,
-  middleware: middleware, // Pass the middleware array
+  userReducer: persistedUserReducer,
+  commonReducer: commonReducer,
 });
 
-export default store;
+export const store = configureStore({
+  reducer: { rootReducer },
+});
+export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof store.getState>;
+export type AppDispatch = typeof store.dispatch;

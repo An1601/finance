@@ -6,45 +6,68 @@ import { SignUpInfo } from "../../type/types";
 import EyeSlash from "../../components/svg/EyeSlash";
 import EyeOpen from "../../components/svg/EyeOpen";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
+import { toast } from "react-toastify";
+import Loader from "../../components/common/loader/loader";
+import api from "../../API/axios";
+import axios from "axios";
 
 const SignUp = () => {
   const [passwordshow1, setpasswordshow1] = useState(false);
   const [passwordshow2, setpasswordshow2] = useState(false);
 
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading = useSelector(
+    (state: RootState) => state.rootReducer.commonReducer.isloading,
+  );
+
   const navigate = useNavigate();
   const {
-    handleSubmit: SubmitSignUp,
+    handleSubmit: submitSignUp,
     register: signup_data,
     formState: { errors: error_signup },
     getValues,
   } = useForm<SignUpInfo>();
 
-  const HandleSubmitSignUp = async (signup_data: SignUpInfo) => {
-    const response = await fetch(
-      `https://apidev-finance.myzens.net/api/v1/register`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(signup_data),
-      },
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      navigate(`/verify-code?email=${signup_data.email}&signup=true`);
-    } else {
-      const error = await response.json();
-      console.error(error);
+  const handleSubmitSignUp = async (signup_data: SignUpInfo) => {
+    try {
+      dispatch(setLoadingTrue());
+      const response = await api.post("/register", signup_data);
+      if (response && response.status === 200) {
+        const data = await response?.data;
+        navigate(`/verify-code?email=${signup_data.email}&signup=true`);
+        toast.success(data.message || "Sign Up unsuccessfully.");
+      }
+    } catch (error) {
+      if (
+        axios.isAxiosError<
+          {
+            message: string;
+            data: [];
+          },
+          Record<string, unknown>
+        >(error)
+      ) {
+        toast.warning(
+          error.response?.data.message || "Sign Up unsuccessfully.",
+        );
+      } else {
+        toast.error("An error occurred!");
+      }
+    } finally {
+      dispatch(setLoadingFalse());
     }
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <Fragment>
       {/* right col */}
       <form
-        onSubmit={SubmitSignUp(HandleSubmitSignUp)}
+        onSubmit={submitSignUp(handleSubmitSignUp)}
         className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col justify-center items-center gap-12"
       >
         {/* frame logo */}
@@ -227,7 +250,7 @@ const SignUp = () => {
                       required: "Password is required",
                       pattern: {
                         value:
-                          /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{6,}/,
+                          /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}/,
                         message:
                           "At least 6 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
                       },

@@ -1,52 +1,70 @@
 import { Fragment } from "react/jsx-runtime";
 import logo from "../../assets/images/brand-logos/1.png";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { LoginInfo } from "../../type/types";
 import EyeSlash from "../../components/svg/EyeSlash";
 import { useState } from "react";
 import EyeOpen from "../../components/svg/EyeOpen";
+import { AppDispatch, RootState } from "../../redux/store";
+import { useDispatch, useSelector } from "react-redux";
+import { handle_login } from "../../redux/userReducers";
+import { toast } from "react-toastify";
+import Loader from "../../components/common/loader/loader";
+import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
+import api from "../../API/axios";
+import axios from "axios";
 
 const Login = () => {
   const navigate = useNavigate();
   const [passwordshow, setpasswordshow] = useState(false);
-  const [loginError, setLoginError] = useState(null);
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading = useSelector(
+    (state: RootState) => state.rootReducer.commonReducer.isloading,
+  );
   const {
-    handleSubmit: SubmitLogin,
+    handleSubmit: submitLogin,
     register: login_data,
     formState: { errors: error_login },
   } = useForm<LoginInfo>();
 
-  const HandleSubmitLogin = async (login_data: LoginInfo) => {
-    const response = await fetch(
-      `https://apidev-finance.myzens.net/api/v1/login`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(login_data),
-      },
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      navigate("/dashboard");
-    } else {
-      const error = await response.json();
-      setLoginError(error.message || "Login failed");
+  const handleSubmitLogin = async (login_data: LoginInfo) => {
+    try {
+      dispatch(setLoadingTrue());
+      const response = await api.post("/login", login_data);
+      if (response && response.status === 200) {
+        const data = await response?.data;
+        navigate("/dashboard");
+        dispatch(handle_login(data.data));
+      }
+    } catch (error) {
+      if (
+        axios.isAxiosError<
+          {
+            message: string;
+            data: [];
+          },
+          Record<string, unknown>
+        >(error)
+      ) {
+        toast.warning(
+          error.response?.data.message || "Sign In unsuccessfully.",
+        );
+      } else {
+        toast.error("An error occurred!");
+      }
+    } finally {
+      dispatch(setLoadingFalse());
     }
   };
 
-  const handleInputChange = () => {
-    setLoginError(null);
-  };
+  if (isLoading) return <Loader />;
 
   return (
     <Fragment>
       {/* right col */}
       <form
-        onSubmit={SubmitLogin(HandleSubmitLogin)}
+        onSubmit={submitLogin(handleSubmitLogin)}
         className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col items-center gap-12"
       >
         {/* frame logo */}
@@ -81,7 +99,6 @@ const Login = () => {
                       message:
                         "This email is incorrect. Please input your email",
                     },
-                    onChange: handleInputChange,
                   })}
                 />
               </div>
@@ -118,7 +135,6 @@ const Login = () => {
                       message:
                         "At least 6 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
                     },
-                    onChange: handleInputChange,
                   })}
                 />
                 {passwordshow ? (
@@ -153,11 +169,6 @@ const Login = () => {
                   {error_login.password.message}
                 </div>
               )}
-            {loginError && (
-              <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                {loginError}
-              </div>
-            )}
           </div>
           {/* checkbox */}
           <div className="w-full flex items-center justify-between">

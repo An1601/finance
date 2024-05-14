@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { MENUITEMS } from "./sidemenu/sidemenu";
 import { ThemeChanger } from "../../../redux/action";
-import store from "../../../redux/store";
+import { store } from "../../../redux/store";
 import logo1 from "../../../assets/images/brand-logos/desktop-logo.png";
 import logo2 from "../../../assets/images/brand-logos/toggle-logo.png";
 import logo3 from "../../../assets/images/brand-logos/desktop-dark.png";
@@ -38,7 +38,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
   const location = useLocation();
 
   function Onhover() {
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     if (
       (theme.toggled == "icon-overlay-close" ||
         theme.toggled == "detached-close") &&
@@ -48,7 +48,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
     }
   }
   function Outhover() {
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     if (
       (theme.toggled == "icon-overlay-close" ||
         theme.toggled == "detached-close") &&
@@ -59,12 +59,12 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
   }
 
   function menuClose() {
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     if (window.innerWidth <= 992) {
       ThemeChanger({ ...theme, toggled: "close" });
     }
     const overlayElement = document.querySelector(
-      "#responsive-overlay"
+      "#responsive-overlay",
     ) as HTMLElement | null;
     if (overlayElement) {
       overlayElement.classList.remove("active");
@@ -85,7 +85,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
     if (WindowPreSize.length > 2) {
       WindowPreSize.shift();
     }
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     if (WindowPreSize.length > 1) {
       if (
         WindowPreSize[WindowPreSize.length - 1] < 992 &&
@@ -139,11 +139,11 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
     if (menuNav && mainContainer1) {
       const marginLeftValue = Math.ceil(
         Number(
-          window.getComputedStyle(menuNav).marginInlineStart.split("px")[0]
-        )
+          window.getComputedStyle(menuNav).marginInlineStart.split("px")[0],
+        ),
       );
       const marginRightValue = Math.ceil(
-        Number(window.getComputedStyle(menuNav).marginInlineEnd.split("px")[0])
+        Number(window.getComputedStyle(menuNav).marginInlineEnd.split("px")[0]),
       );
       const check = menuNav.scrollWidth - mainContainer1.offsetWidth;
       let mainContainer1Width = mainContainer1.offsetWidth;
@@ -212,10 +212,10 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       }
 
       const element = document.querySelector<HTMLElement>(
-        ".main-menu > .slide.open"
+        ".main-menu > .slide.open",
       );
       const element1 = document.querySelector<HTMLElement>(
-        ".main-menu > .slide.open > ul"
+        ".main-menu > .slide.open > ul",
       );
       if (element) {
         element.classList.remove("active");
@@ -235,11 +235,11 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
     if (menuNav && mainContainer1) {
       const marginLeftValue = Math.ceil(
         Number(
-          window.getComputedStyle(menuNav).marginInlineStart.split("px")[0]
-        )
+          window.getComputedStyle(menuNav).marginInlineStart.split("px")[0],
+        ),
       );
       const marginRightValue = Math.ceil(
-        Number(window.getComputedStyle(menuNav).marginInlineEnd.split("px")[0])
+        Number(window.getComputedStyle(menuNav).marginInlineEnd.split("px")[0]),
       );
       const check = menuNav.scrollWidth - mainContainer1.offsetWidth;
       let mainContainer1Width = mainContainer1.offsetWidth;
@@ -283,10 +283,10 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       }
 
       const element = document.querySelector<HTMLElement>(
-        ".main-menu > .slide.open"
+        ".main-menu > .slide.open",
       );
       const element1 = document.querySelector<HTMLElement>(
-        ".main-menu > .slide.open > ul"
+        ".main-menu > .slide.open > ul",
       );
       if (element) {
         element.classList.remove("active");
@@ -319,7 +319,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
   let hasParentLevel = 0;
 
   function setSubmenu(event: any, targetObject: any, MENUITEMS = menuitems) {
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     if (
       (window.screen.availWidth <= 992 || theme.dataNavStyle != "icon-hover") &&
       (window.screen.availWidth <= 992 || theme.dataNavStyle != "menu-hover")
@@ -368,7 +368,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
   }
   function setMenuAncestorsActive(targetObject: any) {
     const parent = getParentObject(menuitems, targetObject);
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     if (parent) {
       if (hasParentLevel > 2) {
         hasParent = true;
@@ -448,9 +448,9 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
   function toggleSidemenu(
     event: any,
     targetObject: any,
-    MENUITEMS = menuitems
+    MENUITEMS = menuitems,
   ) {
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     const element = event.target;
 
     if (
@@ -551,7 +551,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
   }
 
   function setAncestorsActive(MENUITEMS: any, targetObject: any) {
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     const parent = findParent(MENUITEMS, targetObject);
     if (parent) {
       parent.active = true;
@@ -586,7 +586,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
       if (item.children && item.children.length > 0) {
         const parent: any = findParent(
           (MENUITEMS = item.children),
-          targetObject
+          targetObject,
         );
         if (parent) {
           return parent;
@@ -681,8 +681,8 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
                       levelone.menutitle ? "slide__category" : ""
                     } ${levelone.type === "link" ? "slide" : ""}
                        ${levelone.type === "sub" ? "slide has-sub" : ""} ${
-                      levelone?.active ? "open" : ""
-                    } ${levelone?.selected ? "active" : ""}`}
+                         levelone?.active ? "open" : ""
+                       } ${levelone?.selected ? "active" : ""}`}
                   >
                     {levelone.menutitle ? (
                       <span className="category-name">

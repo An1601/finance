@@ -5,11 +5,22 @@ import logo from "../../assets/images/brand-logos/1.png";
 import { useState } from "react";
 import EyeSlash from "../../components/svg/EyeSlash";
 import EyeOpen from "../../components/svg/EyeOpen";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
+import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
+import { toast } from "react-toastify";
+import Loader from "../../components/common/loader/loader";
+import axios from "axios";
+import { BASE_URL } from "../../API/axios";
 
 const ResetPassword = () => {
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
-  const email = searchParams.get("email");
+
+  const isLoading = useSelector(
+    (state: RootState) => state.rootReducer.commonReducer.isloading,
+  );
+  const dispatch = useDispatch<AppDispatch>();
 
   const navigate = useNavigate();
   const [passwordshow1, setpasswordshow1] = useState(false);
@@ -21,9 +32,48 @@ const ResetPassword = () => {
     getValues,
   } = useForm();
 
-  const HandleSubmitResetPassword = (login_data: any) => {
-    console.log(login_data);
+  const HandleSubmitResetPassword = async (password_data: any) => {
+    try {
+      dispatch(setLoadingTrue());
+      const response = await axios({
+        method: "POST",
+        url: `${BASE_URL}/set-new-password`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: {
+          password: password_data.password,
+          password_confirmation: password_data.confirmPassword,
+        },
+      });
+      if (response && response.status === 200) {
+        const data = await response.data;
+        toast.success(data.message);
+        navigate("/signin");
+      }
+    } catch (error) {
+      if (
+        axios.isAxiosError<
+          {
+            message: string;
+            data: [];
+          },
+          Record<string, unknown>
+        >(error)
+      ) {
+        toast.warning(
+          error.response?.data.message || "Reset Password unsuccessfully.",
+        );
+      } else {
+        toast.error("An error occurred!");
+      }
+    } finally {
+      dispatch(setLoadingFalse());
+    }
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <Fragment>
@@ -61,7 +111,7 @@ const ResetPassword = () => {
                     required: "Password is required",
                     pattern: {
                       value:
-                        /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{6,}/,
+                        /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}/,
                       message:
                         "At least 6 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
                     },

@@ -1,9 +1,9 @@
 import { useState } from "react";
-import store from "../../../../redux/store";
+import { store } from "../../../../redux/store";
 import { MENUITEMS } from "../../sidebar/sidemenu/sidemenu";
 
 export function Dark(actionfunction: any) {
-  const theme = store.getState();
+  const theme = store.getState().rootReducer.reducer;
   actionfunction({
     ...theme,
     class: "dark",
@@ -20,7 +20,7 @@ export function Dark(actionfunction: any) {
   localStorage.removeItem("darkBgRGB");
 }
 export function Light(actionfunction: any) {
-  const theme = store.getState();
+  const theme = store.getState().rootReducer.reducer;
   actionfunction({
     ...theme,
     class: "light",
@@ -251,7 +251,7 @@ export const Defaultmenu = (actionfunction: any) => {
   localStorage.removeItem("zennavstyles");
   localStorage.setItem("zenverticalstyles", "default");
   const icon = document.getElementById(
-    "switcher-default-menu"
+    "switcher-default-menu",
   ) as HTMLInputElement;
   if (icon) {
     icon.checked = true;
@@ -316,7 +316,7 @@ export const iconOverayFn = (actionfunction: any) => {
   localStorage.setItem("zenverticalstyles", "overlay");
   localStorage.removeItem("zennavstyles");
   const icon = document.getElementById(
-    "switcher-icon-overlay"
+    "switcher-icon-overlay",
   ) as HTMLInputElement;
   if (icon) {
     icon.checked = true;
@@ -788,7 +788,7 @@ export const Reset = (actionfunction: any) => {
   });
   localStorage.clear();
   const icon = document.getElementById(
-    "switcher-default-menu"
+    "switcher-default-menu",
   ) as HTMLInputElement;
   if (icon) {
     icon.checked = true;
@@ -822,7 +822,7 @@ export const Reset1 = (actionfunction: any) => {
   });
   localStorage.clear();
   const icon = document.getElementById(
-    "switcher-default-menu"
+    "switcher-default-menu",
   ) as HTMLInputElement;
   if (icon) {
     icon.checked = true;
