@@ -35,7 +35,6 @@ export default function reducer(state = initialState, action: any) {
     case "ThemeChanger":
       state = payload;
       return state;
-      break;
 
     default:
       return state;

@@ -1,8 +1,8 @@
 import { FC, Fragment, useEffect, useState } from "react";
 import Modalsearch from "../modalsearch/modalsearch";
-import { Link } from "react-router-dom";
-import store from "../../../redux/store";
-import { connect } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { AppDispatch, RootState, store } from "../../../redux/store";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { ThemeChanger } from "../../../redux/action";
 import us from "../../../assets/images/flags/us_flag.jpg";
 import spain from "../../../assets/images/flags/spain_flag.jpg";
@@ -27,6 +27,11 @@ import toggledark from "../../../assets/images/brand-logos/toggle-dark.png";
 import desktopwhite from "../../../assets/images/brand-logos/desktop-white.png";
 import togglewhite from "../../../assets/images/brand-logos/toggle-white.png";
 import SimpleBar from "simplebar-react";
+import { setLoadingFalse, setLoadingTrue } from "../../../redux/commonReducer";
+import api from "../../../API/axios";
+import { toast } from "react-toastify";
+import Loader from "../loader/loader";
+import { handle_logout } from "../../../redux/userReducers";
 
 interface HeaderProps {}
 
@@ -127,7 +132,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
   };
 
   function menuClose() {
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     if (window.innerWidth <= 992) {
       ThemeChanger({ ...theme, toggled: "close" });
     }
@@ -139,7 +144,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
     }
   }
   const toggleSidebar = () => {
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
     const sidemenuType = theme.dataNavLayout;
     if (window.innerWidth >= 992) {
       if (sidemenuType === "vertical") {
@@ -182,13 +187,13 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
               ThemeChanger({ ...theme, toggled: "double-menu-close" });
             } else {
               const sidemenu = document.querySelector(
-                ".side-menu__item.active"
+                ".side-menu__item.active",
               );
               if (sidemenu) {
                 ThemeChanger({ ...theme, toggled: "double-menu-open" });
                 if (sidemenu.nextElementSibling) {
                   sidemenu.nextElementSibling.classList.add(
-                    "double-menu-active"
+                    "double-menu-active",
                   );
                 } else {
                   ThemeChanger({ ...theme, toggled: "" });
@@ -291,7 +296,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
             : "dark"
           : "dark",
     });
-    const theme = store.getState();
+    const theme = store.getState().rootReducer.reducer;
 
     if (theme.class != "dark") {
       ThemeChanger({
@@ -312,6 +317,33 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
       localStorage.removeItem("zenHeader");
     }
   };
+
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading = useSelector(
+    (state: RootState) => state.rootReducer.commonReducer.isloading,
+  );
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      dispatch(setLoadingTrue());
+      const response = await await api.post("/logout");
+      dispatch(setLoadingFalse());
+      if (response && response.status === 200) {
+        navigate("/signin");
+        dispatch(handle_logout());
+      } else {
+        const error = await response?.data;
+        toast.warning(error.message || "Log Out unsuccessfully.");
+      }
+    } catch (error) {
+      if (error instanceof Error && error.message) {
+        toast.error("An error occurred!");
+      }
+    }
+  };
+
+  if (isLoading) return <Loader />;
+
   return (
     <Fragment>
       <header className="app-header">
@@ -982,14 +1014,14 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                         Support
                       </Link>
                     </li>
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
-                        to="#"
-                      >
-                        <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Log Out
-                      </Link>
+                    <li
+                      onClick={() => {
+                        handleLogout();
+                      }}
+                      className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex cursor-pointer"
+                    >
+                      <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
+                      Log Out
                     </li>
                   </ul>
                 </div>
