@@ -7,6 +7,7 @@ import Loader from "../loader/loader";
 import { handle_logout } from "../../../redux/userReducers";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/store";
+import ProfileLink from "./ProfileLink";
 function ProfileHeader() {
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
@@ -16,7 +17,7 @@ function ProfileHeader() {
   const handleLogout = async () => {
     try {
       dispatch(setLoadingTrue());
-      const response = await await api.post("/logout");
+      const response = await api.post("/logout");
       dispatch(setLoadingFalse());
       if (response && response.status === 200) {
         navigate("/signin");
@@ -35,18 +36,18 @@ function ProfileHeader() {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="header-element hs-dropdown ti-dropdown">
+    <div className="header-element hs-dropdown ti-dropdown min-w-[163px]">
       <div className="flex items-center gap-4">
         <button
           id="dropdown-profile"
           type="button"
-          className="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent "
+          className="hs-dropdown-toggle !shadow-none !border-0 !shadow-transparent "
         >
           <img
             className="inline-block rounded-full "
             src={face9}
-            width="32"
-            height="32"
+            width="35"
+            height="35"
             alt="Image Description"
           />
         </button>
@@ -55,7 +56,7 @@ function ProfileHeader() {
             Good morning
           </div>
           <div className="font-bold  !text-light_finance-textbody text-base tracking-tighter">
-            Json Taylor
+            Duyen nguyen
           </div>
         </div>
       </div>
@@ -63,68 +64,19 @@ function ProfileHeader() {
         className="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
         aria-labelledby="dropdown-profile"
       >
-        <ul className="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">
-          <li>
-            <Link
-              className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
-              to="#"
-            >
-              <i className="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>
-              Profile
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
-              to="#"
-            >
-              <i className="ti ti-inbox text-[1.125rem] me-2 opacity-[0.7]"></i>
-              Inbox{" "}
-              <span className="!py-1 !px-[0.45rem] !font-semibold !rounded-sm text-success text-[0.75em] bg-success/10 ms-auto">
-                25
-              </span>
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-              to="#"
-            >
-              <i className="ti ti-clipboard-check text-[1.125rem] me-2 opacity-[0.7]"></i>
-              Task Manager
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-              to="#"
-            >
-              <i className="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>
-              Settings
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-              to="#"
-            >
-              <i className="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>
-              Bal: $7,12,950
-            </Link>
-          </li>
-          <li>
-            <Link
-              className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
-              to="#"
-            >
-              <i className="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>
-              Support
-            </Link>
-          </li>
+        <ul className="text-defaulttextcolor font-medium dark:text-[#8C9097] dark:text-white/50">
+          <ProfileLink to="#" icon="ti-user-circle" label="Profile" />
+          <ProfileLink to="#" icon="ti-inbox" label="Inbox" badge="25" />
+          <ProfileLink to="#" icon="ti-clipboard-check" label="Task Manager" />
+          <ProfileLink
+            to="#"
+            icon="ti-adjustments-horizontal"
+            label="Settings"
+          />
+          <ProfileLink to="#" icon="ti-wallet" label="Bal: $7,12,950" />
+          <ProfileLink to="#" icon="ti-headset" label="Support" />
           <li
-            onClick={() => {
-              handleLogout();
-            }}
+            onClick={handleLogout}
             className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex cursor-pointer"
           >
             <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>

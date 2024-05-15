@@ -183,7 +183,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                   <span></span>
                 </Link>
               </div>
-              <div className="lg:flex hidden items-center ">
+              <div className="xl:flex hidden items-center ">
                 <div className="font-HelveticaNeue text-xl leading-7 text-light_finance-textbody font-bold">
                   Dashboard
                 </div>
