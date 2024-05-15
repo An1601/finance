@@ -635,25 +635,18 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
         }}
       ></div>
       <aside
-        className="app-sidebar !bg-dark_finance-background"
+        className="app-sidebar !bg-dark_finance-background "
         id="sidebar"
         onMouseEnter={() => Onhover()}
         onMouseLeave={() => Outhover()}
       >
-        <div className="main-sidebar-header">
-          <a
-            href={`${import.meta.env.BASE_URL}dashboards/crm/`}
-            className="header-logo"
-          >
+        <div className="h-[89px] flex items-center ml-7">
+          <a href={"/"} className="">
             <img src={logo1} alt="logo" className="desktop-logo" />
-            <img src={logo2} alt="logo" className="toggle-logo" />
-            <img src={logo3} alt="logo" className="desktop-dark" />
-            <img src={logo4} alt="logo" className="toggle-dark" />
-            <img src={logo5} alt="logo" className="desktop-white" />
-            <img src={logo6} alt="logo" className="toggle-white" />
           </a>
         </div>
-        <SimpleBar className="main-sidebar" id="sidebar-scroll">
+        <hr className="border-light_finance-textsub"></hr>
+        <SimpleBar className=" !p-4" id="sidebar-scroll">
           <nav className="main-menu-container nav nav-pills flex-column sub-open">
             <div
               className="slide-left"
@@ -676,70 +669,24 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
             <ul className="main-menu">
               {MENUITEMS.map((levelone: any) => (
                 <Fragment key={Math.random()}>
-                  <li
-                    className={`${
-                      levelone.menutitle ? "slide__category" : ""
-                    } ${levelone.type === "link" ? "slide" : ""}
-                       ${levelone.type === "sub" ? "slide has-sub" : ""} ${
-                         levelone?.active ? "open" : ""
-                       } ${levelone?.selected ? "active" : ""}`}
+                  <Link
+                    to={levelone.path}
+                    className={` group flex gap-2 p-3 hover:!bg-white/30 hover:rounded-lg${
+                      levelone.selected ? "active" : ""
+                    }`}
                   >
-                    {levelone.menutitle ? (
-                      <span className="category-name">
-                        {levelone.menutitle}
-                      </span>
-                    ) : (
-                      ""
-                    )}
-                    {levelone.type === "link" ? (
-                      <Link
-                        to={levelone.path + "/"}
-                        className={`side-menu__item ${
-                          levelone.selected ? "active" : ""
-                        }`}
-                      >
-                        {levelone.icon}
-                        <span className="side-menu__label">
-                          {levelone.title}
-                          {levelone.badgetxt ? (
-                            <span className={levelone.class}>
-                              {levelone.badgetxt}
-                            </span>
-                          ) : (
-                            ""
-                          )}
+                    {levelone.icon}
+                    <span className="font-HelveticaNeue text-sm font-normal text-light_finance-texttitle group-hover:text-light_finance-primary group-hover:font-bold">
+                      {levelone.title}
+                      {levelone.badgetxt ? (
+                        <span className={levelone.class}>
+                          {levelone.badgetxt}
                         </span>
-                      </Link>
-                    ) : (
-                      ""
-                    )}
-                    {levelone.type === "empty" ? (
-                      <Link to="#" className="side-menu__item">
-                        {levelone.icon}
-                        <span className="">
-                          {levelone.title}
-                          {levelone.badgetxt ? (
-                            <span className={levelone.class}>
-                              {levelone.badgetxt}
-                            </span>
-                          ) : (
-                            ""
-                          )}
-                        </span>
-                      </Link>
-                    ) : (
-                      ""
-                    )}
-                    {levelone.type === "sub" ? (
-                      <Menuloop
-                        MENUITEMS={levelone}
-                        level={level + 1}
-                        toggleSidemenu={toggleSidemenu}
-                      />
-                    ) : (
-                      ""
-                    )}
-                  </li>
+                      ) : (
+                        ""
+                      )}
+                    </span>
+                  </Link>
                 </Fragment>
               ))}
             </ul>
