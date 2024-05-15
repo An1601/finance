@@ -635,7 +635,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
         }}
       ></div>
       <aside
-        className="app-sidebar"
+        className="app-sidebar !bg-dark_finance-background"
         id="sidebar"
         onMouseEnter={() => Onhover()}
         onMouseLeave={() => Outhover()}
@@ -673,7 +673,7 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
               </svg>
             </div>
 
-            <ul className="main-menu" onClick={() => Sideclick()}>
+            <ul className="main-menu">
               {MENUITEMS.map((levelone: any) => (
                 <Fragment key={Math.random()}>
                   <li

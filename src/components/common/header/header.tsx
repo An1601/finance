@@ -4,71 +4,19 @@ import { Link, useNavigate } from "react-router-dom";
 import { AppDispatch, RootState, store } from "../../../redux/store";
 import { connect, useDispatch, useSelector } from "react-redux";
 import { ThemeChanger } from "../../../redux/action";
-import us from "../../../assets/images/flags/us_flag.jpg";
-import spain from "../../../assets/images/flags/spain_flag.jpg";
-import french from "../../../assets/images/flags/french_flag.jpg";
-import germany from "../../../assets/images/flags/germany_flag.jpg";
-import italy from "../../../assets/images/flags/italy_flag.jpg";
-import russia from "../../../assets/images/flags/russia_flag.jpg";
-import figma from "../../../assets/images/apps/figma.png";
-import powerpoint from "../../../assets/images/apps/microsoft-powerpoint.png";
-import word from "../../../assets/images/apps/microsoft-word.png";
-import calender from "../../../assets/images/apps/calender.png";
-import sketch from "../../../assets/images/apps/sketch.png";
-import googledocs from "../../../assets/images/apps/google-docs.png";
-import google from "../../../assets/images/apps/google.png";
-import translate from "../../../assets/images/apps/translate.png";
-import googlesheets from "../../../assets/images/apps/google-sheets.png";
 import face9 from "../../../assets/images/faces/9.jpg";
-import desktoplogo from "../../../assets/images/brand-logos/desktop-logo.png";
-import togglelogo from "../../../assets/images/brand-logos/toggle-logo.png";
-import desktopdark from "../../../assets/images/brand-logos/desktop-dark.png";
-import toggledark from "../../../assets/images/brand-logos/toggle-dark.png";
-import desktopwhite from "../../../assets/images/brand-logos/desktop-white.png";
-import togglewhite from "../../../assets/images/brand-logos/toggle-white.png";
 import SimpleBar from "simplebar-react";
 import { setLoadingFalse, setLoadingTrue } from "../../../redux/commonReducer";
 import api from "../../../API/axios";
 import { toast } from "react-toastify";
 import Loader from "../loader/loader";
 import { handle_logout } from "../../../redux/userReducers";
+import NotiHeader from "../../svg/NotiHeader";
+import EmailHeader from "../../svg/EmailHeader";
 
 interface HeaderProps {}
 
 const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
-  //Fullscvreen
-  const [fullScreen, setFullScreen] = useState(false);
-
-  const toggleFullScreen = () => {
-    const elem = document.documentElement;
-
-    if (!document.fullscreenElement) {
-      elem.requestFullscreen().then(() => setFullScreen(true));
-    } else {
-      document.exitFullscreen().then(() => setFullScreen(false));
-    }
-  };
-
-  const handleFullscreenChange = () => {
-    setFullScreen(!!document.fullscreenElement);
-  };
-
-  useEffect(() => {
-    document.addEventListener("fullscreenchange", handleFullscreenChange);
-
-    return () => {
-      document.removeEventListener("fullscreenchange", handleFullscreenChange);
-    };
-  }, []);
-  //
-  const [isDropdownOpen, setDropdownOpen] = useState(false);
-
-  const handleToggleDropdown = () => {
-    setDropdownOpen(!isDropdownOpen);
-  };
-  const [cartItems, setCartItems] = useState([]);
-  const [cartItemCount, setCartItemCount] = useState(0);
-
   const initialNotifications = [
     {
       id: 1,
@@ -284,39 +232,6 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
       }
     }
   };
-  const ToggleDark = () => {
-    ThemeChanger({
-      ...local_varaiable,
-      class: local_varaiable.class == "dark" ? "light" : "dark",
-      dataHeaderStyles: local_varaiable.class == "dark" ? "light" : "dark",
-      dataMenuStyles:
-        local_varaiable.dataNavLayout == "horizontal"
-          ? local_varaiable.class == "dark"
-            ? "light"
-            : "dark"
-          : "dark",
-    });
-    const theme = store.getState().rootReducer.reducer;
-
-    if (theme.class != "dark") {
-      ThemeChanger({
-        ...theme,
-        bodyBg: "",
-        Light: "",
-        darkBg: "",
-        inputBorder: "",
-      });
-      localStorage.setItem("zenlighttheme", "light");
-      localStorage.removeItem("zendarktheme");
-      localStorage.removeItem("zenMenu");
-      localStorage.removeItem("zenHeader");
-    } else {
-      localStorage.setItem("zendarktheme", "dark");
-      localStorage.removeItem("zenlighttheme");
-      localStorage.removeItem("zenMenu");
-      localStorage.removeItem("zenHeader");
-    }
-  };
 
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
@@ -348,41 +263,10 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
     <Fragment>
       <header className="app-header">
         <nav className="main-header !h-[3.75rem]" aria-label="Global">
-          <div className="main-header-container ps-[0.725rem] pe-[1rem] ">
+          <div className="main-header-container ml-10 mr-20">
             <div className="header-content-left">
-              <div className="header-element">
-                <div className="horizontal-logo">
-                  <a
-                    href={`${import.meta.env.BASE_URL}dashboards/crm/`}
-                    className="header-logo"
-                  >
-                    <img
-                      src={desktoplogo}
-                      alt="logo"
-                      className="desktop-logo"
-                    />
-                    <img src={togglelogo} alt="logo" className="toggle-logo" />
-                    <img
-                      src={desktopdark}
-                      alt="logo"
-                      className="desktop-dark"
-                    />
-                    <img src={toggledark} alt="logo" className="toggle-dark" />
-                    <img
-                      src={desktopwhite}
-                      alt="logo"
-                      className="desktop-white"
-                    />
-                    <img
-                      src={togglewhite}
-                      alt="logo"
-                      className="toggle-white"
-                    />
-                  </a>
-                </div>
-              </div>
               <div
-                className="header-element md:px-[0.325rem] !items-center"
+                className="hidden sm:flex lg:hidden md:px-[0.325rem] items-center"
                 onClick={() => toggleSidebar()}
               >
                 <Link
@@ -393,648 +277,260 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                   <span></span>
                 </Link>
               </div>
+              <div className="lg:flex hidden items-center ">
+                <div className="font-HelveticaNeue text-xl leading-7 text-light_finance-textbody font-bold">
+                  Dashboard
+                </div>
+              </div>
             </div>
-
-            <div className="header-content-right">
-              <div className="header-element py-[1rem] md:px-[0.65rem] px-2 header-search">
-                <button
-                  aria-label="button"
-                  type="button"
-                  data-hs-overlay="#search-modal"
-                  className="inline-flex flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium focus:ring-offset-0 focus:ring-offset-white transition-all text-xs dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
-                >
-                  <i className="bx bx-search-alt-2 header-link-icon"></i>
-                </button>
-              </div>
-
-              <div className="header-element py-[1rem] md:px-[0.65rem] px-2  header-country hs-dropdown ti-dropdown  hidden sm:block [--placement:bottom-left]">
-                <button
-                  id="dropdown-flag"
-                  type="button"
-                  className="hs-dropdown-toggle ti-dropdown-toggle !p-0 flex-shrink-0  !border-0 !rounded-full !shadow-none"
-                >
-                  <img
-                    src={us}
-                    alt="flag-img"
-                    className="h-[1.25rem] w-[1.25rem] rounded-full"
-                  />
-                </button>
-
-                <div
-                  className="hs-dropdown-menu ti-dropdown-menu min-w-[10rem] hidden !-mt-3"
-                  aria-labelledby="dropdown-flag"
-                >
-                  <div className="ti-dropdown-divider divide-y divide-gray-200 dark:divide-white/10">
-                    <div className="py-2 first:pt-0 last:pb-0">
-                      <div className="ti-dropdown-item !p-[0.65rem] ">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] flex items-center w-[1.375rem] rounded-full">
-                            <img
-                              src={us}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              English
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img
-                              src={spain}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Spanish
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img
-                              src={french}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              French
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img
-                              src={germany}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              German
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center rounded-full">
-                            <img
-                              src={italy}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Italian
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="ti-dropdown-item !p-[0.65rem]">
-                        <div className="flex items-center space-x-2 rtl:space-x-reverse w-full">
-                          <div className="h-[1.375rem] w-[1.375rem] flex items-center  rounded-sm">
-                            <img
-                              src={russia}
-                              alt="flag-img"
-                              className="h-[1rem] w-[1rem] rounded-full"
-                            />
-                          </div>
-                          <div>
-                            <p className="!text-[0.8125rem] font-medium">
-                              Russian
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+            <div className="header-content-right !items-center">
               <div
-                className="header-element header-theme-mode hidden !items-center sm:block !py-[1rem] md:!px-[0.65rem] px-2"
-                onClick={() => ToggleDark()}
+                className="w-[380px] h-10 flex justify-center items-center border-[1px] border-light_finance-texttitle rounded-xl"
+                data-hs-overlay="#search-modal"
               >
-                <Link
-                  aria-label="anchor"
-                  className="hs-dark-mode-active:hidden flex hs-dark-mode group flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium transition-all text-xs dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
-                  to="#"
-                  data-hs-theme-click-value="dark"
-                >
-                  <i className="bx bx-moon header-link-icon"></i>
-                </Link>
-                <Link
-                  aria-label="anchor"
-                  className="hs-dark-mode-active:flex hidden hs-dark-mode group flex-shrink-0 justify-center items-center gap-2
-             rounded-full font-medium text-defaulttextcolor  transition-all text-xs dark:bg-bodybg dark:bg-bgdark dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
-                  to="#"
-                  data-hs-theme-click-value="light"
-                >
-                  <i className="bx bx-sun header-link-icon"></i>
-                </Link>
-              </div>
-              <div className="header-element cart-dropdown hs-dropdown ti-dropdown md:!block !hidden py-[1rem] md:px-[0.65rem] px-2 [--placement:bottom-right] rtl:[--placement:bottom-left]">
-                <button
-                  id="dropdown-cart"
-                  type="button"
-                  onClick={handleToggleDropdown}
-                  className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
-                >
-                  <i className="bx bx-cart header-link-icon"></i>
-                  <span className="flex absolute h-5 w-5 -top-[0.25rem] end-0 -me-[0.6rem]">
-                    <span
-                      className="relative inline-flex rounded-full h-[14.7px] w-[14px] text-[0.625rem] bg-primary text-white justify-center items-center"
-                      id="cart-icon-badge"
-                    >
-                      {cartItemCount}
-                    </span>
-                  </span>
-                </button>
-                <div
-                  className="main-header-dropdown bg-white !-mt-3 !p-0 hs-dropdown-menu ti-dropdown-menu w-[22rem] border-0 border-defaultborder hidden"
-                  aria-labelledby="dropdown-cart"
-                >
-                  <div className="ti-dropdown-header !bg-transparent flex justify-between items-center !m-0 !p-4">
-                    <p className="text-defaulttextcolor  !text-[1.0625rem] dark:text-[#8c9097] dark:text-white/50 font-semibold">
-                      Cart Items
-                    </p>
-                    <a
-                      href="#"
-                      className="font-[600] py-[0.25/2rem] px-[0.45rem] rounded-[0.25rem] bg-success/10 text-success text-[0.75em] "
-                      id="cart-data"
-                    >
-                      {cartItemCount} Item{cartItemCount !== 1 ? "s" : ""}
-                    </a>
-                  </div>
-                  <div>
-                    <hr className="dropdown-divider dark:border-white/10" />
-                  </div>
-                  <ul
-                    className="list-none mb-0"
-                    id="header-cart-items-scroll"
-                  ></ul>
-                  <div
-                    className={`p-3 empty-header-item border-t ${
-                      cartItemCount === 0 ? "hidden" : ""
-                    }`}
-                  >
-                    <div className="grid">
-                      <Link
-                        to="#"
-                        className="w-full ti-btn ti-btn-primary-full p-2"
-                      >
-                        Proceed to checkout
-                      </Link>
-                    </div>
-                  </div>
-                  <div
-                    className={`p-[3rem] empty-item ${
-                      cartItemCount === 0 ? "" : "hidden"
-                    }`}
-                  >
-                    <div className="text-center">
-                      <span className="!w-[4rem] !h-[4rem] !leading-[4rem] rounded-[50%] avatar bg-warning/10 !text-warning">
-                        <i className="ri-shopping-cart-2-line text-[2rem]"></i>
-                      </span>
-                      <h6 className="font-bold mb-1 mt-3 text-[1rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                        Your Cart is Empty
-                      </h6>
-                      <span className="mb-3 !font-normal text-[0.8125rem] block text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                        Add some items to make me happy :)
-                      </span>
-                      <a
-                        href="#"
-                        className="ti-btn ti-btn-primary btn-wave ti-btn-wave btn-sm m-1 !text-[0.75rem] !py-[0.25rem] !px-[0.5rem]"
-                        data-abc="true"
-                      >
-                        continue shopping{" "}
-                        <i className="bi bi-arrow-right ms-1"></i>
-                      </a>
-                    </div>
+                <div className="w-[340px] h-10 flex items-center">
+                  <div className="ml-[10px] text-slate-900 text-sm font-normal font-['Helvetica Neue'] leading-tight">
+                    Search
                   </div>
                 </div>
+                <div className="w-[39px] h-[39px] p-[9.82px] rounded-r-xl bg-light_finance-sub_second justify-start items-center gap-[135px] flex ">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 18 18"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g clip-path="url(#clip0_13_309)">
+                      <path
+                        d="M12.8273 11.3978C13.8176 10.0464 14.2611 8.37098 14.0692 6.70665C13.8772 5.04233 13.064 3.51185 11.792 2.42141C10.5201 1.33097 8.88339 0.760984 7.20928 0.82549C5.53516 0.889997 3.94713 1.58424 2.7629 2.76932C1.57867 3.9544 0.885566 5.54292 0.822257 7.21708C0.758948 8.89124 1.3301 10.5276 2.42145 11.7987C3.5128 13.0698 5.04387 13.882 6.70833 14.0728C8.37279 14.2635 10.0479 13.8188 11.3985 12.8275H11.3975C11.4275 12.8684 11.4609 12.9076 11.4977 12.9451L15.4352 16.8826C15.627 17.0745 15.8872 17.1824 16.1585 17.1825C16.4298 17.1826 16.69 17.0749 16.8819 16.8831C17.0738 16.6914 17.1817 16.4312 17.1818 16.1599C17.1819 15.8886 17.0742 15.6284 16.8824 15.4365L12.9449 11.499C12.9084 11.462 12.869 11.4288 12.8273 11.3978ZM13.0911 7.46639C13.0911 8.20507 12.9457 8.93653 12.663 9.61898C12.3803 10.3014 11.966 10.9215 11.4436 11.4439C10.9213 11.9662 10.3012 12.3805 9.61874 12.6632C8.93629 12.9459 8.20484 13.0914 7.46615 13.0914C6.72746 13.0914 5.99601 12.9459 5.31356 12.6632C4.6311 12.3805 4.011 11.9662 3.48867 11.4439C2.96635 10.9215 2.55201 10.3014 2.26933 9.61898C1.98665 8.93653 1.84115 8.20507 1.84115 7.46639C1.84115 5.97455 2.43378 4.54381 3.48867 3.48891C4.54357 2.43402 5.97431 1.84139 7.46615 1.84139C8.95799 1.84139 10.3887 2.43402 11.4436 3.48891C12.4985 4.54381 13.0911 5.97455 13.0911 7.46639Z"
+                        fill="#45556E"
+                      />
+                    </g>
+                    <defs>
+                      <clipPath id="clip0_13_309">
+                        <rect
+                          width="16.3636"
+                          height="16.3636"
+                          fill="white"
+                          transform="translate(0.818237 0.818237)"
+                        />
+                      </clipPath>
+                    </defs>
+                  </svg>
+                </div>
               </div>
-              <div className="header-element py-[1rem] md:px-[0.65rem] px-2 notifications-dropdown header-notification hs-dropdown ti-dropdown !hidden md:!block [--placement:bottom-right] rtl:[--placement:bottom-left]">
-                <button
-                  id="dropdown-notification"
-                  type="button"
-                  className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
-                >
-                  <i className="bx bx-bell header-link-icon  text-[1.125rem]"></i>
-                  <span className="flex absolute h-5 w-5 -top-[0.25rem] end-0  -me-[0.6rem]">
-                    <span className="animate-slow-ping absolute inline-flex -top-[2px] -start-[2px] h-full w-full rounded-full bg-secondary/40 opacity-75"></span>
-                    <span
-                      className="relative inline-flex justify-center items-center rounded-full  h-[14.7px] w-[14px] bg-secondary text-[0.625rem] text-white"
-                      id="notification-icon-badge"
+              <div className="flex gap-8 items-center ml-11">
+                <div className="flex gap-4 items-center">
+                  <div className="header-element notifications-dropdown header-notification hs-dropdown ti-dropdown !hidden md:!block [--placement:bottom-right] rtl:[--placement:bottom-left]">
+                    <button
+                      id="dropdown-notification"
+                      type="button"
+                      className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
                     >
-                      {notifications.length}
-                    </span>
-                  </span>
-                </button>
-                <div
-                  className="main-header-dropdown !-mt-3 !p-0 hs-dropdown-menu ti-dropdown-menu bg-white !w-[22rem] border-0 border-defaultborder hidden !m-0"
-                  aria-labelledby="dropdown-notification"
-                >
-                  <div className="ti-dropdown-header !m-0 !p-4 !bg-transparent flex justify-between items-center">
-                    <p className="mb-0 text-[1.0625rem] text-defaulttextcolor font-semibold dark:text-[#8c9097] dark:text-white/50">
-                      Notifications
-                    </p>
-                    <span
-                      className="text-[0.75em] py-[0.25rem/2] px-[0.45rem] font-[600] rounded-sm bg-secondary/10 text-secondary"
-                      id="notifiation-data"
-                    >{`${notifications.length} Unread`}</span>
-                  </div>
-                  <div className="dropdown-divider"></div>
-                  <ul className="list-none !m-0 !p-0 end-0">
-                    <SimpleBar id="header-notification-scroll">
-                      {notifications.map((notification, index) => (
-                        <li
-                          className="ti-dropdown-item dropdown-item"
-                          key={index}
-                        >
-                          <div className="flex items-start">
-                            <div className="pe-2">
-                              <span
-                                className={`inline-flex text-${notification.color} justify-center items-center !w-[2.5rem] !h-[2.5rem] !leading-[2.5rem] !text-[0.8rem] ${notification.avatarColor}/10 !rounded-[50%]`}
-                              >
-                                <i
-                                  className={`ti ${notification.icon} text-[1.125rem]`}
-                                ></i>
-                              </span>
-                            </div>
-                            <div className="grow flex items-center justify-between">
-                              <div>
-                                <p className="mb-0 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 text-[0.8125rem] font-semibold">
-                                  <Link to="#">{notification.text1}</Link>
-                                  <span className={notification.class}>
-                                    {notification.class1}
+                      <NotiHeader />
+                    </button>
+                    <div
+                      className="main-header-dropdown !-mt-3 !p-0 hs-dropdown-menu ti-dropdown-menu bg-white !w-[22rem] border-0 border-defaultborder hidden !m-0"
+                      aria-labelledby="dropdown-notification"
+                    >
+                      <div className="ti-dropdown-header !m-0 !p-4 !bg-transparent flex justify-between items-center">
+                        <p className="mb-0 text-[1.0625rem] text-defaulttextcolor font-semibold dark:text-[#8c9097] dark:text-white/50">
+                          Notifications
+                        </p>
+                        <span
+                          className="text-[0.75em] py-[0.25rem/2] px-[0.45rem] font-[600] rounded-sm bg-secondary/10 text-secondary"
+                          id="notifiation-data"
+                        >{`${notifications.length} Unread`}</span>
+                      </div>
+                      <div className="dropdown-divider"></div>
+                      <ul className="list-none !m-0 !p-0 end-0">
+                        <SimpleBar id="header-notification-scroll">
+                          {notifications.map((notification, index) => (
+                            <li
+                              className="ti-dropdown-item dropdown-item"
+                              key={index}
+                            >
+                              <div className="flex items-start">
+                                <div className="pe-2">
+                                  <span
+                                    className={`inline-flex text-${notification.color} justify-center items-center !w-[2.5rem] !h-[2.5rem] !leading-[2.5rem] !text-[0.8rem] ${notification.avatarColor}/10 !rounded-[50%]`}
+                                  >
+                                    <i
+                                      className={`ti ${notification.icon} text-[1.125rem]`}
+                                    ></i>
                                   </span>
-                                </p>
-                                <span className="text-[#8c9097] dark:text-white/50 font-normal text-[0.75rem] header-notification-text">
-                                  Order No: 123456
-                                  {notification.text2}
-                                </span>
+                                </div>
+                                <div className="grow flex items-center justify-between">
+                                  <div>
+                                    <p className="mb-0 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 text-[0.8125rem] font-semibold">
+                                      <Link to="#">{notification.text1}</Link>
+                                      <span className={notification.class}>
+                                        {notification.class1}
+                                      </span>
+                                    </p>
+                                    <span className="text-[#8c9097] dark:text-white/50 font-normal text-[0.75rem] header-notification-text">
+                                      Order No: 123456
+                                      {notification.text2}
+                                    </span>
+                                  </div>
+                                  <div>
+                                    <Link
+                                      aria-label="anchor"
+                                      to="#"
+                                      onClick={(e) =>
+                                        handleNotificationClose(e, index)
+                                      }
+                                      className="min-w-fit text-[#8c9097] dark:text-white/50 me-1 dropdown-item-close1"
+                                    >
+                                      <i className="ti ti-x text-[1rem]"></i>
+                                    </Link>
+                                  </div>
+                                </div>
                               </div>
-                              <div>
-                                <Link
-                                  aria-label="anchor"
-                                  to="#"
-                                  onClick={(e) =>
-                                    handleNotificationClose(e, index)
-                                  }
-                                  className="min-w-fit text-[#8c9097] dark:text-white/50 me-1 dropdown-item-close1"
-                                >
-                                  <i className="ti ti-x text-[1rem]"></i>
-                                </Link>
-                              </div>
-                            </div>
-                          </div>
-                        </li>
-                      ))}
-                    </SimpleBar>
-                  </ul>
+                            </li>
+                          ))}
+                        </SimpleBar>
+                      </ul>
 
-                  <div
-                    className={`p-4 empty-header-item1 border-t mt-2 ${
-                      notifications.length === 0 ? "hidden" : ""
-                    }`}
-                  >
-                    <div className="grid">
-                      <a
-                        href="#"
-                        className="ti-btn ti-btn-primary-full !m-0 w-full p-2"
+                      <div
+                        className={`p-4 empty-header-item1 border-t mt-2 ${
+                          notifications.length === 0 ? "hidden" : ""
+                        }`}
                       >
-                        View All
-                      </a>
-                    </div>
-                  </div>
-                  <div
-                    className={`p-[3rem] empty-item1 ${
-                      notifications.length === 0 ? "" : "hidden"
-                    }`}
-                  >
-                    <div className="text-center">
-                      <span className="!h-[4rem]  !w-[4rem] avatar !leading-[4rem] !rounded-full !bg-secondary/10 !text-secondary">
-                        <i className="ri-notification-off-line text-[2rem]  "></i>
-                      </span>
-                      <h6 className="font-semibold mt-3 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 text-[1rem]">
-                        No New Notifications
-                      </h6>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="header-element header-apps dark:text-[#8c9097] dark:text-white/50 py-[1rem] md:px-[0.65rem] px-2 hs-dropdown ti-dropdown md:!block !hidden [--placement:bottom-left]">
-                <button
-                  aria-label="button"
-                  id="dropdown-apps"
-                  type="button"
-                  className="hs-dropdown-toggle ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none text-xs"
-                >
-                  <i className="bx bx-grid-alt header-link-icon text-[1.125rem]"></i>
-                </button>
-
-                <div
-                  className="main-header-dropdown !-mt-3 hs-dropdown-menu ti-dropdown-menu !w-[22rem] border-0 border-defaultborder   hidden"
-                  aria-labelledby="dropdown-apps"
-                >
-                  <div className="p-4">
-                    <div className="flex items-center justify-between">
-                      <p className="mb-0 text-defaulttextcolor text-[1.0625rem] dark:text-[#8c9097] dark:text-white/50 font-semibold">
-                        Related Apps
-                      </p>
-                    </div>
-                  </div>
-                  <div className="dropdown-divider mb-0"></div>
-                  <div
-                    className="ti-dropdown-divider divide-y divide-gray-200 dark:divide-white/10 main-header-shortcuts p-2"
-                    id="header-shortcut-scroll"
-                  >
-                    <div className="grid grid-cols-3 gap-2">
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <div>
-                            <img
-                              src={figma}
-                              alt="figma"
-                              className="!h-[1.75rem] !w-[1.75rem] text-2xl avatar text-primary flex justify-center items-center mx-auto"
-                            />
-                            <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                              Figma
-                            </div>
-                          </div>
-                        </a>
+                        <div className="grid">
+                          <a
+                            href="#"
+                            className="ti-btn ti-btn-primary-full !m-0 w-full p-2"
+                          >
+                            View All
+                          </a>
+                        </div>
                       </div>
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <img
-                            src={powerpoint}
-                            alt="miscrosoft"
-                            className="leading-[1.75] text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"
-                          />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                            Power Point
-                          </div>
-                        </a>
-                      </div>
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <img
-                            src={word}
-                            alt="miscrodoftword"
-                            className="leading-none
-                       text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"
-                          />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                            MS Word
-                          </div>
-                        </a>
-                      </div>
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <img
-                            src={calender}
-                            alt="calander"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"
-                          />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                            Calendar
-                          </div>
-                        </a>
-                      </div>
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <img
-                            src={sketch}
-                            alt="apps"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"
-                          />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                            Sketch
-                          </div>
-                        </a>
-                      </div>
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <img
-                            src={googledocs}
-                            alt="docs"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"
-                          />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                            Docs
-                          </div>
-                        </a>
-                      </div>
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <img
-                            src={google}
-                            alt="google"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"
-                          />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                            Google
-                          </div>
-                        </a>
-                      </div>
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <img
-                            src={translate}
-                            alt="translate"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"
-                          />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                            Translate
-                          </div>
-                        </a>
-                      </div>
-                      <div className="">
-                        <a
-                          href="#"
-                          className="p-4 items-center related-app block text-center rounded-sm hover:bg-gray-50 dark:hover:bg-black/20"
-                        >
-                          <img
-                            src={googlesheets}
-                            alt="sheets"
-                            className="leading-none text-2xl !h-[1.75rem] !w-[1.75rem] align-middle flex justify-center mx-auto"
-                          />
-                          <div className="text-[0.75rem] text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50">
-                            Sheets
-                          </div>
-                        </a>
+                      <div
+                        className={`p-[3rem] empty-item1 ${
+                          notifications.length === 0 ? "" : "hidden"
+                        }`}
+                      >
+                        <div className="text-center">
+                          <span className="!h-[4rem]  !w-[4rem] avatar !leading-[4rem] !rounded-full !bg-secondary/10 !text-secondary">
+                            <i className="ri-notification-off-line text-[2rem]  "></i>
+                          </span>
+                          <h6 className="font-semibold mt-3 text-defaulttextcolor dark:text-[#8c9097] dark:text-white/50 text-[1rem]">
+                            No New Notifications
+                          </h6>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="p-4 first:pt-0 border-t">
-                    <a
-                      className="w-full ti-btn ti-btn-primary-full p-2 !m-0"
-                      href="#"
+                  <div className="header-element header-notification hs-dropdown ti-dropdown !hidden md:!block [--placement:bottom-right] rtl:[--placement:bottom-left]">
+                    <button
+                      type="button"
+                      className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
                     >
-                      View All
-                    </a>
+                      <EmailHeader />
+                    </button>
                   </div>
                 </div>
-              </div>
-              <div className="header-element header-fullscreen py-[1rem] md:px-[0.65rem] px-2">
-                <Link
-                  to="#"
-                  aria-label="anchor"
-                  onClick={toggleFullScreen}
-                  className="inline-flex flex-shrink-0 justify-center items-center gap-2  !rounded-full font-medium dark:hover:bg-black/20 dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
-                >
-                  {fullScreen ? (
-                    <i className="bx bx-exit-fullscreen full-screen-close header-link-icon"></i>
-                  ) : (
-                    <i className="bx bx-fullscreen full-screen-open header-link-icon"></i>
-                  )}
-                </Link>
-              </div>
-              <div className="header-element md:!px-[0.65rem] px-2 hs-dropdown !items-center ti-dropdown [--placement:bottom-left]">
-                <button
-                  id="dropdown-profile"
-                  type="button"
-                  className="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 sm:me-2 me-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent "
-                >
-                  <img
-                    className="inline-block rounded-full "
-                    src={face9}
-                    width="32"
-                    height="32"
-                    alt="Image Description"
-                  />
-                </button>
-                <div className="md:block hidden dropdown-profile">
-                  <p className="font-semibold mb-0 leading-none text-[#536485] text-[0.813rem] ">
-                    Json Taylor
-                  </p>
-                  <span className="opacity-[0.7] font-normal text-[#536485] block text-[0.6875rem] ">
-                    Web Designer
-                  </span>
-                </div>
-                <div
-                  className="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
-                  aria-labelledby="dropdown-profile"
-                >
-                  <ul className="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
-                        to="#"
-                      >
-                        <i className="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Profile
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
-                        to="#"
-                      >
-                        <i className="ti ti-inbox text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Inbox{" "}
-                        <span className="!py-1 !px-[0.45rem] !font-semibold !rounded-sm text-success text-[0.75em] bg-success/10 ms-auto">
-                          25
-                        </span>
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-                        to="#"
-                      >
-                        <i className="ti ti-clipboard-check text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Task Manager
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-                        to="#"
-                      >
-                        <i className="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Settings
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
-                        to="#"
-                      >
-                        <i className="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Bal: $7,12,950
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
-                        to="#"
-                      >
-                        <i className="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>
-                        Support
-                      </Link>
-                    </li>
-                    <li
-                      onClick={() => {
-                        handleLogout();
-                      }}
-                      className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex cursor-pointer"
+                {/* profile */}
+                <div className="header-element hs-dropdown ti-dropdown">
+                  <div className="flex items-center gap-4">
+                    <button
+                      id="dropdown-profile"
+                      type="button"
+                      className="hs-dropdown-toggle ti-dropdown-toggle !gap-2 !p-0 flex-shrink-0 !rounded-full !shadow-none text-xs align-middle !border-0 !shadow-transparent "
                     >
-                      <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
-                      Log Out
-                    </li>
-                  </ul>
+                      <img
+                        className="inline-block rounded-full "
+                        src={face9}
+                        width="32"
+                        height="32"
+                        alt="Image Description"
+                      />
+                    </button>
+                    <div className="md:flex hidden dropdown-profile flex-col">
+                      <div className="font-normal leading-4 !text-light_finance-textsub block text-[0.6875rem] ">
+                        Good morning
+                      </div>
+                      <div className="font-bold  !text-light_finance-textbody text-base tracking-tighter">
+                        Json Taylor
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    className="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
+                    aria-labelledby="dropdown-profile"
+                  >
+                    <ul className="text-defaulttextcolor font-medium dark:text-[#8c9097] dark:text-white/50">
+                      <li>
+                        <Link
+                          className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
+                          to="#"
+                        >
+                          <i className="ti ti-user-circle text-[1.125rem] me-2 opacity-[0.7]"></i>
+                          Profile
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0  !p-[0.65rem] !inline-flex"
+                          to="#"
+                        >
+                          <i className="ti ti-inbox text-[1.125rem] me-2 opacity-[0.7]"></i>
+                          Inbox{" "}
+                          <span className="!py-1 !px-[0.45rem] !font-semibold !rounded-sm text-success text-[0.75em] bg-success/10 ms-auto">
+                            25
+                          </span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
+                          to="#"
+                        >
+                          <i className="ti ti-clipboard-check text-[1.125rem] me-2 opacity-[0.7]"></i>
+                          Task Manager
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
+                          to="#"
+                        >
+                          <i className="ti ti-adjustments-horizontal text-[1.125rem] me-2 opacity-[0.7]"></i>
+                          Settings
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="w-full ti-dropdown-item !text-[0.8125rem] !gap-x-0 !p-[0.65rem] !inline-flex"
+                          to="#"
+                        >
+                          <i className="ti ti-wallet text-[1.125rem] me-2 opacity-[0.7]"></i>
+                          Bal: $7,12,950
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex"
+                          to="#"
+                        >
+                          <i className="ti ti-headset text-[1.125rem] me-2 opacity-[0.7]"></i>
+                          Support
+                        </Link>
+                      </li>
+                      <li
+                        onClick={() => {
+                          handleLogout();
+                        }}
+                        className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex cursor-pointer"
+                      >
+                        <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
+                        Log Out
+                      </li>
+                    </ul>
+                  </div>
                 </div>
-              </div>
-              <div className="header-element md:px-[0.48rem]">
-                <button
-                  aria-label="button"
-                  type="button"
-                  className="hs-dropdown-toggle switcher-icon inline-flex flex-shrink-0 justify-center items-center gap-2  rounded-full font-medium  align-middle transition-all text-xs dark:text-[#8c9097] dark:text-white/50 dark:hover:text-white dark:focus:ring-white/10 dark:focus:ring-offset-white/10"
-                  data-hs-overlay="#hs-overlay-switcher"
-                >
-                  <i className="bx bx-cog header-link-icon animate-spin-slow"></i>
-                </button>
               </div>
             </div>
           </div>

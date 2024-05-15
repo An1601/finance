@@ -1,12 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { Fragment, useEffect } from "react";
 import bg1 from "../assets/images/authentication/1.svg";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 const Auth = () => {
+  const accessToken: string = useSelector(
+    (state: RootState) => state.rootReducer.userReducer.access_token,
+  );
   useEffect(() => {
     import("preline");
   }, []);
-  return (
+  return !accessToken ? (
     <Fragment>
       <div className="grid grid-cols-12 authentication mx-0 text-defaulttextcolor text-defaultsize relative overflow-hidden">
         <div className="xxl:col-span-7 xl:col-span-7 lg:col-span-12 col-span-12 bg-light_finance-background1 relative">
@@ -24,6 +29,8 @@ const Auth = () => {
         </div>
       </div>
     </Fragment>
+  ) : (
+    <Navigate to="dashboard" />
   );
 };
 

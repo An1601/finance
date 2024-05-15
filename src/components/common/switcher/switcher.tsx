@@ -15,44 +15,52 @@ const Switcher: FC<SwitcherProps> = ({
     switcherdata.LocalStorageBackup(ThemeChanger);
   }, []);
   const customStyles: any = `${
-    local_varaiable.colorPrimaryRgb != ""
-      ? `--primary-rgb: ${local_varaiable.colorPrimaryRgb}`
+    local_varaiable.rootReducer.reducer.colorPrimaryRgb != ""
+      ? `--primary-rgb: ${local_varaiable.rootReducer.reducer.colorPrimaryRgb}`
       : ""
   };
   ${
-    local_varaiable.colorPrimary != ""
-      ? `--primary: ${local_varaiable.colorPrimary}`
+    local_varaiable.rootReducer.reducer.colorPrimary != ""
+      ? `--primary: ${local_varaiable.rootReducer.reducer.colorPrimary}`
       : ""
   };
-  ${local_varaiable.darkBg != "" ? `--dark-bg: ${local_varaiable.darkBg}` : ""};
-  ${local_varaiable.bodyBg != "" ? `--body-bg: ${local_varaiable.bodyBg}` : ""};
+  ${local_varaiable.rootReducer.reducer.darkBg != "" ? `--dark-bg: ${local_varaiable.rootReducer.reducer.darkBg}` : ""};
+  ${local_varaiable.rootReducer.reducer.bodyBg != "" ? `--body-bg: ${local_varaiable.rootReducer.reducer.bodyBg}` : ""};
   ${
-    local_varaiable.inputBorder != ""
-      ? `--input-border: ${local_varaiable.inputBorder}`
+    local_varaiable.rootReducer.reducer.inputBorder != ""
+      ? `--input-border: ${local_varaiable.rootReducer.reducer.inputBorder}`
       : ""
   };
-  ${local_varaiable.Light != "" ? `--light: ${local_varaiable.Light}` : ""};`;
+  ${local_varaiable.rootReducer.reducer.Light != "" ? `--light: ${local_varaiable.rootReducer.reducer.Light}` : ""};`;
 
   return (
     <Fragment>
       <Helmet>
         <html
-          dir={local_varaiable.dir}
-          className={local_varaiable.class}
-          data-header-styles={local_varaiable.dataHeaderStyles}
-          data-vertical-style={local_varaiable.dataVerticalStyle}
-          data-nav-layout={local_varaiable.dataNavLayout}
-          data-menu-styles={local_varaiable.dataMenuStyles}
-          data-toggled={local_varaiable.toggled}
-          data-nav-style={local_varaiable.dataNavStyle}
-          hor-style={local_varaiable.horStyle}
-          data-page-style={local_varaiable.dataPageStyle}
-          data-width={local_varaiable.dataWidth}
-          data-menu-position={local_varaiable.dataMenuPosition}
-          data-header-position={local_varaiable.dataHeaderPosition}
-          icon-overlay={local_varaiable.iconOverlay}
-          bg-img={local_varaiable.bgImg}
-          icon-text={local_varaiable.iconText}
+          dir={local_varaiable.rootReducer.reducer.dir}
+          className={local_varaiable.rootReducer.reducer.class}
+          data-header-styles={
+            local_varaiable.rootReducer.reducer.dataHeaderStyles
+          }
+          data-vertical-style={
+            local_varaiable.rootReducer.reducer.dataVerticalStyle
+          }
+          data-nav-layout={local_varaiable.rootReducer.reducer.dataNavLayout}
+          data-menu-styles={local_varaiable.rootReducer.reducer.dataMenuStyles}
+          data-toggled={local_varaiable.rootReducer.reducer.toggled}
+          data-nav-style={local_varaiable.rootReducer.reducer.dataNavStyle}
+          hor-style={local_varaiable.rootReducer.reducer.horStyle}
+          data-page-style={local_varaiable.rootReducer.reducer.dataPageStyle}
+          data-width={local_varaiable.rootReducer.reducer.dataWidth}
+          data-menu-position={
+            local_varaiable.rootReducer.reducer.dataMenuPosition
+          }
+          data-header-position={
+            local_varaiable.rootReducer.reducer.dataHeaderPosition
+          }
+          icon-overlay={local_varaiable.rootReducer.reducer.iconOverlay}
+          bg-img={local_varaiable.rootReducer.reducer.bgImg}
+          icon-text={local_varaiable.rootReducer.reducer.iconText}
           //Styles
           style={customStyles}
         ></html>
@@ -117,7 +125,9 @@ const Switcher: FC<SwitcherProps> = ({
                     name="theme-style"
                     className="ti-form-radio"
                     id="switcher-light-theme"
-                    checked={local_varaiable.class != "dark"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.class != "dark"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Light(ThemeChanger)}
                   />
@@ -134,7 +144,9 @@ const Switcher: FC<SwitcherProps> = ({
                     name="theme-style"
                     className="ti-form-radio"
                     id="switcher-dark-theme"
-                    checked={local_varaiable.class == "dark"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.class == "dark"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Dark(ThemeChanger)}
                   />
@@ -156,7 +168,7 @@ const Switcher: FC<SwitcherProps> = ({
                     name="direction"
                     className="ti-form-radio"
                     id="switcher-ltr"
-                    checked={local_varaiable.dir == "ltr"}
+                    checked={local_varaiable.rootReducer.reducer.dir == "ltr"}
                     onChange={(_e) => {}}
                     onClick={() => {
                       switcherdata.Ltr(ThemeChanger);
@@ -175,7 +187,7 @@ const Switcher: FC<SwitcherProps> = ({
                     name="direction"
                     className="ti-form-radio"
                     id="switcher-rtl"
-                    checked={local_varaiable.dir == "rtl"}
+                    checked={local_varaiable.rootReducer.reducer.dir == "rtl"}
                     onChange={(_e) => {}}
                     onClick={() => {
                       switcherdata.Rtl(ThemeChanger);
@@ -199,7 +211,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="navigation-style"
                     className="ti-form-radio"
                     id="switcher-vertical"
-                    checked={local_varaiable.dataNavLayout == "vertical"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataNavLayout ==
+                      "vertical"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Vertical(ThemeChanger)}
                   />
@@ -216,7 +231,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="navigation-style"
                     className="ti-form-radio"
                     id="switcher-horizontal"
-                    checked={local_varaiable.dataNavLayout == "horizontal"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataNavLayout ==
+                      "horizontal"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.HorizontalClick(ThemeChanger)}
                   />
@@ -238,7 +256,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="navigation-data-menu-styles"
                     className="ti-form-radio"
                     id="switcher-menu-click"
-                    checked={local_varaiable.dataNavStyle == "menu-click"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataNavStyle ==
+                      "menu-click"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Menuclick(ThemeChanger)}
                   />
@@ -255,7 +276,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="navigation-data-menu-styles"
                     className="ti-form-radio"
                     id="switcher-menu-hover"
-                    checked={local_varaiable.dataNavStyle == "menu-hover"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataNavStyle ==
+                      "menu-hover"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.MenuHover(ThemeChanger)}
                   />
@@ -272,7 +296,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="navigation-data-menu-styles"
                     className="ti-form-radio"
                     id="switcher-icon-click"
-                    checked={local_varaiable.dataNavStyle == "icon-click"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataNavStyle ==
+                      "icon-click"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.IconClick(ThemeChanger)}
                   />
@@ -289,7 +316,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="navigation-data-menu-styles"
                     className="ti-form-radio"
                     id="switcher-icon-hover"
-                    checked={local_varaiable.dataNavStyle == "icon-hover"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataNavStyle ==
+                      "icon-hover"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.IconHover(ThemeChanger)}
                   />
@@ -332,7 +362,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="sidemenu-layout-styles"
                     className="ti-form-radio"
                     id="switcher-closed-menu"
-                    checked={local_varaiable.dataVerticalStyle == "closed"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataVerticalStyle ==
+                      "closed"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Closedmenu(ThemeChanger)}
                   />
@@ -349,7 +382,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="sidemenu-layout-styles"
                     className="ti-form-radio"
                     id="switcher-icontext-menu"
-                    checked={local_varaiable.dataVerticalStyle == "icontext"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataVerticalStyle ==
+                      "icontext"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.iconTextfn(ThemeChanger)}
                   />
@@ -381,7 +417,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="sidemenu-layout-styles"
                     className="ti-form-radio"
                     id="switcher-detached"
-                    checked={local_varaiable.dataVerticalStyle == "detached"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataVerticalStyle ==
+                      "detached"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.DetachedFn(ThemeChanger)}
                   />
@@ -398,7 +437,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="sidemenu-layout-styles"
                     className="ti-form-radio"
                     id="switcher-double-menu"
-                    checked={local_varaiable.dataVerticalStyle == "doublemenu"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataVerticalStyle ==
+                      "doublemenu"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.DoubletFn(ThemeChanger)}
                   />
@@ -424,7 +466,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="data-page-styles"
                     className="ti-form-radio"
                     id="switcher-regular"
-                    checked={local_varaiable.dataPageStyle == "regular"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataPageStyle ==
+                      "regular"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Regular(ThemeChanger)}
                   />
@@ -441,7 +486,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="data-page-styles"
                     className="ti-form-radio"
                     id="switcher-classic"
-                    checked={local_varaiable.dataPageStyle == "classic"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataPageStyle ==
+                      "classic"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Classic(ThemeChanger)}
                   />
@@ -458,7 +506,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="data-page-styles"
                     className="ti-form-radio"
                     id="switcher-modern"
-                    checked={local_varaiable.dataPageStyle == "modern"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataPageStyle ==
+                      "modern"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Modern(ThemeChanger)}
                   />
@@ -481,7 +532,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="layout-width"
                     className="ti-form-radio"
                     id="switcher-full-width"
-                    checked={local_varaiable.dataWidth == "fullwidth"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataWidth ==
+                      "fullwidth"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Fullwidth(ThemeChanger)}
                   />
@@ -498,7 +552,9 @@ const Switcher: FC<SwitcherProps> = ({
                     name="layout-width"
                     className="ti-form-radio"
                     id="switcher-boxed"
-                    checked={local_varaiable.dataWidth == "boxed"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataWidth == "boxed"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.Boxed(ThemeChanger)}
                   />
@@ -520,7 +576,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="data-menu-positions"
                     className="ti-form-radio"
                     id="switcher-menu-fixed"
-                    checked={local_varaiable.dataMenuPosition == "fixed"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataMenuPosition ==
+                      "fixed"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.FixedMenu(ThemeChanger)}
                   />
@@ -537,7 +596,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="data-menu-positions"
                     className="ti-form-radio"
                     id="switcher-menu-scroll"
-                    checked={local_varaiable.dataMenuPosition == "scrollable"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataMenuPosition ==
+                      "scrollable"
+                    }
                     onChange={(_e) => {}}
                     onClick={() => switcherdata.scrollMenu(ThemeChanger)}
                   />
@@ -559,7 +621,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="data-header-positions"
                     className="ti-form-radio"
                     id="switcher-header-fixed"
-                    checked={local_varaiable.dataHeaderPosition == "fixed"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataHeaderPosition ==
+                      "fixed"
+                    }
                     onChange={(_e) => {}}
                     onClick={() =>
                       switcherdata.Headerpostionfixed(ThemeChanger)
@@ -578,7 +643,10 @@ const Switcher: FC<SwitcherProps> = ({
                     name="data-header-positions"
                     className="ti-form-radio"
                     id="switcher-header-scroll"
-                    checked={local_varaiable.dataHeaderPosition == "scrollable"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataHeaderPosition ==
+                      "scrollable"
+                    }
                     onChange={(_e) => {}}
                     onClick={() =>
                       switcherdata.Headerpostionscroll(ThemeChanger)
@@ -608,7 +676,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-white"
                     type="radio"
                     name="menu-colors"
-                    checked={local_varaiable.dataMenuStyles == "light"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataMenuStyles ==
+                      "light"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-menu-light"
                     onClick={() => switcherdata.lightMenu(ThemeChanger)}
@@ -625,7 +696,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-dark"
                     type="radio"
                     name="menu-colors"
-                    checked={local_varaiable.dataMenuStyles == "dark"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataMenuStyles ==
+                      "dark"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-menu-dark"
                     onClick={() => switcherdata.darkMenu(ThemeChanger)}
@@ -642,7 +716,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-primary"
                     type="radio"
                     name="menu-colors"
-                    checked={local_varaiable.dataMenuStyles == "color"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataMenuStyles ==
+                      "color"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-menu-primary"
                     onClick={() => switcherdata.colorMenu(ThemeChanger)}
@@ -659,7 +736,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-gradient"
                     type="radio"
                     name="menu-colors"
-                    checked={local_varaiable.dataMenuStyles == "gradient"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataMenuStyles ==
+                      "gradient"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-menu-gradient"
                     onClick={() => switcherdata.gradientMenu(ThemeChanger)}
@@ -676,7 +756,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-transparent"
                     type="radio"
                     name="menu-colors"
-                    checked={local_varaiable.dataMenuStyles == "transparent"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataMenuStyles ==
+                      "transparent"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-menu-transparent"
                     onClick={() => switcherdata.transparentMenu(ThemeChanger)}
@@ -702,7 +785,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-white !border"
                     type="radio"
                     name="header-colors"
-                    checked={local_varaiable.dataHeaderStyles == "light"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataHeaderStyles ==
+                      "light"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-header-light"
                     onClick={() => switcherdata.lightHeader(ThemeChanger)}
@@ -719,7 +805,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-dark"
                     type="radio"
                     name="header-colors"
-                    checked={local_varaiable.dataHeaderStyles == "dark"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataHeaderStyles ==
+                      "dark"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-header-dark"
                     onClick={() => switcherdata.darkHeader(ThemeChanger)}
@@ -736,7 +825,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-primary"
                     type="radio"
                     name="header-colors"
-                    checked={local_varaiable.dataHeaderStyles == "color"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataHeaderStyles ==
+                      "color"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-header-primary"
                     onClick={() => switcherdata.colorHeader(ThemeChanger)}
@@ -753,7 +845,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="hs-tooltip-toggle ti-form-radio color-input color-gradient"
                     type="radio"
                     name="header-colors"
-                    checked={local_varaiable.dataHeaderStyles == "gradient"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataHeaderStyles ==
+                      "gradient"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-header-gradient"
                     onClick={() => switcherdata.gradientHeader(ThemeChanger)}
@@ -769,7 +864,10 @@ const Switcher: FC<SwitcherProps> = ({
                   <input
                     className="hs-tooltip-toggle ti-form-radio color-input color-transparent"
                     type="radio"
-                    checked={local_varaiable.dataHeaderStyles == "transparent"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.dataHeaderStyles ==
+                      "transparent"
+                    }
                     onChange={(_e) => {}}
                     name="header-colors"
                     id="switcher-header-transparent"
@@ -796,7 +894,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-primary-1"
                     type="radio"
                     name="theme-primary"
-                    checked={local_varaiable.colorPrimaryRgb == "58, 88, 146"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.colorPrimaryRgb ==
+                      "58, 88, 146"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-primary"
                     onClick={() => switcherdata.primaryColor1(ThemeChanger)}
@@ -807,7 +908,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-primary-2"
                     type="radio"
                     name="theme-primary"
-                    checked={local_varaiable.colorPrimaryRgb == "92, 144 ,163"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.colorPrimaryRgb ==
+                      "92, 144 ,163"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-primary1"
                     onClick={() => switcherdata.primaryColor2(ThemeChanger)}
@@ -818,7 +922,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-primary-3"
                     type="radio"
                     name="theme-primary"
-                    checked={local_varaiable.colorPrimaryRgb == "161, 90 ,223"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.colorPrimaryRgb ==
+                      "161, 90 ,223"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-primary2"
                     onClick={() => switcherdata.primaryColor3(ThemeChanger)}
@@ -829,7 +936,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-primary-4"
                     type="radio"
                     name="theme-primary"
-                    checked={local_varaiable.colorPrimaryRgb == "78, 172, 76"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.colorPrimaryRgb ==
+                      "78, 172, 76"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-primary3"
                     onClick={() => switcherdata.primaryColor4(ThemeChanger)}
@@ -840,7 +950,10 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-primary-5"
                     type="radio"
                     name="theme-primary"
-                    checked={local_varaiable.colorPrimaryRgb == "223, 90, 90"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.colorPrimaryRgb ==
+                      "223, 90, 90"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-primary4"
                     onClick={() => switcherdata.primaryColor5(ThemeChanger)}
@@ -878,7 +991,9 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-bg-1"
                     type="radio"
                     name="theme-background"
-                    checked={local_varaiable.bodyBg == "34 44 110"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.bodyBg == "34 44 110"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-background"
                     onClick={() => switcherdata.backgroundColor1(ThemeChanger)}
@@ -889,7 +1004,9 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-bg-2"
                     type="radio"
                     name="theme-background"
-                    checked={local_varaiable.bodyBg == "22 92 129"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.bodyBg == "22 92 129"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-background1"
                     onClick={() => switcherdata.backgroundColor2(ThemeChanger)}
@@ -900,7 +1017,9 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-bg-3"
                     type="radio"
                     name="theme-background"
-                    checked={local_varaiable.bodyBg == "104 51 149"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.bodyBg == "104 51 149"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-background2"
                     onClick={() => switcherdata.backgroundColor3(ThemeChanger)}
@@ -911,7 +1030,9 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-bg-4"
                     type="radio"
                     name="theme-background"
-                    checked={local_varaiable.bodyBg == "29 106 56"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.bodyBg == "29 106 56"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-background3"
                     onClick={() => switcherdata.backgroundColor4(ThemeChanger)}
@@ -922,7 +1043,9 @@ const Switcher: FC<SwitcherProps> = ({
                     className="ti-form-radio color-input color-bg-5"
                     type="radio"
                     name="theme-background"
-                    checked={local_varaiable.bodyBg == "134 80 34"}
+                    checked={
+                      local_varaiable.rootReducer.reducer.bodyBg == "134 80 34"
+                    }
                     onChange={(_e) => {}}
                     id="switcher-background4"
                     onClick={() => switcherdata.backgroundColor5(ThemeChanger)}
