@@ -21,7 +21,7 @@ function Menuloop({ MENUITEMS, toggleSidemenu, level }: any) {
             ""
           )}
         </span>
-        <i className="fe fe-chevron-right side-menu__angle"></i>
+        {/* <i className="fe fe-chevron-right side-menu__angle"></i> */}
       </Link>
       <ul
         className={`slide-menu child${level}  ${

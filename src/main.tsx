@@ -4,7 +4,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import App from "./pages/App.tsx";
-import Crm from "./container/dashboards/crm/crm.tsx";
 import "./index.scss";
 import Auth from "./pages/auth.tsx";
 import Login from "./container/auth/Login.tsx";
@@ -15,6 +14,7 @@ import ResetPassword from "./container/auth/ResetPassword.tsx";
 import { persistor, store } from "./redux/store.ts";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import Home from "./container/dashboards/home/Index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -40,7 +40,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           </Routes>
           <Routes>
             <Route path="" element={<App />}>
-              <Route path={"/dashboard"} element={<Crm />} />
+              <Route path={"/dashboard"} element={<Home />} />
             </Route>
           </Routes>
         </BrowserRouter>

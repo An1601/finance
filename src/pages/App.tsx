@@ -1,14 +1,18 @@
 import { Fragment, useEffect, useState } from "react";
 import Loader from "../components/common/loader/loader";
-import Footer from "../components/common/footer/footer";
 import Sidebar from "../components/common/sidebar/sidebar";
 import Switcher from "../components/common/switcher/switcher";
-import Header from "../components/common/header/header";
+import Header from "../components/common/header/index";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { RootState } from "../redux/store";
+import { useSelector } from "react-redux";
 
 function App() {
   const [MyclassName, setMyClass] = useState("");
+  const accessToken: string = useSelector(
+    (state: RootState) => state.rootReducer.userReducer.access_token,
+  );
 
   const Bodyclickk = () => {
     if (localStorage.getItem("zenverticalstyles") == "icontext") {
@@ -25,7 +29,7 @@ function App() {
   useEffect(() => {
     import("preline");
   }, []);
-  return (
+  return accessToken ? (
     <Fragment>
       <Loader />
       <HelmetProvider>
@@ -43,18 +47,23 @@ function App() {
           }}
         />
         <Switcher />
-        <div className="page">
-          <Header />
-          <Sidebar />
-          <div className="content main-index">
+        <div className="page bg-light_finance-background1">
+          <div className="hidden sm:block">
+            <Header />
+          </div>
+          <div className="hidden sm:block">
+            <Sidebar />
+          </div>
+          <div className="!mt-0 sm:!mt-[60px] content main-index">
             <div className="main-content" onClick={Bodyclickk}>
               <Outlet />
             </div>
           </div>
-          <Footer />
         </div>
       </HelmetProvider>
     </Fragment>
+  ) : (
+    <Navigate to="signin" />
   );
 }
 
