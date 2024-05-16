@@ -1,17 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "react-toastify";
 import ImageIcon from "../../../components/svg/Image";
 import defaultProfileImage from "../../../assets/images/profile/avatar.jpeg";
 
 const HeaderItem = () => {
-  const [profileImage, setProfileImage] = useState(defaultProfileImage);
-
-  useEffect(() => {
-    const savedImage = localStorage.getItem("profileImage");
-    if (savedImage) {
-      setProfileImage(savedImage);
-    }
-  }, []);
+  const [profileImage, setProfileImage] = useState(
+    localStorage.getItem("profileImage") || defaultProfileImage,
+  );
 
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];

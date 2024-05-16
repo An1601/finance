@@ -1,27 +1,26 @@
-import { useState, useEffect } from "react";
-import AccountIcon from "../../../components/svg/Account";
-import DocumentIcon from "../../../components/svg/Document";
-import ManagementIcon from "../../../components/svg/Management";
-import ChangePasswordIcon from "../../../components/svg/ChangePassword";
-import NotificationIcon from "../../../components/svg/Notification";
-import LogoutIcon from "../../../components/svg/Logout";
-import ShareIcon from "../../../components/svg/Share";
-import SecurityIcon from "../../../components/svg/Security";
-import Switch from "./Switch";
-import AccountItem from "./AccountItem";
-import { toast } from "react-toastify";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { AppDispatch } from "../../../redux/store";
-import { setLoadingFalse, setLoadingTrue } from "../../../redux/commonReducer";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import { setLoadingFalse, setLoadingTrue } from "../../../redux/commonReducer";
 import { handle_logout } from "../../../redux/userReducers";
 import api from "../../../API/axios";
 import BottomBarCustom from "../../../components/common/bottomBar";
 import HeaderItem from "./Header";
+import ArrowIcon from "../../../assets/icon/ArrowIcon.svg";
+import Switch from "./Switch";
+import AccountIcon from "../../../assets/icon/AccountIcon.svg";
+import DocumentIcon from "../../../assets/icon/DocumentIcon.svg";
+import ManagementIcon from "../../../assets/icon/ManagementIcon.svg";
+import ChangePasswordIcon from "../../../assets/icon/ChangePasswordIcon.svg";
+import NotificationIcon from "../../../assets/icon/NotificationIcon.svg";
+import SecurityIcon from "../../../assets/icon/SecurityIcon.svg";
+import ShareIcon from "../../../assets/icon/ShareIcon.svg";
+import LogoutIcon from "../../../assets/icon/LogoutIcon.svg";
 
 function Account() {
   const [isOn, setIsOn] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleToggle = () => {
@@ -47,28 +46,45 @@ function Account() {
     }
   };
 
+  const MENU_ITEMS = [
+    { icon: AccountIcon, text: "Edit profile" },
+    { icon: DocumentIcon, text: "Documents" },
+    { icon: ManagementIcon, text: "Management a survey and a form" },
+    { icon: ChangePasswordIcon, text: "Change password" },
+    { icon: NotificationIcon, text: "Notifications" },
+    { icon: SecurityIcon, text: "Terms & Conditions" },
+    { icon: ShareIcon, text: "Share" },
+    { icon: LogoutIcon, text: "Logout", onclick: handleLogout },
+  ];
+
   return (
     <div className="w-screen sm:max-w-[480px]">
       <HeaderItem />
 
       <div className="bg-[#01D2B4] mb-20">
-        <AccountItem
-          className="rounded-t-[24px]"
-          Icon={AccountIcon}
-          text="Edit profile"
-        />
-        <AccountItem Icon={DocumentIcon} text="Documents" />
-        <AccountItem
-          Icon={ManagementIcon}
-          text="Management a survey and a form"
-        />
-        <AccountItem Icon={ChangePasswordIcon} text="Change password" />
-        <AccountItem Icon={NotificationIcon} text="Notifications">
-          <Switch isOn={isOn} handleToggle={handleToggle} className="ml-auto" />
-        </AccountItem>
-        <AccountItem Icon={SecurityIcon} text="Terms & Conditions" />
-        <AccountItem Icon={ShareIcon} text="Share" />
-        <AccountItem Icon={LogoutIcon} text="Logout" onClick={handleLogout} />
+        {MENU_ITEMS.map((item, index) => (
+          <div
+            key={index}
+            onClick={item.onclick}
+            className={`px-[24px] py-3 flex flex-row items-center border-b-[1px] bg-white border-[#e9eaef] cursor-pointer ${
+              item.icon === AccountIcon ? "rounded-t-[24px]" : ""
+            }`}
+          >
+            <img src={item.icon} />
+            <div className="text-slate-900 text-base leading-normal tracking-tight">
+              {item.text}
+            </div>
+            {item.text === "Notifications" ? (
+              <Switch
+                isOn={isOn}
+                handleToggle={handleToggle}
+                className="ml-auto"
+              />
+            ) : (
+              <img src={ArrowIcon} className="ml-auto" />
+            )}
+          </div>
+        ))}
       </div>
 
       <BottomBarCustom />
