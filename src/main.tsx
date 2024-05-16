@@ -15,6 +15,7 @@ import { persistor, store } from "./redux/store.ts";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Home from "./container/dashboards/home/Index.tsx";
+import Account from "./container/dashboards/profile/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -41,6 +42,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
           <Routes>
             <Route path="" element={<App />}>
               <Route path={"/dashboard"} element={<Home />} />
+              <Route path={"/profile"} element={<Account />} />
             </Route>
           </Routes>
         </BrowserRouter>
