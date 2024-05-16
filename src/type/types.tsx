@@ -41,3 +41,33 @@ export type UserInfo = {
   access_token: string;
   refresh_token: string;
 };
+
+export type LoanCategory = {
+  id: number;
+  name: string;
+  thumbnail: string;
+};
+
+export type Loans = {
+  id: number;
+  name: string;
+  category_id: number;
+  type: number;
+  bank_id: number;
+  APR: number;
+  rate_month: number;
+  duration: number;
+  credit_limit: number;
+  description: string;
+  time_began: Date;
+  state: number;
+};
+
+export type LoanDetails = {
+  loan_name: string;
+  APR: number;
+  rate_month: number;
+  credit_limit: number;
+  bank_name: string;
+  bank_thumbnail: string;
+};

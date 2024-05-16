@@ -14,6 +14,7 @@ import Loader from "../../components/common/loader/loader";
 import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
 import api from "../../API/axios";
 import axios from "axios";
+import AuthSubmitBtn from "../../components/common/button/AuthSubmitBtn";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -193,13 +194,8 @@ const Login = () => {
         </div>
         {/* frame button */}
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
-          <button
-            type="submit"
-            className="w-[280px] px-3 py-4 bg-light_finance-primary rounded-[28px] shadow border-2 flex justify-center items-center "
-          >
-            <div className="text-light_finance-textbody text-base font-medium font-['Helvetica Neue'] leading-normal tracking-tight">
-              Sign in
-            </div>
+          <button type="submit">
+            <AuthSubmitBtn name="Sign In" />
           </button>
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">

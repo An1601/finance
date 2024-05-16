@@ -70,8 +70,8 @@ export default {
           textbody: "#16202F",
           textsub: "#45556E",
           sub_second: "#E7FFFC",
-          secondary: "#FFD600",
-          primary: "#3EFFD5",
+          secondary: "#F57156",
+          primary: "#01D2B4",
         },
         dark_finance: {
           background: "#06170E",
