@@ -1,7 +1,7 @@
 import arrow from "../../../assets/icon/ArrowIcon.svg";
-import LoanApproval from "../../../components/svg/LoanApproval";
-import LoanInProgress from "../../../components/svg/LoanInProgress";
-import LoanReject from "../../../components/svg/LoanReject";
+import loanApproval from "../../../assets/icon/LoanApprovalIcon.svg";
+import loanRejected from "../../../assets/icon/LoanRejected.svg";
+import loanInProgress from "../../../assets/icon/LoanInProgress.svg";
 
 function Overview() {
   return (
@@ -15,7 +15,7 @@ function Overview() {
       <div className="grid grid-cols-12 gap-x-6 gap-y-5 my-0 sm:my-[1.5rem] page-header-breadcrumb">
         <div className="md:col-span-4 col-span-12 bg-white rounded-lg px-5 py-4 flex justify-between items-center">
           <div className="h-12 flex items-center">
-            <LoanApproval />
+            <img className="h-11 w-11" src={loanApproval} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
                 {12}
@@ -29,7 +29,7 @@ function Overview() {
         </div>
         <div className="md:col-span-4 col-span-12 bg-white rounded-lg px-5 py-4 flex justify-between items-center">
           <div className="h-12 flex items-center">
-            <LoanInProgress />
+            <img className="h-11 w-11" src={loanInProgress} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
                 {12}
@@ -43,7 +43,7 @@ function Overview() {
         </div>
         <div className="md:col-span-4 col-span-12 bg-white rounded-lg px-5 py-4 flex justify-between items-center">
           <div className="h-12 flex items-center">
-            <LoanReject />
+            <img className="h-11 w-11" src={loanRejected} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
                 {12}

@@ -4,6 +4,7 @@ import Overview from "./Overview";
 import TopLoans from "./TopLoans";
 import PackageLoanList from "../PackageLoan/PackageLoanList";
 import ConsultingMeetingList from "../ConsultingMeeting/ConsultingMeetingList";
+import BottomBarCustom from "../../../components/common/bottomBar";
 
 interface CrmProps {}
 
@@ -46,6 +47,7 @@ const HomeMobile: FC<CrmProps> = () => {
             <ConsultingMeetingList />
           </div>
         </div>
+        <BottomBarCustom />
       </div>
     </Fragment>
   );

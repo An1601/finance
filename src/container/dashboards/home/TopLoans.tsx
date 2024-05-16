@@ -1,4 +1,4 @@
-import LoanCategory from "../../../components/svg/LoanCategory";
+import loanCategory from "../../../assets/icon/LoanCategoryIcon.svg";
 
 function TopLoans() {
   return (
@@ -15,7 +15,7 @@ function TopLoans() {
             key={index}
             className="col-span-4 flex flex-col gap-1 items-center"
           >
-            <LoanCategory />
+            <img src={loanCategory} />
             <div className="font-HelveticaNeue font-normal text-xs leading-4 text-light_finance-textbody">
               Merchant cash
             </div>

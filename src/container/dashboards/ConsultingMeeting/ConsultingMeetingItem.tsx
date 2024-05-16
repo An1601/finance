@@ -1,6 +1,8 @@
 import MobileHomeBtn from "../../../components/common/button/MobileHomeBtn";
 import CalendarIcon from "../../../components/svg/Calendar";
 import TimerIcon from "../../../components/svg/Timer";
+import calendar from "../../../assets/icon/CalendarIcon.svg";
+import timer from "../../../assets/icon/TimerIcon.svg";
 
 const ConsultingMeetingItem = () => {
   return (
@@ -16,13 +18,13 @@ const ConsultingMeetingItem = () => {
         </div>
         <MobileHomeBtn name="Connect" />
       </div>
-      <div className="h-6 flex justify-between gap-3">
+      <div className="h-6 flex justify-between">
         <div className="flex gap-1">
-          <CalendarIcon />
+          <img className="h-5 w-5" src={calendar} />
           <div>24,Oct 2024</div>
         </div>
         <div className="flex gap-1">
-          <TimerIcon />
+          <img className="h-5 w-5" src={timer} />
           <div>09:00 to 09:30 am</div>
         </div>
       </div>
