@@ -1,29 +1,60 @@
-import React from "react";
+import arrow from "../../../assets/icon/ArrowIcon.svg";
+import loanApproval from "../../../assets/icon/LoanApprovalIcon.svg";
+import loanRejected from "../../../assets/icon/LoanRejected.svg";
+import loanInProgress from "../../../assets/icon/LoanInProgress.svg";
 
 function Overview() {
   return (
-    <div className="md:flex block items-center justify-between my-[1.5rem] page-header-breadcrumb">
-      <div>
-        <p className="font-semibold text-[1.125rem] text-defaulttextcolor dark:text-defaulttextcolor/70 !mb-0 ">
-          Welcome back, Json Taylor !
-        </p>
-        <p className="font-normal text-[#8c9097] dark:text-white/50 text-[0.813rem]">
-          Track your sales activity, leads and deals here.
-        </p>
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center gap-2 sm:hidden">
+        <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
+        <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
+          Overview
+        </div>
       </div>
-      <div className="btn-list md:mt-0 mt-2">
-        <button
-          type="button"
-          className="ti-btn bg-primary text-white btn-wave !font-medium !me-[0.375rem] !ms-0 !text-[0.85rem] !rounded-[0.35rem] !py-[0.51rem] !px-[0.86rem] shadow-none mb-0"
-        >
-          <i className="ri-filter-3-fill  inline-block"></i>Filters
-        </button>
-        <button
-          type="button"
-          className="ti-btn ti-btn-outline-secondary btn-wave !font-medium  !me-[0.375rem]  !ms-0 !text-[0.85rem] !rounded-[0.35rem] !py-[0.51rem] !px-[0.86rem] shadow-none mb-0"
-        >
-          <i className="ri-upload-cloud-line  inline-block"></i>Export
-        </button>
+      <div className="grid grid-cols-12 gap-x-6 gap-y-5 my-0 sm:my-[1.5rem] page-header-breadcrumb">
+        <div className="md:col-span-4 col-span-12 bg-white rounded-lg px-5 py-4 flex justify-between items-center">
+          <div className="h-12 flex items-center">
+            <img className="h-11 w-11" src={loanApproval} />
+            <div className="flex flex-col ml-4">
+              <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
+                {12}
+              </div>
+              <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
+                Total Approval
+              </div>
+            </div>
+          </div>
+          <img src={arrow} alt="arrow" />
+        </div>
+        <div className="md:col-span-4 col-span-12 bg-white rounded-lg px-5 py-4 flex justify-between items-center">
+          <div className="h-12 flex items-center">
+            <img className="h-11 w-11" src={loanInProgress} />
+            <div className="flex flex-col ml-4">
+              <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
+                {12}
+              </div>
+              <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
+                Total In Progress
+              </div>
+            </div>
+          </div>
+          <img src={arrow} alt="arrow" />
+        </div>
+        <div className="md:col-span-4 col-span-12 bg-white rounded-lg px-5 py-4 flex justify-between items-center">
+          <div className="h-12 flex items-center">
+            <img className="h-11 w-11" src={loanRejected} />
+            <div className="flex flex-col ml-4">
+              <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
+                {12}
+              </div>
+              <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
+                Total Reject
+              </div>
+            </div>
+          </div>
+          <img src={arrow} alt="arrow" />
+        </div>
       </div>
     </div>
   );

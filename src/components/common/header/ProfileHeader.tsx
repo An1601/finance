@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import face9 from "../../../assets/images/faces/9.jpg";
 import { setLoadingFalse, setLoadingTrue } from "../../../redux/commonReducer";
 import api from "../../../API/axios";
@@ -8,12 +8,15 @@ import { handle_logout } from "../../../redux/userReducers";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../../redux/store";
 import ProfileLink from "./ProfileLink";
+import useWindowWidth from "../../hook/UseWindowWidth";
 function ProfileHeader() {
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
     (state: RootState) => state.rootReducer.commonReducer.isloading,
   );
   const navigate = useNavigate();
+  const windowWidth = useWindowWidth();
+
   const handleLogout = async () => {
     try {
       dispatch(setLoadingTrue());
@@ -32,7 +35,6 @@ function ProfileHeader() {
       }
     }
   };
-
   if (isLoading) return <Loader />;
 
   return (
@@ -51,7 +53,7 @@ function ProfileHeader() {
             alt="Image Description"
           />
         </button>
-        <div className="md:flex hidden dropdown-profile flex-col">
+        <div className="flex dropdown-profile flex-col">
           <div className="font-normal leading-4 !text-light_finance-textsub block text-[0.6875rem] ">
             Good morning
           </div>
@@ -60,30 +62,36 @@ function ProfileHeader() {
           </div>
         </div>
       </div>
-      <div
-        className="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
-        aria-labelledby="dropdown-profile"
-      >
-        <ul className="text-defaulttextcolor font-medium dark:text-[#8C9097] dark:text-white/50">
-          <ProfileLink to="#" icon="ti-user-circle" label="Profile" />
-          <ProfileLink to="#" icon="ti-inbox" label="Inbox" badge="25" />
-          <ProfileLink to="#" icon="ti-clipboard-check" label="Task Manager" />
-          <ProfileLink
-            to="#"
-            icon="ti-adjustments-horizontal"
-            label="Settings"
-          />
-          <ProfileLink to="#" icon="ti-wallet" label="Bal: $7,12,950" />
-          <ProfileLink to="#" icon="ti-headset" label="Support" />
-          <li
-            onClick={handleLogout}
-            className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex cursor-pointer"
-          >
-            <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
-            Log Out
-          </li>
-        </ul>
-      </div>
+      {windowWidth > 480 && (
+        <div
+          className="hs-dropdown-menu ti-dropdown-menu !-mt-3 border-0 w-[11rem] !p-0 border-defaultborder hidden main-header-dropdown  pt-0 overflow-hidden header-profile-dropdown dropdown-menu-end"
+          aria-labelledby="dropdown-profile"
+        >
+          <ul className="text-defaulttextcolor font-medium dark:text-[#8C9097] dark:text-white/50">
+            <ProfileLink to="#" icon="ti-user-circle" label="Profile" />
+            <ProfileLink to="#" icon="ti-inbox" label="Inbox" badge="25" />
+            <ProfileLink
+              to="#"
+              icon="ti-clipboard-check"
+              label="Task Manager"
+            />
+            <ProfileLink
+              to="#"
+              icon="ti-adjustments-horizontal"
+              label="Settings"
+            />
+            <ProfileLink to="#" icon="ti-wallet" label="Bal: $7,12,950" />
+            <ProfileLink to="#" icon="ti-headset" label="Support" />
+            <li
+              onClick={handleLogout}
+              className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex cursor-pointer"
+            >
+              <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
+              Log Out
+            </li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 }
