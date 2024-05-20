@@ -4,14 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 import { MENUITEMS } from "./sidemenu/sidemenu";
 import { ThemeChanger } from "../../../redux/action";
 import { store } from "../../../redux/store";
-import logo1 from "../../../assets/images/brand-logos/desktop-logo.png";
-import logo2 from "../../../assets/images/brand-logos/toggle-logo.png";
-import logo3 from "../../../assets/images/brand-logos/desktop-dark.png";
-import logo4 from "../../../assets/images/brand-logos/toggle-dark.png";
-import logo5 from "../../../assets/images/brand-logos/desktop-white.png";
-import logo6 from "../../../assets/images/brand-logos/toggle-white.png";
+import logo1 from "../../../assets/images/brand-logos/desktop-logo.svg";
 import SimpleBar from "simplebar-react";
-import Menuloop from "../../ui/menuloop";
 interface SidebarProps {}
 
 const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
@@ -640,10 +634,19 @@ const Sidebar: FC<SidebarProps> = ({ local_varaiable, ThemeChanger }: any) => {
         onMouseEnter={() => Onhover()}
         onMouseLeave={() => Outhover()}
       >
-        <div className="h-[89px] flex items-center ml-7">
-          <a href={"/"} className="">
-            <img src={logo1} alt="logo" className="desktop-logo" />
-          </a>
+        <div className="h-[89px] flex items-center ml-7 gap-2">
+          <img src={logo1} alt="logo" className="desktop-logo" />
+          <div>
+            <span className="text-light_finance-primary text-2xl font-bold font-['Nunito Sans']">
+              C
+            </span>
+            <span className="text-light_finance-secondary text-2xl font-bold font-['Nunito Sans']">
+              C
+            </span>
+            <span className="text-light_finance-primary text-2xl font-bold font-['Nunito Sans']">
+              B
+            </span>
+          </div>
         </div>
         <hr className="border-light_finance-textsub"></hr>
         <SimpleBar className=" !p-4" id="sidebar-scroll">

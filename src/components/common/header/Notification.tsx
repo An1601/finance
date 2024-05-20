@@ -24,7 +24,7 @@ function Notification() {
             className="relative sm:!w-[380px] sm:overflow-y-auto !rounded-lg main-header-dropdown !-mt-3 !p-0 hs-dropdown-menu ti-dropdown-menu bg-white !w-[22rem] border-0 border-defaultborder hidden !m-0"
             aria-labelledby="dropdown-notification"
           >
-            <div className="sm:!w-[380px] sm:!h-[600px] sm:overflow-y-auto">
+            <div className="sm:!w-[380px] sm:!h-[85vh] sm:overflow-y-auto">
               <div className="ti-dropdown-header !m-0 !p-4 !bg-transparent flex justify-between items-center">
                 <span className="font-HelveticaNeue font-bold text-2xl leading-8 text-center text-light_finance-textbody">
                   Notifications
