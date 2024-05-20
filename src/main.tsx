@@ -16,6 +16,8 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import Home from "./container/dashboards/home/Index.tsx";
 import Account from "./container/dashboards/profile/index.tsx";
+import NotificationIndex from "./container/dashboards/Notification/Index.tsx";
+import PackageLoanIndex from "./container/dashboards/PackageLoan/Index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -40,9 +42,15 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
             </Route>
           </Routes>
           <Routes>
-            <Route path="" element={<App />}>
-              <Route path={"/dashboard"} element={<Home />} />
-              <Route path={"/profile"} element={<Account />} />
+            <Route path="/" element={<App />}>
+              <Route path={"dashboard"} element={<Home />} />
+              <Route path={"notification"} element={<NotificationIndex />} />
+              <Route path={"loan-list"} element={<PackageLoanIndex />} />
+              <Route
+                path={"loan-list/:userid"}
+                element={<PackageLoanIndex />}
+              />
+              <Route path={"profile"} element={<Account />} />
             </Route>
           </Routes>
         </BrowserRouter>

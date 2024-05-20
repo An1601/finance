@@ -17,7 +17,7 @@ export const MENUITEMS = [
     icon: <LoanList />,
     type: "sub",
     children: [],
-    path: "/",
+    path: "/loan-list",
   },
   {
     title: "Consulting meeting list",

@@ -38,7 +38,7 @@ function ProfileHeader() {
   if (isLoading) return <Loader />;
 
   return (
-    <div className="header-element hs-dropdown ti-dropdown min-w-[163px]">
+    <div className="header-element hs-dropdown ti-dropdown md:min-w-[163px]">
       <div className="flex items-center gap-4">
         <button
           id="dropdown-profile"
@@ -53,7 +53,7 @@ function ProfileHeader() {
             alt="Image Description"
           />
         </button>
-        <div className="flex dropdown-profile flex-col">
+        <div className="hidden md:flex dropdown-profile flex-col">
           <div className="font-normal leading-4 !text-light_finance-textsub block text-[0.6875rem] ">
             Good morning
           </div>
@@ -68,7 +68,7 @@ function ProfileHeader() {
           aria-labelledby="dropdown-profile"
         >
           <ul className="text-defaulttextcolor font-medium dark:text-[#8C9097] dark:text-white/50">
-            <ProfileLink to="#" icon="ti-user-circle" label="Profile" />
+            <ProfileLink to="/profile" icon="ti-user-circle" label="Profile" />
             <ProfileLink to="#" icon="ti-inbox" label="Inbox" badge="25" />
             <ProfileLink
               to="#"

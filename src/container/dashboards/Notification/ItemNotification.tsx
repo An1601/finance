@@ -1,6 +1,8 @@
+import { Fragment } from "react/jsx-runtime";
+
 const ItemNotification = () => {
   return (
-    <div className="w-[380px] h-28 px-3 py-4 bg-white border-[1px] border-[#E8EAEF] justify-start items-center gap-8 inline-flex">
+    <Fragment>
       <div className="grow shrink basis-0 h-20 justify-start items-center gap-3 flex">
         <img
           className="h-11 w-11 rounded-full overflow-hidden"
@@ -25,7 +27,7 @@ const ItemNotification = () => {
           24,Oct 2024
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

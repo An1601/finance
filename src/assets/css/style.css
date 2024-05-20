@@ -561,7 +561,7 @@ Background Image
   @apply bg-secondary;
 }
 .crm-lead-legend.laptop:before {
-  @apply bg-warning;
+  @apply bg-danger;
 }
 .crm-lead-legend.tablet:before {
   @apply bg-success;

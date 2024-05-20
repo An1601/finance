@@ -12,9 +12,8 @@ import { Middleware, combineReducers } from "redux"; // Import Middleware type
 
 const persistedUserReducer = persistReducer(
   {
-    key: "Token",
+    key: "User",
     storage: storage,
-    whitelist: ["access_token", "refresh_token"],
   },
   userReducer,
 );

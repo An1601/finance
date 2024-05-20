@@ -18,7 +18,7 @@ function App() {
     if (localStorage.getItem("zenverticalstyles") == "icontext") {
       setMyClass("");
     }
-    if (window.innerWidth > 992) {
+    if (window.innerWidth > 1024) {
       const html = document.documentElement;
       if (html.getAttribute("icon-overlay") === "open") {
         html.setAttribute("icon-overlay", "");

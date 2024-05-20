@@ -1,3 +1,5 @@
+import { LoanStatus } from "./enum";
+
 export type SignUpInfo = {
   name: string;
   phone?: string;
@@ -60,7 +62,7 @@ export type Loans = {
   credit_limit: number;
   description: string;
   time_began: Date;
-  state: number;
+  state: LoanStatus;
 };
 
 export type LoanDetails = {
@@ -68,6 +70,7 @@ export type LoanDetails = {
   APR: number;
   rate_month: number;
   credit_limit: number;
+  state: LoanStatus;
   bank_name: string;
   bank_thumbnail: string;
 };
