@@ -2,6 +2,7 @@ import PackageLoanList from "./PackageLoanList";
 import bg1 from "../../../assets/images/authentication/1.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { loanDetails, loanRecords } from "./LoanListData";
+import LoanFilter from "./LoanFilter";
 function PackageLoanIndex() {
   const navigate = useNavigate();
   const { userid } = useParams();
@@ -30,6 +31,7 @@ function PackageLoanIndex() {
                 Package loans list
               </div>
             </div>
+            <LoanFilter />
           </div>
           <PackageLoanList loanDetails={loanList} />
         </div>
