@@ -33,6 +33,7 @@ export default {
       inter: ["Inter", "sans-serif"],
       Montserrat: ["Montserrat", "sans-serif"],
       HelveticaNeue: ["Helvetica Neue", "sans-serif"],
+      NunitoSans: ["Nunito Sans", "sans-serif"],
     },
     fontSize: {
       defaultsize: "0.813rem",
@@ -66,6 +67,7 @@ export default {
         light_finance: {
           background: "#FFF",
           background1: "#F5F9FF",
+          background_authen: "#EFF3F7",
           texttitle: "#C8D0DD",
           textbody: "#16202F",
           textsub: "#45556E",

@@ -66,7 +66,7 @@ const Login = () => {
       {/* right col */}
       <form
         onSubmit={submitLogin(handleSubmitLogin)}
-        className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col items-center gap-12"
+        className="w-full sm:max-w-[550px] z-10 mt-[6.25rem] mb-[3.25rem] sm:m-0 sm:justify-center px-6 flex flex-col items-center gap-12"
       >
         {/* frame logo */}
         <div className="w-full flex flex-col items-center justify-between gap-3">
