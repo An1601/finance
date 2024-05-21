@@ -2,7 +2,7 @@ import { Fragment, useEffect, useState } from "react";
 import Loader from "../components/common/loader/loader";
 import Sidebar from "../components/common/sidebar/sidebar";
 import Switcher from "../components/common/switcher/switcher";
-import Header from "../components/common/header/Index";
+import Header from "../components/common/header/index";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Navigate, Outlet } from "react-router-dom";
 import { RootState } from "../redux/store";
