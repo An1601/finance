@@ -1,10 +1,10 @@
 import { FC, Fragment } from "react";
-import HeaderMobile from "../../../components/common/header/IndexMobile";
+import HeaderMobile from "@components/common/header/IndexMobile";
 import Overview from "./Overview";
 import TopLoans from "./TopLoans";
 import PackageLoanList from "../PackageLoan/PackageLoanList";
 import ConsultingMeetingList from "../ConsultingMeeting/ConsultingMeetingList";
-import BottomBarCustom from "../../../components/common/bottomBar";
+import BottomBarCustom from "@components/common/bottomBar";
 import { useNavigate } from "react-router-dom";
 import { loanDetails } from "../PackageLoan/LoanListData";
 

@@ -1,19 +1,19 @@
 import { Fragment } from "react/jsx-runtime";
-import logo from "../../assets/images/brand-logos/1.png";
+import logo from "@assets/images/brand-logos/1.png";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { SignUpInfo } from "../../type/types";
-import EyeSlash from "../../components/svg/EyeSlash";
-import EyeOpen from "../../components/svg/EyeOpen";
+import { SignUpInfo } from "@type/types";
+import EyeSlash from "@components/svg/EyeSlash";
+import EyeOpen from "@components/svg/EyeOpen";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
+import { AppDispatch, RootState } from "@redux/store";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
-import Loader from "../../components/common/loader/loader";
-import api from "../../API/axios";
+import Loader from "@components/common/loader/loader";
+import api from "@api/axios";
 import axios from "axios";
-import AuthSubmitBtn from "../../components/common/button/AuthSubmitBtn";
+import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 
 const SignUp = () => {
   const [passwordshow1, setpasswordshow1] = useState(false);

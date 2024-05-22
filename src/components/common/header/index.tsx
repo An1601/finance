@@ -1,9 +1,9 @@
 import { FC, Fragment, useEffect, useState } from "react";
 import Modalsearch from "../modalsearch/modalsearch";
 import { Link } from "react-router-dom";
-import { store } from "../../../redux/store";
+import { store } from "@redux/store";
 import { connect } from "react-redux";
-import { ThemeChanger } from "../../../redux/action";
+import { ThemeChanger } from "@redux/action";
 import SearchBar from "./SearchBar";
 import ProfileHeader from "./ProfileHeader";
 import Notification from "./Notification";

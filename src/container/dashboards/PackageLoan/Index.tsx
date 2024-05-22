@@ -1,5 +1,5 @@
 import PackageLoanList from "./PackageLoanList";
-import bg1 from "../../../assets/images/authentication/1.svg";
+import bg1 from "@assets/images/authentication/1.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { loanDetails, loanRecords } from "./LoanListData";
 import LoanFilter from "./LoanFilter";

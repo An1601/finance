@@ -1,7 +1,7 @@
 import { FC, Fragment, useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 import { connect } from "react-redux";
-import { ThemeChanger } from "../../../redux/action";
+import { ThemeChanger } from "@redux/action";
 import Themeprimarycolor, * as switcherdata from "./switcherdata/switcherdata";
 import { Link } from "react-router-dom";
 

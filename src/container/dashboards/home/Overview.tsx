@@ -1,6 +1,6 @@
-import loanApproval from "../../../assets/icon/LoanApprovalIcon.svg";
-import loanRejected from "../../../assets/icon/LoanRejected.svg";
-import loanInProgress from "../../../assets/icon/LoanInProgress.svg";
+import loanApproval from "@assets/icon/LoanApprovalIcon.svg";
+import loanRejected from "@assets/icon/LoanRejected.svg";
+import loanInProgress from "@assets/icon/LoanInProgress.svg";
 
 function Overview() {
   return (

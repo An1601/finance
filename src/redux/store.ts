@@ -14,6 +14,15 @@ const persistedUserReducer = persistReducer(
   {
     key: "User",
     storage: storage,
+    whitelist: [
+      "access_token",
+      "refresh_token",
+      "name",
+      "phone",
+      "date_of_birth",
+      "address",
+      "email",
+    ],
   },
   userReducer,
 );

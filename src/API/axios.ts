@@ -1,6 +1,6 @@
 import axios from "axios";
-import { store } from "../redux/store"; // Import your Redux store
-import { updateToken } from "../redux/userReducers";
+import { store } from "@redux/store"; // Import your Redux store
+import { updateToken } from "@redux/userReducers";
 
 export const BASE_URL = import.meta.env.VITE_APP_API_URL;
 

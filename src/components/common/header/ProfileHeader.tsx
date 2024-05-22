@@ -1,12 +1,12 @@
 import { useNavigate } from "react-router-dom";
-import face9 from "../../../assets/images/faces/9.jpg";
-import { setLoadingFalse, setLoadingTrue } from "../../../redux/commonReducer";
-import api from "../../../API/axios";
+import face9 from "@assets/images/faces/9.jpg";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
+import api from "@api/axios";
 import { toast } from "react-toastify";
 import Loader from "../loader/loader";
-import { handle_logout } from "../../../redux/userReducers";
+import { handle_logout } from "@redux/userReducers";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../../redux/store";
+import { AppDispatch, RootState } from "@redux/store";
 import ProfileLink from "./ProfileLink";
 import useWindowWidth from "../../hook/UseWindowWidth";
 function ProfileHeader() {

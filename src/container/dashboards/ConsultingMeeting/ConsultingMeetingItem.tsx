@@ -1,6 +1,6 @@
-import MobileHomeBtn from "../../../components/common/button/MobileHomeBtn";
-import calendar from "../../../assets/icon/CalendarIcon.svg";
-import timer from "../../../assets/icon/TimerIcon.svg";
+import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
+import calendar from "@assets/icon/CalendarIcon.svg";
+import timer from "@assets/icon/TimerIcon.svg";
 
 const ConsultingMeetingItem = () => {
   return (

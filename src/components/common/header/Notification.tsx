@@ -1,8 +1,8 @@
 import NotiHeader from "../../svg/NotiHeader";
-import faqIcon from "../../../assets/icon/FAQIcon.svg";
+import faqIcon from "@assets/icon/FAQIcon.svg";
 import useWindowWidth from "../../hook/UseWindowWidth";
 import AuthSubmitBtn from "../button/AuthSubmitBtn";
-import NotificationList from "../../../container/dashboards/Notification/NotificationList";
+import NotificationList from "@container/dashboards/Notification/NotificationList";
 import { useNavigate } from "react-router-dom";
 
 function Notification() {

@@ -1,4 +1,4 @@
-import { LoanDetails } from "../../../type/types";
+import { LoanDetails } from "@type/types";
 import LoanItem from "./LoanItem";
 const PackageLoanList = ({ loanDetails }: { loanDetails: LoanDetails[] }) => {
   return (
