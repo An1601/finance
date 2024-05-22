@@ -1,15 +1,15 @@
 import { Fragment } from "react/jsx-runtime";
-import logo from "../../assets/images/brand-logos/1.png";
+import logo from "@assets/images/brand-logos/1.png";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
+import { AppDispatch, RootState } from "@redux/store";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
-import Loader from "../../components/common/loader/loader";
-import api from "../../API/axios";
+import Loader from "@components/common/loader/loader";
+import api from "@api/axios";
 import axios from "axios";
-import { useLocalStorage } from "../../utils";
+import { useLocalStorage } from "@utils/index";
 
 function VerifyOTP() {
   const searchParams = new URLSearchParams(location.search);

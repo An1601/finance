@@ -1,8 +1,8 @@
 import NotiHeader from "../../svg/NotiHeader";
-import faqIcon from "../../../assets/icon/FAQIcon.svg";
+import faqIcon from "@assets/icon/FAQIcon.svg";
 import useWindowWidth from "../../hook/UseWindowWidth";
 import AuthSubmitBtn from "../button/AuthSubmitBtn";
-import NotificationList from "../../../container/dashboards/Notification/NotificationList";
+import NotificationList from "@container/dashboards/Notification/NotificationList";
 import { useNavigate } from "react-router-dom";
 
 function Notification() {
@@ -16,6 +16,11 @@ function Notification() {
           id="dropdown-notification"
           type="button"
           className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
+          onClick={() => {
+            if (windowWidth < 480) {
+              navigate("/notification");
+            }
+          }}
         >
           <NotiHeader />
         </button>
@@ -52,6 +57,9 @@ function Notification() {
         <button
           type="button"
           className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
+          onClick={() => {
+            navigate("/faq");
+          }}
         >
           <img src={faqIcon} />
         </button>

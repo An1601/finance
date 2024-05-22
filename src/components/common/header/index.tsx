@@ -1,9 +1,9 @@
 import { FC, Fragment, useEffect, useState } from "react";
 import Modalsearch from "../modalsearch/modalsearch";
 import { Link } from "react-router-dom";
-import { store } from "../../../redux/store";
+import { store } from "@redux/store";
 import { connect } from "react-redux";
-import { ThemeChanger } from "../../../redux/action";
+import { ThemeChanger } from "@redux/action";
 import SearchBar from "./SearchBar";
 import ProfileHeader from "./ProfileHeader";
 import Notification from "./Notification";
@@ -169,7 +169,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
     <Fragment>
       <header className="app-header">
         <nav className="main-header !h-[3.75rem]" aria-label="Global">
-          <div className="main-header-container ml-10 2xl:mr-20 mr-10">
+          <div className="main-header-container ml-10 xl:mr-20 mr-10">
             <div className="header-content-left">
               <div
                 className="hidden sm:flex lg:hidden md:px-[0.325rem] items-center"

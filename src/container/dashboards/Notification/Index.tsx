@@ -1,5 +1,5 @@
 import ItemNotification from "./ItemNotification";
-import bg1 from "../../../assets/images/authentication/1.svg";
+import bg1 from "@assets/images/authentication/1.svg";
 import { useNavigate } from "react-router-dom";
 
 const NotificationIndex = () => {
@@ -9,15 +9,15 @@ const NotificationIndex = () => {
       <div className=" z-10 relative mx-6 mt-[75px] flex flex-col gap-7">
         <div className="h-8 flex justify-between items-center">
           <div className="flex items-center justify-between">
-            <div className="flex gap-3 items-center">
+            <div className="flex gap-3 md:gap-2 items-center">
               <i
-                className="md:hidden  fa-solid fa-arrow-left fa-xl text-light_finance-textbody"
+                className="md:hidden fa-solid fa-arrow-left fa-xl text-light_finance-textbody"
                 onClick={() => {
                   navigate("/");
                 }}
               ></i>
               <div className="md:block hidden w-1 h-5 bg-danger rounded-sm" />
-              <div className="text-center text-slate-900 text-2xl font-bold font-HelveticaNeue leading-loose">
+              <div className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
                 Notifications
               </div>
             </div>

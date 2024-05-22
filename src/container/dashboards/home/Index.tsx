@@ -4,8 +4,8 @@ import AmountDisbursed from "./AmountDisbursed";
 import TopBank from "./TopBank";
 import StateLoansChart from "./StateLoansChart";
 import HomeMobile from "./IndexMobile";
-import bg1 from "../../../assets/images/authentication/1.svg";
-import useWindowWidth from "../../../components/hook/UseWindowWidth";
+import bg1 from "@assets/images/authentication/1.svg";
+import useWindowWidth from "@components/hook/UseWindowWidth";
 import TopLoans from "./TopLoans";
 import StatePackageLoans from "./StatePackageLoans";
 

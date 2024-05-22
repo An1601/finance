@@ -1,4 +1,4 @@
-import loanCategory from "../../../assets/icon/LoanCategoryIcon.svg";
+import loanCategory from "@assets/icon/LoanCategoryIcon.svg";
 
 function TopLoans() {
   return (

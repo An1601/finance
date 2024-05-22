@@ -16252,7 +16252,7 @@ code {
 }
 
 .main-content {
-  @apply sm:px-6 p-0;
+  @apply sm:px-6 xl:pl-10 xl:pr-20 p-0;
 }
 
 .content {

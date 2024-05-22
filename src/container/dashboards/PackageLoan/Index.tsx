@@ -1,5 +1,5 @@
 import PackageLoanList from "./PackageLoanList";
-import bg1 from "../../../assets/images/authentication/1.svg";
+import bg1 from "@assets/images/authentication/1.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { loanDetails, loanRecords } from "./LoanListData";
 import LoanFilter from "./LoanFilter";
@@ -9,16 +9,16 @@ function PackageLoanIndex() {
   const loanList = userid ? loanRecords : loanDetails;
   return (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 mt-[75px] xl:ml-10 xl:mr-10 2xl:mr-20">
+      <div className=" z-10 relative mx-6 mt-[75px]">
         <div className="flex md:hidden items-center justify-between">
-          <div className="flex gap-3 items-center">
+          <div className="flex gap-3 md:gap-2 items-center">
             <i
               className="fa-solid fa-arrow-left fa-xl text-light_finance-textbody"
               onClick={() => {
                 navigate("/");
               }}
             ></i>
-            <div className="text-center text-slate-900 text-2xl font-bold font-HelveticaNeue leading-loose">
+            <div className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
               Package loan list
             </div>
           </div>

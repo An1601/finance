@@ -8,19 +8,12 @@ import { useNavigate } from "react-router-dom";
 interface HeaderProps {}
 
 const HeaderMobile: FC<HeaderProps> = () => {
-  const navigate = useNavigate();
   return (
     <Fragment>
       <div className="h-fit flex flex-col gap-5">
         <div className="flex justify-between">
           <ProfileHeader />
-          <div
-            onClick={() => {
-              navigate("/notification");
-            }}
-          >
-            <Notification />
-          </div>
+          <Notification />
         </div>
         <SearchBar />
       </div>

@@ -4,7 +4,7 @@ import HomeIcon from "../../svg/Home";
 import MessageIcon from "../../svg/Message";
 import ProfileIcon from "../../svg/Profile";
 import { useSelector } from "react-redux";
-import { RootState } from "../../../redux/store";
+import { RootState } from "@redux/store";
 
 const BottomBarCustom = () => {
   const navigate = useNavigate();

@@ -5,7 +5,7 @@ import Switcher from "../components/common/switcher/switcher";
 import Header from "../components/common/header/index";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Navigate, Outlet } from "react-router-dom";
-import { RootState } from "../redux/store";
+import { RootState } from "@redux/store";
 import { useSelector } from "react-redux";
 
 function App() {

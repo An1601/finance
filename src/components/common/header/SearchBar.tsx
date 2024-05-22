@@ -7,7 +7,7 @@ const SearchBar = () => {
       data-hs-overlay="#search-modal"
     >
       <div className="w-full h-[38px] flex items-center bg-white rounded-l-xl">
-        <div className="ml-[10px] text-slate-900 text-sm font-normal font-['Helvetica Neue'] leading-tight">
+        <div className="ml-[10px] text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight">
           Search
         </div>
       </div>
