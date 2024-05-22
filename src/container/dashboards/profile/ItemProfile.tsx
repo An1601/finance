@@ -1,6 +1,6 @@
 import React from "react";
 import Switch from "./Switch";
-import ArrowIcon from "../../../assets/icon/ArrowIcon.svg";
+import ArrowIcon from "@assets/icon/ArrowIcon.svg";
 
 type MenuItem = {
   icon: string;

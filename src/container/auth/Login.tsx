@@ -1,20 +1,20 @@
 import { Fragment } from "react/jsx-runtime";
-import logo from "../../assets/images/brand-logos/1.png";
+import logo from "@assets/images/brand-logos/1.png";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { LoginInfo } from "../../type/types";
-import EyeSlash from "../../components/svg/EyeSlash";
+import { LoginInfo } from "@type/types";
+import EyeSlash from "@components/svg/EyeSlash";
 import { useState } from "react";
-import EyeOpen from "../../components/svg/EyeOpen";
-import { AppDispatch, RootState } from "../../redux/store";
+import EyeOpen from "@components/svg/EyeOpen";
+import { AppDispatch, RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { handle_login } from "../../redux/userReducers";
+import { handle_login } from "@redux/userReducers";
 import { toast } from "react-toastify";
-import Loader from "../../components/common/loader/loader";
-import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
-import api from "../../API/axios";
+import Loader from "@components/common/loader/loader";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
+import api from "@api/axios";
 import axios from "axios";
-import AuthSubmitBtn from "../../components/common/button/AuthSubmitBtn";
+import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 
 const Login = () => {
   const navigate = useNavigate();

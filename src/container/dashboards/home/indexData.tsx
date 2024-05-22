@@ -1,11 +1,11 @@
 import { Component } from "react";
 import ReactApexChart from "react-apexcharts";
 import { ApexOptions } from "apexcharts";
-import face4 from "../../../assets/images/faces/4.jpg";
-import face15 from "../../../assets/images/faces/15.jpg";
-import face11 from "../../../assets/images/faces/11.jpg";
-import face8 from "../../../assets/images/faces/8.jpg";
-import face9 from "../../../assets/images/faces/9.jpg";
+import face4 from "@assets/images/faces/4.jpg";
+import face15 from "@assets/images/faces/15.jpg";
+import face11 from "@assets/images/faces/11.jpg";
+import face8 from "@assets/images/faces/8.jpg";
+import face9 from "@assets/images/faces/9.jpg";
 
 //
 interface spark3 {

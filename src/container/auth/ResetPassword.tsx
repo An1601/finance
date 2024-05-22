@@ -1,18 +1,18 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Fragment } from "react/jsx-runtime";
-import logo from "../../assets/images/brand-logos/1.png";
+import logo from "@assets/images/brand-logos/1.png";
 import { useState } from "react";
-import EyeSlash from "../../components/svg/EyeSlash";
-import EyeOpen from "../../components/svg/EyeOpen";
+import EyeSlash from "@components/svg/EyeSlash";
+import EyeOpen from "@components/svg/EyeOpen";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "../../redux/store";
-import { setLoadingFalse, setLoadingTrue } from "../../redux/commonReducer";
+import { AppDispatch, RootState } from "@redux/store";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
-import Loader from "../../components/common/loader/loader";
+import Loader from "@components/common/loader/loader";
 import axios from "axios";
-import { BASE_URL } from "../../API/axios";
-import AuthSubmitBtn from "../../components/common/button/AuthSubmitBtn";
+import { BASE_URL } from "@api/axios";
+import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 
 const ResetPassword = () => {
   const searchParams = new URLSearchParams(location.search);

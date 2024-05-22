@@ -379,7 +379,7 @@ export const Imagealerts = `<div className="alert alert-img alert-primary
 alert-dismissible fase show !rounded-full flex-wrap relative" 
 role="alert" id="dismiss-alert44">
 <div className="avatar avatar-sm me-3 avatar-rounded">
-<img src="../../../assets/images/faces/3.jpg" alt="img" />
+<img src="@assets/images/faces/3.jpg" alt="img" />
 </div><div>A simple primary alert with image—check it out!</div>
 <button type="button" className="m-2 p-3 absolute end-0 top-0 
 inline-flex bg-teal-50 rounded-sm text-teal-500 focus:outline-none
@@ -412,7 +412,7 @@ inline-flex bg-teal-50 rounded-sm text-teal-500 focus:outline-none
 export const Alertimages = `<div className="alert alert-img alert-primary
  alert-dismissible fase show flex-wrap relative" role="alert" 
  id="dismiss-alert51"><div className="avatar avatar-xs me-3">
- <img src="../../../assets/images/faces/3.jpg" alt="img" /></div>
+ <img src="@assets/images/faces/3.jpg" alt="img" /></div>
  <div>A simple primary alert with image—check it out!</div>
  <button type="button" className="m-2 p-3 absolute end-0 top-0  
  inline-flex bg-teal-50 rounded-sm text-teal-500 focus:outline-none 
@@ -583,7 +583,7 @@ Profile<spanclassName="absolute -top-2 start-[80%] translate-middle
 p-2 bg-success border border-light !rounded-full">
 <span className="hidden">New alerts</span></span>
 </button><span className="avatar relative">
-<img src="../../../assets/images/faces/2.jpg" alt="img" 
+<img src="@assets/images/faces/2.jpg" alt="img" 
 className="!rounded-md" />
 <spanclassName="absolute -top-2 start-[80%] translate-middle 
 p-1 bg-success border border-light !rounded-full">
@@ -591,14 +591,14 @@ p-1 bg-success border border-light !rounded-full">
 </span>
 </span>
 <span className="avatar avatar-rounded relative">
-<img src="../../../assets/images/faces/15.jpg" alt="img" />
+<img src="@assets/images/faces/15.jpg" alt="img" />
 <spanclassName="absolute -top-2 start-[80%] translate-middle 
 p-1 bg-success border border-light !rounded-full">
 <span className="hidden">New alerts</span>
 </span>
 </span>
 <span className="avatar avatar-rounded relative">
-<img src="../../../assets/images/faces/10.jpg" alt="img" />
+<img src="@assets/images/faces/10.jpg" alt="img" />
 <span className="absolute -top-2 start-[60%] translate-middle 
 badge bg-secondary !rounded-full shadow-lg text-white">1000+
 <span className="hidden">New alerts</span>
@@ -1179,45 +1179,45 @@ export const group6 = `<div className="inline-flex rounded-md shadow-sm me-6">
 </button>
 </div>`;
 
-//Images & Figures 
+//Images & Figures
 
 export const image1 = `<p className="box-title mb-4 !text-[0.813rem] 
 !font-normal">Use <code> .img-fluid </code>class to the img tag to get 
 responsive image.</p><div className="text-center">
-<img src="../../../assets/images/media/media-48.jpg" 
+<img src="@assets/images/media/media-48.jpg" 
 className="img-fluid !inline-flex" alt="..." /></div>`;
 
 export const image2 = `<p className="box-title mb-4 !text-[0.813rem]
  !font-normal">Use <code>.rounded-md</code> class along with <code>.
  img-fluid</code> to get border radius.</p><div className="text-center">
- <img src="../../../assets/images/media/media-49.jpg" 
+ <img src="@assets/images/media/media-49.jpg" 
  className="img-fluid !rounded-md !inline-flex" alt="..." /></div>`;
 
 export const image3 = `<p className="box-title mb-4 !text-[0.813rem] 
 !font-normal">Use <code>.rounded-full</code> class to <code>img</code> 
 tag to get rounded image.</p><div className="text-center">
-<img src="../../../assets/images/media/media-50.jpg" 
+<img src="@assets/images/media/media-50.jpg" 
 className="img-fluid !rounded-full !inline-flex" alt="..." /></div>`;
 
 export const image4 = `<img className="!rounded-md float-start" 
-src="../../../assets/images/media/media-53.jpg" alt="..." />`;
+src="@assets/images/media/media-53.jpg" alt="..." />`;
 
 export const image5 = `<img className="!rounded-md mx-auto block" 
-src="../../../assets/images/media/media-55.jpg" alt="..." />`;
+src="@assets/images/media/media-55.jpg" alt="..." />`;
 
 export const image6 = `<img className="!rounded-md ltr:float-right
- rtl:float-left" src="../../../assets/images/media/media-54.jpg" alt="..." />`;
+ rtl:float-left" src="@assets/images/media/media-54.jpg" alt="..." />`;
 
 export const image7 = `<div className="flex justify-between gap-2">
 <figure className="figure inline-block mb-4"><img className="m-[0.125rem] 
 leading-none img-fluid rounded-md w-full"
- src="../../../assets/images/media/media-56.jpg" alt="..." />
+ src="@assets/images/media/media-56.jpg" alt="..." />
  <figcaption className="text-[0.875em] text-textmuted dark:text-white/70 mt-2">
  A caption for the above image.</figcaption>
  </figure>
  <figure className="figure ltr:float-right rtl:float-left">
  <img className="m-[0.125rem] leading-none img-fluid rounded-md w-full"
-  src="../../../assets/images/media/media-57.jpg" alt="..." />
+  src="@assets/images/media/media-57.jpg" alt="..." />
 <figcaption className="text-[0.875em] text-textmuted dark:text-white/70 
 text-end mt-2">A caption for the above image.
 </figcaption>
@@ -1226,18 +1226,18 @@ text-end mt-2">A caption for the above image.
 
 export const image8 = `<p className="mb-3">Use <code>ti-img-thumbnail</code> to give an image a rounded 1px border.</p>
 <div className="text-center">
-<img src="../../../assets/images/media/media-51.jpg" className="ti-img-thumbnail" alt="..." />
+<img src="@assets/images/media/media-51.jpg" className="ti-img-thumbnail" alt="..." />
 </div>`;
 
 export const image9 = `<p className="mb-3">Use <code>ti-img-thumbnail-rounded</code> to give an image a rounded 1px border.</p>
-<div className="text-center"><img src="../../../assets/images/media/media-52.jpg" className="ti-img-thumbnail-rounded" alt="..." />
+<div className="text-center"><img src="@assets/images/media/media-52.jpg" className="ti-img-thumbnail-rounded" alt="..." />
 </div>`;
 
 //List Group
 
 export const list1 = `<p className="mb-3">Use <code>ti-img-thumbnail-rounded</code>
  to give an image a rounded 1px border.</p><div className="text-center">
-<img src="../../../assets/images/media/media-52.jpg" className="ti-img-thumbnail-rounded" alt="..." />
+<img src="@assets/images/media/media-52.jpg" className="ti-img-thumbnail-rounded" alt="..." />
 </div>`;
 
 export const list2 = ` <ul className="ti-list-group">{ActiveButtons.map((idx) =>
@@ -2086,7 +2086,7 @@ export const tooltip5 = `<div className="hs-tooltip ti-main-tooltip">
 
 export const tooltip6 = `<div className="hs-tooltip ti-main-tooltip">
 <button type="button" className="hs-tooltip-toggle avatar avatar-md me-2 online avatar-rounded">
-<img src="../../../assets/images/faces/12.jpg" alt="img" /></button>
+<img src="@assets/images/faces/12.jpg" alt="img" /></button>
 <span className="hs-tooltip-content  ti-main-tooltip-content !py-1 !px-2 !bg-primary !text-xs !font-medium !text-white shadow-sm " role="tooltip"> Alex Carey</span>
 </div>`;
 
@@ -2110,7 +2110,7 @@ export const tooltip7 = ` <div className="box-body flex">
   </div>
   </div>`;
 
-//dropdowns 
+//dropdowns
 
 export const dropdown1 = `<div className="ti-btn-list flex align-center flex-wrap">
 <div className="hs-dropdown ti-dropdown me-2">
@@ -2572,79 +2572,79 @@ shadow-sm p-6 text-[#8c9097] dark:text-white/50 text-[0.875rem] max-w-[200px]">
 //Object Fit
 
 export const object1 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg"
+<img src="@assets/images/media/media-28.jpg"
  className="object-contain border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object2 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg"
+<img src="@assets/images/media/media-28.jpg"
  className="object-cover border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object3 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg"
+<img src="@assets/images/media/media-28.jpg"
  className="object-fill border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object4 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg" 
+<img src="@assets/images/media/media-28.jpg" 
 className="object-scale-down border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object5 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg" 
+<img src="@assets/images/media/media-28.jpg" 
 className="object-none border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object6 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg" 
+<img src="@assets/images/media/media-28.jpg" 
 className="sm:object-contain border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object7 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg"
+<img src="@assets/images/media/media-28.jpg"
  className="md:object-contain border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object8 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg" 
+<img src="@assets/images/media/media-28.jpg" 
 className="lg:object-contain border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object9 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg"
+<img src="@assets/images/media/media-28.jpg"
  className="xl:object-contain border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object10 = `<div className="box-body ">
-<img src="../../../assets/images/media/media-28.jpg" 
+<img src="@assets/images/media/media-28.jpg" 
 className="xxl:object-contain border dark:border-defaultborder/10 !rounded-md" alt="..." />
 </div>`;
 
 export const object11 = `<div className="box-body object-fit-container">
-<video src="../../../assets/video/1.mp4" className="object-contain 
+<video src="@assets/video/1.mp4" className="object-contain 
 !rounded-md border dark:border-defaultborder/10" autoPlay loop muted>
 </video>
 </div>`;
 
 export const object12 = `<div className="box-body object-fit-container">
-<video src="../../../assets/video/1.mp4" className="object-cover
+<video src="@assets/video/1.mp4" className="object-cover
  !rounded-md border dark:border-defaultborder/10" autoPlay loop muted>
 </video>
 </div>`;
 
 export const object13 = `<div className="box-body object-fit-container">
-<video src="../../../assets/video/1.mp4" className="object-fill !rounded-md 
+<video src="@assets/video/1.mp4" className="object-fill !rounded-md 
 border dark:border-defaultborder/10" autoPlay loop muted></video></div>`;
 
 export const object14 = `<div className="box-body object-fit-container">
-<video src="../../../assets/video/1.mp4" className="object-scale-down 
+<video src="@assets/video/1.mp4" className="object-scale-down 
 !rounded-md border dark:border-defaultborder/10" autoPlay loop muted>
 </video>
 </div>`;
 
 export const object15 = `<div className="box-body object-fit-container">
-<video src="../../../assets/video/1.mp4" className="object-none 
+<video src="@assets/video/1.mp4" className="object-none 
 !rounded-md border dark:border-defaultborder/10" autoPlay loop muted>
 </video>
 </div>`;
@@ -2993,4 +2993,3 @@ viewBox="0 0 24 24" width="24px" fill="#000000"><path d="M0 0h24v24H0V0z" fill="
  </Link>
  </div>
  </div>`;
-

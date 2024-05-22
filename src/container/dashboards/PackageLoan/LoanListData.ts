@@ -1,5 +1,5 @@
-import { LoanDetails, Loans } from "../../../type/types";
-import { LoanStatus } from "../../../type/enum";
+import { LoanDetails, Loans } from "@type/types";
+import { LoanStatus } from "@type/enum";
 
 export const bankListData = [
   {

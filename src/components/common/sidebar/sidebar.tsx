@@ -2,9 +2,9 @@ import { FC, Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 import { MENUITEMS } from "./sidemenu/sidemenu";
-import { ThemeChanger } from "../../../redux/action";
-import { store } from "../../../redux/store";
-import logo1 from "../../../assets/images/brand-logos/desktop-dark.svg";
+import { ThemeChanger } from "@redux/action";
+import { store } from "@redux/store";
+import logo1 from "@assets/images/brand-logos/desktop-dark.svg";
 import SimpleBar from "simplebar-react";
 interface SidebarProps {}
 

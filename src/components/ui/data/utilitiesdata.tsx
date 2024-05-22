@@ -61,32 +61,32 @@ This is 10% opacity success border</div>
 </div>`;
 
 export const border7 = `<div className="box-body flex flex-wrap gap-2">
-<img src="../../../assets/images/media/media-58.jpg" 
+<img src="@assets/images/media/media-58.jpg" 
 className="bd-placeholder-img rounded-md" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg" 
+<img src="@assets/images/media/media-58.jpg" 
 className="bd-placeholder-img rounded-t-md" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg" 
+<img src="@assets/images/media/media-58.jpg" 
 className="bd-placeholder-img rounded-e-md" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg"
+<img src="@assets/images/media/media-58.jpg"
 className="bd-placeholder-img rounded-b-md" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg" 
+<img src="@assets/images/media/media-58.jpg" 
 className="bd-placeholder-img rounded-s-md" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg"
+<img src="@assets/images/media/media-58.jpg"
 className="bd-placeholder-img rounded-full" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg"
+<img src="@assets/images/media/media-58.jpg"
 className="bd-placeholder-img  rounded-full" alt="..." />
 </div>`;
 
 export const border8 = `<div className="box-body flex flex-wrap gap-2">
-<img src="../../../assets/images/media/media-58.jpg" 
+<img src="@assets/images/media/media-58.jpg" 
 className="bd-placeholder-img rounded-none" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg"
+<img src="@assets/images/media/media-58.jpg"
  className="bd-placeholder-img rounded-sm" alt="..." />
- <img src="../../../assets/images/media/media-58.jpg"
+ <img src="@assets/images/media/media-58.jpg"
   className="bd-placeholder-img rounded-md" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg" 
+<img src="@assets/images/media/media-58.jpg" 
 className="bd-placeholder-img rounded-lg" alt="..." />
-<img src="../../../assets/images/media/media-58.jpg" 
+<img src="@assets/images/media/media-58.jpg" 
 className="bd-placeholder-img rounded-xl" alt="..." />
 </div>`;
 
@@ -94,13 +94,13 @@ className="bd-placeholder-img rounded-xl" alt="..." />
 
 export const avatar1 = `<div className="box-body py-4">
 <span className="avatar me-2 avatar-radius-0">
-<img src="../../../assets/images/faces/1.jpg" alt="img"/>
+<img src="@assets/images/faces/1.jpg" alt="img"/>
 </span>
 <span className="avatar me-2">
-<img src="../../../assets/images/faces/2.jpg" alt="img" />
+<img src="@assets/images/faces/2.jpg" alt="img" />
 </span>
 <span className="avatar me-2 avatar-rounded">
-<img src="../../../assets/images/faces/3.jpg" alt="img" />
+<img src="@assets/images/faces/3.jpg" alt="img" />
 </span>
 </div>`;
 

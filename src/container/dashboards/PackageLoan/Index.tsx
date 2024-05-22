@@ -1,13 +1,13 @@
 import PackageLoanList from "./PackageLoanList";
-import bg1 from "../../../assets/images/authentication/1.svg";
-import filterIcon from "../../../assets/iconfonts/tabler-icons/icons/filter.svg";
-import arrow from "../../../assets/icon/ArrowIcon.svg";
+import bg1 from "@assets/images/authentication/1.svg";
+import filterIcon from "@assets/iconfonts/tabler-icons/icons/filter.svg";
+import arrow from "@assets/icon/ArrowIcon.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { loanDetails, loanRecords } from "./LoanListData";
 import { useState } from "react";
 import { filterLoanOpt } from "./FilterOption";
-import MobileHomeBtn from "../../../components/common/button/MobileHomeBtn";
-import { FilterOption } from "../../../type/enum";
+import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
+import { FilterOption } from "@type/enum";
 
 function PackageLoanIndex() {
   const navigate = useNavigate();

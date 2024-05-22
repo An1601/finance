@@ -1,8 +1,8 @@
 import React from "react";
-import { LoanDetails } from "../../../type/types";
-import { LoanStatus } from "../../../type/enum";
-import MobileHomeBtn from "../../../components/common/button/MobileHomeBtn";
-import calendar from "../../../assets/icon/CalendarIcon.svg";
+import { LoanDetails } from "@type/types";
+import { LoanStatus } from "@type/enum";
+import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
+import calendar from "@assets/icon/CalendarIcon.svg";
 
 const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
   return (

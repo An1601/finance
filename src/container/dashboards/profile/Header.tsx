@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import ImageIcon from "../../../components/svg/Image";
-import defaultProfileImage from "../../../assets/images/profile/avatar.jpeg";
+import ImageIcon from "@components/svg/Image";
+import defaultProfileImage from "@assets/images/profile/avatar.jpeg";
 
 interface PropHeaderItem {
   className?: string;

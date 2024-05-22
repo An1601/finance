@@ -92,7 +92,7 @@ table-bordered-primary border-primary/10 min-w-full">
 <td>
 <div className="flex items-center">
 <span className="avatar avatar-xs me-2 online 
-avatar-rounded"><img src="../../../assets/images/faces/3.jpg" 
+avatar-rounded"><img src="@assets/images/faces/3.jpg" 
 alt="img" /></span>Mayor Kelly</div>
 </td>
 <td>
@@ -108,7 +108,7 @@ Booked</span>
  <td><div className="flex items-center">
  <span className="avatar avatar-xs me-2 
  online avatar-rounded">
- <img src="../../../assets/images/faces/6.jpg" 
+ <img src="@assets/images/faces/6.jpg" 
  alt="img" /></span>Wicky Kross</div>
  </td>
  <td>
@@ -117,7 +117,7 @@ Booked</span>
  <td><span className="badge bg-light text-dark">23-05-2022</span>
  </td><td><div className="flex items-center">
  <span className="avatar avatar-xs me-2 online avatar-rounded">
- <img src="../../../assets/images/faces/1.jpg" alt="img" /></span>
+ <img src="@assets/images/faces/1.jpg" alt="img" /></span>
  Julia Cam</div></td><td>
  <span className="badge bg-primary/10 text-primary">
  Booked</span></td></tr>
@@ -146,7 +146,7 @@ border-success/10">
 07-01-2022</span></td>
 <td><div className="flex items-center">
 <span className="avatar avatar-xs me-2 online
- avatar-rounded"><img src="../../../assets/images/faces/10.jpg" 
+ avatar-rounded"><img src="@assets/images/faces/10.jpg" 
  alt="img" /></span>Helsenky</div>
  </td>
  <td>
@@ -159,7 +159,7 @@ border-success/10">
  18-05-2022</span></td><td>
  <div className="flex items-center">
  <span className="avatar avatar-xs me-2 online avatar-rounded">
- <img src="../../../assets/images/faces/14.jpg" alt="img" />
+ <img src="@assets/images/faces/14.jpg" alt="img" />
  </span>Brodus</div>
  </td>
  <td><span className="badge bg-success/10
@@ -172,7 +172,7 @@ border-success/10">
 </td>
 <td><div className="flex items-center">
 <span className="avatar avatar-xs me-2 online avatar-rounded">
-<img src="../../../assets/images/faces/12.jpg" alt="img" />
+<img src="@assets/images/faces/12.jpg" alt="img" />
 </span>Chikka Alen</div>
 </td>
 <td>
@@ -202,7 +202,7 @@ table-bordered table-bordered-warning min-w-full">
  <div className="flex items-center">
  <span className="avatar avatar-xs me-2 online
   avatar-rounded">
-  <img src="../../../assets/images/faces/13.jpg" alt="img" />
+  <img src="@assets/images/faces/13.jpg" alt="img" />
   </span>Sukuro Kim
   </div>
   </td>
@@ -213,7 +213,7 @@ table-bordered table-bordered-warning min-w-full">
   <td><span className="badge bg-light text-dark">26-03-2022</span>
   </td><td><div className="flex items-center">
   <span className="avatar avatar-xs me-2 online avatar-rounded">
-  <img src="../../../assets/images/faces/11.jpg" alt="img" />
+  <img src="@assets/images/faces/11.jpg" alt="img" />
   </span>Alex Carey</div></td><td>
   <span className="badge bg-warning/10 text-warning">
   Accepted</span></td>
@@ -223,7 +223,7 @@ table-bordered table-bordered-warning min-w-full">
   <span className="badge bg-light text-dark">14-03-2022</span>
   </td><td><div className="flex items-center">
   <span className="avatar avatar-xs me-2 online avatar-rounded">
-  <img src="../../../assets/images/faces/2.jpg" alt="img" />
+  <img src="@assets/images/faces/2.jpg" alt="img" />
   </span>Pamila Anderson</div></td><td>
   <span className="badge bg-warning/10 text-warning">Accepted</span>
   </td>
@@ -463,7 +463,7 @@ ti-custom-table-hover"><thead>
 </tr></thead><tbody><tr className="border-b border-defaultborder">
 <td><div className="flex items-center">
 <div className="avatar avatar-sm me-2 avatar-rounded">
-<img src="../../../assets/images/faces/10.jpg" alt="img" />
+<img src="@assets/images/faces/10.jpg" alt="img" />
 </div><div><div className="leading-none"><span>Joanna Smith</span>
 </div>
 <div className="leading-none">
@@ -477,11 +477,11 @@ dark:text-white/50">joannasmith14@gmail.com</span>
 <span className="badge bg-primary/10 text-primary">Fashion</span>
 </td><td><div className="avatar-list-stacked">
 <span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/2.jpg" alt="img" />
+<img src="@assets/images/faces/2.jpg" alt="img" />
 </span><span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/8.jpg" alt="img" />
+<img src="@assets/images/faces/8.jpg" alt="img" />
 </span><span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/2.jpg" alt="img" />
+<img src="@assets/images/faces/2.jpg" alt="img" />
 </span><Link className="avatar avatar-sm bg-primary text-white 
 avatar-rounded"href="#">+5</Link></div></td><td>
 <div className="progress progress-xs">
@@ -494,7 +494,7 @@ aria-valuenow="52" aria-valuemin="0"aria-valuemax="100">
 <tr className="border-b border-defaultborder">
 <td><div className="flex items-center">
 <div className="avatar avatar-sm me-2 avatar-rounded">
-<img src="../../../assets/images/faces/2.jpg" alt="img" />
+<img src="@assets/images/faces/2.jpg" alt="img" />
 </div><div><div className="leading-none"><span>Kara Kova</span>
 </div><div className="leading-none"><spanclassName="text-[0.6875rem]
  text-[#8c9097] dark:text-white/50">milesakara@gmail.com</span>
@@ -502,9 +502,9 @@ aria-valuenow="52" aria-valuemin="0"aria-valuemax="100">
  text-warning">Clothing</span></td>
  <td><div className="avatar-list-stacked"><span className="avatar 
  avatar-sm avatar-rounded">
- <img src="../../../assets/images/faces/4.jpg" alt="img" /></span>
+ <img src="@assets/images/faces/4.jpg" alt="img" /></span>
  <span className="avatar avatar-sm avatar-rounded">
- <img src="../../../assets/images/faces/6.jpg" alt="img" />
+ <img src="@assets/images/faces/6.jpg" alt="img" />
  </span><Link className="avatar avatar-sm bg-primary text-white 
  avatar-rounded"href="#">+6</Link></div></td>
  <td>
@@ -517,7 +517,7 @@ aria-valuenow="52" aria-valuemin="0"aria-valuemax="100">
   </tr><tr className="border-b border-defaultborder ">
   <td><div className="flex items-center">
   <div className="avatar avatar-sm me-2 avatar-rounded">
-  <img src="../../../assets/images/faces/16.jpg" alt="img" />
+  <img src="@assets/images/faces/16.jpg" alt="img" />
   </div><div><div className="leading-none">
   <span>Donald Trimb</span></div>
   <div className="leading-none"><spanclassName="text-[0.6875rem] 
@@ -526,11 +526,11 @@ aria-valuenow="52" aria-valuemin="0"aria-valuemax="100">
   <span className="badge bg-dark/10 text-black dark:text-white">
   Electronics</span></td><td><div className="avatar-list-stacked">
   <span className="avatar avatar-sm avatar-rounded">
-  <img src="../../../assets/images/faces/1.jpg" alt="img" />
+  <img src="@assets/images/faces/1.jpg" alt="img" />
   </span><span className="avatar avatar-sm avatar-rounded">
-  <img src="../../../assets/images/faces/11.jpg" alt="img" />
+  <img src="@assets/images/faces/11.jpg" alt="img" />
   </span><span className="avatar avatar-sm avatar-rounded"><
-  img src="../../../assets/images/faces/15.jpg" alt="img" />
+  img src="@assets/images/faces/15.jpg" alt="img" />
   </span><Link className="avatar avatar-sm bg-primary text-white 
   avatar-rounded"href="#">+2</Link></div></td><td>
   <div className="progress progress-xs">
@@ -542,7 +542,7 @@ aria-valuenow="52" aria-valuemin="0"aria-valuemax="100">
    <tr className="border-b border-defaultborder ">
    <td><div className="flex items-center">
    <div className="avatar avatar-sm me-2 avatar-rounded">
-   <img src="../../../assets/images/faces/13.jpg" alt="img" />
+   <img src="@assets/images/faces/13.jpg" alt="img" />
    </div><div><div className="leading-none">
    <span>Justin Gaethje</span></div>
    <div className="leading-none">
@@ -555,9 +555,9 @@ aria-valuenow="52" aria-valuemin="0"aria-valuemax="100">
    <span className="badge bg-danger/10 text-danger">Sports</span>
    </td><td><div className="avatar-list-stacked">
    <span className="avatar avatar-sm avatar-rounded">
-   <img src="../../../assets/images/faces/4.jpg" alt="img" />
+   <img src="@assets/images/faces/4.jpg" alt="img" />
    </span><span className="avatar avatar-sm avatar-rounded">
-   <img src="../../../assets/images/faces/6.jpg" alt="img" />
+   <img src="@assets/images/faces/6.jpg" alt="img" />
    </span><Link className="avatar avatar-sm bg-primary
     text-white avatar-rounded"href="#">+5</Link>
     </div>
@@ -584,7 +584,7 @@ export const tabledata17 = `<div className="table-responsive">
  </thead><tbody><tr className="border-b border-defaultborder">
  <th scope="row">IN-2032</th><td><div className="flex items-center">
  <div className="avatar avatar-sm me-2 avatar-rounded">
- <img src="../../../assets/images/faces/15.jpg" alt="img" />
+ <img src="@assets/images/faces/15.jpg" alt="img" />
  </div><div><div className="leading-none"><span>Mark Cruise</span></div>
  <div className="leading-none"><spanclassName="text-[0.6875rem] text-[#8c9097]
   dark:text-white/50">markcruise24@gmail.com</span></div></div></div></td><td>
@@ -594,7 +594,7 @@ export const tabledata17 = `<div className="table-responsive">
   <th scope="row">IN-2022</th>
   <td><div className="flex items-center">
   <div className="avatar avatar-sm me-2 avatar-rounded">
-   <img src="../../../assets/images/faces/12.jpg" alt="img" />
+   <img src="@assets/images/faces/12.jpg" alt="img" />
     </div>
     <div>
     <div className="leading-none"><span>Charanjeep</span>
@@ -615,7 +615,7 @@ export const tabledata17 = `<div className="table-responsive">
      <td>
      <div className="flex items-center">
      <div className="avatar avatar-sm me-2 avatar-rounded">
-     <img src="../../../assets/images/faces/5.jpg" alt="img" />
+     <img src="@assets/images/faces/5.jpg" alt="img" />
      </div>
      <div>
      <div className="leading-none"><span>
@@ -631,7 +631,7 @@ export const tabledata17 = `<div className="table-responsive">
 </td><td>Feb 1,2022</td></tr><tr className="border-b border-defaultborder">
 <th scope="row">IN-2036</th><td><div className="flex items-center">
 <div className="avatar avatar-sm me-2 avatar-rounded">
-<img src="../../../assets/images/faces/11.jpg" alt="img" />
+<img src="@assets/images/faces/11.jpg" alt="img" />
 </div><div><div className="leading-none"><span>Simon Cohen</span>
 </div><div className="leading-none"><span className="text-[0.6875rem]
  text-[#8c9097] dark:text-white/50">simon@gmail.com</span></div>
@@ -1176,18 +1176,18 @@ type="checkbox" id="checkboxNoLabel1" value="" aria-label="..." />
 </th>
 <td><div className="flex items-center">
 <span className="avatar avatar-xs me-2 online avatar-rounded">
-<img src="../../../assets/images/faces/3.jpg" alt="img" /></span>
+<img src="@assets/images/faces/3.jpg" alt="img" /></span>
 Mayor Kelly</div></td><td>Manufacturer</td>
 <td>
 <span className="badge bg-primary/10 text-primary">Team Lead</span></td>
 <td>mayorkrlly@gmail.com</td>
 <td><div className="avatar-list-stacked">
 <span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/2.jpg" alt="img" />
+<img src="@assets/images/faces/2.jpg" alt="img" />
 </span><span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/8.jpg" alt="img" />
+<img src="@assets/images/faces/8.jpg" alt="img" />
 </span><span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/2.jpg" alt="img" />
+<img src="@assets/images/faces/2.jpg" alt="img" />
 </span>
 <Link className="avatar avatar-sm bg-primary text-white 
 avatar-rounded" href="#">+4</Link></div></td>
@@ -1215,23 +1215,23 @@ type="checkbox" id="checkboxNoLabel2" value="" aria-label="..." />
 </th>
 <td><div className="flex items-center">
 <span className="avatar avatar-xs me-2 online avatar-rounded">
-<img src="../../../assets/images/faces/12.jpg" alt="img" />
+<img src="@assets/images/faces/12.jpg" alt="img" />
 </span>Andrew Garfield</div></td><td>Managing Director</td>
 <td><span className="badge bg-warning/10 text-warning">
 Director</span></td><td>andrewgarfield@gmail.com</td>
 <td>
 <div className="avatar-list-stacked">
 <span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/1.jpg" alt="img" />
+<img src="@assets/images/faces/1.jpg" alt="img" />
 </span>
 <span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/5.jpg" alt="img" />
+<img src="@assets/images/faces/5.jpg" alt="img" />
 </span>
 <span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/11.jpg" alt="img" />
+<img src="@assets/images/faces/11.jpg" alt="img" />
 </span>
 <span className="avatar avatar-sm avatar-rounded">
-<img src="../../../assets/images/faces/15.jpg" alt="img" />
+<img src="@assets/images/faces/15.jpg" alt="img" />
 </span>
 <Link className="avatar avatar-sm bg-primary 
 text-white avatar-rounded" href="#">+4</Link>
@@ -1262,7 +1262,7 @@ text-white avatar-rounded" href="#">+4</Link>
  <td>
  <div className="flex items-center">
  <span className="avatar avatar-xs me-2 online avatar-rounded">
- <img src="../../../assets/images/faces/14.jpg" alt="img" />
+ <img src="@assets/images/faces/14.jpg" alt="img" />
  </span>Simon Cowel</div></td><td>Service Manager</td>
  <td>
  <span className="badge bg-success/10 text-success">
@@ -1271,9 +1271,9 @@ text-white avatar-rounded" href="#">+4</Link>
  <td>simoncowel234@gmail.com</td>
  <td><div className="avatar-list-stacked">
  <span className="avatar avatar-sm avatar-rounded">
- <img src="../../../assets/images/faces/6.jpg" alt="img" />
+ <img src="@assets/images/faces/6.jpg" alt="img" />
  </span><span className="avatar avatar-sm avatar-rounded">
- <img src="../../../assets/images/faces/16.jpg" alt="img" />
+ <img src="@assets/images/faces/16.jpg" alt="img" />
  </span>
  <Link className="avatar avatar-sm bg-primary text-white
 avatar-rounded" href="#">+10</Link>
@@ -1293,16 +1293,16 @@ avatar-rounded" href="#">+10</Link>
  <th scope="row"><input className="form-check-input" type="checkbox"
 id="checkboxNoLabel13" value="" aria-label="..." /></th>
 <td><div className="flex items-center"><span className="avatar avatar-xs me-2 
-  online avatar-rounded"><img src="../../../assets/images/faces/5.jpg" alt="img" />
+  online avatar-rounded"><img src="@assets/images/faces/5.jpg" alt="img" />
   </span>Mirinda Hers</div></td><td>Recruiter</td><td>
   <span className="badge bg-danger/10 text-danger">Employee</span></td>
   <td>mirindahers@gmail.com</td><td><div className="avatar-list-stacked">
   <span className="avatar avatar-sm avatar-rounded">
-  <img src="../../../assets/images/faces/3.jpg" alt="img" />
+  <img src="@assets/images/faces/3.jpg" alt="img" />
   </span><span className="avatar avatar-sm avatar-rounded">
-  <img src="../../../assets/images/faces/10.jpg" alt="img" />
+  <img src="@assets/images/faces/10.jpg" alt="img" />
   </span><span className="avatar avatar-sm avatar-rounded">
-  <img src="../../../assets/images/faces/14.jpg" alt="img" /></span>
+  <img src="@assets/images/faces/14.jpg" alt="img" /></span>
   <Link className="avatar avatar-sm bg-primary text-white avatar-rounded"
    href="#">+6
    </Link>
