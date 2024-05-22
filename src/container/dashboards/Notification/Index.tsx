@@ -11,11 +11,12 @@ const NotificationIndex = () => {
           <div className="flex items-center justify-between">
             <div className="flex gap-3 items-center">
               <i
-                className="fa-solid fa-arrow-left fa-xl text-light_finance-textbody"
+                className="md:hidden  fa-solid fa-arrow-left fa-xl text-light_finance-textbody"
                 onClick={() => {
                   navigate("/");
                 }}
               ></i>
+              <div className="md:block hidden w-1 h-5 bg-danger rounded-sm" />
               <div className="text-center text-slate-900 text-2xl font-bold font-HelveticaNeue leading-loose">
                 Notifications
               </div>

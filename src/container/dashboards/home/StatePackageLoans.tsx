@@ -10,7 +10,7 @@ function StatePackageLoans() {
       <div className="box custom-card">
         <div className="box-header justify-between sm:border-b-[1px] sm:border-stroke">
           <div className="flex items-center gap-2 ">
-            <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
+            <div className="w-1 h-5 bg-danger rounded-sm" />
             <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
               State package loans
             </div>

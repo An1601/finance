@@ -21,7 +21,7 @@ const HomeMobile: FC<CrmProps> = () => {
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
             <div className="flex items-center gap-2 sm:hidden">
-              <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
+              <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
                 Package loans list
               </div>
@@ -42,7 +42,7 @@ const HomeMobile: FC<CrmProps> = () => {
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
             <div className="flex items-center gap-2 sm:hidden">
-              <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
+              <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
                 Consulting meeting list
               </div>
