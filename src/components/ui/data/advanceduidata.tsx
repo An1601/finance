@@ -1523,7 +1523,7 @@ Button
               <div className="flex items-center">
                   <div className="me-2">
                       <span className="avatar avatar-md !rounded-full">
-                          <img src="../assets/images/faces/12.jpg" alt="" className="!rounded-full">
+                          <img src="@assets/images/faces/12.jpg" alt="" className="!rounded-full">
                       </span>
                   </div>
                   <div className="flex-grow">
@@ -1549,7 +1549,7 @@ Button
               <div className="flex items-center">
                   <div className="me-2">
                       <span className="avatar avatar-md !rounded-full">
-                          <img src="../assets/images/faces/1.jpg" alt="" className="!rounded-full">
+                          <img src="@assets/images/faces/1.jpg" alt="" className="!rounded-full">
                       </span>
                   </div>
                   <div className="flex-grow">
@@ -1601,7 +1601,7 @@ Button
               <div className="flex items-center">
                   <div className="me-2">
                       <span className="avatar avatar-md !rounded-full">
-                          <img src="../assets/images/faces/6.jpg" alt="" className="!rounded-full">
+                          <img src="@assets/images/faces/6.jpg" alt="" className="!rounded-full">
                       </span>
                   </div>
                   <div className="flex-grow">
@@ -1640,7 +1640,7 @@ Button
               <div className="flex items-center">
                   <div className="me-2">
                       <span className="avatar avatar-md !rounded-full">
-                          <img src="../assets/images/faces/14.jpg" alt="" className="!rounded-full">
+                          <img src="@assets/images/faces/14.jpg" alt="" className="!rounded-full">
                       </span>
                   </div>
                   <div className="flex-grow">
@@ -1728,7 +1728,7 @@ Enable body scrolling
           <div className="flex items-center">
               <div className="me-2">
                   <span className="avatar avatar-md !rounded-full">
-                      <img src="../assets/images/faces/12.jpg" alt="" className="!rounded-full">
+                      <img src="@assets/images/faces/12.jpg" alt="" className="!rounded-full">
                   </span>
               </div>
               <div className="flex-grow">
@@ -1754,7 +1754,7 @@ Enable body scrolling
           <div className="flex items-center">
               <div className="me-2">
                   <span className="avatar avatar-md !rounded-full">
-                      <img src="../assets/images/faces/1.jpg" alt="" className="!rounded-full">
+                      <img src="@assets/images/faces/1.jpg" alt="" className="!rounded-full">
                   </span>
               </div>
               <div className="flex-grow">
@@ -1806,7 +1806,7 @@ Enable body scrolling
           <div className="flex items-center">
               <div className="me-2">
                   <span className="avatar avatar-md !rounded-full">
-                      <img src="../assets/images/faces/6.jpg" alt="" className="!rounded-full">
+                      <img src="@assets/images/faces/6.jpg" alt="" className="!rounded-full">
                   </span>
               </div>
               <div className="flex-grow">
@@ -1845,7 +1845,7 @@ Enable body scrolling
           <div className="flex items-center">
               <div className="me-2">
                   <span className="avatar avatar-md !rounded-full">
-                      <img src="../assets/images/faces/14.jpg" alt="" className="!rounded-full">
+                      <img src="@assets/images/faces/14.jpg" alt="" className="!rounded-full">
                   </span>
               </div>
               <div className="flex-grow">
@@ -1935,7 +1935,7 @@ Enable backdrop
            <div className="flex items-center">
                <div className="me-2">
                    <span className="avatar avatar-md !rounded-full">
-                       <img src="../assets/images/faces/12.jpg" alt="" className="!rounded-full">
+                       <img src="@assets/images/faces/12.jpg" alt="" className="!rounded-full">
                    </span>
                </div>
                <div className="flex-grow">
@@ -1961,7 +1961,7 @@ Enable backdrop
            <div className="flex items-center">
                <div className="me-2">
                    <span className="avatar avatar-md !rounded-full">
-                       <img src="../assets/images/faces/1.jpg" alt="" className="!rounded-full">
+                       <img src="@assets/images/faces/1.jpg" alt="" className="!rounded-full">
                    </span>
                </div>
                <div className="flex-grow">
@@ -2013,7 +2013,7 @@ Enable backdrop
            <div className="flex items-center">
                <div className="me-2">
                    <span className="avatar avatar-md !rounded-full">
-                       <img src="../assets/images/faces/6.jpg" alt="" className="!rounded-full">
+                       <img src="@assets/images/faces/6.jpg" alt="" className="!rounded-full">
                    </span>
                </div>
                <div className="flex-grow">
@@ -2052,7 +2052,7 @@ Enable backdrop
            <div className="flex items-center">
                <div className="me-2">
                    <span className="avatar avatar-md !rounded-full">
-                       <img src="../assets/images/faces/14.jpg" alt="" className="!rounded-full">
+                       <img src="@assets/images/faces/14.jpg" alt="" className="!rounded-full">
                    </span>
                </div>
                <div className="flex-grow">
@@ -2142,7 +2142,7 @@ export const offcanvas4 = `
               <div className="flex items-center">
                   <div className="me-2">
                       <span className="avatar avatar-md !rounded-full">
-                          <img src="../assets/images/faces/12.jpg" alt="" className="!rounded-full">
+                          <img src="@assets/images/faces/12.jpg" alt="" className="!rounded-full">
                       </span>
                   </div>
                   <div className="flex-grow">
@@ -2168,7 +2168,7 @@ export const offcanvas4 = `
               <div className="flex items-center">
                   <div className="me-2">
                       <span className="avatar avatar-md !rounded-full">
-                          <img src="../assets/images/faces/1.jpg" alt="" className="!rounded-full">
+                          <img src="@assets/images/faces/1.jpg" alt="" className="!rounded-full">
                       </span>
                   </div>
                   <div className="flex-grow">
@@ -2220,7 +2220,7 @@ export const offcanvas4 = `
               <div className="flex items-center">
                   <div className="me-2">
                       <span className="avatar avatar-md !rounded-full">
-                          <img src="../assets/images/faces/6.jpg" alt="" className="!rounded-full">
+                          <img src="@assets/images/faces/6.jpg" alt="" className="!rounded-full">
                       </span>
                   </div>
                   <div className="flex-grow">
@@ -2259,7 +2259,7 @@ export const offcanvas4 = `
               <div className="flex items-center">
                   <div className="me-2">
                       <span className="avatar avatar-md !rounded-full">
-                          <img src="../assets/images/faces/14.jpg" alt="" className="!rounded-full">
+                          <img src="@assets/images/faces/14.jpg" alt="" className="!rounded-full">
                       </span>
                   </div>
                   <div className="flex-grow">
@@ -2370,7 +2370,7 @@ Toggle right offcanvas
                 <div className="flex items-center">
                     <div className="me-2">
                         <span className="avatar avatar-md !rounded-full">
-                            <img src="../assets/images/faces/12.jpg" alt="" className="!rounded-full">
+                            <img src="@assets/images/faces/12.jpg" alt="" className="!rounded-full">
                         </span>
                     </div>
                     <div className="flex-grow">
@@ -2396,7 +2396,7 @@ Toggle right offcanvas
                 <div className="flex items-center">
                     <div className="me-2">
                         <span className="avatar avatar-md !rounded-full">
-                            <img src="../assets/images/faces/1.jpg" alt="" className="!rounded-full">
+                            <img src="@assets/images/faces/1.jpg" alt="" className="!rounded-full">
                         </span>
                     </div>
                     <div className="flex-grow">
@@ -2448,7 +2448,7 @@ Toggle right offcanvas
                 <div className="flex items-center">
                     <div className="me-2">
                         <span className="avatar avatar-md !rounded-full">
-                            <img src="../assets/images/faces/6.jpg" alt="" className="!rounded-full">
+                            <img src="@assets/images/faces/6.jpg" alt="" className="!rounded-full">
                         </span>
                     </div>
                     <div className="flex-grow">
@@ -2487,7 +2487,7 @@ Toggle right offcanvas
                 <div className="flex items-center">
                     <div className="me-2">
                         <span className="avatar avatar-md !rounded-full">
-                            <img src="../assets/images/faces/14.jpg" alt="" className="!rounded-full">
+                            <img src="@assets/images/faces/14.jpg" alt="" className="!rounded-full">
                         </span>
                     </div>
                     <div className="flex-grow">

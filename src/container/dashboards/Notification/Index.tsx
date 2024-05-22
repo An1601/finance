@@ -1,5 +1,5 @@
 import ItemNotification from "./ItemNotification";
-import bg1 from "../../../assets/images/authentication/1.svg";
+import bg1 from "@assets/images/authentication/1.svg";
 import { useNavigate } from "react-router-dom";
 
 const NotificationIndex = () => {

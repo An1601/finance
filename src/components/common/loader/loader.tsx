@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import loader from "../../../assets/images/media/loader.svg";
+import loader from "@assets/images/media/loader.svg";
 
 interface LoaderProps {}
 

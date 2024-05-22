@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { store } from "../../../../redux/store";
+import { store } from "@redux/store";
 import { MENUITEMS } from "../../sidebar/sidemenu/sidemenu";
 
 export function Dark(actionfunction: any) {
