@@ -69,7 +69,7 @@ const SignUp = () => {
       {/* right col */}
       <form
         onSubmit={submitSignUp(handleSubmitSignUp)}
-        className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col justify-center items-center gap-12"
+        className="w-full sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] lg:mt-10 px-6 flex flex-col justify-center items-center gap-12"
       >
         {/* frame logo */}
         <div className="w-full flex flex-col items-center justify-between gap-3">
@@ -86,7 +86,7 @@ const SignUp = () => {
         {/* frame input */}
         <div className="w-full flex flex-col gap-6">
           {/* input field */}
-          <div className="w-full flex flex-col gap-10">
+          <div className="w-full flex flex-col gap-8">
             {/* name field */}
             <div className="w-full flex flex-col gap-2 relative">
               <div
