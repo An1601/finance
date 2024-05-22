@@ -1,6 +1,4 @@
 import MobileHomeBtn from "../../../components/common/button/MobileHomeBtn";
-import CalendarIcon from "../../../components/svg/Calendar";
-import TimerIcon from "../../../components/svg/Timer";
 import calendar from "../../../assets/icon/CalendarIcon.svg";
 import timer from "../../../assets/icon/TimerIcon.svg";
 
@@ -8,11 +6,11 @@ const ConsultingMeetingItem = () => {
   return (
     <div className="p-4 bg-white rounded-xl flex flex-col gap-3">
       <div className="flex gap-10 h-11 justify-between items-start">
-        <div className="flex flex-col">
-          <div className="font-HelveticaNeue font-normal text-xs leading-4 tracking-tight text-light_finance-textsub">
+        <div className="max-w-full flex flex-col">
+          <div className="font-HelveticaNeue font-normal text-xs leading-4 tracking-tight text-light_finance-textsub overflow-hidden text-ellipsis whitespace-nowrap">
             Conventional fixed rate loans
           </div>
-          <div className="font-HelveticaNeue font-bold text-lg leading-7 text-light_finance-textbody">
+          <div className="font-HelveticaNeue font-bold text-lg leading-7 text-light_finance-textbody overflow-hidden text-ellipsis whitespace-nowrap">
             Franchise loans
           </div>
         </div>

@@ -5,13 +5,16 @@ import TopLoans from "./TopLoans";
 import PackageLoanList from "../PackageLoan/PackageLoanList";
 import ConsultingMeetingList from "../ConsultingMeeting/ConsultingMeetingList";
 import BottomBarCustom from "../../../components/common/bottomBar";
+import { useNavigate } from "react-router-dom";
+import { loanDetails } from "../PackageLoan/LoanListData";
 
 interface CrmProps {}
 
 const HomeMobile: FC<CrmProps> = () => {
+  const navigate = useNavigate();
   return (
     <Fragment>
-      <div className="mx-6 flex flex-col gap-8">
+      <div className="mx-6 my-[75px]  flex flex-col gap-8">
         <HeaderMobile />
         <TopLoans />
         <Overview />
@@ -23,12 +26,17 @@ const HomeMobile: FC<CrmProps> = () => {
                 Package loans list
               </div>
             </div>
-            <div className="font-HelveticaNeue font-normal text-base leading-6 tracking-tighter underline text-light_finance-primary">
+            <div
+              className="font-HelveticaNeue font-normal text-base leading-6 tracking-tighter underline text-light_finance-primary"
+              onClick={() => {
+                navigate("/loan-list");
+              }}
+            >
               View all
             </div>
           </div>
           <div className=" my-0 sm:my-[1.5rem]">
-            <PackageLoanList />
+            <PackageLoanList loanDetails={loanDetails} />
           </div>
         </div>
         <div className="flex flex-col gap-3">

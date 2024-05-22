@@ -6,6 +6,8 @@ import StateLoansChart from "./StateLoansChart";
 import HomeMobile from "./IndexMobile";
 import bg1 from "../../../assets/images/authentication/1.svg";
 import useWindowWidth from "../../../components/hook/UseWindowWidth";
+import TopLoans from "./TopLoans";
+import StatePackageLoans from "./StatePackageLoans";
 
 interface CrmProps {}
 
@@ -17,12 +19,14 @@ const Home: FC<CrmProps> = () => {
         <Overview />
         <div className="grid grid-cols-12 gap-x-6">
           <div className="xl:col-span-8 col-span-12">
-            <div className="grid grid-cols-12 gap-x-6">
+            <div className="grid grid-cols-12 gap-x-6 gap-y-5">
               <AmountDisbursed />
+              <StatePackageLoans />
             </div>
           </div>
           <div className="xl:col-span-4 col-span-12">
-            <div className="grid grid-cols-12 gap-x-6">
+            <div className="grid grid-cols-12 gap-x-6 gap-y-5">
+              <TopLoans />
               <TopBank />
               <StateLoansChart />
             </div>
@@ -32,7 +36,7 @@ const Home: FC<CrmProps> = () => {
     );
   else
     return (
-      <div className="w-full relative overflow-hidden">
+      <div className="w-full min-h-screen relative overflow-hidden">
         <div className="w-full z-10 relative">
           <HomeMobile />
         </div>

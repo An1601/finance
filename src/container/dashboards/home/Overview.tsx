@@ -1,4 +1,3 @@
-import arrow from "../../../assets/icon/ArrowIcon.svg";
 import loanApproval from "../../../assets/icon/LoanApprovalIcon.svg";
 import loanRejected from "../../../assets/icon/LoanRejected.svg";
 import loanInProgress from "../../../assets/icon/LoanInProgress.svg";
@@ -25,7 +24,7 @@ function Overview() {
               </div>
             </div>
           </div>
-          <img src={arrow} alt="arrow" />
+          <i className="fa-solid fa-chevron-up hidden sm:block rotate-90 fa-xl"></i>
         </div>
         <div className="md:col-span-4 col-span-12 bg-white rounded-lg px-5 py-4 flex justify-between items-center">
           <div className="h-12 flex items-center">
@@ -39,7 +38,7 @@ function Overview() {
               </div>
             </div>
           </div>
-          <img src={arrow} alt="arrow" />
+          <i className="fa-solid fa-chevron-up hidden sm:block rotate-90 fa-xl"></i>
         </div>
         <div className="md:col-span-4 col-span-12 bg-white rounded-lg px-5 py-4 flex justify-between items-center">
           <div className="h-12 flex items-center">
@@ -53,7 +52,7 @@ function Overview() {
               </div>
             </div>
           </div>
-          <img src={arrow} alt="arrow" />
+          <i className="fa-solid fa-chevron-up hidden sm:block rotate-90 fa-xl"></i>
         </div>
       </div>
     </div>

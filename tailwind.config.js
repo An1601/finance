@@ -83,6 +83,7 @@ export default {
           secondary: "#FFD600",
           primary: "#3EFFD5",
         },
+        stroke: "#E8EAEF",
         bodybg: "rgb(var(--body-bg))",
         bodybg2: "rgb(var(--dark-bg))",
         primary: "rgb(var(--primary))",

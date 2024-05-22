@@ -5,43 +5,12 @@ function StateLoansChart() {
   return (
     <div className="xxl:col-span-12 xl:col-span-12  col-span-12">
       <div className="box">
-        <div className="box-header justify-between">
-          <div className="box-title">Leads By Source</div>
-          <div className="hs-dropdown ti-dropdown">
-            <Link
-              aria-label="anchor"
-              to="#"
-              className="flex items-center justify-center w-[1.75rem] h-[1.75rem] ! !text-[0.8rem] !py-1 !px-2 rounded-sm bg-light border-light shadow-none !font-medium"
-              aria-expanded="false"
-            >
-              <i className="fe fe-more-vertical text-[0.8rem]"></i>
-            </Link>
-            <ul className="hs-dropdown-menu ti-dropdown-menu hidden">
-              <li>
-                <Link
-                  className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                  to="#"
-                >
-                  Week
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                  to="#"
-                >
-                  Month
-                </Link>
-              </li>
-              <li>
-                <Link
-                  className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                  to="#"
-                >
-                  Year
-                </Link>
-              </li>
-            </ul>
+        <div className="sm:px-5 sm:py-6 sm:border-b-[1px] sm:border-stroke flex justify-between items-center">
+          <div className="flex items-center gap-2 ">
+            <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
+            <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
+              State package loans
+            </div>
           </div>
         </div>
         <div className="box-body overflow-hidden">
@@ -53,21 +22,21 @@ function StateLoansChart() {
             </div>
           </div>
         </div>
-        <div className="grid grid-cols-4 border-t border-dashed dark:border-defaultborder/10">
+        <div className="grid grid-cols-3 border-t border-dashed dark:border-defaultborder/10">
           <div className="col !p-0">
-            <div className="!ps-4 p-[0.95rem] text-center border-e border-dashed dark:border-defaultborder/10">
-              <span className="text-[#8c9097] dark:text-white/50 text-[0.75rem] mb-1 crm-lead-legend mobile inline-block">
-                Mobile
+            <div className="!pe-4 p-[0.95rem] text-center">
+              <span className="text-[#8c9097] dark:text-white/50 text-[0.75rem] mb-1 crm-lead-legend tablet inline-block">
+                Approval
               </span>
               <div>
-                <span className="text-[1rem]  font-semibold">1,624</span>
+                <span className="text-[1rem]  font-semibold">679</span>
               </div>
             </div>
           </div>
           <div className="col !p-0">
             <div className="p-[0.95rem] text-center border-e border-dashed dark:border-defaultborder/10">
               <span className="text-[#8c9097] dark:text-white/50 text-[0.75rem] mb-1 crm-lead-legend desktop inline-block">
-                Desktop
+                In Progress
               </span>
               <div>
                 <span className="text-[1rem]  font-semibold">1,267</span>
@@ -77,20 +46,10 @@ function StateLoansChart() {
           <div className="col !p-0">
             <div className="p-[0.95rem] text-center border-e border-dashed dark:border-defaultborder/10">
               <span className="text-[#8c9097] dark:text-white/50 text-[0.75rem] mb-1 crm-lead-legend laptop inline-block">
-                Laptop
+                Reject
               </span>
               <div>
                 <span className="text-[1rem]  font-semibold">1,153</span>
-              </div>
-            </div>
-          </div>
-          <div className="col !p-0">
-            <div className="!pe-4 p-[0.95rem] text-center">
-              <span className="text-[#8c9097] dark:text-white/50 text-[0.75rem] mb-1 crm-lead-legend tablet inline-block">
-                Tablet
-              </span>
-              <div>
-                <span className="text-[1rem]  font-semibold">679</span>
               </div>
             </div>
           </div>

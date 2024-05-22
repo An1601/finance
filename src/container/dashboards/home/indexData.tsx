@@ -781,12 +781,7 @@ export class Sourcedata extends Component<{}, spark3> {
             },
           },
         },
-        colors: [
-          "rgb(132, 90, 223)",
-          "rgb(35, 183, 229)",
-          "rgb(245, 184, 73)",
-          "rgb(38, 191, 148)",
-        ],
+        colors: ["rgb(35, 183, 229)", "rgb(38, 191, 148)", "#F65160"],
       },
     };
   }
