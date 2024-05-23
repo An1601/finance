@@ -1,177 +1,85 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Dealsstatistics } from "./indexData";
+import LoanFilter from "../PackageLoan/LoanFilter";
+import { loanRecords } from "../PackageLoan/LoanListData";
+import { LoanStatus } from "../../../type/enum";
 
 function StatePackageLoans() {
-  // for User search function
-  const [Data, setData] = useState(Dealsstatistics);
-
-  const userdata: any = [];
-
-  const myfunction = (idx: any) => {
-    let Data;
-    for (Data of Dealsstatistics) {
-      if (Data.name[0] == " ") {
-        Data.name = Data.name.trim();
-      }
-      if (Data.name.toLowerCase().includes(idx.toLowerCase())) {
-        if (Data.name.toLowerCase().startsWith(idx.toLowerCase())) {
-          userdata.push(Data);
-        }
-      }
-    }
-    setData(userdata);
-  };
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
       <div className="box custom-card">
-        <div className="box-header justify-between">
-          <div className="box-title">Deals Statistics</div>
-          <div className="flex flex-wrap gap-2">
-            <div>
-              <input
-                className="ti-form-control form-control-sm"
-                type="text"
-                placeholder="Search Here"
-                onChange={(ele) => {
-                  myfunction(ele.target.value);
-                }}
-                aria-label=".form-control-sm example"
-              />
-            </div>
-            <div className="hs-dropdown ti-dropdown">
-              <Link
-                to="#"
-                className="ti-btn ti-btn-primary !bg-primary !text-white !py-1 !px-2 !text-[0.75rem] !m-0 !gap-0 !font-medium"
-                aria-expanded="false"
-              >
-                Sort By
-                <i className="ri-arrow-down-s-line align-middle ms-1 inline-block"></i>
-              </Link>
-              <ul
-                className="hs-dropdown-menu ti-dropdown-menu hidden"
-                role="menu"
-              >
-                <li>
-                  <Link
-                    className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                    to="#"
-                  >
-                    New
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                    to="#"
-                  >
-                    Popular
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                    to="#"
-                  >
-                    Relevant
-                  </Link>
-                </li>
-              </ul>
+        <div className="box-header justify-between sm:border-b-[1px] sm:border-stroke">
+          <div className="flex items-center gap-2 ">
+            <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
+            <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
+              State package loans
             </div>
           </div>
+          <LoanFilter />
         </div>
         <div className="box-body">
           <div className="overflow-x-auto">
             <table className="table min-w-full whitespace-nowrap table-hover border table-bordered">
               <thead>
                 <tr className="border border-inherit border-solid dark:border-defaultborder/10">
-                  <th scope="row" className="!ps-4 !pe-5">
-                    <input
-                      className="form-check-input"
-                      type="checkbox"
-                      id="checkboxNoLabel1"
-                      defaultValue=""
-                      aria-label="..."
-                    />
+                  <th scope="col" className="!ps-4 !pe-5">
+                    No
                   </th>
                   <th
                     scope="col"
-                    className="!text-start !text-[0.85rem] min-w-[200px]"
+                    className="font-Roboto font-medium text-sm text-light_finance-textbody leading-[15.4px]"
                   >
-                    Sales Rep
+                    Loan name
                   </th>
-                  <th scope="col" className="!text-start !text-[0.85rem]">
-                    Category
+                  <th
+                    scope="col"
+                    className="font-Roboto font-medium text-sm text-light_finance-textbody leading-[15.4px]"
+                  >
+                    Bank name
                   </th>
-                  <th scope="col" className="!text-start !text-[0.85rem]">
-                    Mail
+                  <th
+                    scope="col"
+                    className="font-Roboto font-medium text-sm text-light_finance-textbody leading-[15.4px]"
+                  >
+                    Credit limit
                   </th>
-                  <th scope="col" className="!text-start !text-[0.85rem]">
-                    Location
+                  <th
+                    scope="col"
+                    className="font-Roboto font-medium text-sm text-light_finance-textbody leading-[15.4px]"
+                  >
+                    Submit Date
                   </th>
-                  <th scope="col" className="!text-start !text-[0.85rem]">
-                    Date
-                  </th>
-                  <th scope="col" className="!text-start !text-[0.85rem]">
-                    Action
+                  <th
+                    scope="col"
+                    className="font-Roboto font-medium text-sm text-light_finance-textbody leading-[15.4px]"
+                  >
+                    State
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {Data.map((idx) => (
+                {loanRecords.map((record, index) => (
                   <tr
-                    className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light"
-                    key={Math.random()}
+                    className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light font-HelveticaNeue font-normal text-sm text-light_finance-textsub leading-5"
+                    key={index}
                   >
                     <th scope="row" className="!ps-4 !pe-5">
-                      <input
-                        className="form-check-input"
-                        type="checkbox"
-                        defaultChecked={idx.checked === "defaultChecked"}
-                        id="checkboxNoLabel2"
-                        defaultValue=""
-                        aria-label="..."
-                      />
+                      {index + 1}
                     </th>
-                    <td>
-                      <div className="flex items-center font-semibold">
-                        <span className="!me-2 inline-flex justify-center items-center">
-                          <img
-                            src={idx.src}
-                            alt="img"
-                            className="w-[1.75rem] h-[1.75rem] leading-[1.75rem] text-[0.65rem]  rounded-full"
-                          />
-                        </span>
-                        {idx.name}
-                      </div>
-                    </td>
-                    <td>{idx.role}</td>
-                    <td>{idx.mail}</td>
+                    <td>{record.loan_name}</td>
+                    <td>{record.bank_name}</td>
+                    <td>{record.credit_limit}</td>
+                    <td>{record.time_began.toDateString()}</td>
                     <td>
                       <span
-                        className={`inline-flex text-${idx.color} !py-[0.15rem] !px-[0.45rem] rounded-sm !font-semibold !text-[0.75em] bg-${idx.color}/10`}
+                        className={`inline-flex ${record.state === LoanStatus.APPROVED ? "text-success bg-success/10" : record.state === LoanStatus.INPROGRESS ? "text-info bg-info/10" : "text-danger bg-danger/10"} !py-[0.15rem] !px-[0.45rem] rounded-sm !font-semibold !text-[0.75em]`}
                       >
-                        {idx.location}
+                        {record.state === LoanStatus.APPROVED
+                          ? "Approval"
+                          : record.state === LoanStatus.INPROGRESS
+                            ? "In Progress"
+                            : "Reject"}
                       </span>
-                    </td>
-                    <td>{idx.date}</td>
-                    <td>
-                      <div className="flex flex-row items-center !gap-2 text-[0.9375rem]">
-                        <Link
-                          aria-label="anchor"
-                          to="#"
-                          className="ti-btn ti-btn-icon ti-btn-wave !gap-0 !m-0 !h-[1.75rem] !w-[1.75rem] text-[0.8rem] bg-success/10 text-success hover:bg-success hover:text-white hover:border-success"
-                        >
-                          <i className="ri-download-2-line"></i>
-                        </Link>
-                        <Link
-                          aria-label="anchor"
-                          to="#"
-                          className="ti-btn ti-btn-icon ti-btn-wave !gap-0 !m-0 !h-[1.75rem] !w-[1.75rem] text-[0.8rem] bg-primary/10 text-primary hover:bg-primary hover:text-white hover:border-primary"
-                        >
-                          <i className="ri-edit-line"></i>
-                        </Link>
-                      </div>
                     </td>
                   </tr>
                 ))}
@@ -194,7 +102,7 @@ function StatePackageLoans() {
                     </Link>
                   </li>
                   <li className="page-item">
-                    <Link className="page-link active" to="#">
+                    <Link className="page-link " to="#">
                       1
                     </Link>
                   </li>
@@ -204,7 +112,10 @@ function StatePackageLoans() {
                     </Link>
                   </li>
                   <li className="page-item">
-                    <Link className="page-link !text-primary" to="#">
+                    <Link
+                      className="page-link !text-light_finance-primary"
+                      to="#"
+                    >
                       next
                     </Link>
                   </li>

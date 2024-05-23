@@ -34,6 +34,7 @@ export default {
       Montserrat: ["Montserrat", "sans-serif"],
       HelveticaNeue: ["Helvetica Neue", "sans-serif"],
       NunitoSans: ["Nunito Sans", "sans-serif"],
+      Roboto: ["Roboto", "sans-serif"],
     },
     fontSize: {
       defaultsize: "0.813rem",
@@ -88,7 +89,7 @@ export default {
         stroke: "#E8EAEF",
         bodybg: "rgb(var(--body-bg))",
         bodybg2: "rgb(var(--dark-bg))",
-        primary: "rgb(var(--primary))",
+        primary: "#01D2B4",
         primaryrgb: "rgb(var(--primary-rgb))",
         secondary: "rgb(var(--secondary))",
         success: "rgb(var(--success))",

@@ -123,6 +123,7 @@ function fetchLoanDetails(isRecord: boolean) {
       state: isRecord ? loan.state : LoanStatus.NOT_SUBMIT,
       bank_name: bank?.name ?? "",
       bank_thumbnail: bank?.thumbnail ?? "",
+      time_began: loan.time_began,
     };
   });
 }
