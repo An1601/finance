@@ -11,7 +11,7 @@ const FAQ = () => {
     formState: { errors },
   } = useForm();
   return (
-    <div className="min-h-screen relative mt-[75px] md:m-0 flex flex-col gap-7 bg-light_finance-background1">
+    <div className="min-h-screen md:min-h- relative mt-[75px] md:m-0 flex flex-col gap-7 bg-light_finance-background1">
       <div className="md:hidden flex items-center justify-between">
         <div className="flex gap-3 items-center mx-6">
           <i
@@ -25,7 +25,7 @@ const FAQ = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex-1 bg-light_finance-background p-6 mt-6 md:mt-8 rounded-t-[1.5rem] flex flex-col gap-10 lg:flex-col-reverse">
+      <div className="w-full flex-1 bg-light_finance-background p-6 mt-6 md:mt-8 rounded-t-[1.5rem] flex flex-col gap-10 lg:flex-col-reverse lg:justify-end">
         {/* question */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
