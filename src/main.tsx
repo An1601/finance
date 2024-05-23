@@ -18,6 +18,7 @@ import Home from "./container/dashboards/home/Index.tsx";
 import Account from "./container/dashboards/profile/index.tsx";
 import NotificationIndex from "./container/dashboards/Notification/Index.tsx";
 import PackageLoanIndex from "./container/dashboards/PackageLoan/Index.tsx";
+import EditProfile from "@container/dashboards/EditProfile/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -51,6 +52,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 element={<PackageLoanIndex />}
               />
               <Route path={"profile"} element={<Account />} />
+              <Route path={"edit-profile"} element={<EditProfile />} />
             </Route>
           </Routes>
         </BrowserRouter>

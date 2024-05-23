@@ -18,6 +18,7 @@ import useWindowWidth from "@components/hook/UseWindowWidth";
 import BottomBarCustom from "@components/common/bottomBar";
 import MenuItemComponent from "./ItemProfile";
 import { RootState } from "@redux/store";
+import Breadcrumb from "@components/common/breadcrumb";
 
 function Account() {
   const [isOn, setIsOn] = useState(false);
@@ -49,8 +50,12 @@ function Account() {
     }
   };
 
+  const handleEditProfile = () => {
+    navigate("/edit-profile");
+  };
+
   const MENU_ITEMS_LEFT = [
-    { icon: AccountIcon, text: "Edit profile" },
+    { icon: AccountIcon, text: "Edit profile", onClick: handleEditProfile },
     { icon: DocumentIcon, text: "Documents" },
     { icon: ManagementIcon, text: "Management a survey and a form" },
     { icon: ChangePasswordIcon, text: "Change password" },
@@ -69,12 +74,7 @@ function Account() {
     <div>
       {windowWidth >= 480 ? (
         <div>
-          <div className="flex items-center gap-2 mt-[32px] mb-[20px]">
-            <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
-            <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-              Account
-            </div>
-          </div>
+          <Breadcrumb primaryText="Account" />
           <HeaderItem
             showIconImage={false}
             className="rounded-t-[24px] py-6"

@@ -2,18 +2,23 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import ImageIcon from "@components/svg/Image";
 import defaultProfileImage from "@assets/images/profile/avatar.jpeg";
+import BackIcon from "@components/svg/Back";
 
 interface PropHeaderItem {
   className?: string;
   showIconImage?: boolean;
   userName?: string;
   email?: string;
+  onClick?: () => void;
+  showBack?: boolean;
 }
 const HeaderItem = ({
   className,
   showIconImage,
   userName,
   email,
+  onClick,
+  showBack,
 }: PropHeaderItem) => {
   const [profileImage, setProfileImage] = useState(
     localStorage.getItem("profileImage") || defaultProfileImage,
@@ -42,33 +47,46 @@ const HeaderItem = ({
   };
 
   return (
-    <div
-      className={`flex flex-col items-center justify-center  bg-[#01D2B4] ${className}`}
-    >
-      <div className="relative">
-        <img
-          className="w-[110px] h-[110px] rounded-full border-4 border-white"
-          src={profileImage}
-          alt="logo"
-        />
-        <input
-          type="file"
-          id="imageUpload"
-          style={{ display: "none" }}
-          accept="image/*"
-          onChange={handleImageChange}
-        />
-        {showIconImage && (
-          <ImageIcon
-            className="absolute bottom-0 right-0 cursor-pointer"
-            onClick={() => document.getElementById("imageUpload")!.click()}
+    <div className="bg-[#01D2B4]">
+      {showBack && (
+        <div className="flex flex-row items-center gap-3 px-6 pt-7">
+          <div onClick={onClick}>
+            <BackIcon color="white" />
+          </div>
+          <div className="text-center text-white text-2xl font-bold font-['Helvetica Neue'] leading-loose">
+            Edit profile
+          </div>
+        </div>
+      )}
+
+      <div
+        className={`flex flex-col items-center justify-center   ${className}`}
+      >
+        <div className="relative">
+          <img
+            className="w-[110px] h-[110px] rounded-full border-4 border-white"
+            src={profileImage}
+            alt="logo"
           />
-        )}
+          <input
+            type="file"
+            id="imageUpload"
+            style={{ display: "none" }}
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+          {showIconImage && (
+            <ImageIcon
+              className="absolute bottom-0 right-0 cursor-pointer"
+              onClick={() => document.getElementById("imageUpload")!.click()}
+            />
+          )}
+        </div>
+        <div className="text-center text-white text-2xl font-bold tracking-wide pt-2">
+          {userName}
+        </div>
+        <div className="text-center text-white text-sm ">{email}</div>
       </div>
-      <div className="text-center text-white text-2xl font-bold tracking-wide pt-2">
-        {userName}
-      </div>
-      <div className="text-center text-white text-sm ">{email}</div>
     </div>
   );
 };
