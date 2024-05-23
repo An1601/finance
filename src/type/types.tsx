@@ -16,6 +16,11 @@ export type LoginInfo = {
   password: string;
 };
 
+export type ResetPasswordInfo = {
+  password: string;
+  confirmPassword: string;
+};
+
 export type LoginResponse = {
   id: number;
   name: string;
@@ -73,5 +78,4 @@ export type LoanDetails = {
   state: LoanStatus;
   bank_name: string;
   bank_thumbnail: string;
-  time_began: Date;
 };

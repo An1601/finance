@@ -22,6 +22,7 @@ import FAQ from "./container/dashboards/FAQ/Index.tsx";
 import SearchMobile from "@container/dashboards/search/Index.tsx";
 import RecordIndex from "@container/dashboards/Record/Index.tsx";
 import MeetingIndex from "@container/dashboards/ConsultingMeeting/Index.tsx";
+import EditProfile from "@container/dashboards/EditProfile/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -55,6 +56,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path={"loan-list/:userid"} element={<RecordIndex />} />
               <Route path={"meeting"} element={<MeetingIndex />} />
               <Route path={"profile"} element={<Account />} />
+              <Route path={"edit-profile"} element={<EditProfile />} />
             </Route>
           </Routes>
         </BrowserRouter>
