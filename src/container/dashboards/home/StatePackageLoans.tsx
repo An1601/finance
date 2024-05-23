@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import LoanFilter from "../PackageLoan/LoanFilter";
-import { loanRecords } from "../PackageLoan/LoanListData";
 import { LoanStatus } from "../../../type/enum";
+import { LoanDetails } from "@type/types";
 
-function StatePackageLoans() {
+function StatePackageLoans({ loanRecords }: { loanRecords: LoanDetails[] }) {
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
       <div className="box custom-card">

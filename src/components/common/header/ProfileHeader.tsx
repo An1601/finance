@@ -46,14 +46,14 @@ function ProfileHeader() {
           className="hs-dropdown-toggle !shadow-none !border-0 !shadow-transparent "
         >
           <img
-            className="inline-block rounded-full "
+            className="inline-block rounded-full max-w-[35px]"
             src={face9}
             width="35"
             height="35"
             alt="Image Description"
           />
         </button>
-        <div className="hidden md:flex dropdown-profile flex-col">
+        <div className="flex sm:hidden md:flex dropdown-profile flex-col">
           <div className="font-normal leading-4 !text-light_finance-textsub block text-[0.6875rem] ">
             Good morning
           </div>

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
 import { LoginInfo, LoginResponse, UserInfo } from "@type/types";
 
 export const initialUser: UserInfo = {
-  id: "",
+  id: "1",
   name: "",
   email: "",
   phone: "",

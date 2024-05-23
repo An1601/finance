@@ -19,6 +19,9 @@ import Account from "./container/dashboards/profile/index.tsx";
 import NotificationIndex from "./container/dashboards/Notification/Index.tsx";
 import PackageLoanIndex from "./container/dashboards/PackageLoan/Index.tsx";
 import FAQ from "./container/dashboards/FAQ/Index.tsx";
+import SearchMobile from "@container/dashboards/search/Index.tsx";
+import RecordIndex from "@container/dashboards/Record/Index.tsx";
+import MeetingIndex from "@container/dashboards/ConsultingMeeting/Index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -47,11 +50,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path={"dashboard"} element={<Home />} />
               <Route path={"notification"} element={<NotificationIndex />} />
               <Route path={"faq"} element={<FAQ />} />
+              <Route path={"search"} element={<SearchMobile />} />
               <Route path={"loan-list"} element={<PackageLoanIndex />} />
-              <Route
-                path={"loan-list/:userid"}
-                element={<PackageLoanIndex />}
-              />
+              <Route path={"loan-list/:userid"} element={<RecordIndex />} />
+              <Route path={"meeting"} element={<MeetingIndex />} />
               <Route path={"profile"} element={<Account />} />
             </Route>
           </Routes>

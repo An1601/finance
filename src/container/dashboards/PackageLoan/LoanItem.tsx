@@ -6,7 +6,7 @@ import calendar from "@assets/icon/CalendarIcon.svg";
 
 const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
   return (
-    <div className="p-4 bg-white rounded-xl flex justify-between items-end md:items-center gap-3 md:gap-20">
+    <div className="p-4 bg-white rounded-xl flex justify-between items-end md:items-center gap-3 md:gap-8 lg:gap-20">
       <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
         <div className="flex gap-2">
           <img
@@ -37,7 +37,7 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
                 {loan.rate_month}%
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
-                Rate/ Month
+                Rate
               </div>
             </div>
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col md:flex-row lg:flex-col xl:flex-row text-center">
@@ -45,7 +45,7 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
                 {loan.APR}%
               </div>
               <div className="text-light_finance-textsub text-[10px] font-normal font-['Helvetica Neue'] leading-none tracking-tight">
-                APR
+                Origination fee
               </div>
             </div>
           </div>

@@ -3,7 +3,8 @@ import Consulting from "../../../svg/Consulting";
 import DashboardIcon from "../../../svg/Dashboard";
 import LoanList from "../../../svg/LoanList";
 import ManagementRecord from "../../../svg/ManageRecord";
-
+import { store } from "@redux/store";
+const userId = store.getState().rootReducer.userReducer.id;
 export const MENUITEMS = [
   {
     title: "Dashboard",
@@ -31,7 +32,7 @@ export const MENUITEMS = [
     icon: <ManagementRecord />,
     type: "sub",
     children: [],
-    path: "/",
+    path: `/loan-list/${userId}`,
   },
   {
     title: "Chat",

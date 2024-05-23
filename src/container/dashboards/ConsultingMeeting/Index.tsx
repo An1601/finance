@@ -1,11 +1,11 @@
-import PackageLoanList from "./PackageLoanList";
-import bg1 from "@assets/images/authentication/1.svg";
 import { useNavigate } from "react-router-dom";
-import { loanDetails } from "./LoanListData";
-import LoanFilter from "./LoanFilter";
-function PackageLoanIndex() {
+import LoanFilter from "../PackageLoan/LoanFilter";
+import ConsultingMeetingList from "./ConsultingMeetingList";
+import bg1 from "@assets/images/authentication/1.svg";
+import MeetingFilter from "./MeetingFilter";
+
+function MeetingIndex() {
   const navigate = useNavigate();
-  const loanList = loanDetails;
   return (
     <div className="min-h-screen relative overflow-hidden">
       <div className=" z-10 relative mx-6 mt-[75px]">
@@ -18,7 +18,7 @@ function PackageLoanIndex() {
               }}
             ></i>
             <div className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
-              Package loan list
+              Consulting meeting list
             </div>
           </div>
         </div>
@@ -27,12 +27,12 @@ function PackageLoanIndex() {
             <div className="md:flex items-center gap-2 hidden">
               <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                Package loans list
+                Consulting meeting list
               </div>
             </div>
-            <LoanFilter />
+            <MeetingFilter />
           </div>
-          <PackageLoanList loanDetails={loanList} />
+          <ConsultingMeetingList />
         </div>
       </div>
       <div className="absolute w-full sm:hidden top-[-1.5rem]">
@@ -49,4 +49,4 @@ function PackageLoanIndex() {
   );
 }
 
-export default PackageLoanIndex;
+export default MeetingIndex;

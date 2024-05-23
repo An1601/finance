@@ -1,5 +1,4 @@
 import { FC, Fragment } from "react";
-import HeaderMobile from "@components/common/header/IndexMobile";
 import Overview from "./Overview";
 import TopLoans from "./TopLoans";
 import PackageLoanList from "../PackageLoan/PackageLoanList";
@@ -7,6 +6,9 @@ import ConsultingMeetingList from "../ConsultingMeeting/ConsultingMeetingList";
 import BottomBarCustom from "@components/common/bottomBar";
 import { useNavigate } from "react-router-dom";
 import { loanDetails } from "../PackageLoan/LoanListData";
+import ProfileHeader from "@components/common/header/ProfileHeader";
+import Notification from "@components/common/header/Notification";
+import SearchBar from "@components/common/header/SearchBar";
 
 interface CrmProps {}
 
@@ -15,7 +17,13 @@ const HomeMobile: FC<CrmProps> = () => {
   return (
     <Fragment>
       <div className="mx-6 my-[75px]  flex flex-col gap-8">
-        <HeaderMobile />
+        <div className="h-fit flex flex-col gap-5">
+          <div className="flex justify-between">
+            <ProfileHeader />
+            <Notification />
+          </div>
+          <SearchBar isEnable={false} />
+        </div>
         <TopLoans />
         <Overview />
         <div className="flex flex-col gap-3">
@@ -47,7 +55,12 @@ const HomeMobile: FC<CrmProps> = () => {
                 Consulting meeting list
               </div>
             </div>
-            <div className="font-HelveticaNeue font-normal text-base leading-6 tracking-tighter underline text-light_finance-primary">
+            <div
+              className="font-HelveticaNeue font-normal text-base leading-6 tracking-tighter underline text-light_finance-primary"
+              onClick={() => {
+                navigate("/meeting");
+              }}
+            >
               View all
             </div>
           </div>
