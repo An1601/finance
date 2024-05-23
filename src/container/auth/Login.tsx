@@ -1,59 +1,47 @@
-import { Fragment } from "react/jsx-runtime";
-import logo from "@assets/images/brand-logos/1.png";
+import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { LoginInfo } from "@type/types";
-import EyeSlash from "@components/svg/EyeSlash";
-import { useState } from "react";
-import EyeOpen from "@components/svg/EyeOpen";
-import { AppDispatch, RootState } from "@redux/store";
 import { useDispatch, useSelector } from "react-redux";
-import { handle_login } from "@redux/userReducers";
 import { toast } from "react-toastify";
-import Loader from "@components/common/loader/loader";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
-import api from "@api/axios";
 import axios from "axios";
+import logo from "@assets/images/brand-logos/1.png";
+import { LoginInfo } from "@type/types";
+import { AppDispatch, RootState } from "@redux/store";
+import { handle_login } from "@redux/userReducers";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
+import Loader from "@components/common/loader/loader";
+import api from "../../API/axios";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import InputField from "@components/common/input";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [passwordshow, setpasswordshow] = useState(false);
+  const [passwordShow, setPasswordShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
     (state: RootState) => state.rootReducer.commonReducer.isloading,
   );
+
   const {
-    handleSubmit: submitLogin,
-    register: loginData,
-    formState: { errors: errorLogin },
+    handleSubmit,
+    register,
+    formState: { errors },
   } = useForm<LoginInfo>();
 
-  const handleSubmitLogin = async (loginData: LoginInfo) => {
+  const handleLogin = async (data: LoginInfo) => {
+    dispatch(setLoadingTrue());
     try {
-      dispatch(setLoadingTrue());
-      const response = await api.post("/login", loginData);
-      if (response && response.status === 200) {
-        const data = await response?.data;
+      const response = await api.post("/login", data);
+      if (response.status === 200) {
         navigate("/dashboard");
-        dispatch(handle_login(data.data));
+        dispatch(handle_login(response.data.data));
       }
     } catch (error) {
-      if (
-        axios.isAxiosError<
-          {
-            message: string;
-            data: [];
-          },
-          Record<string, unknown>
-        >(error)
-      ) {
-        toast.warning(
-          error.response?.data.message || "Sign In unsuccessfully.",
-        );
-      } else {
-        toast.error("An error occurred!");
-      }
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : "An error occurred!";
+      toast.error(message);
     } finally {
       dispatch(setLoadingFalse());
     }
@@ -63,14 +51,12 @@ const Login = () => {
 
   return (
     <Fragment>
-      {/* right col */}
       <form
-        onSubmit={submitLogin(handleSubmitLogin)}
-        className="w-full sm:max-w-[550px] z-10 mt-[6.25rem] mb-[3.25rem] sm:m-0 sm:justify-center px-6 flex flex-col items-center gap-12"
+        onSubmit={handleSubmit(handleLogin)}
+        className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col items-center gap-12"
       >
-        {/* frame logo */}
         <div className="w-full flex flex-col items-center justify-between gap-3">
-          <img className="h-16 w-16 " src={logo} alt="logo" />
+          <img className="h-16 w-16" src={logo} alt="logo" />
           <div className="flex flex-col items-center gap-1">
             <div className="font-HelveticaNeue text-light_finance-textsub text-[2.5rem] font-bold leading-12 tracking-[-1.2px]">
               Sign In
@@ -80,98 +66,39 @@ const Login = () => {
             </div>
           </div>
         </div>
-        {/* frame input */}
-        {/* input field */}
         <div className="w-full flex flex-col gap-8">
-          {/* email filed */}
-          <div className="w-full flex flex-col gap-2 relative">
-            <div
-              className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorLogin.email ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
-            >
-              <div className="w-full justify-start items-start gap-2 flex">
-                <input
-                  className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
-                  placeholder="Your email"
-                  {...loginData("email", {
-                    required: "Email is required",
-                    pattern: {
-                      value:
-                        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                      message:
-                        "This email is incorrect. Please input your email",
-                    },
-                  })}
-                />
-              </div>
-              <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
-                <div
-                  className={`${errorLogin.email ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
-                >
-                  Email
-                </div>
-              </div>
-            </div>
-            {errorLogin.email &&
-              typeof errorLogin.email?.message === "string" && (
-                <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                  {errorLogin.email.message}
-                </div>
-              )}
-          </div>
-          {/* Password field*/}
-          <div className="w-full flex flex-col gap-2 relative">
-            <div
-              className={`w-full h-[52px] px-4 py-2 left-0 top-0 bg-light_finance-background rounded-[0.5rem] border-[1px] ${errorLogin.password?.type === "required" ? "border-red" : "border-light_finance-texttitle"}  flex justify-between items-center `}
-            >
-              <div className="w-full gap-2 flex items-center justify-between">
-                <input
-                  className="w-full text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
-                  placeholder="Your password"
-                  type={passwordshow ? "text" : "password"}
-                  {...loginData("password", {
-                    required: "Password is required",
-                    pattern: {
-                      value:
-                        /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{6,}/,
-                      message:
-                        "At least 6 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
-                    },
-                  })}
-                />
-                {passwordshow ? (
-                  <div
-                    onClick={() => {
-                      setpasswordshow(!passwordshow);
-                    }}
-                  >
-                    <EyeSlash />
-                  </div>
-                ) : (
-                  <div
-                    onClick={() => {
-                      setpasswordshow(!passwordshow);
-                    }}
-                  >
-                    <EyeOpen />
-                  </div>
-                )}
-              </div>
-              <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">
-                <div
-                  className={`${errorLogin.email ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
-                >
-                  Password
-                </div>
-              </div>
-            </div>
-            {errorLogin.password &&
-              typeof errorLogin.password?.message === "string" && (
-                <div className="font-HelveticaNeue text-red text-[12px] font-normal leading-4 tracking-tight">
-                  {errorLogin.password.message}
-                </div>
-              )}
-          </div>
-          {/* checkbox */}
+          <InputField
+            label="Email"
+            placeholder="Your email"
+            type="email"
+            register={register("email", {
+              required: "Email is required",
+              pattern: {
+                value:
+                  /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                message: "This email is incorrect. Please input your email",
+              },
+            })}
+            error={errors.email}
+          />
+          <InputField
+            label="Password"
+            placeholder="Your password"
+            type={passwordShow ? "text" : "password"}
+            isPassword
+            showPassword={passwordShow}
+            toggleShowPassword={() => setPasswordShow(!passwordShow)}
+            register={register("password", {
+              required: "Password is required",
+              pattern: {
+                value:
+                  /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}/,
+                message:
+                  "At least 6 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
+              },
+            })}
+            error={errors.password}
+          />
           <div className="w-full flex items-center justify-between">
             <div className="flex items-center gap-[2px]">
               <input
@@ -183,29 +110,24 @@ const Login = () => {
               </div>
             </div>
             <div
-              onClick={() => {
-                navigate("/forgot-password");
-              }}
+              onClick={() => navigate("/forgot-password")}
               className="text-light_finance-textbody text-sm font-normal font-HelveticaNeue leading-tight cursor-pointer underline"
             >
               Forgot password
             </div>
           </div>
         </div>
-        {/* frame button */}
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
           <button type="submit">
             <AuthSubmitBtn name="Sign In" />
           </button>
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
-              Not a account ?
+              Not a account?
             </div>
             <div
               className="text-light_finance-textbody text-sm font-semibold font-['Be Vietnam'] underline leading-tight cursor-pointer"
-              onClick={() => {
-                navigate("/signup");
-              }}
+              onClick={() => navigate("/signup")}
             >
               Sign up now
             </div>

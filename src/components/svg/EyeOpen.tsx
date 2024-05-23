@@ -1,12 +1,13 @@
-import { FC } from "react";
+import { FC, SVGProps } from "react";
 
-const EyeOpen: FC = () => (
+const EyeOpen: FC<SVGProps<SVGSVGElement>> = (props) => (
   <svg
     width="20"
     height="20"
     viewBox="0 0 20 20"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
+    {...props}
   >
     <path
       d="M10 12C11.1046 12 12 11.1046 12 10C12 8.89543 11.1046 8 10 8C8.89544 8 8.00001 8.89543 8.00001 10C8.00001 11.1046 8.89544 12 10 12Z"
