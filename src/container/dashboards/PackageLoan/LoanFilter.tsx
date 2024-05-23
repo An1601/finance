@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { filterLoanOpt } from "./FilterOption";
 import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
 import { FilterOption } from "@type/enum";
 import filterIcon from "@assets/icon/FilterIcon.svg";
 import arrow from "@assets/icon/ArrowIcon.svg";
+import { LOAN_FILTER_OPT } from "@constant/Constant";
 
 const LoanFilter = () => {
   const [selectedCheckbox, setSelectedCheckbox] = useState<string | null>(null);
@@ -81,7 +81,7 @@ const LoanFilter = () => {
         />
         {/* filter option */}
         <div className="absolute peer-checked:flex hidden top-14 right-0 w-[226px] max-h-[60vh] overflow-scroll rounded-lg bg-light_finance-background1 drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)]  flex-col ">
-          {filterLoanOpt.map((filterOpt, index) => {
+          {LOAN_FILTER_OPT.map((filterOpt, index) => {
             return (
               <div className="relative" key={index}>
                 <input

@@ -1,4 +1,4 @@
-import useWindowWidth from "@components/hook/UseWindowWidth";
+import useWindowWidth from "@components/hook/useWindowWidth";
 import RecentSearch from "@container/dashboards/search/RecentSearch";
 import { FC, useEffect, useState } from "react";
 import SearchBar from "../header/SearchBar";

@@ -1,7 +1,7 @@
 import React from "react";
 import SearchHeader from "../../svg/SearchHeader";
 import { useNavigate } from "react-router-dom";
-import useWindowWidth from "@components/hook/UseWindowWidth";
+import useWindowWidth from "@components/hook/useWindowWidth";
 
 const SearchBar: React.FC<{ isEnable: boolean }> = ({ isEnable }) => {
   const navigate = useNavigate();

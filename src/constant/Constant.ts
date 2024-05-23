@@ -1,4 +1,4 @@
-export const filterLoanOpt = [
+export const LOAN_FILTER_OPT = [
   {
     name: "Loan name",
     child: [
@@ -82,5 +82,39 @@ export const filterLoanOpt = [
         name: "> $ 5.000.000",
       },
     ],
+  },
+];
+export const MEETING_FILTER_OPT = [
+  {
+    id: 1,
+    name: "Merchant cash",
+  },
+  {
+    id: 2,
+    name: "Franchise loans",
+  },
+  {
+    id: 3,
+    name: "Equipment financing",
+  },
+  {
+    id: 4,
+    name: "Real Estate",
+  },
+  {
+    id: 5,
+    name: "Credit cards",
+  },
+  {
+    id: 6,
+    name: "Secured business",
+  },
+  {
+    id: 7,
+    name: "Invoice Factoring",
+  },
+  {
+    id: 8,
+    name: "Microloans   ",
   },
 ];

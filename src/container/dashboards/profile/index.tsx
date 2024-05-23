@@ -14,7 +14,7 @@ import SecurityIcon from "@assets/icon/SecurityIcon.svg";
 import ShareIcon from "@assets/icon/ShareIcon.svg";
 import LogoutIcon from "@assets/icon/LogoutIcon.svg";
 import HeaderItem from "../profile/Header";
-import useWindowWidth from "@components/hook/UseWindowWidth";
+import useWindowWidth from "@components/hook/useWindowWidth";
 import BottomBarCustom from "@components/common/bottomBar";
 import MenuItemComponent from "./ItemProfile";
 import { RootState } from "@redux/store";

@@ -11,7 +11,7 @@ const FAQ = () => {
     formState: { errors },
   } = useForm();
   return (
-    <div className="min-h-screen md:min-h- relative mt-[75px] md:m-0 flex flex-col gap-7 bg-light_finance-background1">
+    <div className="min-h-screen relative mt-[75px] md:m-0 flex flex-col gap-6 bg-light_finance-background1">
       <div className="md:hidden flex items-center justify-between">
         <div className="flex gap-3 items-center mx-6">
           <i
@@ -122,7 +122,7 @@ const FAQ = () => {
                       type="checkbox"
                     />
                     <div
-                      className={`h-16 py-3 pl-4 pr-8 ${index === 0 ? "rounded-t-lg" : ""} peer-checked:bg-light_finance-textbody font-HelveticaNeue font-bold text-sm leading-5 text-light_finance-textbody peer-checked:text-white overflow-hidden text-ellipsis line-clamp-2`}
+                      className={`h-16 py-3 pl-4 pr-10 ${index === 0 ? "rounded-t-lg" : ""} peer-checked:bg-light_finance-textbody font-HelveticaNeue font-bold text-sm leading-5 text-light_finance-textbody peer-checked:text-white overflow-hidden text-ellipsis line-clamp-2`}
                     >
                       {question.title}
                     </div>
@@ -155,7 +155,7 @@ const FAQ = () => {
                       type="checkbox"
                     />
                     <div
-                      className={`h-16 py-3 pl-4 pr-8 ${index === 0 ? "rounded-t-lg" : ""} peer-checked:bg-light_finance-textbody font-HelveticaNeue font-bold text-sm leading-5 text-light_finance-textbody peer-checked:text-white overflow-hidden text-ellipsis line-clamp-2`}
+                      className={`h-16 py-3 pl-4 pr-10 ${index === 0 ? "rounded-t-lg" : ""} peer-checked:bg-light_finance-textbody font-HelveticaNeue font-bold text-sm leading-5 text-light_finance-textbody peer-checked:text-white overflow-hidden text-ellipsis line-clamp-2`}
                     >
                       {question.title}
                     </div>

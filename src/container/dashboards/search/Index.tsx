@@ -1,7 +1,7 @@
 import SearchBar from "@components/common/header/SearchBar";
 import { useNavigate } from "react-router-dom";
 import RecentSearch from "./RecentSearch";
-import useWindowWidth from "@components/hook/UseWindowWidth";
+import useWindowWidth from "@components/hook/useWindowWidth";
 
 function SearchMobile() {
   const navigate = useNavigate();

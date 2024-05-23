@@ -28,12 +28,6 @@ const searchData = [
 function RecentSearch() {
   const [items, setItems] = useState(searchData);
 
-  const handleRemove = (index: number) => {
-    const updatedItems = [...items];
-    updatedItems.splice(index, 1);
-    setItems(updatedItems);
-  };
-
   return (
     <Fragment>
       <div className="flex gap-2 items-center">
@@ -54,7 +48,7 @@ function RecentSearch() {
               </div>
               <i
                 className="fa-solid fa-x fa-sm text-light_finance-textbody font-normal cursor-pointer"
-                onClick={() => handleRemove(index)}
+                onClick={() => setItems(items.filter((_, i) => i !== index))}
               ></i>
             </div>
           );

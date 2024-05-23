@@ -1,43 +1,8 @@
-import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
 import { FilterOption } from "@type/enum";
 import { useState } from "react";
 import arrow from "@assets/icon/ArrowIcon.svg";
 import filterIcon from "@assets/icon/FilterIcon.svg";
-
-const meetingFilterOpt = [
-  {
-    id: 1,
-    name: "Merchant cash",
-  },
-  {
-    id: 2,
-    name: "Franchise loans",
-  },
-  {
-    id: 3,
-    name: "Equipment financing",
-  },
-  {
-    id: 4,
-    name: "Real Estate",
-  },
-  {
-    id: 5,
-    name: "Credit cards",
-  },
-  {
-    id: 6,
-    name: "Secured business",
-  },
-  {
-    id: 7,
-    name: "Invoice Factoring",
-  },
-  {
-    id: 8,
-    name: "Microloans   ",
-  },
-];
+import { MEETING_FILTER_OPT } from "@constant/Constant";
 
 const MeetingFilter = () => {
   const [selectedCheckbox, setSelectedCheckbox] = useState<string | null>(null);
@@ -105,7 +70,7 @@ const MeetingFilter = () => {
         />
         {/* filter option */}
         <div className="absolute peer-checked:flex hidden top-14 right-0 w-[226px] max-h-[60vh] overflow-scroll rounded-lg bg-light_finance-background drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)]  flex-col ">
-          {meetingFilterOpt.map((filterOpt, index) => {
+          {MEETING_FILTER_OPT.map((filterOpt, index) => {
             return (
               <div
                 key={index}

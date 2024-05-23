@@ -5,7 +5,7 @@ import bg1 from "@assets/images/authentication/1.svg";
 import ProfileHeader from "@components/common/header/ProfileHeader";
 import Notification from "@components/common/header/Notification";
 import BottomBarCustom from "@components/common/bottomBar";
-import useWindowWidth from "@components/hook/UseWindowWidth";
+import useWindowWidth from "@components/hook/useWindowWidth";
 import StatePackageLoans from "../home/StatePackageLoans";
 
 function RecordIndex() {

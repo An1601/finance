@@ -8,7 +8,7 @@ import { handle_logout } from "@redux/userReducers";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@redux/store";
 import ProfileLink from "./ProfileLink";
-import useWindowWidth from "../../hook/UseWindowWidth";
+import useWindowWidth from "../../hook/useWindowWidth";
 function ProfileHeader() {
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
