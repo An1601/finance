@@ -46,6 +46,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path={"verify-code"} element={<VerifyOTP />} />
               <Route path={"reset-password"} element={<ResetPassword />} />
             </Route>
+            <Route
+              path="*"
+              element={<div> Not Found or You do not have permission.</div>}
+            />
           </Routes>
           <Routes>
             <Route path="/" element={<App />}>
@@ -60,6 +64,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path={"edit-profile"} element={<EditProfile />} />
               <Route path={"change-password"} element={<ChangePassword />} />
             </Route>
+            <Route
+              path="*"
+              element={<div> Not Found or You do not have permission.</div>}
+            />
           </Routes>
         </BrowserRouter>
       </PersistGate>
