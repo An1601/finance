@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import face9 from "@assets/images/faces/9.jpg";
+import ava from "@assets/images/profile/avatar.jpeg";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import { toast } from "react-toastify";
@@ -47,7 +47,7 @@ function ProfileHeader() {
         >
           <img
             className="inline-block rounded-full max-w-[35px]"
-            src={face9}
+            src={ava}
             width="35"
             height="35"
             alt="Image Description"

@@ -1,5 +1,5 @@
 import React, { Fragment } from "react";
-import bg1 from "@assets/images/authentication/1.png";
+import bg1 from "@assets/images/authentication/1.svg";
 import bg2 from "@assets/images/authentication/3D payment deadline.svg";
 import destopLogo from "@assets/images/brand-logos/desktop-logo.svg";
 interface AuthenLayoutProps {

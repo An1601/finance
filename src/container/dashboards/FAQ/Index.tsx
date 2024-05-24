@@ -25,7 +25,7 @@ const FAQ = () => {
           </div>
         </div>
       </div>
-      <div className="w-full flex-1 bg-light_finance-background p-6 mt-6 md:mt-8 rounded-t-[1.5rem] flex flex-col gap-10 lg:flex-col-reverse lg:justify-end">
+      <div className="w-full flex-1 bg-light_finance-background p-6 md:mt-8 rounded-t-[1.5rem] flex flex-col gap-10 lg:flex-col-reverse lg:justify-end">
         {/* question */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">

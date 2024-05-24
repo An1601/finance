@@ -14,7 +14,6 @@ const Auth = () => {
   useEffect(() => {
     import("preline");
   }, []);
-  console.log(path);
   return !accessToken ? (
     <AuthenLayout bg={path === "/signup" ? authenLeftside2 : authenLeftside}>
       <Outlet />

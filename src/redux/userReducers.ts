@@ -1,5 +1,5 @@
-import { createSlice, PayloadAction, createAsyncThunk } from "@reduxjs/toolkit";
-import { LoginInfo, LoginResponse, UserInfo } from "@type/types";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { LoginResponse, UserInfo } from "@type/types";
 
 export const initialUser: UserInfo = {
   id: "1",

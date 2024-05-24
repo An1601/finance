@@ -53,17 +53,15 @@ function Notification() {
           </div>
         )}
       </div>
-      <div className="header-element header-notification hs-dropdown ti-dropdown [--placement:bottom-right] rtl:[--placement:bottom-left]">
-        <button
-          type="button"
-          className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
-          onClick={() => {
-            navigate("/faq");
-          }}
-        >
-          <img src={faqIcon} />
-        </button>
-      </div>
+      <button
+        type="button"
+        className="hs-dropdown-toggle relative ti-dropdown-toggle !p-0 !border-0 flex-shrink-0  !rounded-full !shadow-none align-middle text-xs"
+        onClick={() => {
+          navigate("/faq");
+        }}
+      >
+        <img src={faqIcon} />
+      </button>
     </div>
   );
 }

@@ -1,20 +1,26 @@
 import reducer from "./reducer";
 import userReducer from "./userReducers";
 import commonReducer from "./commonReducer";
-import { persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
-import persistStore from "redux-persist/es/persistStore";
-// import thunk, { ThunkMiddleware } from "redux-thunk";
 import { configureStore } from "@reduxjs/toolkit";
-import { Middleware, combineReducers } from "redux"; // Import Middleware type
-
-// const middleware: Middleware[] = [thunk as unknown as ThunkMiddleware]; // Define an array of middleware
+import { combineReducers } from "redux";
+import {
+  persistStore,
+  persistReducer,
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from "redux-persist";
 
 const persistedUserReducer = persistReducer(
   {
     key: "User",
     storage: storage,
     whitelist: [
+      "id",
       "access_token",
       "refresh_token",
       "name",
@@ -35,6 +41,12 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
   reducer: { rootReducer },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 export const persistor = persistStore(store);
 
