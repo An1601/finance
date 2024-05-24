@@ -169,7 +169,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
     <Fragment>
       <header className="app-header">
         <nav className="main-header !h-[3.75rem]" aria-label="Global">
-          <div className="main-header-container ml-10 2xl:mr-20 mr-10">
+          <div className="main-header-container ml-4 md:ml-10 xl:mr-20 mr-10">
             <div className="header-content-left">
               <div
                 className="hidden sm:flex lg:hidden md:px-[0.325rem] items-center"
@@ -189,9 +189,11 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
                 </div>
               </div>
             </div>
-            <div className="header-content-right !items-center gap-11">
-              <SearchBar />
-              <div className="flex gap-8 items-center">
+            <div className="w-full header-content-right !items-center xl:gap-11 gap-3 sm:justify-end">
+              <div className="lg:max-w-[380px] sm:max-w-52 w-full h-10">
+                <SearchBar isEnable={false} />
+              </div>
+              <div className="w-fit flex gap-8 items-center">
                 <Notification />
                 <ProfileHeader />
               </div>

@@ -6,7 +6,7 @@ import BottomBarCustom from "@components/common/bottomBar";
 import Breadcrumb from "@components/common/breadcrumb";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 import InputField from "@components/common/input";
-import useWindowWidth from "@components/hook/UseWindowWidth";
+import useWindowWidth from "@components/hook/useWindowWidth";
 import HeaderItem from "../profile/Header";
 
 function EditProfile() {

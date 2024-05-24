@@ -1,30 +1,19 @@
-import { useState } from "react";
-import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
 import { FilterOption } from "@type/enum";
-import filterIcon from "@assets/icon/FilterIcon.svg";
+import { useState } from "react";
 import arrow from "@assets/icon/ArrowIcon.svg";
-import { LOAN_FILTER_OPT } from "@constant/Constant";
+import filterIcon from "@assets/icon/FilterIcon.svg";
+import { MEETING_FILTER_OPT } from "@constant/Constant";
 
-const LoanFilter = () => {
+const MeetingFilter = () => {
   const [selectedCheckbox, setSelectedCheckbox] = useState<string | null>(null);
-  const [selectedLoanOpt, setSelectedLoanOpt] = useState([-1, -1, -1, -1]);
+  const [selectedLoanOpt, setSelectedLoanOpt] = useState(-1);
 
   const handleCheckboxChange = (value: string) => {
     setSelectedCheckbox(value === selectedCheckbox ? null : value);
   };
-  const updateSelectedLoanOpt = (index: number, value: number) => {
-    if (selectedLoanOpt[index] === value) {
-      setSelectedLoanOpt((prevState) => {
-        const newState = [...prevState];
-        newState[index] = -1;
-        return newState;
-      });
-    } else
-      setSelectedLoanOpt((prevState) => {
-        const newState = [...prevState];
-        newState[index] = value;
-        return newState;
-      });
+  const updateSelectedLoanOpt = (value: number) => {
+    if (selectedLoanOpt === value) setSelectedLoanOpt(-1);
+    else setSelectedLoanOpt(value);
   };
   return (
     <div className="w-full md:w-fit flex items-center justify-between sm:justify-end sm:gap-6">
@@ -80,50 +69,31 @@ const LoanFilter = () => {
           type="checkbox"
         />
         {/* filter option */}
-        <div className="absolute peer-checked:flex hidden top-14 right-0 w-[226px] max-h-[60vh] overflow-scroll rounded-lg bg-light_finance-background1 drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)]  flex-col ">
-          {LOAN_FILTER_OPT.map((filterOpt, index) => {
+        <div className="absolute peer-checked:flex hidden top-14 right-0 w-[226px] max-h-[60vh] overflow-scroll rounded-lg bg-light_finance-background drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)]  flex-col ">
+          {MEETING_FILTER_OPT.map((filterOpt, index) => {
             return (
-              <div className="relative" key={index}>
+              <div
+                key={index}
+                className="self-stretch px-4 py-2 justify-start items-start gap-2 inline-flex"
+              >
                 <input
-                  className="w-full h-7 peer z-10 opacity-0 absolute top-0"
+                  checked={filterOpt.id === selectedLoanOpt}
+                  className="w-4 h-4 rounded-[2px] border border-light_finance-textsub checked:!bg-light_finance-primary"
                   type="checkbox"
+                  onChange={() => {
+                    updateSelectedLoanOpt(filterOpt.id);
+                  }}
                 />
-                <div className="py-2 px-4 font-HelveticaNeue font-bold text-sm leading-5 text-light_finance-textsub">
+                <label className="text-light_finance-textsub text-sm font-normal font-['Helvetica Neue'] leading-5">
                   {filterOpt.name}
-                </div>
-                <i className="fa-solid fa-chevron-up fa-lg transition-all duration-100 absolute top-4 right-4 text-light_finance-textsub peer-checked:rotate-180"></i>
-                <div className="w-full hidden peer-checked:flex bg-white flex-col ">
-                  {filterOpt.child.map((option, sub_index) => {
-                    return (
-                      <div
-                        key={sub_index}
-                        className="self-stretch px-4 py-2 justify-start items-start gap-2 inline-flex"
-                      >
-                        <input
-                          checked={option.id === selectedLoanOpt[index]}
-                          className="w-4 h-4 rounded-[2px] border border-light_finance-textsub checked:!bg-light_finance-primary"
-                          type="checkbox"
-                          onChange={() => {
-                            updateSelectedLoanOpt(index, option.id);
-                          }}
-                        />
-                        <label className="text-light_finance-textsub text-sm font-normal font-['Helvetica Neue'] leading-5">
-                          {option.name}
-                        </label>
-                      </div>
-                    );
-                  })}
-                </div>
+                </label>
               </div>
             );
           })}
-          <div className="inline-flex justify-end px-4 py-2">
-            <MobileHomeBtn name="Filter" />
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default LoanFilter;
+export default MeetingFilter;

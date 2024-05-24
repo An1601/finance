@@ -5,9 +5,10 @@ import TopBank from "./TopBank";
 import StateLoansChart from "./StateLoansChart";
 import HomeMobile from "./IndexMobile";
 import bg1 from "@assets/images/authentication/1.svg";
-import useWindowWidth from "@components/hook/UseWindowWidth";
+import useWindowWidth from "@components/hook/useWindowWidth";
 import TopLoans from "./TopLoans";
 import StatePackageLoans from "./StatePackageLoans";
+import { loanRecords } from "../PackageLoan/LoanListData";
 
 interface CrmProps {}
 
@@ -21,7 +22,7 @@ const Home: FC<CrmProps> = () => {
           <div className="xl:col-span-8 col-span-12">
             <div className="grid grid-cols-12 gap-x-6 gap-y-5">
               <AmountDisbursed />
-              <StatePackageLoans />
+              <StatePackageLoans loanRecords={loanRecords} />
             </div>
           </div>
           <div className="xl:col-span-4 col-span-12">
