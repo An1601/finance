@@ -54,11 +54,19 @@ function Account() {
     navigate("/edit-profile");
   };
 
+  const handleChangePassword = () => {
+    navigate("/change-password");
+  };
+
   const MENU_ITEMS_LEFT = [
     { icon: AccountIcon, text: "Edit profile", onClick: handleEditProfile },
     { icon: DocumentIcon, text: "Documents" },
     { icon: ManagementIcon, text: "Management a survey and a form" },
-    { icon: ChangePasswordIcon, text: "Change password" },
+    {
+      icon: ChangePasswordIcon,
+      text: "Change password",
+      onClick: handleChangePassword,
+    },
   ];
 
   const MENU_ITEMS_RIGHT = [

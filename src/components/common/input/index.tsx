@@ -46,7 +46,7 @@ const InputField: React.FC<InputFieldProps> = ({
           />
           {isPassword && (
             <div onClick={toggleShowPassword}>
-              {showPassword ? <EyeSlash /> : <EyeOpen />}
+              {showPassword ? <EyeOpen /> : <EyeSlash />}
             </div>
           )}
         </div>
