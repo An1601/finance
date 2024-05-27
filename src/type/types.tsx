@@ -10,6 +10,10 @@ export type SignUpInfo = {
   password_confirmation: string;
   policy_agreement: boolean;
 };
+export type BusinessProfile = {
+  name: string;
+  email: string;
+};
 
 export type LoginInfo = {
   email: string;
@@ -47,6 +51,7 @@ export type UserInfo = {
   email_verified_at: string;
   access_token: string;
   refresh_token: string;
+  business_profile: BusinessProfile | null;
 };
 
 export type LoanCategory = {

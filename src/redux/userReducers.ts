@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { LoginResponse, UserInfo } from "@type/types";
+import { BusinessProfile, LoginResponse, UserInfo } from "@type/types";
+import { fetchProfileData } from "./userThunks";
 
 export const initialUser: UserInfo = {
   id: "1",
@@ -11,9 +12,8 @@ export const initialUser: UserInfo = {
   email_verified_at: "",
   access_token: "",
   refresh_token: "",
+  business_profile: null,
 };
-
-//helper func
 
 const userReducer = createSlice({
   name: "auth",
@@ -43,7 +43,15 @@ const userReducer = createSlice({
       };
     },
   },
-  extraReducers(builder) {},
+  extraReducers: (builder) => {
+    builder.addCase(
+      fetchProfileData.fulfilled,
+      (state, action: PayloadAction<BusinessProfile>) => ({
+        ...state,
+        business_profile: action.payload,
+      }),
+    );
+  },
 });
 export const { handle_login, handle_logout, updateToken } = userReducer.actions;
 export default userReducer.reducer;

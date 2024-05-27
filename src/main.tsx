@@ -24,6 +24,7 @@ import RecordIndex from "@container/dashboards/Record/Index.tsx";
 import MeetingIndex from "@container/dashboards/ConsultingMeeting/Index.tsx";
 import EditProfile from "@container/dashboards/EditProfile/index.tsx";
 import ChangePassword from "@container/dashboards/ChangePassword/index.tsx";
+import TermsConditions from "@container/dashboards/TermsConditions/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -46,10 +47,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path={"verify-code"} element={<VerifyOTP />} />
               <Route path={"reset-password"} element={<ResetPassword />} />
             </Route>
-            <Route
+            {/* <Route
               path="*"
               element={<div> Not Found or You do not have permission.</div>}
-            />
+            /> */}
           </Routes>
           <Routes>
             <Route path="/" element={<App />}>
@@ -63,11 +64,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
               <Route path={"profile"} element={<Account />} />
               <Route path={"edit-profile"} element={<EditProfile />} />
               <Route path={"change-password"} element={<ChangePassword />} />
+              <Route path={"terms-conditions"} element={<TermsConditions />} />
             </Route>
-            <Route
+            {/* <Route
               path="*"
               element={<div> Not Found or You do not have permission.</div>}
-            />
+            /> */}
           </Routes>
         </BrowserRouter>
       </PersistGate>
