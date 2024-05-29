@@ -7,10 +7,12 @@ import { ThemeChanger } from "@redux/action";
 import SearchBar from "./SearchBar";
 import ProfileHeader from "./ProfileHeader";
 import Notification from "./Notification";
+import { useTranslation } from "react-i18next";
 
 interface HeaderProps {}
 
 const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
+  const { t } = useTranslation();
   function menuClose() {
     const theme = store.getState().rootReducer.reducer;
     if (window.innerWidth <= 992) {
@@ -185,7 +187,7 @@ const Header: FC<HeaderProps> = ({ local_varaiable, ThemeChanger }: any) => {
               </div>
               <div className="xl:flex hidden items-center ">
                 <div className="font-HelveticaNeue text-xl leading-7 text-light_finance-textbody font-bold">
-                  Dashboard
+                  {t("header.dashboard")}
                 </div>
               </div>
             </div>

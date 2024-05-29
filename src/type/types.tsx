@@ -10,6 +10,7 @@ export type SignUpInfo = {
   password_confirmation: string;
   policy_agreement: boolean;
 };
+
 export type BusinessProfile = {
   name: string;
   email: string;

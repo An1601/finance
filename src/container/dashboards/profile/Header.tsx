@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import ImageIcon from "@components/svg/Image";
 import defaultProfileImage from "@assets/images/profile/avatar.jpeg";
 import BackIcon from "@components/svg/Back";
-
+import { useTranslation } from "react-i18next";
+import ImageIcon from "@assets/icon/ImageIcon.svg";
 interface PropHeaderItem {
   className?: string;
   showIconImage?: boolean;
@@ -20,10 +20,10 @@ const HeaderItem = ({
   onClick,
   showBack,
 }: PropHeaderItem) => {
+  const { t } = useTranslation();
   const [profileImage, setProfileImage] = useState(
     localStorage.getItem("profileImage") || defaultProfileImage,
   );
-
   const handleImageChange = (e: any) => {
     const file = e.target.files[0];
     const maxFileSize = 2 * 1024 * 1024;
@@ -54,11 +54,10 @@ const HeaderItem = ({
             <BackIcon color="white" />
           </div>
           <div className="text-center text-white text-2xl font-bold font-['Helvetica Neue'] leading-loose">
-            Edit profile
+            {t("profile.editProfile")}
           </div>
         </div>
       )}
-
       <div
         className={`flex flex-col items-center justify-center   ${className}`}
       >
@@ -76,9 +75,10 @@ const HeaderItem = ({
             onChange={handleImageChange}
           />
           {showIconImage && (
-            <ImageIcon
+            <img
               className="absolute bottom-0 right-0 cursor-pointer"
               onClick={() => document.getElementById("imageUpload")!.click()}
+              src={ImageIcon}
             />
           )}
         </div>

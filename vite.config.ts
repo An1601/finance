@@ -19,6 +19,7 @@ export default defineConfig({
       "@type": path.resolve(__dirname, "src/type"),
       "@utils": path.resolve(__dirname, "src/utils"),
       "@constant": path.resolve(__dirname, "src/constant"),
+      "@i18n": path.resolve(__dirname, "src/i18n"),
     },
   },
 });

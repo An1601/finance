@@ -10,24 +10,22 @@ import Loader from "@components/common/loader/loader";
 import api from "@api/axios";
 import axios from "axios";
 import { useLocalStorage } from "@utils/index";
+import { useTranslation } from "react-i18next";
 
 function VerifyOTP() {
   const searchParams = new URLSearchParams(location.search);
   const signupMode = searchParams.get("signup") === "true" ? true : false;
   const email = searchParams.get("email");
-
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
     (state: RootState) => state.rootReducer.commonReducer.isloading,
   );
-
-  const { checkEnableCookie, setItem, getItem, removeItem } = useLocalStorage();
-
+  const { setItem, getItem, removeItem } = useLocalStorage();
   const navigate = useNavigate();
-
   const [otp, setOTP] = useState<string[]>(Array(5).fill(""));
   const [time, setTime] = useState<number>(60);
   const [isFilled, setIsFilled] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     setIsFilled(otp.every((o) => o !== ""));
@@ -67,7 +65,6 @@ function VerifyOTP() {
     ) as HTMLInputElement;
 
     if (!currentInput) return;
-
     const newotp = [...otp];
     newotp[index] = currentInput?.value || "";
     setOTP(newotp);
@@ -88,7 +85,6 @@ function VerifyOTP() {
       const nextInput = document.getElementById(
         nextInputId,
       ) as HTMLInputElement;
-
       if (nextInput && index < 4 && event.key !== "Tab") {
         nextInput.focus();
         nextInput.value = "";
@@ -118,7 +114,6 @@ function VerifyOTP() {
         email: email,
       };
     }
-
     try {
       dispatch(setLoadingTrue());
       const response = await api.post(
@@ -127,9 +122,7 @@ function VerifyOTP() {
       );
       if (response && response.status === 200) {
         const data = await response?.data;
-        toast.success(
-          data.message || "Your email has been successfully verified.",
-        );
+        toast.success(data.message || t("verify.messageOPT"));
         removeItem(`${email}_expirationTime`);
         if (!signupMode) {
           if (data?.access_token)
@@ -148,12 +141,9 @@ function VerifyOTP() {
           Record<string, unknown>
         >(error)
       ) {
-        toast.warning(
-          error.response?.data.error ||
-            "Your email has been unsuccessfully verified.",
-        );
+        toast.warning(error.response?.data.error || t("verify.messageWarning"));
       } else {
-        toast.error("An error occurred!");
+        toast.error(t("verify.messageError"));
       }
     } finally {
       dispatch(setLoadingFalse());
@@ -161,7 +151,6 @@ function VerifyOTP() {
   };
 
   const handleResend = async () => {
-    // Call the resend API
     try {
       dispatch(setLoadingTrue());
       const response = await api.post("resend-otp", { email: email });
@@ -181,17 +170,16 @@ function VerifyOTP() {
         >(error)
       ) {
         toast.warning(
-          error.response?.data.message || "Resend OTP unsuccessfully.",
+          error.response?.data.message || t("verify.messageResend"),
         );
       } else {
-        toast.error("An error occurred!");
+        toast.error(t("verify.messageError"));
       }
     } finally {
       dispatch(setLoadingFalse());
     }
   };
 
-  //helper func
   const resetState = () => {
     setOTP(Array(5).fill(""));
     const inputs =
@@ -202,20 +190,16 @@ function VerifyOTP() {
     inputs[0]?.focus();
   };
   const saveExpireTimeToLocalStorage = (sec: number) => {
-    const today = new Date(); // Lấy thời gian hiện tại
-
-    const expirationTime = new Date(today.getTime() + sec * 1000); // Thời gian hết hạn
-
+    const today = new Date();
+    const expirationTime = new Date(today.getTime() + sec * 1000);
     setItem(
       `${email}_expirationTime`,
       JSON.stringify(expirationTime.getTime()),
     );
   };
   const calculateRemainingTime = (expirationTime: number) => {
-    const currentTime = new Date().getTime(); // Thời gian hiện tại
-
-    const timeRemaining = expirationTime - currentTime; // Thời gian còn lại tính bằng milliseconds
-
+    const currentTime = new Date().getTime();
+    const timeRemaining = expirationTime - currentTime;
     if (timeRemaining >= 0) {
       const remainingSeconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
 
@@ -229,25 +213,21 @@ function VerifyOTP() {
 
   return (
     <Fragment>
-      {/* right col */}
       <form
         onSubmit={handleSubmit}
         className="w-full sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] sm:m-0 sm:justify-center px-6 flex flex-col items-center gap-12"
       >
-        {/* frame logo */}
         <div className="w-full flex flex-col items-center justify-between gap-3">
           <img className="h-16 w-16 " src={logo} alt="logo" />
           <div className="flex flex-col items-center gap-2">
             <div className="h-12 font-HelveticaNeue text-light_finance-textsub text-[2.5rem] font-bold leading-12 tracking-[-1.2px]">
-              Verification Code
+              {t("verify.verifyCode")}
             </div>
             <div className="h-12 font-HelveticaNeue text-base font-normal leading-4 tracking-[-0.12px] text-center">
-              {`Please type the verification code sent to ${email}`}
+              {`${t("verify.descriptionVerify")} ${email}`}
             </div>
           </div>
         </div>
-        {/* frame input */}
-        {/* input field */}
         <div className="w-full flex justify-center gap-4">
           {Array.from({ length: 5 }).map((_, index) => (
             <input
@@ -260,8 +240,6 @@ function VerifyOTP() {
             />
           ))}
         </div>
-        {/* countdown */}
-
         {time && time >= 0 ? (
           <div className="font-HelveticaNeue font-bold text-[14px] leading-5 text-light_finance-textbody">
             {`${time ?? ""} second`}
@@ -269,17 +247,16 @@ function VerifyOTP() {
         ) : (
           <div className="flex gap-[0.625rem] items-center">
             <span className="font-['Be Vietnam'] font-normal text-[14px] leading-5 text-dark_finance-texttitle">
-              I don’t recevie a code
+              {t("verify.recevie")}
             </span>
             <span
               onClick={() => handleResend()}
               className="font-HelveticaNeue font-bold text-[14px] leading-5 text-light_finance-textbody cursor-pointer"
             >
-              Resend
+              {t("verify.resend")}
             </span>
           </div>
         )}
-        {/* frame button */}
         <div className="w-[280px] h-[100px] flex flex-col items-center ">
           <button
             type="submit"
@@ -291,7 +268,7 @@ function VerifyOTP() {
             }`}
           >
             <div className="text-base font-medium font-['Helvetica Neue'] leading-normal tracking-tight">
-              Verify
+              {t("verify.verify")}
             </div>
           </button>
         </div>

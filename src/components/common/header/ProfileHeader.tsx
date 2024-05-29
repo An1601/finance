@@ -9,13 +9,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@redux/store";
 import ProfileLink from "./ProfileLink";
 import useWindowWidth from "../../hook/useWindowWidth";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
+import { fetchProfileData } from "@redux/userThunks";
+
 function ProfileHeader() {
+  const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
     (state: RootState) => state.rootReducer.commonReducer.isloading,
   );
   const navigate = useNavigate();
   const windowWidth = useWindowWidth();
+
+  const { business_profile } = useSelector(
+    (state: RootState) => state.rootReducer.userReducer,
+  );
+
+  useEffect(() => {
+    dispatch(fetchProfileData());
+  }, []);
 
   const handleLogout = async () => {
     try {
@@ -27,11 +40,11 @@ function ProfileHeader() {
         dispatch(handle_logout());
       } else {
         const error = await response?.data;
-        toast.warning(error.message || "Log Out unsuccessfully.");
+        toast.warning(error.message || t("header.messWarning"));
       }
     } catch (error) {
       if (error instanceof Error && error.message) {
-        toast.error("An error occurred!");
+        toast.error(t("header.messError"));
       }
     }
   };
@@ -50,15 +63,14 @@ function ProfileHeader() {
             src={ava}
             width="35"
             height="35"
-            alt="Image Description"
           />
         </button>
         <div className="flex sm:hidden md:flex dropdown-profile flex-col">
           <div className="font-normal leading-4 !text-light_finance-textsub block text-[0.6875rem] ">
-            Good morning
+            {t("header.goodMorning")}
           </div>
           <div className="font-bold  !text-light_finance-textbody text-base tracking-tighter">
-            Duyen nguyen
+            {business_profile?.name}
           </div>
         </div>
       </div>
@@ -68,26 +80,35 @@ function ProfileHeader() {
           aria-labelledby="dropdown-profile"
         >
           <ul className="text-defaulttextcolor font-medium dark:text-[#8C9097] dark:text-white/50">
-            <ProfileLink to="/profile" icon="ti-user-circle" label="Profile" />
-            <ProfileLink to="#" icon="ti-inbox" label="Inbox" badge="25" />
+            <ProfileLink
+              to="/profile"
+              icon="ti-user-circle"
+              label={t("header.profile")}
+            />
+            <ProfileLink
+              to="#"
+              icon="ti-inbox"
+              label={t("header.inbox")}
+              badge="25"
+            />
             <ProfileLink
               to="#"
               icon="ti-clipboard-check"
-              label="Task Manager"
+              label={t("header.taskManager")}
             />
             <ProfileLink
               to="#"
               icon="ti-adjustments-horizontal"
-              label="Settings"
+              label={t("header.setting")}
             />
-            <ProfileLink to="#" icon="ti-wallet" label="Bal: $7,12,950" />
-            <ProfileLink to="#" icon="ti-headset" label="Support" />
+            <ProfileLink to="#" icon="ti-wallet" label={t("header.bal")} />
+            <ProfileLink to="#" icon="ti-headset" label={t("header.support")} />
             <li
               onClick={handleLogout}
               className="w-full ti-dropdown-item !text-[0.8125rem] !p-[0.65rem] !gap-x-0 !inline-flex cursor-pointer"
             >
               <i className="ti ti-logout text-[1.125rem] me-2 opacity-[0.7]"></i>
-              Log Out
+              {t("header.logout")}
             </li>
           </ul>
         </div>

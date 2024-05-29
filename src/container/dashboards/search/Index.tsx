@@ -2,8 +2,10 @@ import SearchBar from "@components/common/header/SearchBar";
 import { useNavigate } from "react-router-dom";
 import RecentSearch from "./RecentSearch";
 import useWindowWidth from "@components/hook/useWindowWidth";
+import { useTranslation } from "react-i18next";
 
 function SearchMobile() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   if (useWindowWidth() > 480) navigate("/");
   return (
@@ -17,7 +19,7 @@ function SearchMobile() {
             }}
           ></i>
           <div className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
-            Search
+            {t("search.search")}
           </div>
         </div>
       </div>

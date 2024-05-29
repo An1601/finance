@@ -1,17 +1,19 @@
 import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import timer from "@assets/icon/TimerIcon.svg";
+import { useTranslation } from "react-i18next";
 
 const ConsultingMeetingItem = () => {
+  const { t } = useTranslation();
   return (
     <div className="p-4 bg-white rounded-xl flex flex-col gap-3">
       <div className="flex gap-10 h-11 justify-between items-start">
         <div className="max-w-full flex flex-col">
           <div className="font-HelveticaNeue font-normal text-xs leading-4 tracking-tight text-light_finance-textsub overflow-hidden text-ellipsis whitespace-nowrap">
-            Conventional fixed rate loans
+            {t("consulting.conventional")}
           </div>
           <div className="font-HelveticaNeue font-bold text-lg leading-7 text-light_finance-textbody overflow-hidden text-ellipsis whitespace-nowrap">
-            Franchise loans
+            {t("consulting.franchise")}
           </div>
         </div>
         <MobileHomeBtn name="Connect" />

@@ -1,4 +1,5 @@
 import { Fragment, useState } from "react";
+import { useTranslation } from "react-i18next";
 const searchData = [
   {
     content: "Development Credit Bank",
@@ -26,6 +27,7 @@ const searchData = [
   },
 ];
 function RecentSearch() {
+  const { t } = useTranslation();
   const [items, setItems] = useState(searchData);
 
   return (
@@ -33,7 +35,7 @@ function RecentSearch() {
       <div className="flex gap-2 items-center">
         <div className="w-1 h-5 bg-danger rounded-sm" />
         <div className="text-center text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-          Recents Search
+          {t("search.recentsSearch")}
         </div>
       </div>
       <div className="mt-5 flex flex-col gap-2">

@@ -4,8 +4,6 @@ export const initialUser = {
   isloading: false,
 };
 
-//helper func
-
 const commonReducer = createSlice({
   name: "auth",
   initialState: initialUser,

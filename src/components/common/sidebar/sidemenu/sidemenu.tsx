@@ -5,37 +5,39 @@ import LoanList from "../../../svg/LoanList";
 import ManagementRecord from "../../../svg/ManageRecord";
 import { store } from "@redux/store";
 const userId = store.getState().rootReducer.userReducer.id;
+import { getTranslated } from "@i18n/index";
+
 export const MENUITEMS = [
   {
-    title: "Dashboard",
+    title: getTranslated("sideBar.dashboard"),
     icon: <DashboardIcon />,
     type: "sub",
     children: [],
     path: "/",
   },
   {
-    title: "Package loan list",
+    title: getTranslated("sideBar.packageLoanList"),
     icon: <LoanList />,
     type: "sub",
     children: [],
     path: "/loan-list",
   },
   {
-    title: "Consulting meeting list",
+    title: getTranslated("sideBar.consulting"),
     icon: <Consulting />,
     type: "sub",
     children: [],
     path: "/",
   },
   {
-    title: "Management Record",
+    title: getTranslated("sideBar.recordManagement"),
     icon: <ManagementRecord />,
     type: "sub",
     children: [],
     path: `/loan-list/${userId}`,
   },
   {
-    title: "Chat",
+    title: getTranslated("sideBar.chat"),
     icon: <Chat />,
     type: "sub",
     children: [],

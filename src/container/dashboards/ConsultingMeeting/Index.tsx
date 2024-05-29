@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import LoanFilter from "../PackageLoan/LoanFilter";
 import ConsultingMeetingList from "./ConsultingMeetingList";
 import bg1 from "@assets/images/authentication/1.svg";
 import MeetingFilter from "./MeetingFilter";
+import { useTranslation } from "react-i18next";
 
 function MeetingIndex() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -18,7 +19,7 @@ function MeetingIndex() {
               }}
             ></i>
             <div className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
-              Consulting meeting list
+              {t("consulting.consulting")}
             </div>
           </div>
         </div>
@@ -27,7 +28,7 @@ function MeetingIndex() {
             <div className="md:flex items-center gap-2 hidden">
               <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                Consulting meeting list
+                {t("consulting.consulting")}
               </div>
             </div>
             <MeetingFilter />

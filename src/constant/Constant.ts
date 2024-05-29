@@ -1,48 +1,29 @@
+import { getTranslated } from "@i18n/index";
+
 export const LOAN_FILTER_OPT = [
   {
-    name: "Loan name",
+    name: getTranslated("consulting.loanName"),
     child: [
       {
         id: 1,
-        name: "Consumer Lending",
+        name: getTranslated("consulting.consumerLending"),
       },
       {
         id: 2,
-        name: "Student Loans",
+        name: getTranslated("consulting.studentLoans"),
       },
       {
         id: 3,
-        name: "Business loans",
+        name: getTranslated("consulting.businessLoans"),
       },
       {
         id: 4,
-        name: "Mortgages loans",
+        name: getTranslated("consulting.mortgagesLoans"),
       },
     ],
   },
   {
-    name: "Rate",
-    child: [
-      {
-        id: 1,
-        name: "5 - 7%",
-      },
-      {
-        id: 2,
-        name: "> 7 - 9%",
-      },
-      {
-        id: 3,
-        name: "> 9 -11% ",
-      },
-      {
-        id: 4,
-        name: "> 11 -13% ",
-      },
-    ],
-  },
-  {
-    name: "APR",
+    name: getTranslated("consulting.rate"),
     child: [
       {
         id: 1,
@@ -63,7 +44,28 @@ export const LOAN_FILTER_OPT = [
     ],
   },
   {
-    name: "Credit limit",
+    name: getTranslated("consulting.apr"),
+    child: [
+      {
+        id: 1,
+        name: "5 - 7%",
+      },
+      {
+        id: 2,
+        name: "> 7 - 9%",
+      },
+      {
+        id: 3,
+        name: "> 9 -11% ",
+      },
+      {
+        id: 4,
+        name: "> 11 -13% ",
+      },
+    ],
+  },
+  {
+    name: getTranslated("consulting.creditLimit"),
     child: [
       {
         id: 1,
@@ -75,11 +77,11 @@ export const LOAN_FILTER_OPT = [
       },
       {
         id: 3,
-        name: "> $ 500.000 - $ 5.000.000",
+        name: "> $500.000 - $5.000.000",
       },
       {
         id: 4,
-        name: "> $ 5.000.000",
+        name: "> $5.000.000",
       },
     ],
   },
@@ -87,34 +89,34 @@ export const LOAN_FILTER_OPT = [
 export const MEETING_FILTER_OPT = [
   {
     id: 1,
-    name: "Merchant cash",
+    name: getTranslated("consulting.merchantCash"),
   },
   {
     id: 2,
-    name: "Franchise loans",
+    name: getTranslated("consulting.franchiseLoans"),
   },
   {
     id: 3,
-    name: "Equipment financing",
+    name: getTranslated("consulting.equipmentFinancing"),
   },
   {
     id: 4,
-    name: "Real Estate",
+    name: getTranslated("consulting.realEstate"),
   },
   {
     id: 5,
-    name: "Credit cards",
+    name: getTranslated("consulting.creditCards"),
   },
   {
     id: 6,
-    name: "Secured business",
+    name: getTranslated("consulting.securedBusiness"),
   },
   {
     id: 7,
-    name: "Invoice Factoring",
+    name: getTranslated("consulting.invoiceFactoring"),
   },
   {
     id: 8,
-    name: "Microloans   ",
+    name: getTranslated("consulting.microloans"),
   },
 ];

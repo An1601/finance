@@ -13,9 +13,11 @@ import Loader from "@components/common/loader/loader";
 import api from "../../API/axios";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 import InputField from "@components/common/input";
+import { useTranslation } from "react-i18next";
 
 const Login = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [passwordShow, setPasswordShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
@@ -40,7 +42,7 @@ const Login = () => {
       const message =
         axios.isAxiosError(error) && error.response?.data.message
           ? error.response.data.message
-          : "An error occurred!";
+          : t("login.messageError");
       toast.error(message);
     } finally {
       dispatch(setLoadingFalse());
@@ -59,42 +61,41 @@ const Login = () => {
           <img className="h-16 w-16" src={logo} alt="logo" />
           <div className="flex flex-col items-center gap-1">
             <div className="font-HelveticaNeue text-light_finance-textsub text-[2.5rem] font-bold leading-12 tracking-[-1.2px]">
-              Sign In
+              {t("login.signIn")}
             </div>
             <div className="font-HelveticaNeue text-light_finance-textsub text-xs font-light leading-4 tracking-[-0.12px]">
-              365 people are online
+              {t("login.descriptionSignIn")}
             </div>
           </div>
         </div>
         <div className="w-full flex flex-col gap-8">
           <InputField
-            label="Email"
-            placeholder="Your email"
+            label={t("login.email")}
+            placeholder={t("login.yourEmail")}
             type="email"
             register={register("email", {
-              required: "Email is required",
+              required: t("login.requireEmail"),
               pattern: {
                 value:
                   /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                message: "This email is incorrect. Please input your email",
+                message: t("login.messageEmail"),
               },
             })}
             error={errors.email}
           />
           <InputField
-            label="Password"
-            placeholder="Your password"
+            label={t("login.password")}
+            placeholder={t("login.yourPassword")}
             type={passwordShow ? "text" : "password"}
             isPassword
             showPassword={passwordShow}
             toggleShowPassword={() => setPasswordShow(!passwordShow)}
             register={register("password", {
-              required: "Password is required",
+              required: t("login.requirePassword"),
               pattern: {
                 value:
                   /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}/,
-                message:
-                  "At least 6 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
+                message: t("login.messagePassword"),
               },
             })}
             error={errors.password}
@@ -106,30 +107,30 @@ const Login = () => {
                 type="checkbox"
               />
               <div className="text-light_finance-textbody text-sm font-normal font-HelveticaNeue leading-tight">
-                Remember Me
+                {t("login.remember")}
               </div>
             </div>
             <div
               onClick={() => navigate("/forgot-password")}
               className="text-light_finance-textbody text-sm font-normal font-HelveticaNeue leading-tight cursor-pointer underline"
             >
-              Forgot password
+              {t("login.forgotPassword")}
             </div>
           </div>
         </div>
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
           <button type="submit">
-            <AuthSubmitBtn name="Sign In" />
+            <AuthSubmitBtn name={t("login.signIn")} />
           </button>
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
-              Not a account?
+              {t("login.notAccount")}
             </div>
             <div
               className="text-light_finance-textbody text-sm font-semibold font-['Be Vietnam'] underline leading-tight cursor-pointer"
               onClick={() => navigate("/signup")}
             >
-              Sign up now
+              {t("login.upNow")}
             </div>
           </div>
         </div>

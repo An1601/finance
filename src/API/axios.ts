@@ -41,13 +41,10 @@ api.interceptors.response.use(
           config,
         );
         const { access_token } = response?.data ?? "";
-        // Dispatch action to update token in Redux store
         store.dispatch(updateToken(access_token));
         originalRequest.headers.Authorization = `Bearer ${access_token}`;
         return axios(originalRequest);
-      } catch (error) {
-        // Handle error
-      }
+      } catch (error) {}
     }
     return Promise.reject(error);
   },

@@ -3,7 +3,9 @@ import bg1 from "@assets/images/authentication/1.svg";
 import { useNavigate } from "react-router-dom";
 import { loanDetails } from "./LoanListData";
 import LoanFilter from "./LoanFilter";
+import { useTranslation } from "react-i18next";
 function PackageLoanIndex() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const loanList = loanDetails;
   return (
@@ -18,7 +20,7 @@ function PackageLoanIndex() {
               }}
             ></i>
             <div className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
-              Package loan list
+              {t("packageLoanList.packageLoanList")}
             </div>
           </div>
         </div>
@@ -27,7 +29,7 @@ function PackageLoanIndex() {
             <div className="md:flex items-center gap-2 hidden">
               <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                Package loans list
+                {t("packageLoanList.packageLoanList")}
               </div>
             </div>
             <LoanFilter />

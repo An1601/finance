@@ -12,16 +12,17 @@ import Loader from "@components/common/loader/loader";
 import api from "@api/axios";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 import InputField from "@components/common/input";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useSelector(
     (state: RootState) => state.rootReducer.commonReducer.isloading,
   );
-  const navigate = useNavigate();
 
   const {
     handleSubmit,
@@ -36,13 +37,13 @@ const SignUp = () => {
       const response = await api.post("/register", data);
       if (response.status === 200) {
         navigate(`/verify-code?email=${data.email}&signup=true`);
-        toast.success(response.data.message || "Sign Up successfully.");
+        toast.success(response.data.message || t("signup.messageSuccess"));
       }
     } catch (error) {
       const message =
         axios.isAxiosError(error) && error.response?.data.message
           ? error.response.data.message
-          : "An error occurred!";
+          : t("signup.messageError");
       toast.error(message);
     } finally {
       dispatch(setLoadingFalse());
@@ -61,89 +62,90 @@ const SignUp = () => {
           <img className="h-16 w-16" src={logo} alt="logo" />
           <div className="flex flex-col items-center gap-1">
             <div className="font-HelveticaNeue text-light_finance-textsub text-[2.5rem] font-bold leading-12 tracking-[-1.2px]">
-              Sign Up
+              {t("signup.signUp")}
             </div>
             <div className="font-HelveticaNeue text-light_finance-textsub text-xs font-light leading-4 tracking-[-0.12px]">
-              365 people are online
+              {t("signup.descriptionSignUp")}
             </div>
           </div>
         </div>
         <div className="w-full flex flex-col gap-6">
           <div className="w-full flex flex-col gap-10">
             <InputField
-              label="Name"
-              placeholder="Your name"
-              register={register("name", { required: "Name is required" })}
+              label={t("signup.name")}
+              placeholder={t("signup.yourName")}
+              register={register("name", {
+                required: t("signup.requireName"),
+              })}
               error={errors.name}
             />
             <InputField
-              label="Phone number"
-              placeholder="Your phone number"
+              label={t("signup.phone")}
+              placeholder={t("signup.yourPhone")}
               register={register("phone", {
-                required: "Phone number is required",
+                required: t("signup.requirePhone"),
               })}
               error={errors.phone}
             />
             <InputField
-              label="Email"
-              placeholder="Your email"
+              label={t("signup.email")}
+              placeholder={t("signup.yourEmail")}
               type="email"
               register={register("email", {
-                required: "Email is required",
+                required: t("signup.requireEmail"),
                 pattern: {
                   value:
                     /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
-                  message: "This email is incorrect. Please input your email",
+                  message: t("signup.messageEmail"),
                 },
               })}
               error={errors.email}
             />
             <InputField
-              label="Date of Birth"
-              placeholder="Your date of birth"
+              label={t("signup.date")}
+              placeholder={t("signup.yourDate")}
               type="date"
               register={register("date_of_birth", {
-                required: "Date of Birth is required",
+                required: t("signup.requireDate"),
               })}
               error={errors.date_of_birth}
             />
             <InputField
-              label="Address"
-              placeholder="Your address"
+              label={t("signup.address")}
+              placeholder={t("signup.yourAddress")}
               register={register("address", {
-                required: "Address is required",
+                required: t("signup.requireAddress"),
               })}
               error={errors.address}
             />
             <InputField
-              label="Password"
-              placeholder="Your password"
+              label={t("signup.password")}
+              placeholder={t("signup.yourPassword")}
               type={showPassword1 ? "text" : "password"}
               isPassword
               showPassword={showPassword1}
               toggleShowPassword={() => setShowPassword1(!showPassword1)}
               register={register("password", {
-                required: "Password is required",
+                required: t("signup.requirePassword"),
                 pattern: {
                   value:
                     /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}/,
-                  message:
-                    "At least 6 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
+                  message: t("login.messagePassword"),
                 },
               })}
               error={errors.password}
             />
             <InputField
-              label="Confirm password"
-              placeholder="Confirm your password"
+              label={t("signup.confirmPassword")}
+              placeholder={t("signup.yourConfirmPassword")}
               type={showPassword2 ? "text" : "password"}
               isPassword
               showPassword={showPassword2}
               toggleShowPassword={() => setShowPassword2(!showPassword2)}
               register={register("password_confirmation", {
-                required: "Confirm Password is required",
+                required: t("signup.requireComfirm"),
                 validate: (value) =>
-                  value === getValues("password") || "Passwords must match",
+                  value === getValues("password") || t("signup.matchPassword"),
               })}
               error={errors.password_confirmation}
             />
@@ -154,22 +156,22 @@ const SignUp = () => {
               type="checkbox"
               {...register("policy_agreement", { required: true })}
             />
-            <div>I agree with policy and terms</div>
+            <div>{t("signup.agree")}</div>
           </div>
         </div>
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
           <button type="submit">
-            <AuthSubmitBtn name="Sign Up" />
+            <AuthSubmitBtn name={t("signup.signUp")} />
           </button>
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
-              Already have an account
+              {t("signup.already")}
             </div>
             <div
               className="text-light_finance-textbody text-sm font-semibold font-['Be Vietnam'] underline leading-tight cursor-pointer"
               onClick={() => navigate("/signin")}
             >
-              Sign in
+              {t("signup.signIn")}
             </div>
           </div>
         </div>

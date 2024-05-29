@@ -1,7 +1,9 @@
+import { useTranslation } from "react-i18next";
 import { Revenueanalytics } from "./indexData";
 import { Link } from "react-router-dom";
 
 function AmountDisbursed() {
+  const { t } = useTranslation();
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
       <div className="box">
@@ -13,7 +15,7 @@ function AmountDisbursed() {
               className="text-[0.75rem] px-2 font-normal text-[#8c9097] dark:text-white/50"
               aria-expanded="false"
             >
-              View All
+              {t("home.viewAll")}
               <i className="ri-arrow-down-s-line align-middle ms-1 inline-block"></i>
             </Link>
             <ul
@@ -25,7 +27,7 @@ function AmountDisbursed() {
                   className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
                   to="#"
                 >
-                  Today
+                  {t("home.today")}
                 </Link>
               </li>
               <li>
@@ -33,7 +35,7 @@ function AmountDisbursed() {
                   className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
                   to="#"
                 >
-                  This Week
+                  {t("home.thisWeek")}
                 </Link>
               </li>
               <li>
@@ -41,7 +43,7 @@ function AmountDisbursed() {
                   className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
                   to="#"
                 >
-                  Last Week
+                  {t("home.lastWeek")}
                 </Link>
               </li>
             </ul>

@@ -1,7 +1,7 @@
 import React from "react";
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-import EyeOpen from "@components/svg/EyeOpen";
-import EyeSlash from "@components/svg/EyeSlash";
+import EyeOpen from "@assets/icon/EyeOpen.svg";
+import EyeSlash from "@assets/icon/EyeSlash.svg";
 
 interface InputFieldProps {
   label: string;
@@ -46,7 +46,7 @@ const InputField: React.FC<InputFieldProps> = ({
           />
           {isPassword && (
             <div onClick={toggleShowPassword}>
-              {showPassword ? <EyeOpen /> : <EyeSlash />}
+              {showPassword ? <img src={EyeOpen} /> : <img src={EyeSlash} />}
             </div>
           )}
         </div>

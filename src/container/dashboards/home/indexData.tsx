@@ -11,7 +11,6 @@ interface spark3 {
   label?: XAxisAnnotations;
   endingShape?: string;
 }
-// // revenueanalytics
 export class Revenueanalytics extends Component<{}, spark3> {
   constructor(props: {} | Readonly<{}>) {
     super(props);

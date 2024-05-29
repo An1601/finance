@@ -12,8 +12,10 @@ import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 import { BASE_URL } from "@api/axios";
 import { ResetPasswordInfo } from "@type/types";
 import InputField from "@components/common/input";
+import { useTranslation } from "react-i18next";
 
 const ResetPassword = () => {
+  const { t } = useTranslation();
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
   const dispatch = useDispatch<AppDispatch>();
@@ -56,7 +58,7 @@ const ResetPassword = () => {
       const message =
         axios.isAxiosError(error) && error.response?.data.message
           ? error.response.data.message
-          : "Reset Password unsuccessfully.";
+          : t("resetPassword.resetUnsuccessful");
       toast.warning(message);
     } finally {
       dispatch(setLoadingFalse());
@@ -75,60 +77,60 @@ const ResetPassword = () => {
           <img className="h-16 w-16" src={logo} alt="logo" />
           <div className="flex flex-col items-center gap-1">
             <div className="font-HelveticaNeue text-light_finance-textsub text-[2.5rem] font-bold leading-12 tracking-[-1.2px]">
-              Reset Password
+              {t("resetPassword.resetPassword")}
             </div>
             <div className="font-HelveticaNeue text-light_finance-textsub text-xs font-light leading-4 tracking-[-0.12px]">
-              You reset your password here
+              {t("resetPassword.descriptionResetPassword")}
             </div>
           </div>
         </div>
         <div className="w-full flex flex-col gap-8">
           <InputField
-            label="Password"
-            placeholder="Your password"
+            label={t("resetPassword.password")}
+            placeholder={t("resetPassword.yourPassword")}
             type={passwordShow1 ? "text" : "password"}
             isPassword
             showPassword={passwordShow1}
             toggleShowPassword={() => setPasswordShow1(!passwordShow1)}
             register={register("password", {
-              required: "Password is required",
+              required: t("resetPassword.requirePassword"),
               pattern: {
                 value:
                   /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()\-_=+{};:,<.>]).{8,}/,
-                message:
-                  "At least 8 characters, 1 digit, 1 lowercase, 1 uppercase, 1 special character",
+                message: t("resetPassword.messagePassword"),
               },
             })}
             error={errors.password}
           />
           <InputField
-            label="Confirm password"
-            placeholder="Confirm your password"
+            label={t("resetPassword.confirmPassword")}
+            placeholder={t("resetPassword.yourConfirmPassword")}
             type={passwordShow2 ? "text" : "password"}
             isPassword
             showPassword={passwordShow2}
             toggleShowPassword={() => setPasswordShow2(!passwordShow2)}
             register={register("confirmPassword", {
-              required: "Confirm Password is required",
+              required: t("resetPassword.requireComfirm"),
               validate: (value) =>
-                value === getValues("password") || "Passwords must match",
+                value === getValues("password") ||
+                t("resetPassword.matchPassword"),
             })}
             error={errors.confirmPassword}
           />
         </div>
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
           <button type="submit">
-            <AuthSubmitBtn name="Create" />
+            <AuthSubmitBtn name={t("resetPassword.create")} />
           </button>
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
-              Already have an account
+              {t("resetPassword.already")}
             </div>
             <div
               className="text-light_finance-textbody text-sm font-semibold font-['Be Vietnam'] underline leading-tight cursor-pointer"
               onClick={() => navigate("/signin")}
             >
-              Sign in
+              {t("resetPassword.signIn")}
             </div>
           </div>
         </div>

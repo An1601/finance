@@ -6,10 +6,8 @@ import SearchBar from "../header/SearchBar";
 interface ModalsearchProps {}
 
 const Modalsearch: FC<ModalsearchProps> = () => {
-  //Search functionality
   const [_show, setShow] = useState(false);
   const windowWidth = useWindowWidth();
-
   const handleClose = () => setShow(false);
 
   useEffect(() => {
@@ -19,11 +17,8 @@ const Modalsearch: FC<ModalsearchProps> = () => {
         searchResult.classList.add("hidden");
       }
     };
-
     document.addEventListener("click", clickHandler);
-
     return () => {
-      // Clean up the event listener when the component unmounts
       document.removeEventListener("click", clickHandler);
     };
   }, []);

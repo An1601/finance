@@ -29,6 +29,7 @@ function App() {
   useEffect(() => {
     import("preline");
   }, []);
+
   return accessToken ? (
     <Fragment>
       <Loader />

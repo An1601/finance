@@ -3,8 +3,10 @@ import { LoanDetails } from "@type/types";
 import { LoanStatus } from "@type/enum";
 import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
 import calendar from "@assets/icon/CalendarIcon.svg";
+import { useTranslation } from "react-i18next";
 
 const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
+  const { t } = useTranslation();
   return (
     <div className="p-4 bg-white rounded-xl flex justify-between items-end md:items-center gap-3 md:gap-8 lg:gap-20">
       <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
@@ -63,7 +65,7 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
             return (
               <div className="h-5 w-[66px] bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
                 <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-[10px] leading-4">
-                  Approval
+                  {t("packageLoanList.approval")}
                 </div>
               </div>
             );
@@ -71,7 +73,7 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
             return (
               <div className="h-5 w-[66px] bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center">
                 <div className="text-center font-HelveticaNeue font-medium text-[#408CFF] text-[10px] leading-4">
-                  In Progress
+                  {t("packageLoanList.inProgress")}
                 </div>
               </div>
             );
@@ -79,7 +81,7 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
             return (
               <div className="h-5 w-[66px] bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center">
                 <div className="text-center font-HelveticaNeue font-medium text-[#F65160] text-[10px] leading-4">
-                  Reject
+                  {t("packageLoanList.reject")}
                 </div>
               </div>
             );

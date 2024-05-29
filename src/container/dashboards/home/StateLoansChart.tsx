@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
 import { Sourcedata } from "./indexData";
+import { useTranslation } from "react-i18next";
 
 function StateLoansChart() {
+  const { t } = useTranslation();
   return (
     <div className="xxl:col-span-12 xl:col-span-12  col-span-12">
       <div className="box">
@@ -9,7 +11,7 @@ function StateLoansChart() {
           <div className="flex items-center gap-2 ">
             <div className="w-1 h-5 bg-danger rounded-sm" />
             <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-              State package loans
+              {t("home.statePackageLoans")}
             </div>
           </div>
         </div>
@@ -17,7 +19,7 @@ function StateLoansChart() {
           <div className="leads-source-chart flex items-center justify-center">
             <Sourcedata />
             <div className="lead-source-value ">
-              <span className="block text-[0.875rem] ">Total</span>
+              <span className="block text-[0.875rem] ">{t("home.total")}</span>
               <span className="block text-[1.5625rem] font-bold">4,145</span>
             </div>
           </div>
@@ -26,7 +28,7 @@ function StateLoansChart() {
           <div className="col !p-0">
             <div className="!pe-4 p-[0.95rem] text-center">
               <span className="text-[#8c9097] dark:text-white/50 text-[0.75rem] mb-1 crm-lead-legend tablet inline-block">
-                Approval
+                {t("home.approval")}
               </span>
               <div>
                 <span className="text-[1rem]  font-semibold">679</span>
@@ -36,7 +38,7 @@ function StateLoansChart() {
           <div className="col !p-0">
             <div className="p-[0.95rem] text-center border-e border-dashed dark:border-defaultborder/10">
               <span className="text-[#8c9097] dark:text-white/50 text-[0.75rem] mb-1 crm-lead-legend desktop inline-block">
-                In Progress
+                {t("home.inProgress")}
               </span>
               <div>
                 <span className="text-[1rem]  font-semibold">1,267</span>
@@ -46,7 +48,7 @@ function StateLoansChart() {
           <div className="col !p-0">
             <div className="p-[0.95rem] text-center border-e border-dashed dark:border-defaultborder/10">
               <span className="text-[#8c9097] dark:text-white/50 text-[0.75rem] mb-1 crm-lead-legend laptop inline-block">
-                Reject
+                {t("home.reject")}
               </span>
               <div>
                 <span className="text-[1rem]  font-semibold">1,153</span>

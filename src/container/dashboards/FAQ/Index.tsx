@@ -2,8 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import MobileHomeBtn from "../../../components/common/button/MobileHomeBtn";
 import { faqQuestion } from "./FAQData";
+import { useTranslation } from "react-i18next";
 
 const FAQ = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const {
     handleSubmit: submitFAQ,
@@ -21,23 +23,21 @@ const FAQ = () => {
             }}
           ></i>
           <div className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
-            FAQ's
+            {t("faq.faq")}
           </div>
         </div>
       </div>
       <div className="w-full flex-1 bg-light_finance-background p-6 md:mt-8 rounded-t-[1.5rem] flex flex-col gap-10 lg:flex-col-reverse lg:justify-end">
-        {/* question */}
         <div className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <div className="flex gap-3 items-center">
               <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-center text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                Still have question ?
+                {t("faq.still")}
               </div>
             </div>
             <div className="text-light_finance-textbody text-sm font-normal font-HelveticaNeue">
-              You can post your questions here, our support team is always
-              active
+              {t("faq.questions")}
             </div>
           </div>
           <div className="w-full flex flex-col gap-2 relative">
@@ -49,7 +49,7 @@ const FAQ = () => {
                   className="w-full p-0 text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                   placeholder="Enter your name"
                   {...faqData("name", {
-                    required: "Name is required",
+                    required: t("faq.requireName"),
                   })}
                 />
               </div>
@@ -57,7 +57,7 @@ const FAQ = () => {
                 <div
                   className={`${errors.name ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                 >
-                  Your name
+                  {t("faq.yourName")}
                 </div>
               </div>
             </div>
@@ -76,7 +76,7 @@ const FAQ = () => {
                   className="w-full p-0 text-light_finance-textbody text-sm font-normal font-['Helvetica Neue'] leading-tight border-none outline-none"
                   placeholder="Enter your question here"
                   {...faqData("question", {
-                    required: "Question is required",
+                    required: t("faq.requireQuestion"),
                   })}
                 />
               </div>
@@ -84,7 +84,7 @@ const FAQ = () => {
                 <div
                   className={`${errors.question ? "text-red" : "text-light_finance-textsub"} text-xs font-normal font-HelveticaNeue leading-none tracking-tight`}
                 >
-                  Textarea
+                  {t("faq.textarea")}
                 </div>
               </div>
             </div>
@@ -96,17 +96,15 @@ const FAQ = () => {
               )}
           </div>
           <div className="flex justify-end">
-            <MobileHomeBtn name="Send" />
+            <MobileHomeBtn name={t("faq.send")} />
           </div>
         </div>
-        {/* q&a */}
         <div className="flex flex-col lg:flex-row gap-10 lg:gap-20">
-          {/* general topic */}
           <div className="w-full">
             <div className="flex gap-3 items-center">
               <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-center text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                General Topics ?
+                {t("faq.generalTopics")}
               </div>
             </div>
             <div className="mt-4">
@@ -135,12 +133,11 @@ const FAQ = () => {
               })}
             </div>
           </div>
-          {/* customer support */}
           <div className="w-full">
             <div className="flex gap-3 items-center">
               <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-center text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                Customer Support ?
+                {t("faq.customerSupport")}
               </div>
             </div>
             <div className="mt-4">

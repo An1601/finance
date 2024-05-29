@@ -1,8 +1,10 @@
 import ItemNotification from "./ItemNotification";
 import bg1 from "@assets/images/authentication/1.svg";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const NotificationIndex = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   return (
     <div className="min-h-screen relative overflow-hidden">
@@ -18,12 +20,12 @@ const NotificationIndex = () => {
               ></i>
               <div className="md:block hidden w-1 h-5 bg-danger rounded-sm" />
               <div className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
-                Notifications
+                {t("notification.notifications")}
               </div>
             </div>
           </div>
           <div className="px-2 py-1 bg-[#FFE4DE] font-HelveticaNeue font-medium text-xs leading-4 tracking-tight text-light_finance-secondary rounded-sm">
-            5 Unread
+            {t("notification.unread")}
           </div>
         </div>
         <div className="flex flex-col gap-4 lg:gap-y-4 lg:grid lg:grid-cols-2 lg:gap-12 xl:gap-x-24">

@@ -1,11 +1,13 @@
-import NotiHeader from "../../svg/NotiHeader";
 import faqIcon from "@assets/icon/FAQIcon.svg";
 import useWindowWidth from "../../hook/useWindowWidth";
 import AuthSubmitBtn from "../button/AuthSubmitBtn";
 import NotificationList from "@container/dashboards/Notification/NotificationList";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+import NotificationHeader from "@assets/icon/NotificationHeader.svg";
 
 function Notification() {
+  const { t } = useTranslation();
   const windowWidth = useWindowWidth();
   const navigate = useNavigate();
 
@@ -22,7 +24,7 @@ function Notification() {
             }
           }}
         >
-          <NotiHeader />
+          <img src={NotificationHeader} />
         </button>
         {windowWidth > 480 && (
           <div
@@ -32,10 +34,10 @@ function Notification() {
             <div className="sm:!w-[380px] sm:!h-[85vh] sm:overflow-y-auto">
               <div className="ti-dropdown-header !m-0 !p-4 !bg-transparent flex justify-between items-center">
                 <span className="font-HelveticaNeue font-bold text-2xl leading-8 text-center text-light_finance-textbody">
-                  Notifications
+                  {t("header.notifications")}
                 </span>
                 <span className="px-2 py-1 bg-[#FFE4DE] font-HelveticaNeue font-medium text-xs leading-4 tracking-tight text-light_finance-secondary rounded-sm">
-                  5 Unread
+                  {t("header.unread")}
                 </span>
               </div>
               <div className="w-full mb-14">
@@ -48,7 +50,7 @@ function Notification() {
                 navigate("/notification");
               }}
             >
-              <AuthSubmitBtn name="View all" />
+              <AuthSubmitBtn name={t("header.viewAll")} />
             </div>
           </div>
         )}

@@ -19,8 +19,10 @@ import SecurityIcon from "@assets/icon/SecurityIcon.svg";
 import ShareIcon from "@assets/icon/ShareIcon.svg";
 import LogoutIcon from "@assets/icon/LogoutIcon.svg";
 import { fetchProfileData } from "@redux/userThunks";
+import { useTranslation } from "react-i18next";
 
 function Account() {
+  const { t } = useTranslation();
   const [isOn, setIsOn] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -45,10 +47,10 @@ function Account() {
         dispatch(handle_logout());
       } else {
         const error = await response?.data;
-        toast.warning(error.message || "Log Out unsuccessfully.");
+        toast.warning(error.message || t("profile.messWarning"));
       }
     } catch (error) {
-      toast.error("An error occurred!");
+      toast.error(t("profile.messError"));
     }
   };
 
@@ -60,35 +62,40 @@ function Account() {
     {
       id: 1,
       icon: AccountIcon,
-      text: "Edit profile",
+      text: t("profile.editProfile"),
       onClick: handleEditProfile,
     },
-    { id: 2, icon: DocumentIcon, text: "Documents" },
+    { id: 2, icon: DocumentIcon, text: t("profile.document") },
     {
       id: 3,
       icon: ChangePasswordIcon,
-      text: "Change password",
+      text: t("profile.changePassword"),
       onClick: handleChangePassword,
     },
-    { id: 4, icon: NotificationIcon, text: "Notifications" },
+    { id: 4, icon: NotificationIcon, text: t("profile.notification") },
   ];
 
   const MENU_ITEMS_RIGHT = [
     {
       id: 5,
       icon: SecurityIcon,
-      text: "Terms & Conditions",
+      text: t("profile.terms"),
       onClick: handleTermsConditions,
     },
-    { id: 6, icon: ShareIcon, text: "Share" },
-    { id: 7, icon: LogoutIcon, text: "Logout", onClick: handleLogout },
+    { id: 6, icon: ShareIcon, text: t("profile.share") },
+    {
+      id: 7,
+      icon: LogoutIcon,
+      text: t("profile.logout"),
+      onClick: handleLogout,
+    },
   ];
 
   return (
     <div>
       {windowWidth >= 480 ? (
         <div>
-          <Breadcrumb primaryText="Account" />
+          <Breadcrumb primaryText={t("profile.account")} />
           <HeaderItem
             showIconImage={false}
             className="rounded-t-[24px] py-6"
@@ -129,7 +136,7 @@ function Account() {
               {MENU_ITEMS_LEFT.concat(MENU_ITEMS_RIGHT).map((item) => (
                 <MenuItemComponent
                   key={item.id}
-                  className={`${item.text === "Edit profile" ? "rounded-t-[12px]" : ""}`}
+                  className={`${item.id === 1 ? "rounded-t-[12px]" : ""}`}
                   {...{ item, isOn, handleToggle }}
                 />
               ))}

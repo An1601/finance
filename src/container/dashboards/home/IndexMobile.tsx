@@ -1,4 +1,4 @@
-import { FC, Fragment } from "react";
+import { Fragment } from "react";
 import Overview from "./Overview";
 import TopLoans from "./TopLoans";
 import PackageLoanList from "../PackageLoan/PackageLoanList";
@@ -9,11 +9,11 @@ import { loanDetails } from "../PackageLoan/LoanListData";
 import ProfileHeader from "@components/common/header/ProfileHeader";
 import Notification from "@components/common/header/Notification";
 import SearchBar from "@components/common/header/SearchBar";
+import { useTranslation } from "react-i18next";
 
-interface CrmProps {}
-
-const HomeMobile: FC<CrmProps> = () => {
+const HomeMobile = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   return (
     <Fragment>
       <div className="mx-6 my-[75px]  flex flex-col gap-8">
@@ -31,7 +31,7 @@ const HomeMobile: FC<CrmProps> = () => {
             <div className="flex items-center gap-2 sm:hidden">
               <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                Package loans list
+                {t("home.packageLoansList")}
               </div>
             </div>
             <div
@@ -40,7 +40,7 @@ const HomeMobile: FC<CrmProps> = () => {
                 navigate("/loan-list");
               }}
             >
-              View all
+              {t("home.viewAll")}
             </div>
           </div>
           <div className=" my-0 sm:my-[1.5rem]">
@@ -52,7 +52,7 @@ const HomeMobile: FC<CrmProps> = () => {
             <div className="flex items-center gap-2 sm:hidden">
               <div className="w-1 h-5 bg-danger rounded-sm" />
               <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                Consulting meeting list
+                {t("home.consulting")}
               </div>
             </div>
             <div
@@ -61,7 +61,7 @@ const HomeMobile: FC<CrmProps> = () => {
                 navigate("/meeting");
               }}
             >
-              View all
+              {t("home.viewAll")}
             </div>
           </div>
           <div className=" my-0 sm:my-[1.5rem]">

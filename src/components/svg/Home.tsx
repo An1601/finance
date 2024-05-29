@@ -1,7 +1,6 @@
 const HomeIcon = (props: any) => (
   <svg
-    className="mb-1 text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-500"
-    fill="currentColor"
+    fill="none"
     width={36}
     height={36}
     viewBox="0 0 36 36"

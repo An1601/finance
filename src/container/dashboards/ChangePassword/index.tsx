@@ -6,8 +6,10 @@ import InputField from "@components/common/input";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import BackIcon from "@components/svg/Back";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 function ChangePassword() {
+  const { t } = useTranslation();
   const windowWidth = useWindowWidth();
   const navigate = useNavigate();
   const [showPassword1, setShowPassword1] = useState(false);
@@ -19,8 +21,8 @@ function ChangePassword() {
       {windowWidth >= 480 ? (
         <div>
           <Breadcrumb
-            primaryText="Account"
-            secondaryText="Change password"
+            primaryText={t("changePassword.account")}
+            secondaryText={t("changePassword.changePassword")}
             showSecondary
           />
 
@@ -28,37 +30,33 @@ function ChangePassword() {
             <div className="flex flex-row items-center gap-2 mb-4">
               <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
               <div className="text-slate-900 text-lg font-bold font-['Helvetica Neue'] leading-7">
-                Change Password
+                {t("changePassword.changePassword")}
               </div>
             </div>
             <form>
               <div className="flex gap-20">
-                {/* Cột trái */}
                 <div className="w-1/2 flex flex-col space-y-4">
                   <InputField
-                    label="Current Password"
-                    placeholder="Your current password"
+                    label={t("changePassword.currentPassword")}
+                    placeholder={t("changePassword.yourCurrentPassword")}
                     showPassword={showPassword1}
                     type={showPassword1 ? "text" : "password"}
                     toggleShowPassword={() => setShowPassword1(!showPassword1)}
                     isPassword
                   />
-
                   <InputField
-                    label="Password"
-                    placeholder="Your password"
+                    label={t("changePassword.password")}
+                    placeholder={t("changePassword.yourPassword")}
                     showPassword={showPassword2}
                     type={showPassword2 ? "text" : "password"}
                     toggleShowPassword={() => setShowPassword2(!showPassword2)}
                     isPassword
                   />
                 </div>
-
-                {/* Cột phải */}
                 <div className="w-1/2 flex flex-col space-y-4">
                   <InputField
-                    label="Confirm password"
-                    placeholder="Your confirm password"
+                    label={t("changePassword.confirmPassword")}
+                    placeholder={t("changePassword.yourConfirmPassword")}
                     showPassword={showPassword3}
                     type={showPassword3 ? "text" : "password"}
                     toggleShowPassword={() => setShowPassword3(!showPassword3)}
@@ -68,7 +66,7 @@ function ChangePassword() {
               </div>
               <div className="flex justify-center mt-10">
                 <button type="submit">
-                  <AuthSubmitBtn name="Update" />
+                  <AuthSubmitBtn name={t("changePassword.update")} />
                 </button>
               </div>
             </form>
@@ -87,7 +85,7 @@ function ChangePassword() {
                   <BackIcon color="#45556E" />
                 </div>
                 <div className="text-center text-slate-900 text-2xl font-bold font-['Helvetica Neue'] leading-loose">
-                  Change password
+                  {t("changePassword.changePassword")}
                 </div>
               </div>
             </div>
@@ -95,24 +93,24 @@ function ChangePassword() {
             <div className="bg-[#F5F9FF] mb-20">
               <form className="bg-white p-6 rounded-t-[24px] flex flex-col gap-8 ">
                 <InputField
-                  label="Current Password"
-                  placeholder="Your current password"
+                  label={t("changePassword.currentPassword")}
+                  placeholder={t("changePassword.yourCurrentPassword")}
                   showPassword={showPassword1}
                   type={showPassword1 ? "text" : "password"}
                   toggleShowPassword={() => setShowPassword1(!showPassword1)}
                   isPassword
                 />
                 <InputField
-                  label="Password"
-                  placeholder="Your password"
+                  label={t("changePassword.password")}
+                  placeholder={t("changePassword.yourPassword")}
                   showPassword={showPassword2}
                   type={showPassword2 ? "text" : "password"}
                   toggleShowPassword={() => setShowPassword2(!showPassword2)}
                   isPassword
                 />
                 <InputField
-                  label="Confirm password"
-                  placeholder="Your confirm password"
+                  label={t("changePassword.confirmPassword")}
+                  placeholder={t("changePassword.yourConfirmPassword")}
                   showPassword={showPassword3}
                   type={showPassword3 ? "text" : "password"}
                   toggleShowPassword={() => setShowPassword3(!showPassword3)}
@@ -120,12 +118,11 @@ function ChangePassword() {
                 />
                 <div className="flex justify-center">
                   <button type="submit">
-                    <AuthSubmitBtn name="Update" />
+                    <AuthSubmitBtn name={t("changePassword.update")} />
                   </button>
                 </div>
               </form>
             </div>
-            <BottomBarCustom />
           </div>
         </div>
       )}
