@@ -1,6 +1,5 @@
 const AuthSubmitBtn: React.FC<{ name: string; handleSubmit?: () => void }> = ({
   name,
-  handleSubmit,
 }) => {
   return (
     <div className="w-[280px] flex flex-col items-center ">

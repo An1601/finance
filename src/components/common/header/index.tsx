@@ -1,4 +1,4 @@
-import { FC, Fragment, useEffect, useState } from "react";
+import { FC, Fragment } from "react";
 import Modalsearch from "../modalsearch/modalsearch";
 import { Link } from "react-router-dom";
 import { store } from "@redux/store";

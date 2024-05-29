@@ -70,7 +70,7 @@ function StatePackageLoans({ loanRecords }: { loanRecords: LoanDetails[] }) {
                     <td>{record.loan_name}</td>
                     <td>{record.bank_name}</td>
                     <td>{record.credit_limit}</td>
-                    <td>{record.time_began.toDateString()}</td>
+                    <td>{new Date(record.time_began).toDateString()}</td>
                     <td>
                       <span
                         className={`inline-flex ${record.state === LoanStatus.APPROVED ? "text-success bg-success/10" : record.state === LoanStatus.INPROGRESS ? "text-info bg-info/10" : "text-danger bg-danger/10"} !py-[0.15rem] !px-[0.45rem] rounded-sm !font-semibold !text-[0.75em]`}
