@@ -21,7 +21,7 @@ const commonReducer = createSlice({
       };
     },
   },
-  extraReducers(builder) {},
+  extraReducers() {},
 });
 export const { setLoadingFalse, setLoadingTrue } = commonReducer.actions;
 export default commonReducer.reducer;

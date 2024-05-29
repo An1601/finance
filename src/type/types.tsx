@@ -84,4 +84,5 @@ export type LoanDetails = {
   state: LoanStatus;
   bank_name: string;
   bank_thumbnail: string;
+  time_began: Date;
 };

@@ -8,7 +8,7 @@ const FAQ = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const {
-    handleSubmit: submitFAQ,
+    // handleSubmit: submitFAQ,
     register: faqData,
     formState: { errors },
   } = useForm();

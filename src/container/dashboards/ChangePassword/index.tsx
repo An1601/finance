@@ -1,5 +1,4 @@
 import { useState } from "react";
-import BottomBarCustom from "@components/common/bottomBar";
 import Breadcrumb from "@components/common/breadcrumb";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 import InputField from "@components/common/input";
