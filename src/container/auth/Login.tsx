@@ -35,8 +35,8 @@ const Login = () => {
     try {
       const response = await api.post("/login", data);
       if (response.status === 200) {
-        navigate("/dashboard");
         dispatch(handle_login(response.data.data));
+        navigate("/dashboard");
       }
     } catch (error) {
       const message =

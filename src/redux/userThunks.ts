@@ -7,12 +7,10 @@ export const fetchProfileData = createAsyncThunk<
   BusinessProfile,
   void,
   { state: RootState }
->("user/fetchProfileData", async (_, { getState, rejectWithValue }) => {
-  const { id } = getState().rootReducer.userReducer;
-
+>("user/fetchProfileData", async (_, { rejectWithValue }) => {
   try {
-    const response = await api.get(`/profile/${id}`);
-    return response.data.data.business_profile;
+    const response = await api.get("/me/profile");
+    return response.data.data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);
   }

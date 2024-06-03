@@ -1,29 +1,72 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { RootState } from "@redux/store";
+import { AppDispatch, RootState } from "@redux/store";
 import Breadcrumb from "@components/common/breadcrumb";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 import InputField from "@components/common/input";
 import useWindowWidth from "@components/hook/useWindowWidth";
-import HeaderItem from "../profile/Header";
 import { useTranslation } from "react-i18next";
+import { useForm } from "react-hook-form";
+import { UpdateProfile } from "@type/types";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
+import api from "@api/axios";
+import axios from "axios";
+import { toast } from "react-toastify";
+import Loader from "@components/common/loader/loader";
+import BackIcon from "@components/svg/Back";
 
 function EditProfile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { name, email, phone, address, date_of_birth } = useSelector(
+  const { business_profile } = useSelector(
     (state: RootState) => state.rootReducer.userReducer,
   );
+  const isLoading = useSelector(
+    (state: RootState) => state.rootReducer.commonReducer.isloading,
+  );
+  const dispatch = useDispatch<AppDispatch>();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors },
+    setValue,
+  } = useForm<UpdateProfile>();
+
   const windowWidth = useWindowWidth();
-  const [userName, setUserName] = useState(name);
-  const [userEmail, setUserEmail] = useState(email);
-  const [userPhone, serUserPhone] = useState(phone);
-  const [userAddress, setUserAddress] = useState(address);
-  const [userDateOfBirth, setUserDateOfBirth] = useState(date_of_birth);
+
+  useEffect(() => {
+    if (business_profile) setValue("name", business_profile?.name ?? "");
+    if (business_profile) setValue("phone", business_profile?.phone ?? "");
+    if (business_profile) setValue("email", business_profile?.email ?? "");
+    if (business_profile) setValue("DOB", business_profile?.DOB ?? "");
+    if (business_profile)
+      setValue("business_address", business_profile?.business_address ?? "");
+  }, [business_profile]);
+
+  const handleUpdate = async (data: UpdateProfile) => {
+    dispatch(setLoadingTrue());
+    try {
+      const response = await api.post("/me/profile/update", data);
+      if (response.status === 200) {
+        toast.success(t("editProfile.messSuccess"));
+        navigate("/profile");
+      }
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
+
+  if (isLoading) return <Loader />;
 
   return (
-    <div>
+    <form onSubmit={handleSubmit(handleUpdate)}>
       {windowWidth >= 480 ? (
         <div>
           <Breadcrumb
@@ -38,37 +81,52 @@ function EditProfile() {
                 {t("editProfile.editProfile")}
               </div>
             </div>
-            <form>
+            <div>
               <div className="flex gap-20">
                 <div className="w-1/2 flex flex-col space-y-4">
                   <InputField
                     label={t("editProfile.name")}
-                    value={userName}
-                    onChange={(e: any) => setUserName(e.target.value)}
+                    register={register("name", {
+                      required: t("signup.requireName"),
+                    })}
+                    error={errors.name}
                   />
                   <InputField
                     label={t("editProfile.phone")}
-                    value={userPhone}
-                    onChange={(e: any) => serUserPhone(e.target.value)}
+                    register={register("phone", {
+                      required: t("signup.requirePhone"),
+                    })}
+                    error={errors.phone}
                   />
                   <InputField
                     label={t("editProfile.email")}
                     type="email"
-                    value={userEmail}
-                    onChange={(e: any) => setUserEmail(e.target.value)}
+                    register={register("email", {
+                      required: t("signup.requireEmail"),
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                        message: t("signup.messageEmail"),
+                      },
+                    })}
+                    error={errors.email}
                   />
                 </div>
                 <div className="w-1/2 flex flex-col space-y-4">
                   <InputField
                     label={t("editProfile.dateOfBirth")}
                     type="date"
-                    value={userDateOfBirth}
-                    onChange={(e: any) => setUserDateOfBirth(e.target.value)}
+                    register={register("DOB", {
+                      required: t("signup.requireDate"),
+                    })}
+                    error={errors.DOB}
                   />
                   <InputField
                     label={t("editProfile.address")}
-                    value={userAddress}
-                    onChange={(e: any) => setUserAddress(e.target.value)}
+                    register={register("business_address", {
+                      required: t("signup.requireAddress"),
+                    })}
+                    error={errors.business_address}
                   />
                 </div>
               </div>
@@ -77,62 +135,79 @@ function EditProfile() {
                   <AuthSubmitBtn name={t("editProfile.update")} />
                 </button>
               </div>
-            </form>
+            </div>
           </div>
         </div>
       ) : (
         <div className="!mt-0 sm:!mt-[60px] flex flex-row gap-8">
-          <div className="w-screen sm:max-w-[480px] bg-white">
-            <HeaderItem
-              className="pt-[10px] pb-[28px]"
-              showIconImage={true}
-              userName={name}
-              email={email}
-              onClick={() => {
-                navigate("/profile");
-              }}
-              showBack={true}
-            />
-            <div className="bg-[#01D2B4] mb-20">
-              <form className="bg-white p-6 rounded-t-[24px] flex flex-col gap-8 ">
+          <div className="w-screen sm:max-w-[480px]">
+            <div className="flex flex-row items-center gap-3 px-6 py-7">
+              <div
+                onClick={() => {
+                  navigate("/profile");
+                }}
+              >
+                <BackIcon color="#45556E" />
+              </div>
+              <div className="text-center text-slate-900 text-2xl font-bold font-['Helvetica Neue'] leading-loose">
+                {t("editProfile.editProfile")}
+              </div>
+            </div>
+            <div className=" mb-20 ">
+              <div className="bg-white p-6 rounded-t-[24px] flex flex-col gap-8 ">
                 <InputField
                   label={t("editProfile.name")}
-                  value={userName}
-                  onChange={(e: any) => setUserName(e.target.value)}
+                  register={register("name", {
+                    required: t("signup.requireName"),
+                  })}
+                  error={errors.name}
                 />
                 <InputField
                   label={t("editProfile.phone")}
-                  value={userPhone}
-                  onChange={(e: any) => serUserPhone(e.target.value)}
+                  register={register("phone", {
+                    required: t("signup.requirePhone"),
+                  })}
+                  error={errors.phone}
                 />
                 <InputField
                   label={t("editProfile.email")}
                   type="email"
-                  value={userEmail}
-                  onChange={(e: any) => setUserEmail(e.target.value)}
+                  register={register("email", {
+                    required: t("signup.requireEmail"),
+                    pattern: {
+                      value:
+                        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                      message: t("signup.messageEmail"),
+                    },
+                  })}
+                  error={errors.email}
                 />
                 <InputField
                   label={t("editProfile.dateOfBirth")}
                   type="date"
-                  value={userDateOfBirth}
-                  onChange={(e: any) => setUserDateOfBirth(e.target.value)}
+                  register={register("DOB", {
+                    required: t("signup.requireDate"),
+                  })}
+                  error={errors.DOB}
                 />
                 <InputField
                   label={t("editProfile.address")}
-                  value={userAddress}
-                  onChange={(e: any) => setUserAddress(e.target.value)}
+                  register={register("business_address", {
+                    required: t("signup.requireAddress"),
+                  })}
+                  error={errors.business_address}
                 />
                 <div className="flex justify-center">
                   <button type="submit">
                     <AuthSubmitBtn name={t("editProfile.update")} />
                   </button>
                 </div>
-              </form>
+              </div>
             </div>
           </div>
         </div>
       )}
-    </div>
+    </form>
   );
 }
 

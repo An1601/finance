@@ -143,6 +143,8 @@ export default {
     confirmPassword: "Confirm Password",
     yourConfirmPassword: "Your confirm password",
     update: "Update",
+    messSuccess: "Successfully updated password",
+    matchPassword: "Passwords must match",
   },
   consulting: {
     consulting: "Consulting Meeting List",
@@ -174,6 +176,7 @@ export default {
     dateOfBirth: "Date of Birth",
     address: "Address",
     update: "Update",
+    messSuccess: "Successfully updated profile",
   },
   faq: {
     faq: "FAQ's",

@@ -14,6 +14,9 @@ export type SignUpInfo = {
 export type BusinessProfile = {
   name: string;
   email: string;
+  phone: string;
+  DOB: string;
+  business_address: string;
 };
 
 export type LoginInfo = {
@@ -85,4 +88,18 @@ export type LoanDetails = {
   bank_name: string;
   bank_thumbnail: string;
   time_began: Date;
+};
+
+export type UpdateProfile = {
+  name: string;
+  phone: string;
+  DOB: string;
+  business_address: string;
+  email: string;
+};
+
+export type ChangePasswordInfo = {
+  current_password: string;
+  new_password: string;
+  new_password_confirmation: string;
 };

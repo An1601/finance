@@ -27,6 +27,10 @@ function Account() {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const windowWidth = useWindowWidth();
+  const handleToggle = () => setIsOn(!isOn);
+  const handleEditProfile = () => navigate("/edit-profile");
+  const handleChangePassword = () => navigate("/change-password");
+  const handleTermsConditions = () => navigate("/terms-conditions");
   const { business_profile } = useSelector(
     (state: RootState) => state.rootReducer.userReducer,
   );
@@ -34,8 +38,6 @@ function Account() {
   useEffect(() => {
     dispatch(fetchProfileData());
   }, []);
-
-  const handleToggle = () => setIsOn(!isOn);
 
   const handleLogout = async () => {
     try {
@@ -53,10 +55,6 @@ function Account() {
       toast.error(t("profile.messError"));
     }
   };
-
-  const handleEditProfile = () => navigate("/edit-profile");
-  const handleChangePassword = () => navigate("/change-password");
-  const handleTermsConditions = () => navigate("/terms-conditions");
 
   const MENU_ITEMS_LEFT = [
     {
@@ -97,7 +95,7 @@ function Account() {
         <div>
           <Breadcrumb primaryText={t("profile.account")} />
           <HeaderItem
-            showIconImage={false}
+            showIconImage={true}
             className="rounded-t-[24px] py-6"
             userName={business_profile?.name}
             email={business_profile?.email}
