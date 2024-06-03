@@ -9,7 +9,7 @@ function SearchMobile() {
   const navigate = useNavigate();
   if (useWindowWidth() > 480) navigate("/");
   return (
-    <div className="min-h-screen relative mt-[75px] md:m-0 flex flex-col bg-light_finance-background1">
+    <div className="min-h-screen relative pt-7 md:m-0 flex flex-col bg-light_finance-background1">
       <div className="flex items-center justify-between">
         <div className="flex gap-3 items-center mx-6">
           <i

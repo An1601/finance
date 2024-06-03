@@ -10,7 +10,7 @@ function PackageLoanIndex() {
   const loanList = loanDetails;
   return (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 mt-[75px]">
+      <div className=" z-10 relative mx-6 pt-7">
         <div className="flex md:hidden items-center justify-between">
           <div className="flex gap-3 md:gap-2 items-center">
             <i

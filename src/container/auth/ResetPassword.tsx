@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Fragment, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "@assets/images/brand-logos/1.png";
-import { AppDispatch, RootState } from "@redux/store";
+import { AppDispatch } from "@redux/store";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader/loader";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
@@ -13,6 +13,7 @@ import { BASE_URL } from "@api/axios";
 import { ResetPasswordInfo } from "@type/types";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
+import { useLoading } from "@redux/useSelector";
 
 const ResetPassword = () => {
   const { t } = useTranslation();
@@ -20,9 +21,7 @@ const ResetPassword = () => {
   const token = searchParams.get("token");
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
-  );
+  const isLoading = useLoading();
   const [passwordShow1, setPasswordShow1] = useState(false);
   const [passwordShow2, setPasswordShow2] = useState(false);
 
@@ -71,7 +70,7 @@ const ResetPassword = () => {
     <Fragment>
       <form
         onSubmit={handleSubmit(handleResetPassword)}
-        className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col items-center gap-12"
+        className="w-screen sm:max-w-[480px] z-10 mt-[3.25rem] mb-[3.25rem] px-6 flex flex-col items-center gap-12"
       >
         <div className="w-full flex flex-col items-center justify-between gap-3">
           <img className="h-16 w-16" src={logo} alt="logo" />
@@ -122,6 +121,7 @@ const ResetPassword = () => {
           <button type="submit">
             <AuthSubmitBtn name={t("resetPassword.create")} />
           </button>
+          <AuthSubmitBtn type="submit" name="Create" />
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
               {t("resetPassword.already")}

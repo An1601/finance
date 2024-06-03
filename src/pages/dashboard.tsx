@@ -5,15 +5,11 @@ import Switcher from "../components/common/switcher/switcher";
 import Header from "../components/common/header/index";
 import { Helmet, HelmetProvider } from "react-helmet-async";
 import { Navigate, Outlet } from "react-router-dom";
-import { RootState } from "@redux/store";
-import { useSelector } from "react-redux";
+import { useAccessToken } from "@redux/useSelector";
 
-function App() {
+function Dashboard() {
   const [MyclassName, setMyClass] = useState("");
-  const accessToken: string = useSelector(
-    (state: RootState) => state.rootReducer.userReducer.access_token,
-  );
-
+  const accessToken = useAccessToken();
   const Bodyclickk = () => {
     if (localStorage.getItem("zenverticalstyles") == "icontext") {
       setMyClass("");
@@ -68,4 +64,4 @@ function App() {
   );
 }
 
-export default App;
+export default Dashboard;

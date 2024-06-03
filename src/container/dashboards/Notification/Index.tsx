@@ -8,7 +8,7 @@ const NotificationIndex = () => {
   const navigate = useNavigate();
   return (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 mt-[75px] flex flex-col gap-7">
+      <div className=" z-10 relative mx-6 pt-7 flex flex-col gap-7">
         <div className="h-8 flex justify-between items-center">
           <div className="flex items-center justify-between">
             <div className="flex gap-3 md:gap-2 items-center">

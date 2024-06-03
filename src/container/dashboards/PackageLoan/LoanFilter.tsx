@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
 import { FilterOption } from "@type/enum";
 import filterIcon from "@assets/icon/FilterIcon.svg";
@@ -25,6 +25,22 @@ const LoanFilter = () => {
         return newState;
       });
   };
+  const uncheckFilerInputs = (event: MouseEvent) => {
+    if (!(event.target instanceof HTMLInputElement)) {
+      const filerInputs: NodeListOf<HTMLInputElement> =
+        document.querySelectorAll("input.filter-btn");
+      filerInputs.forEach((input: HTMLInputElement) => {
+        input.checked = false;
+      });
+    }
+  };
+  useEffect(() => {
+    document.body.addEventListener("click", uncheckFilerInputs);
+    return () => {
+      document.body.removeEventListener("click", uncheckFilerInputs);
+    };
+  }, [uncheckFilerInputs]);
+
   return (
     <div className="w-full md:w-fit flex items-center justify-between sm:justify-end sm:gap-6">
       <div className="relative">
@@ -35,7 +51,7 @@ const LoanFilter = () => {
           <img className="rotate-90" src={arrow} />
         </div>
         <input
-          className="h-12 w-[168px] absolute top-0 opacity-0 peer"
+          className="filter-btn h-12 w-[168px] absolute top-0 opacity-0 peer z-10"
           type="checkbox"
         />
         <div className="absolute peer-checked:flex hidden top-14 w-[168px] bg-white rounded-lg drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)] flex-col ">
@@ -70,7 +86,7 @@ const LoanFilter = () => {
           <img className="h-6 w-6" src={filterIcon} />
         </div>
         <input
-          className="h-12 w-12 absolute top-0 opacity-0 peer"
+          className="filter-btn h-12 w-12 absolute top-0 opacity-0 peer z-10"
           type="checkbox"
         />
         <div className="absolute peer-checked:flex hidden top-14 right-0 w-[226px] max-h-[60vh] overflow-scroll rounded-lg bg-light_finance-background1 drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)]  flex-col ">

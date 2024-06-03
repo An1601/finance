@@ -75,6 +75,7 @@ export default {
           sub_second: "#E7FFFC",
           secondary: "#F57156",
           primary: "#01D2B4",
+          input_bg: "#F4F9FD",
         },
         dark_finance: {
           background: "#06170E",

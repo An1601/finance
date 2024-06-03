@@ -1,18 +1,19 @@
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "@assets/images/brand-logos/1.png";
 import { SignUpInfo } from "@type/types";
-import { AppDispatch, RootState } from "@redux/store";
+import { AppDispatch } from "@redux/store";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader/loader";
 import api from "@api/axios";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
+import { useLoading } from "@redux/useSelector";
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -20,9 +21,7 @@ const SignUp = () => {
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
-  );
+  const isLoading = useLoading();
 
   const {
     handleSubmit,
@@ -56,7 +55,7 @@ const SignUp = () => {
     <Fragment>
       <form
         onSubmit={handleSubmit(handleSignUp)}
-        className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col justify-center items-center gap-12"
+        className="w-screen sm:max-w-[480px] z-10 my-[3.25rem] lg:my-10 px-6 flex flex-col justify-center items-center gap-12"
       >
         <div className="w-full flex flex-col items-center justify-between gap-3">
           <img className="h-16 w-16" src={logo} alt="logo" />
@@ -163,6 +162,7 @@ const SignUp = () => {
           <button type="submit">
             <AuthSubmitBtn name={t("signup.signUp")} />
           </button>
+          <AuthSubmitBtn type="submit" name="Sign Up" />
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
               {t("signup.already")}

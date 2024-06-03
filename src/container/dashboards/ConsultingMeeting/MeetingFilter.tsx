@@ -1,5 +1,5 @@
 import { FilterOption } from "@type/enum";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import arrow from "@assets/icon/ArrowIcon.svg";
 import filterIcon from "@assets/icon/FilterIcon.svg";
 import { MEETING_FILTER_OPT } from "@constant/Constant";
@@ -11,9 +11,24 @@ const MeetingFilter = () => {
     setSelectedCheckbox(value === selectedCheckbox ? null : value);
   };
   const updateSelectedLoanOpt = (value: number) => {
-    if (selectedLoanOpt === value) setSelectedLoanOpt(-1);
-    else setSelectedLoanOpt(value);
+    setSelectedLoanOpt(value === selectedLoanOpt ? -1 : value);
   };
+  const uncheckFilerInputs = (event: MouseEvent) => {
+    if (!(event.target instanceof HTMLInputElement)) {
+      const filerInputs: NodeListOf<HTMLInputElement> =
+        document.querySelectorAll("input.filter-btn");
+      filerInputs.forEach((input: HTMLInputElement) => {
+        input.checked = false;
+      });
+    }
+  };
+
+  useEffect(() => {
+    document.body.addEventListener("click", uncheckFilerInputs);
+    return () => {
+      document.body.removeEventListener("click", uncheckFilerInputs);
+    };
+  }, [uncheckFilerInputs]);
 
   return (
     <div className="w-full md:w-fit flex items-center justify-between sm:justify-end sm:gap-6">
@@ -25,7 +40,7 @@ const MeetingFilter = () => {
           <img className="rotate-90" src={arrow} />
         </div>
         <input
-          className="h-12 w-[168px] absolute top-0 opacity-0 peer"
+          className="filter-btn h-12 w-[168px] absolute top-0 opacity-0 peer"
           type="checkbox"
         />
         <div className="absolute peer-checked:flex hidden top-14 w-[168px] bg-white rounded-lg drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)] flex-col ">
@@ -60,7 +75,7 @@ const MeetingFilter = () => {
           <img className="h-6 w-6" src={filterIcon} />
         </div>
         <input
-          className="h-12 w-12 absolute top-0 opacity-0 peer"
+          className="filter-btn h-12 w-12 absolute top-0 opacity-0 peer"
           type="checkbox"
         />
         <div className="absolute peer-checked:flex hidden top-14 right-0 w-[226px] max-h-[60vh] overflow-scroll rounded-lg bg-light_finance-background drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)]  flex-col ">

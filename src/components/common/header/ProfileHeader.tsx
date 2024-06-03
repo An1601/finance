@@ -5,26 +5,23 @@ import api from "@api/axios";
 import { toast } from "react-toastify";
 import Loader from "../loader/loader";
 import { handle_logout } from "@redux/userReducers";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
 import ProfileLink from "./ProfileLink";
 import useWindowWidth from "../../hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
 import { useEffect } from "react";
 import { fetchProfileData } from "@redux/userThunks";
+import { useUser, useLoading } from "@redux/useSelector";
 
 function ProfileHeader() {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
-  );
+  const isLoading = useLoading();
   const navigate = useNavigate();
   const windowWidth = useWindowWidth();
 
-  const { business_profile } = useSelector(
-    (state: RootState) => state.rootReducer.userReducer,
-  );
+  const user = useUser();
 
   useEffect(() => {
     dispatch(fetchProfileData());
@@ -70,7 +67,7 @@ function ProfileHeader() {
             {t("header.goodMorning")}
           </div>
           <div className="font-bold  !text-light_finance-textbody text-base tracking-tighter">
-            {business_profile?.name}
+            {user?.name}
           </div>
         </div>
       </div>

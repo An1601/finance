@@ -1,12 +1,12 @@
 import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "@assets/images/brand-logos/1.png";
 import { LoginInfo } from "@type/types";
-import { AppDispatch, RootState } from "@redux/store";
+import { AppDispatch } from "@redux/store";
 import { handle_login } from "@redux/userReducers";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader/loader";
@@ -14,15 +14,14 @@ import api from "../../API/axios";
 import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
+import { useLoading } from "@redux/useSelector";
 
 const Login = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [passwordShow, setPasswordShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
-  );
+  const isLoading = useLoading();
 
   const {
     handleSubmit,
@@ -55,7 +54,7 @@ const Login = () => {
     <Fragment>
       <form
         onSubmit={handleSubmit(handleLogin)}
-        className="w-screen sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] px-6 flex flex-col items-center gap-12"
+        className="w-screen sm:max-w-[480px] z-10 mt-[3.25rem] mb-[3.25rem] px-6 flex flex-col items-center gap-12"
       >
         <div className="w-full flex flex-col items-center justify-between gap-3">
           <img className="h-16 w-16" src={logo} alt="logo" />
@@ -119,9 +118,7 @@ const Login = () => {
           </div>
         </div>
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
-          <button type="submit">
-            <AuthSubmitBtn name={t("login.signIn")} />
-          </button>
+          <AuthSubmitBtn name={t("login.signIn")} />
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
               {t("login.notAccount")}

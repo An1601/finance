@@ -46,11 +46,14 @@ function Notification() {
             </div>
             <div
               className={`absolute bottom-6 w-full flex justify-center cursor-pointer`}
-              onClick={() => {
-                navigate("/notification");
-              }}
             >
-              <AuthSubmitBtn name={t("header.viewAll")} />
+              <AuthSubmitBtn
+                type="button"
+                handleSubmit={() => {
+                  navigate("/notification");
+                }}
+                name="View all"
+              />
             </div>
           </div>
         )}

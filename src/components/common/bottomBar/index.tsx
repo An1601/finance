@@ -1,7 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { RootState } from "@redux/store";
 import DocumentBottomBar from "../../svg/DocumentBottom";
 import HomeIcon from "../../svg/Home";
 import MessageIcon from "../../svg/Message";
@@ -10,12 +8,11 @@ import HomeActive from "@components/svg/HomeActive";
 import DocumentBottomBarActive from "@components/svg/DocumentBottomActive";
 import MessageActive from "@components/svg/MessageActive";
 import ProfileActive from "@components/svg/ProfileActive";
+import { useUser } from "@redux/useSelector";
 
 const BottomBarCustom = () => {
   const navigate = useNavigate();
-  const userId: string = useSelector(
-    (state: RootState) => state.rootReducer.userReducer.id,
-  );
+  const user = useUser();
   const [activeTab, setActiveTab] = useState<string>("home");
 
   const handleNavigate = (path: string, tab: string) => {
@@ -54,13 +51,14 @@ const BottomBarCustom = () => {
           data-tooltip-target="tooltip-wallet"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 "
-          onClick={() => handleNavigate(`/loan-list/${userId}`, "document")}
+          onClick={() => handleNavigate(`/loan-list/${user.id}`, "document")}
         >
           {activeTab === "document" ? (
             <DocumentBottomBarActive className="w-9 h-9" />
           ) : (
             <DocumentBottomBar className="w-9 h-9" />
           )}
+          <DocumentBottomBar className="w-9 h-9" />
         </button>
         <button
           data-tooltip-target="tooltip-settings"

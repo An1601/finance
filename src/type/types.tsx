@@ -1,4 +1,4 @@
-import { LoanStatus } from "./enum";
+import { LoanStatus, SurveyAnsType } from "./enum";
 
 export type SignUpInfo = {
   name: string;
@@ -102,4 +102,13 @@ export type ChangePasswordInfo = {
   current_password: string;
   new_password: string;
   new_password_confirmation: string;
+};
+
+export type SurveyQuestion = {
+  id: string;
+  content?: string;
+  label?: string;
+  type: SurveyAnsType;
+  choice: Array<string>;
+  subQuestions?: Array<SurveyQuestion>;
 };

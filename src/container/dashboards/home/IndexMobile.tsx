@@ -16,7 +16,7 @@ const HomeMobile = () => {
   const { t } = useTranslation();
   return (
     <Fragment>
-      <div className="mx-6 my-[75px]  flex flex-col gap-8">
+      <div className="mx-6 my-7  flex flex-col gap-8">
         <div className="h-fit flex flex-col gap-5">
           <div className="flex justify-between">
             <ProfileHeader />

@@ -10,7 +10,6 @@ import "./index.scss";
 import { persistor, store } from "./redux/store.ts";
 import i18n from "@i18n/index.tsx";
 import Auth from "@pages/auth.tsx";
-import App from "@pages/App.tsx";
 import Login from "@container/auth/Login.tsx";
 import SignUp from "@container/auth/SignUp.tsx";
 import ForgotPassword from "@container/auth/ForgotPassword.tsx";
@@ -28,6 +27,9 @@ import EditProfile from "@container/dashboards/EditProfile/index.tsx";
 import ChangePassword from "@container/dashboards/ChangePassword/index.tsx";
 import TermsConditions from "@container/dashboards/TermsConditions/index.tsx";
 import Message from "@container/dashboards/Message/index.tsx";
+import Dashboard from "@pages/dashboard.tsx";
+import Survey from "@pages/survey.tsx";
+import SurveyIndex from "@container/survey/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -51,7 +53,10 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="verify-code" element={<VerifyOTP />} />
                 <Route path="reset-password" element={<ResetPassword />} />
               </Route>
-              <Route path="/" element={<App />}>
+              <Route path="/" element={<Survey />}>
+                <Route path="survey" element={<SurveyIndex />} />
+              </Route>
+              <Route path="/" element={<Dashboard />}>
                 <Route path="dashboard" element={<Home />} />
                 <Route path="notification" element={<NotificationIndex />} />
                 <Route path="faq" element={<FAQ />} />

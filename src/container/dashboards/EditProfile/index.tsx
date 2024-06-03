@@ -131,9 +131,7 @@ function EditProfile() {
                 </div>
               </div>
               <div className="flex justify-center mt-10">
-                <button type="submit">
-                  <AuthSubmitBtn name={t("editProfile.update")} />
-                </button>
+                <AuthSubmitBtn type="submit" name="Update" />
               </div>
             </div>
           </div>
@@ -198,9 +196,7 @@ function EditProfile() {
                   error={errors.business_address}
                 />
                 <div className="flex justify-center">
-                  <button type="submit">
-                    <AuthSubmitBtn name={t("editProfile.update")} />
-                  </button>
+                  <AuthSubmitBtn type="submit" name="Update" />
                 </div>
               </div>
             </div>

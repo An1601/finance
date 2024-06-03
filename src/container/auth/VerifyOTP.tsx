@@ -2,8 +2,8 @@ import { Fragment } from "react/jsx-runtime";
 import logo from "@assets/images/brand-logos/1.png";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader/loader";
@@ -11,16 +11,16 @@ import api from "@api/axios";
 import axios from "axios";
 import { useLocalStorage } from "@utils/index";
 import { useTranslation } from "react-i18next";
+import { useLoading } from "@redux/useSelector";
 
 function VerifyOTP() {
   const searchParams = new URLSearchParams(location.search);
   const signupMode = searchParams.get("signup") === "true" ? true : false;
   const email = searchParams.get("email");
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
-  );
   const { setItem, getItem, removeItem } = useLocalStorage();
+  const isLoading = useLoading();
+
   const navigate = useNavigate();
   const [otp, setOTP] = useState<string[]>(Array(5).fill(""));
   const [time, setTime] = useState<number>(60);
@@ -215,7 +215,7 @@ function VerifyOTP() {
     <Fragment>
       <form
         onSubmit={handleSubmit}
-        className="w-full sm:max-w-[480px] z-10 mt-[6.25rem] mb-[3.25rem] sm:m-0 sm:justify-center px-6 flex flex-col items-center gap-12"
+        className="w-full sm:max-w-[480px] z-10 mt-[3.25rem] mb-[3.25rem] sm:m-0 sm:justify-center px-6 flex flex-col items-center gap-12"
       >
         <div className="w-full flex flex-col items-center justify-between gap-3">
           <img className="h-16 w-16 " src={logo} alt="logo" />
