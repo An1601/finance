@@ -25,7 +25,7 @@ const BottomBarCustom = () => {
       setActiveTab("home");
     } else if (location.pathname.includes("/loan-list")) {
       setActiveTab("document");
-    } else if (location.pathname.includes("/messages")) {
+    } else if (location.pathname.includes("/message")) {
       setActiveTab("message");
     } else if (location.pathname.includes("/profile")) {
       setActiveTab("profile");

@@ -41,6 +41,6 @@ export const MENUITEMS = [
     icon: <Chat />,
     type: "sub",
     children: [],
-    path: "/",
+    path: "/message",
   },
 ];

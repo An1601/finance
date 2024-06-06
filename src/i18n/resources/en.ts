@@ -247,6 +247,11 @@ export default {
     latest: "Latest",
     date: "Date last opened",
   },
+  message: {
+    chat: "Chat",
+    online: "Online",
+    allChat: "ALL CHAT",
+  },
   survey: {
     tittle: "Survey",
     interlude: "Tell us about you!",

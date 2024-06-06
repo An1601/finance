@@ -104,6 +104,26 @@ export type ChangePasswordInfo = {
   new_password_confirmation: string;
 };
 
+export type Message = {
+  avatar: string;
+  sender?: string;
+  content: string;
+  time: string;
+  type: "sent" | "received";
+};
+
+export type ChatData = {
+  id: number;
+  name: string;
+  avatar: string;
+  status: string;
+  lastMessage: string;
+  lastMessageTime: string;
+  lastMessageStatus: string;
+  isOnline: boolean;
+  messages: Message[];
+};
+
 export type SurveyQuestion = {
   id: string;
   content?: string;
