@@ -8,7 +8,7 @@ import api from "@api/axios";
 import { AppDispatch, RootState } from "@redux/store";
 import HeaderItem from "../profile/Header";
 import useWindowWidth from "@components/hook/useWindowWidth";
-import BottomBarCustom from "@components/common/bottomBar";
+import BottomBarCustom from "@components/common/bottom-bar";
 import MenuItemComponent from "./ItemProfile";
 import Breadcrumb from "@components/common/breadcrumb";
 import AccountIcon from "@assets/icon/AccountIcon.svg";
@@ -20,7 +20,7 @@ import ShareIcon from "@assets/icon/ShareIcon.svg";
 import LogoutIcon from "@assets/icon/LogoutIcon.svg";
 import { fetchProfileData } from "@redux/userThunks";
 import { useTranslation } from "react-i18next";
-import Loader from "@components/common/loader/loader";
+import Loader from "@components/common/loader";
 import { useLoading } from "@redux/useSelector";
 
 function Account() {

@@ -1,5 +1,5 @@
 import React from "react";
-import AlertModal, { modalClose } from "@components/common/alertModal";
+import AlertModal, { modalClose } from "@components/common/alert-modal";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "@redux/store";
 import Breadcrumb from "@components/common/breadcrumb";
-import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
@@ -13,7 +13,7 @@ import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import axios from "axios";
 import { toast } from "react-toastify";
-import Loader from "@components/common/loader/loader";
+import Loader from "@components/common/loader";
 import BackIcon from "@components/svg/Back";
 
 function EditProfile() {
@@ -131,7 +131,7 @@ function EditProfile() {
                 </div>
               </div>
               <div className="flex justify-center mt-10">
-                <AuthSubmitBtn type="submit" name="Update" />
+                <PrimarySubmitBtn type="submit" name="Update" />
               </div>
             </div>
           </div>
@@ -196,7 +196,7 @@ function EditProfile() {
                   error={errors.business_address}
                 />
                 <div className="flex justify-center">
-                  <AuthSubmitBtn type="submit" name="Update" />
+                  <PrimarySubmitBtn type="submit" name="Update" />
                 </div>
               </div>
             </div>

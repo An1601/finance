@@ -3,7 +3,7 @@ import ava from "@assets/images/profile/avatar.jpeg";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import { toast } from "react-toastify";
-import Loader from "../loader/loader";
+import Loader from "../loader";
 import { handleReduxLogOut } from "@redux/userReducers";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@redux/store";

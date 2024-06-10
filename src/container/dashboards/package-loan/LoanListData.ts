@@ -1,5 +1,4 @@
-import { LoanDetails, Loans } from "@type/types";
-import { LoanStatus } from "@type/enum";
+import { LoanListItemType } from "@type/types";
 
 export const bankListData = [
   {
@@ -39,9 +38,9 @@ export const bankListData = [
   },
 ];
 
-const loanListData: Loans[] = [
+const loanListData = [
   {
-    id: 1,
+    id: 17,
     name: "Merchant cash",
     category_id: 1,
     type: 1,
@@ -53,6 +52,9 @@ const loanListData: Loans[] = [
     description: "",
     time_began: new Date(2001, 0, 1),
     state: 1,
+    project: {
+      name: "163 ItsConnorWade",
+    },
   },
   {
     id: 2,
@@ -67,6 +69,9 @@ const loanListData: Loans[] = [
     description: "",
     time_began: new Date(2001, 0, 1),
     state: 0,
+    project: {
+      name: "163 ItsConnorWade",
+    },
   },
   {
     id: 3,
@@ -81,6 +86,9 @@ const loanListData: Loans[] = [
     description: "",
     time_began: new Date(2001, 0, 1),
     state: 1,
+    project: {
+      name: "163 ItsConnorWade",
+    },
   },
   {
     id: 4,
@@ -95,6 +103,9 @@ const loanListData: Loans[] = [
     description: "",
     time_began: new Date(2001, 0, 1),
     state: 1,
+    project: {
+      name: "163 ItsConnorWade",
+    },
   },
   {
     id: 5,
@@ -109,24 +120,46 @@ const loanListData: Loans[] = [
     description: "",
     time_began: new Date(2001, 0, 1),
     state: 2,
+    project: {
+      name: "163 ItsConnorWade",
+    },
   },
 ];
 
 function fetchLoanDetails(isRecord: boolean) {
   return loanListData.map((loan) => {
     const bank = bankListData.find((bank) => bank.bank_id === loan.bank_id);
-    return {
-      loan_name: loan.name,
-      APR: loan.APR,
-      rate_month: loan.rate_month,
-      credit_limit: loan.credit_limit,
-      state: isRecord ? loan.state : LoanStatus.NOT_SUBMIT,
-      bank_name: bank?.name ?? "",
-      bank_thumbnail: bank?.thumbnail ?? "",
-      time_began: loan.time_began,
-    };
+    if (isRecord)
+      return {
+        id: loan.id,
+        loan_name: loan.name,
+        origination_fee: loan.APR,
+        rate_month: loan.rate_month,
+        credit_limit: loan.credit_limit,
+        state: loan.state,
+        bank: {
+          name: bank?.name ?? "",
+        },
+        bank_thumbnail: bank?.thumbnail ?? "",
+        time_began: loan.time_began,
+        project: loan.project,
+      };
+    else
+      return {
+        id: loan.id,
+        loan_name: loan.name,
+        origination_fee: loan.APR,
+        rate_month: loan.rate_month,
+        credit_limit: loan.credit_limit,
+        bank: {
+          name: bank?.name ?? "",
+        },
+        bank_thumbnail: bank?.thumbnail ?? "",
+        time_began: loan.time_began,
+        project: loan.project,
+      };
   });
 }
 
-export const loanDetails: LoanDetails[] = fetchLoanDetails(false);
-export const loanRecords: LoanDetails[] = fetchLoanDetails(true);
+export const loanDetails: LoanListItemType[] = fetchLoanDetails(false);
+export const loanRecords = fetchLoanDetails(true);

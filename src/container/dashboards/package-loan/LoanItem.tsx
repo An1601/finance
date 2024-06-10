@@ -1,12 +1,14 @@
 import React from "react";
-import { LoanDetails } from "@type/types";
+import { LoanListItemType } from "@type/types";
 import { LoanStatus } from "@type/enum";
-import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
+import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
-const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
+const LoanItem: React.FC<{ loan: LoanListItemType }> = ({ loan }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   return (
     <div className="p-4 bg-white rounded-xl flex max-[400px]:flex-col justify-between max-[375px]:justify-center items-end md:items-center gap-3 md:gap-8 lg:gap-20">
       <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
@@ -16,10 +18,13 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
             className="h-11 w-11 xl:h-[4.5rem] xl:w-[4.5rem] rounded-full overflow-hidden"
           />
           <div className="max-w-full flex flex-col justify-center">
-            <div className="font-HelveticaNeue font-normal text-xs md:text-sm leading-4 tracking-tight text-light_finance-textsub overflow-hidden text-ellipsis whitespace-nowrap">
-              {loan.bank_name}
+            <div className="font-HelveticaNeue font-medium text-[10px] md:text-xs leading-4 text-light_finance-primary text-truncate">
+              {loan.project.name}
             </div>
-            <div className="max-w-full font-HelveticaNeue font-bold text-lg md:text-xl leading-7 text-light_finance-textbody overflow-hidden text-ellipsis whitespace-nowrap">
+            <div className="font-HelveticaNeue font-normal text-xs md:text-sm leading-4 tracking-tight text-light_finance-textsub text-truncate">
+              {loan.bank.name}
+            </div>
+            <div className="max-w-full font-HelveticaNeue font-bold text-base md:text-xl leading-7 text-light_finance-textbody text-truncate">
               {loan.loan_name}
             </div>
           </div>
@@ -44,7 +49,7 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
             </div>
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col md:flex-row lg:flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
-                {loan.APR}%
+                {loan.origination_fee}%
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
                 Origination fee
@@ -59,8 +64,6 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
       </div>
       {(() => {
         switch (loan.state) {
-          case LoanStatus.NOT_SUBMIT:
-            return <MobileHomeBtn name="Submit" />;
           case LoanStatus.APPROVED:
             return (
               <div className="h-5 w-[66px] bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
@@ -86,7 +89,12 @@ const LoanItem: React.FC<{ loan: LoanDetails }> = ({ loan }) => {
               </div>
             );
           default:
-            return null;
+            return (
+              <MobileHomeBtn
+                name="Submit"
+                handleSubmit={() => navigate(`/loan/${loan.id}`)}
+              />
+            );
         }
       })()}
     </div>

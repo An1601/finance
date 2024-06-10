@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Breadcrumb from "@components/common/breadcrumb";
-import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import BackIcon from "@components/svg/Back";
@@ -14,7 +14,7 @@ import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import axios from "axios";
 import { toast } from "react-toastify";
 import api from "@api/axios";
-import Loader from "@components/common/loader/loader";
+import Loader from "@components/common/loader";
 
 function ChangePassword() {
   const { t } = useTranslation();
@@ -128,7 +128,7 @@ function ChangePassword() {
             </div>
             <div className="flex justify-center mt-10">
               <button type="submit">
-                <AuthSubmitBtn name={t("changePassword.update")} />
+                <PrimarySubmitBtn name={t("changePassword.update")} />
               </button>
             </div>
           </div>
@@ -199,10 +199,11 @@ function ChangePassword() {
                   })}
                   error={errors.new_password_confirmation}
                 />
-                <div className="flex justify-center">
-                  <button type="submit">
-                    <AuthSubmitBtn name={t("changePassword.update")} />
-                  </button>
+                <div className="w-full flex justify-center">
+                  <PrimarySubmitBtn
+                    name={t("changePassword.update")}
+                    type="button"
+                  />
                 </div>
               </div>
             </div>

@@ -6,10 +6,10 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@redux/store";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
-import Loader from "@components/common/loader/loader";
+import Loader from "@components/common/loader";
 import api from "@api/axios";
 import axios from "axios";
-import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
 import { useLoading } from "@redux/useSelector";
@@ -91,10 +91,7 @@ const ForgotPassword = () => {
           />
         </div>
         <div className="w-[280px] h-[100px] flex flex-col items-center ">
-          <button type="submit">
-            <AuthSubmitBtn name={t("forgotPassword.send")} />
-          </button>
-          <AuthSubmitBtn type="submit" name="Send" />
+          <PrimarySubmitBtn type="submit" name={t("forgotPassword.send")} />
         </div>
       </form>
     </Fragment>

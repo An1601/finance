@@ -1,10 +1,10 @@
-import LoanFilter from "../PackageLoan/LoanFilter";
-import { loanRecords } from "../PackageLoan/LoanListData";
-import PackageLoanList from "../PackageLoan/PackageLoanList";
+import LoanFilter from "../package-loan/LoanFilter";
+import { loanRecords } from "../package-loan/LoanListData";
+import PackageLoanList from "../package-loan/PackageLoanList";
 import bg1 from "@assets/images/authentication/1.svg";
 import ProfileHeader from "@components/common/header/ProfileHeader";
 import Notification from "@components/common/header/Notification";
-import BottomBarCustom from "@components/common/bottomBar";
+import BottomBarCustom from "@components/common/bottom-bar";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import StatePackageLoans from "../home/StatePackageLoans";
 

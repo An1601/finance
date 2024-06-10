@@ -6,10 +6,12 @@ import { ThemeChanger } from "@redux/action";
 import { store } from "@redux/store";
 import logo1 from "@assets/images/brand-logos/desktop-dark.svg";
 import SimpleBar from "simplebar-react";
+import { useUser } from "@redux/useSelector";
 interface SidebarProps {}
 
 const Sidebar: FC<SidebarProps> = ({ ThemeChanger }: any) => {
   const [menuitems, setMenuitems] = useState<any>(MENUITEMS);
+  const user = useUser();
 
   function closeMenuFn() {
     const closeMenuRecursively = (items: any) => {
@@ -315,21 +317,23 @@ const Sidebar: FC<SidebarProps> = ({ ThemeChanger }: any) => {
               {MENUITEMS.map((levelone: any) => (
                 <Fragment key={Math.random()}>
                   <Link
+                    onClick={(e) => {
+                      if (!user.check_submit) e.preventDefault();
+                    }}
                     to={levelone.path}
-                    className={` group flex gap-2 p-3 hover:!bg-white/30 hover:rounded-lg${
+                    className={` group flex gap-2 p-3 ${user.check_submit && "hover:!bg-white/30 hover:rounded-lg"} ${
                       levelone.selected ? "active" : ""
                     }`}
                   >
-                    {levelone.icon}
-                    <span className="font-HelveticaNeue text-sm font-normal text-light_finance-texttitle group-hover:text-light_finance-primary group-hover:font-bold">
+                    {user.check_submit
+                      ? location.pathname === levelone?.path
+                        ? levelone?.iconDark
+                        : levelone.icon
+                      : levelone.iconStroke}
+                    <span
+                      className={`font-HelveticaNeue text-sm font-normal ${user.check_submit && location.pathname === levelone?.path ? "text-light_finance-primary" : " text-light_finance-texttitle"} ${user.check_submit && "group-hover:text-light_finance-primary group-hover:font-bold"}`}
+                    >
                       {levelone.title}
-                      {levelone.badgetxt ? (
-                        <span className={levelone.class}>
-                          {levelone.badgetxt}
-                        </span>
-                      ) : (
-                        ""
-                      )}
                     </span>
                   </Link>
                 </Fragment>

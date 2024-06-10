@@ -5,7 +5,7 @@ import ChatSearch from "./ChatSearch";
 import ChatHeader from "./ChatHeader";
 import Breadcrumb from "@components/common/breadcrumb";
 import ChatWindow from "./ChatWindow";
-import BottomBarCustom from "@components/common/bottomBar";
+import BottomBarCustom from "@components/common/bottom-bar";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
 

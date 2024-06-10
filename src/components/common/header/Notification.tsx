@@ -1,7 +1,7 @@
 import faqIcon from "@assets/icon/FAQIcon.svg";
 import useWindowWidth from "../../hook/useWindowWidth";
-import AuthSubmitBtn from "../button/AuthSubmitBtn";
-import NotificationList from "@container/dashboards/Notification/NotificationList";
+import PrimarySubmitBtn from "../button/primary-submit-btn";
+import NotificationList from "@container/dashboards/notification/NotificationList";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import NotificationHeader from "@assets/icon/NotificationHeader.svg";
@@ -47,7 +47,7 @@ function Notification() {
             <div
               className={`absolute bottom-6 w-full flex justify-center cursor-pointer`}
             >
-              <AuthSubmitBtn
+              <PrimarySubmitBtn
                 type="button"
                 handleSubmit={() => {
                   navigate("/notification");

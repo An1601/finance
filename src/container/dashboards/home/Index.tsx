@@ -8,7 +8,7 @@ import bg1 from "@assets/images/authentication/1.svg";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import Projects from "./Projects";
 import StatePackageLoans from "./StatePackageLoans";
-import { loanRecords } from "../PackageLoan/LoanListData";
+import { loanRecords } from "../package-loan/LoanListData";
 
 interface CrmProps {}
 

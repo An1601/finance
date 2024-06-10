@@ -1,6 +1,6 @@
 import React from "react";
-import CancelBtn from "@components/common/button/cancelBtn";
-import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import CancelBtn from "@components/common/button/cancel-btn";
+import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import { useTranslation } from "react-i18next";
 
 interface SurveyNavigationProps {
@@ -21,7 +21,7 @@ const SurveyControls: React.FC<SurveyNavigationProps> = ({
   return (
     <div className="w-full flex flex-col items-center justify-center gap-4">
       <CancelBtn label={t("survey.back")} handleOnClick={handlePrevious} />
-      <AuthSubmitBtn
+      <PrimarySubmitBtn
         name={
           currentIndex < surveyLength - 1
             ? t("survey.next")

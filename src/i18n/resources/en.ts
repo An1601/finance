@@ -132,6 +132,7 @@ export default {
     total: "Total",
     packageLoansList: "Package Loans List",
     consulting: "Consulting Meeting List",
+    blankPrjInfo: "We're working on your loan list, check back later",
   },
   changePassword: {
     changePassword: "Change Password",
@@ -328,5 +329,35 @@ export default {
     question_11c_choice2: "$100,001 - $250,000",
     question_11c_choice3: "$250,000 - $500,000",
     question_11c_choice4: "More than $500,000",
+  },
+  process: {
+    title: "Process",
+    header: {
+      meetBookingIcon: "Booking a meeting with admin",
+      adminConsultIcon: "Admin Consultation",
+      loanSubmitIcon: "Loan application Submission",
+      bankReviewIcon: "Bank review",
+      loanAssessmentIcon: "Eligibility Assessment",
+      loanApprovalIcon: "Approval the loan application",
+    },
+    book: "Book",
+    loanDetail: {
+      info: "Booking with admin to consult about the application form",
+      title: "Detail Package loan",
+      id: "ID",
+      interestRate: "Interest rate",
+      creditLimit: "Credit limit",
+      duration: "Duration",
+      loanType: "Loan type",
+      originalFee: "Origination fee",
+      year: "year",
+      month: "Month",
+      secure: "Secure",
+      unsecure: "Unsecure",
+    },
+    bookMeeting: {
+      title: "Book an appointment",
+      selectTime: "Select available time",
+    },
   },
 };

@@ -1,4 +1,4 @@
-import { LoanStatus, SurveyAnsType } from "./enum";
+import { SurveyAnsType } from "./enum";
 
 export type SignUpInfo = {
   name: string;
@@ -65,30 +65,39 @@ export type LoanCategory = {
   thumbnail: string;
 };
 
-export type Loans = {
+export type LoanListItemType = {
   id: number;
-  name: string;
-  category_id: number;
-  type: number;
-  bank_id: number;
-  APR: number;
-  rate_month: number;
-  duration: number;
-  credit_limit: number;
-  description: string;
-  time_began: Date;
-  state: LoanStatus;
-};
-
-export type LoanDetails = {
   loan_name: string;
-  APR: number;
+  origination_fee: number;
   rate_month: number;
   credit_limit: number;
-  state: LoanStatus;
-  bank_name: string;
+  state?: number;
+  bank: {
+    name: string;
+  };
   bank_thumbnail: string;
   time_began: Date;
+  project: {
+    name: string;
+  };
+};
+
+export type LoanDetailProcessType = {
+  id: number;
+  name: string;
+  category_id: string;
+  interest_rate_type: string;
+  type: number;
+  origination_fee: string;
+  interest_rate: string;
+  duration: string;
+  credit_limit: string;
+  description: string;
+  time_began: string;
+  category: {};
+  bank: {
+    name: string;
+  };
 };
 
 export type UpdateProfile = {

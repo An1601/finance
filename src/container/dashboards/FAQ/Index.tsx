@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import MobileHomeBtn from "../../../components/common/button/MobileHomeBtn";
+import MobileHomeBtn from "../../../components/common/button/mobile-home-btn";
 import { faqQuestion } from "./FAQData";
 import { useTranslation } from "react-i18next";
 

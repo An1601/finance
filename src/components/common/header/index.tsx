@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import Modalsearch from "../modalsearch/modalsearch";
+import Modalsearch from "../modal-search";
 import { Link } from "react-router-dom";
 import { store } from "@redux/store";
 import { connect } from "react-redux";

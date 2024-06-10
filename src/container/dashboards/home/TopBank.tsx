@@ -1,5 +1,5 @@
 import { useTranslation } from "react-i18next";
-import { bankListData } from "../PackageLoan/LoanListData";
+import { bankListData } from "../package-loan/LoanListData";
 
 function TopBank() {
   const { t } = useTranslation();

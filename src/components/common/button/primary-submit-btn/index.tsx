@@ -1,11 +1,11 @@
-interface AuthSubmitBtnProps {
+interface PrimarySubmitBtnProps {
   name: string;
   handleSubmit?: () => void;
   type?: "button" | "submit" | "reset";
   dataHsOverlay?: string;
   customClass?: string;
 }
-const AuthSubmitBtn: React.FC<AuthSubmitBtnProps> = ({
+const PrimarySubmitBtn: React.FC<PrimarySubmitBtnProps> = ({
   name,
   handleSubmit,
   type,
@@ -26,4 +26,4 @@ const AuthSubmitBtn: React.FC<AuthSubmitBtnProps> = ({
   );
 };
 
-export default AuthSubmitBtn;
+export default PrimarySubmitBtn;

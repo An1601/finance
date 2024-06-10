@@ -1,5 +1,5 @@
 import Breadcrumb from "@components/common/breadcrumb";
-import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import { TERMS_CONDITIONS } from "./data";
 import BackIcon from "@components/svg/Back";
@@ -39,7 +39,7 @@ function TermsConditions() {
           <form>
             <div className="flex justify-center mt-10">
               <button type="submit">
-                <AuthSubmitBtn name="Accept" />
+                <PrimarySubmitBtn name="Accept" />
               </button>
             </div>
           </form>
@@ -89,7 +89,7 @@ function TermsConditions() {
               </div>
               <div className="flex justify-center">
                 <button>
-                  <AuthSubmitBtn name="Accept" />
+                  <PrimarySubmitBtn name="Accept" />
                 </button>
               </div>
             </div>

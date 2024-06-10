@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
+import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import { FilterOption } from "@type/enum";
 import filterIcon from "@assets/icon/FilterIcon.svg";
 import arrow from "@assets/icon/ArrowIcon.svg";

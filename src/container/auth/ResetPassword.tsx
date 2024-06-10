@@ -7,8 +7,8 @@ import axios from "axios";
 import logo from "@assets/images/brand-logos/1.png";
 import { AppDispatch } from "@redux/store";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
-import Loader from "@components/common/loader/loader";
-import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import Loader from "@components/common/loader";
+import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import { BASE_URL } from "@api/axios";
 import { ResetPasswordInfo } from "@type/types";
 import InputField from "@components/common/input";
@@ -118,10 +118,7 @@ const ResetPassword = () => {
           />
         </div>
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
-          <button type="submit">
-            <AuthSubmitBtn name={t("resetPassword.create")} />
-          </button>
-          <AuthSubmitBtn type="submit" name="Create" />
+          <PrimarySubmitBtn type="submit" name={t("resetPassword.create")} />
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
               {t("resetPassword.already")}

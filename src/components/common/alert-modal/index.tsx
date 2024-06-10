@@ -1,6 +1,6 @@
 import { Fragment } from "react/jsx-runtime";
-import AuthSubmitBtn from "../button/AuthSubmitBtn";
-import CancelBtn from "../button/cancelBtn";
+import PrimarySubmitBtn from "../button/primary-submit-btn";
+import CancelBtn from "../button/cancel-btn";
 import surveyIcon from "@assets/icon/surveyIcon.svg";
 interface AlertModalProps {
   id: string;
@@ -61,7 +61,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
                 />
               )}
               {submitLabel && (
-                <AuthSubmitBtn
+                <PrimarySubmitBtn
                   name={submitLabel}
                   type="button"
                   customClass=" rounded-xl flex-1 max-w-full"

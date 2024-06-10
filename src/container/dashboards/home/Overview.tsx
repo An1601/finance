@@ -2,9 +2,11 @@ import loanApproval from "@assets/icon/LoanApprovalIcon.svg";
 import loanRejected from "@assets/icon/LoanRejected.svg";
 import loanInProgress from "@assets/icon/LoanInProgress.svg";
 import { useTranslation } from "react-i18next";
+import { useUser } from "@redux/useSelector";
 
 function Overview() {
   const { t } = useTranslation();
+  const user = useUser();
   return (
     <div className="flex flex-col gap-3">
       <div className="flex items-center gap-2 sm:hidden">
@@ -19,7 +21,7 @@ function Overview() {
             <img className="h-11 w-11" src={loanApproval} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
-                {12}
+                {user.check_submit ? "12" : "0"}
               </div>
               <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
                 {t("home.totalApproval")}
@@ -33,7 +35,7 @@ function Overview() {
             <img className="h-11 w-11" src={loanInProgress} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
-                {12}
+                {user.check_submit ? "12" : "0"}
               </div>
               <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
                 {t("home.totalProgress")}
@@ -47,7 +49,7 @@ function Overview() {
             <img className="h-11 w-11" src={loanRejected} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
-                {12}
+                {user.check_submit ? "12" : "0"}
               </div>
               <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
                 {t("home.totalReject")}

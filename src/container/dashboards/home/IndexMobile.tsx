@@ -1,11 +1,11 @@
 import { Fragment } from "react";
 import Overview from "./Overview";
 import Projects from "./Projects";
-import PackageLoanList from "../PackageLoan/PackageLoanList";
-import ConsultingMeetingList from "../ConsultingMeeting/ConsultingMeetingList";
-import BottomBarCustom from "@components/common/bottomBar";
+import PackageLoanList from "../package-loan/PackageLoanList";
+import ConsultingMeetingList from "../consulting-meeting/ConsultingMeetingList";
+import BottomBarCustom from "@components/common/bottom-bar";
 import { useNavigate } from "react-router-dom";
-import { loanDetails } from "../PackageLoan/LoanListData";
+import { loanDetails } from "../package-loan/LoanListData";
 import ProfileHeader from "@components/common/header/ProfileHeader";
 import Notification from "@components/common/header/Notification";
 import SearchBar from "@components/common/header/SearchBar";

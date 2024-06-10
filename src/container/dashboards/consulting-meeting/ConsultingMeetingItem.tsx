@@ -1,4 +1,4 @@
-import MobileHomeBtn from "@components/common/button/MobileHomeBtn";
+import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import timer from "@assets/icon/TimerIcon.svg";
 import { useTranslation } from "react-i18next";

@@ -19454,4 +19454,32 @@ input[type="color" i]::-webkit-color-swatch {
   @apply w-0;
 }
 
+.react-calendar {
+  @apply rounded-xl text-sm;
+}
+
+.react-calendar button {
+  @apply !basis-[13.7%] !m-[2px];
+}
+
+.react-calendar__tile {
+  @apply hover:!bg-light_finance-sub_second hover:text-black !rounded-lg;
+}
+
+.react-calendar__tile--active {
+  @apply !bg-light_finance-secondary !rounded-lg;
+}
+
+.react-calendar__tile--now {
+  @apply !rounded-lg;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  @apply no-underline text-light_finance-textsub;
+}
+
+.react-calendar__navigation__label span {
+  @apply font-bold text-light_finance-textsub capitalize;
+}
+
 /*# sourceMappingURL=style.css.map */

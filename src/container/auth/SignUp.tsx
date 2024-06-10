@@ -8,9 +8,9 @@ import logo from "@assets/images/brand-logos/1.png";
 import { SignUpInfo } from "@type/types";
 import { AppDispatch } from "@redux/store";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
-import Loader from "@components/common/loader/loader";
+import Loader from "@components/common/loader";
 import api from "@api/axios";
-import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
 import { useLoading } from "@redux/useSelector";
@@ -159,7 +159,7 @@ const SignUp = () => {
           </div>
         </div>
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
-          <AuthSubmitBtn type="submit" name="Sign Up" />
+          <PrimarySubmitBtn type="submit" name="Sign Up" />
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">
               {t("signup.already")}

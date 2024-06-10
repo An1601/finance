@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { AppDispatch } from "@redux/store";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
-import Loader from "@components/common/loader/loader";
+import Loader from "@components/common/loader";
 import api from "@api/axios";
 import axios from "axios";
 import { useLocalStorage } from "@utils/index";

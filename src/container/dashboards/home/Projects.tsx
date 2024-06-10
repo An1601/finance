@@ -1,11 +1,16 @@
-import loanCategory from "@assets/icon/LoanCategoryIcon.svg";
-import AuthSubmitBtn from "@components/common/button/AuthSubmitBtn";
+import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
+import ProjectIcon from "@components/svg/ProjectIcon";
+import { useUser } from "@redux/useSelector";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 function Projects() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const user = useUser();
+  const [showInfo, setShowInfo] = useState(false);
+
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12 flex flex-col gap-3 sm:gap-0 sm:bg-white rounded-lg">
       <div className="sm:px-5 sm:py-6 sm:border-b-[1px] sm:border-stroke flex justify-between items-center">
@@ -19,25 +24,34 @@ function Projects() {
       </div>
       <div className="sm:p-5 ">
         <div className="grid grid-cols-12 gap-x-6 gap-y-5 ">
-          {Array.from({ length: 6 }).map((_, index) => (
+          {Array.from({ length: user.check_submit ? 1 : 0 }).map((_, index) => (
             <div
               key={index}
-              className="col-span-4 flex flex-col gap-1 items-center"
+              className="relative col-span-4 flex flex-col justify-between items-center cursor-pointer"
+              onClick={() => setShowInfo(!showInfo)}
             >
-              <img
-                src={loanCategory}
-                className="rounded-full"
-                width={52}
-                height={52}
-              />
-              <div className="font-HelveticaNeue font-normal text-xs leading-4 text-light_finance-textbody">
+              <ProjectIcon isActive={false} />
+              {showInfo && (
+                <div className="">
+                  <div className="absolute shadow-lg -top-[75px] left-8 w-[278px] flex items-center bg-white rounded-md gap-2 px-3 py-2 ">
+                    <div>
+                      <i className="fa-solid fa-circle-info text-light_finance-primary fa-xl"></i>
+                    </div>
+                    <div className="text-sm font-HelveticaNeue font-normal text-light_finance-primary">
+                      {t("home.blankPrjInfo")}
+                    </div>
+                  </div>
+                  <div className="absolute -top-6 border-l-[1rem] border-l-transparent border-r-[1rem] border-r-transparent border-t-[1.5rem] border-t-white"></div>
+                </div>
+              )}
+              <div className="py-1 font-HelveticaNeue font-normal text-xs leading-4 text-light_finance-textbody text-center">
                 {t("home.merchantCash")}
               </div>
             </div>
           ))}
         </div>
         <div className="w-full flex justify-center mt-6 sm:mb-6">
-          <AuthSubmitBtn
+          <PrimarySubmitBtn
             name="Start new project"
             customClass="!w-[156px] rounded-xl !py-3"
             handleSubmit={() => navigate("/survey")}

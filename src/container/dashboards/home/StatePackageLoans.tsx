@@ -1,10 +1,14 @@
 import { Link } from "react-router-dom";
-import LoanFilter from "../PackageLoan/LoanFilter";
+import LoanFilter from "../package-loan/LoanFilter";
 import { LoanStatus } from "../../../type/enum";
-import { LoanDetails } from "@type/types";
+import { LoanListItemType } from "@type/types";
 import { useTranslation } from "react-i18next";
 
-function StatePackageLoans({ loanRecords }: { loanRecords: LoanDetails[] }) {
+function StatePackageLoans({
+  loanRecords,
+}: {
+  loanRecords: LoanListItemType[];
+}) {
   const { t } = useTranslation();
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
@@ -68,7 +72,7 @@ function StatePackageLoans({ loanRecords }: { loanRecords: LoanDetails[] }) {
                       {index + 1}
                     </th>
                     <td>{record.loan_name}</td>
-                    <td>{record.bank_name}</td>
+                    <td>{record.bank.name}</td>
                     <td>{record.credit_limit}</td>
                     <td>{new Date(record.time_began).toDateString()}</td>
                     <td>

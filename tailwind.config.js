@@ -20,6 +20,8 @@ export default {
       xl: "1200px",
       xxl: "1400px",
       xxxl: "1800px",
+      xs: "400px",
+      xxs: "375px",
     },
     borderRadius: {
       none: "0",
@@ -289,5 +291,14 @@ export default {
         h6: { fontSize: "1rem" },
       });
     }),
+    function ({ addUtilities }) {
+      const newUtilities = {
+        ".dot-before::before": {
+          content: '"•"',
+          "margin-right": "4px",
+        },
+      };
+      addUtilities(newUtilities, ["responsive", "hover"]);
+    },
   ],
 };

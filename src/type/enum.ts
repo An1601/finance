@@ -1,5 +1,4 @@
 export enum LoanStatus {
-  NOT_SUBMIT = -1,
   APPROVED = 1,
   REJECT = 0,
   INPROGRESS = 2,
@@ -38,4 +37,12 @@ export enum SurveyAnsEnum {
   net_worth = "11a",
   liquidity = "11b",
   income = "11c",
+}
+export enum InterestRateType {
+  ADJUSTABLE_RATE = "Conforming adjustable-rate mortgage loans",
+  FIXED_RATE = "Conventional fixed rate loans",
+}
+export enum LoanType {
+  SECURE = 1,
+  UNSECURE = 0,
 }

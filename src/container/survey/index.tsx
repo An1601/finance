@@ -16,7 +16,7 @@ import { toast } from "react-toastify";
 import { setLoadingFalse } from "@redux/commonReducer";
 import { handleCheckSubmit } from "@redux/userReducers";
 import { AppDispatch } from "@redux/store";
-import { modalShow } from "@components/common/alertModal";
+import { modalShow } from "@components/common/alert-modal";
 import SurveyUnit from "./SurveyUnit";
 import { SurveyAnsEnum } from "@type/enum";
 import SurveyControls from "./SurveyControls";

@@ -1,5 +1,5 @@
 import { FC, Fragment } from "react";
-import Modalsearch from "../modalsearch/modalsearch";
+import Modalsearch from "../modal-search";
 import SearchBar from "./SearchBar";
 import ProfileHeader from "./ProfileHeader";
 import Notification from "./Notification";
