@@ -6,7 +6,7 @@ import StateLoansChart from "./StateLoansChart";
 import HomeMobile from "./IndexMobile";
 import bg1 from "@assets/images/authentication/1.svg";
 import useWindowWidth from "@components/hook/useWindowWidth";
-import TopLoans from "./TopLoans";
+import Projects from "./Projects";
 import StatePackageLoans from "./StatePackageLoans";
 import { loanRecords } from "../PackageLoan/LoanListData";
 
@@ -29,7 +29,7 @@ const Home: FC<CrmProps> = () => {
             </div>
             <div className="xl:col-span-4 col-span-12">
               <div className="grid grid-cols-12 gap-x-6 gap-y-5">
-                <TopLoans />
+                <Projects />
                 <TopBank />
                 <StateLoansChart />
               </div>

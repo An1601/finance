@@ -58,7 +58,6 @@ const BottomBarCustom = () => {
           ) : (
             <DocumentBottomBar className="w-9 h-9" />
           )}
-          <DocumentBottomBar className="w-9 h-9" />
         </button>
         <button
           data-tooltip-target="tooltip-settings"

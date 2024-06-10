@@ -8,6 +8,7 @@ interface AlertModalProps {
   content?: string;
   submitLabel?: string;
   cancelLabel?: string;
+  handleCancel?: () => void;
   handleSubmit?: () => void;
 }
 
@@ -31,6 +32,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
   submitLabel,
   cancelLabel,
   handleSubmit,
+  handleCancel = () => modalClose(id),
 }) => {
   return (
     <Fragment>
@@ -55,7 +57,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
                   label={cancelLabel}
                   type="button"
                   customClass="hs-dropup-toggle rounded-xl flex-1 max-w-full"
-                  handleOnClick={() => modalClose(id)}
+                  handleOnClick={handleCancel}
                 />
               )}
               {submitLabel && (

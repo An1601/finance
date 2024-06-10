@@ -2,7 +2,7 @@ import { SurveyAnsType } from "@type/enum";
 import { SurveyQuestion } from "@type/types";
 import { getTranslated } from "@i18n/index";
 
-export const surveyQuestion: SurveyQuestion[][] = [
+export const surveyFullQuestion: SurveyQuestion[][] = [
   [
     {
       id: "1",
@@ -35,9 +35,34 @@ export const surveyQuestion: SurveyQuestion[][] = [
     {
       id: "3",
       content: getTranslated("survey.question_3_content"),
-      label: getTranslated("survey.question_3_label"),
-      type: SurveyAnsType.TEXT,
+      type: SurveyAnsType.SUB_QUESTION,
       choice: [],
+      subQuestions: [
+        {
+          id: "3a",
+          label: getTranslated("survey.question_3a_label"),
+          type: SurveyAnsType.TEXT,
+          choice: [],
+        },
+        {
+          id: "3b",
+          label: getTranslated("survey.question_3b_label"),
+          type: SurveyAnsType.TEXT,
+          choice: [],
+        },
+        {
+          id: "3c",
+          label: getTranslated("survey.question_3c_label"),
+          type: SurveyAnsType.TEXT,
+          choice: [],
+        },
+        {
+          id: "3d",
+          label: getTranslated("survey.question_3d_label"),
+          type: SurveyAnsType.TEXT,
+          choice: [],
+        },
+      ],
     },
     {
       id: "5",
@@ -210,5 +235,5 @@ export const surveyQuestion: SurveyQuestion[][] = [
     },
   ],
 ];
-
-export const surveyUnitLength = [1, 1, 3, 1 | 2, 1, 5, 1, 2, 3];
+export const surveyUnitLength = [1, 1, 6, 1 | 2, 1, 5, 1, 2, 3];
+export const surveyProjectQuestion = surveyFullQuestion.slice(0, 7);

@@ -104,10 +104,10 @@ const SignUp = () => {
               label={t("signup.date")}
               placeholder={t("signup.yourDate")}
               type="date"
-              register={register("date_of_birth", {
+              register={register("DOB", {
                 required: t("signup.requireDate"),
               })}
-              error={errors.date_of_birth}
+              error={errors.DOB}
             />
             <InputField
               label={t("signup.address")}
@@ -159,9 +159,6 @@ const SignUp = () => {
           </div>
         </div>
         <div className="w-[280px] h-[100px] flex flex-col items-center gap-6">
-          <button type="submit">
-            <AuthSubmitBtn name={t("signup.signUp")} />
-          </button>
           <AuthSubmitBtn type="submit" name="Sign Up" />
           <div className="flex items-center gap-[0.615rem]">
             <div className="text-light_finance-textbody text-sm font-normal font-['Be Vietnam'] leading-tight">

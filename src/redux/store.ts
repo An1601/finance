@@ -28,6 +28,7 @@ const persistedUserReducer = persistReducer(
       "date_of_birth",
       "address",
       "email",
+      "check_submit",
     ],
   },
   userReducer,

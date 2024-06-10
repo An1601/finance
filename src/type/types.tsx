@@ -4,7 +4,7 @@ export type SignUpInfo = {
   name: string;
   phone?: string;
   email: string;
-  date_of_birth: string;
+  DOB: string;
   address: string;
   password: string;
   password_confirmation: string;
@@ -56,6 +56,7 @@ export type UserInfo = {
   access_token: string;
   refresh_token: string;
   business_profile: BusinessProfile | null;
+  check_submit?: boolean;
 };
 
 export type LoanCategory = {

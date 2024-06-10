@@ -13,13 +13,14 @@ export const initialUser: UserInfo = {
   access_token: "",
   refresh_token: "",
   business_profile: null,
+  check_submit: true,
 };
 
 const userReducer = createSlice({
   name: "auth",
   initialState: initialUser,
   reducers: {
-    handle_login: (state, action: PayloadAction<LoginResponse>) => {
+    handleReduxLogin: (state, action: PayloadAction<LoginResponse>) => {
       return {
         ...state,
         id: action.payload.id.toString(),
@@ -33,7 +34,13 @@ const userReducer = createSlice({
         refresh_token: action.payload.refresh_token,
       };
     },
-    handle_logout: () => {
+    handleCheckSubmit: (state, action: PayloadAction<boolean>) => {
+      return {
+        ...state,
+        check_submit: action.payload,
+      };
+    },
+    handleReduxLogOut: () => {
       return initialUser;
     },
     updateToken: (state, action: PayloadAction<string>) => {
@@ -53,5 +60,10 @@ const userReducer = createSlice({
     );
   },
 });
-export const { handle_login, handle_logout, updateToken } = userReducer.actions;
+export const {
+  handleReduxLogin,
+  handleReduxLogOut,
+  updateToken,
+  handleCheckSubmit,
+} = userReducer.actions;
 export default userReducer.reducer;

@@ -37,7 +37,7 @@ const InputField: React.FC<InputFieldProps> = ({
       >
         <div className="w-full gap-2 flex items-center justify-between">
           <input
-            className="w-full text-light_finance-textbody text-sm font-normal leading-tight border-none outline-none"
+            className="w-full text-light_finance-textbody text-sm font-normal leading-tight border-none outline-none p-0"
             placeholder={placeholder}
             type={isPassword && !showPassword ? "password" : type}
             value={value}

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
-import { handle_logout } from "@redux/userReducers";
+import { handleReduxLogOut } from "@redux/userReducers";
 import api from "@api/axios";
 import { AppDispatch, RootState } from "@redux/store";
 import HeaderItem from "../profile/Header";
@@ -20,6 +20,8 @@ import ShareIcon from "@assets/icon/ShareIcon.svg";
 import LogoutIcon from "@assets/icon/LogoutIcon.svg";
 import { fetchProfileData } from "@redux/userThunks";
 import { useTranslation } from "react-i18next";
+import Loader from "@components/common/loader/loader";
+import { useLoading } from "@redux/useSelector";
 
 function Account() {
   const { t } = useTranslation();
@@ -34,6 +36,7 @@ function Account() {
   const { business_profile } = useSelector(
     (state: RootState) => state.rootReducer.userReducer,
   );
+  const isLoading = useLoading();
 
   useEffect(() => {
     dispatch(fetchProfileData());
@@ -46,7 +49,7 @@ function Account() {
       dispatch(setLoadingFalse());
       if (response?.status === 200) {
         navigate("/signin");
-        dispatch(handle_logout());
+        dispatch(handleReduxLogOut());
       } else {
         const error = await response?.data;
         toast.warning(error.message || t("profile.messWarning"));
@@ -89,6 +92,7 @@ function Account() {
     },
   ];
 
+  if (isLoading) return <Loader />;
   return (
     <div>
       {windowWidth >= 480 ? (

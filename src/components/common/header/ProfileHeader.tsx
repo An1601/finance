@@ -4,7 +4,7 @@ import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import { toast } from "react-toastify";
 import Loader from "../loader/loader";
-import { handle_logout } from "@redux/userReducers";
+import { handleReduxLogOut } from "@redux/userReducers";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@redux/store";
 import ProfileLink from "./ProfileLink";
@@ -34,7 +34,7 @@ function ProfileHeader() {
       dispatch(setLoadingFalse());
       if (response && response.status === 200) {
         navigate("/signin");
-        dispatch(handle_logout());
+        dispatch(handleReduxLogOut());
       } else {
         const error = await response?.data;
         toast.warning(error.message || t("header.messWarning"));

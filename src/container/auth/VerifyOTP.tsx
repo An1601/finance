@@ -135,13 +135,15 @@ function VerifyOTP() {
       if (
         axios.isAxiosError<
           {
-            error: string;
+            message: string;
             data: [];
           },
           Record<string, unknown>
         >(error)
       ) {
-        toast.warning(error.response?.data.error || t("verify.messageWarning"));
+        toast.warning(
+          error.response?.data.message || t("verify.messageWarning"),
+        );
       } else {
         toast.error(t("verify.messageError"));
       }
@@ -158,6 +160,7 @@ function VerifyOTP() {
         resetState();
         saveExpireTimeToLocalStorage(60);
         setTime(60);
+        toast.info(t("verify.messageResend"));
       }
     } catch (error) {
       if (

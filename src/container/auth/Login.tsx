@@ -7,7 +7,7 @@ import axios from "axios";
 import logo from "@assets/images/brand-logos/1.png";
 import { LoginInfo } from "@type/types";
 import { AppDispatch } from "@redux/store";
-import { handle_login } from "@redux/userReducers";
+import { handleCheckSubmit, handleReduxLogin } from "@redux/userReducers";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader/loader";
 import api from "../../API/axios";
@@ -29,13 +29,29 @@ const Login = () => {
     formState: { errors },
   } = useForm<LoginInfo>();
 
+  const handleCheckSubmitSurvey = async () => {
+    try {
+      const response = await api.get("/survey/check-survey");
+      if (response.status === 200) {
+        dispatch(handleCheckSubmit(true));
+        navigate("/dashboard");
+      }
+    } catch (error) {
+      if (axios.isAxiosError(error) && error?.response?.status === 400) {
+        dispatch(handleCheckSubmit(false));
+        navigate("/survey");
+      } else toast.error(!axios.isAxiosError(error) && t("login.messageError"));
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
   const handleLogin = async (data: LoginInfo) => {
     dispatch(setLoadingTrue());
     try {
       const response = await api.post("/login", data);
       if (response.status === 200) {
-        dispatch(handle_login(response.data.data));
-        navigate("/dashboard");
+        dispatch(handleReduxLogin(response.data.data));
+        handleCheckSubmitSurvey();
       }
     } catch (error) {
       const message =

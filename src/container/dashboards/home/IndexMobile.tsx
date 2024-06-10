@@ -1,6 +1,6 @@
 import { Fragment } from "react";
 import Overview from "./Overview";
-import TopLoans from "./TopLoans";
+import Projects from "./Projects";
 import PackageLoanList from "../PackageLoan/PackageLoanList";
 import ConsultingMeetingList from "../ConsultingMeeting/ConsultingMeetingList";
 import BottomBarCustom from "@components/common/bottomBar";
@@ -16,7 +16,7 @@ const HomeMobile = () => {
   const { t } = useTranslation();
   return (
     <Fragment>
-      <div className="mx-6 my-7  flex flex-col gap-8">
+      <div className="mx-6 my-7 flex flex-col gap-8">
         <div className="h-fit flex flex-col gap-5">
           <div className="flex justify-between">
             <ProfileHeader />
@@ -24,7 +24,7 @@ const HomeMobile = () => {
           </div>
           <SearchBar isEnable={false} />
         </div>
-        <TopLoans />
+        <Projects />
         <Overview />
         <div className="flex flex-col gap-3">
           <div className="flex justify-between">
