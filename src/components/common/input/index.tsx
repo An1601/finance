@@ -3,7 +3,7 @@ import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import EyeOpen from "@assets/icon/EyeOpen.svg";
 import EyeSlash from "@assets/icon/EyeSlash.svg";
 
-interface InputFieldProps {
+export interface InputFieldProps {
   label: string;
   type?: string;
   placeholder?: string;

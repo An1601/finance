@@ -75,6 +75,7 @@ export default {
           textbody: "#16202F",
           textsub: "#45556E",
           sub_second: "#E7FFFC",
+          text: "#4F5B76",
           secondary: "#F57156",
           primary: "#01D2B4",
           input_bg: "#F4F9FD",

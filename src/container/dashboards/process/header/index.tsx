@@ -2,12 +2,17 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { MENU_PROCESS } from "@constant/processItemData";
 import { Fragment } from "react/jsx-runtime";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const ProcessHeader = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const currentPath = window.location.pathname;
   const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentPath.includes("/loan-submit")) setActiveIndex(2);
+  }, []);
 
   return (
     <div className="w-full flex flex-col gap-7">
@@ -38,7 +43,7 @@ const ProcessHeader = () => {
       </div>
       <div className="w-full overflow-x-hidden ml-[18px]">
         <div
-          className={`relative flex items-center justify-between -left-[${148 * (activeIndex - 1)}px]`}
+          className={`relative flex items-center justify-between right-[${148 * (activeIndex - 1)}px]`}
         >
           {MENU_PROCESS.map((item, index) => (
             <Fragment key={item.id}>

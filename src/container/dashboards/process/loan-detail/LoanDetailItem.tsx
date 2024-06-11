@@ -1,6 +1,6 @@
 const LoanDetailItem = ({ label, value }: { label: string; value: any }) => {
   return (
-    <div className="flex justify-between">
+    <div className="flex justify-between flex-wrap">
       <div className="font-HelveticaNeue font-normal text-sm leading-5 text-light_finance-textbody dot-before">
         {label}
       </div>

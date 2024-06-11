@@ -15,13 +15,13 @@ import SignUp from "@container/auth/SignUp.tsx";
 import ForgotPassword from "@container/auth/ForgotPassword.tsx";
 import VerifyOTP from "@container/auth/VerifyOTP.tsx";
 import ResetPassword from "@container/auth/ResetPassword.tsx";
-import Home from "@container/dashboards/home";
+import Home from "@container/dashboards/home/Index.tsx";
 import NotificationIndex from "@container/dashboards/notification";
-import FAQ from "@container/dashboards/faq";
+import FAQ from "@container/dashboards/faq/Index.tsx";
 import PackageLoanIndex from "@container/dashboards/package-loan";
 import Account from "@container/dashboards/profile";
 import SearchMobile from "@container/dashboards/search";
-import RecordIndex from "@container/dashboards/record";
+import RecordIndex from "@container/dashboards/record/Index.tsx";
 import MeetingIndex from "@container/dashboards/consulting-meeting";
 import EditProfile from "@container/dashboards/edit-profile";
 import ChangePassword from "@container/dashboards/change-password";
@@ -32,6 +32,8 @@ import Survey from "@pages/survey.tsx";
 import SurveyIndex from "@container/survey";
 import LoanDetail from "@container/dashboards/process/loan-detail";
 import UserProcess from "@pages/userProcess.tsx";
+import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
+import LoanSubmitConfirm from "@container/dashboards/process/loan-app-submit/LoanSubmitConfirm.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -73,6 +75,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="message" element={<Message />} />
                 <Route path="/" element={<UserProcess />}>
                   <Route path="loan/:loanId" element={<LoanDetail />} />
+                  <Route path="loan-submit" element={<LoanAppSubmit />} />
+                  <Route
+                    path="loan-submit-confirm"
+                    element={<LoanSubmitConfirm />}
+                  />
                 </Route>
               </Route>
             </Routes>
