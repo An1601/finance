@@ -61,24 +61,28 @@ export type UserInfo = {
 
 export type RecordItemType = {
   id: number;
-  loan_id: number;
+  loan_offer_id: number;
   time_submit: string;
   state: number;
-  loan: {
+  loan_offer: {
     id: number;
-    bank_id: number;
-    name: string;
-    category_id: number;
-    credit_limit: number;
-    interest_rate: number;
-    origination_fee: number;
-    thumbnail?: string;
-    category: {};
-    user: {
+    loan_id: number;
+    loans: {
       id: number;
-      bank: {
-        bank_id: number;
-        name: string;
+      bank_id: number;
+      name: string;
+      credit_limit: number;
+      interest_rate: number;
+      origination_fee: number;
+      thumbnail: string;
+      time_began: string;
+      user: {
+        id: number;
+        bank: {
+          bank_id: number;
+          name: string;
+          thumbnail: string;
+        };
       };
     };
   };
@@ -101,6 +105,13 @@ export type LoanItemType = {
       bank_id: number;
       name: string;
     };
+  };
+  loan_business_list: {
+    // id: number;
+    // business_id: number;
+    // loan_offer_id: number;
+    // time_submit?: string;
+    // state?: number;
   };
   survey_answers: {
     id: number;

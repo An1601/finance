@@ -120,3 +120,7 @@ export const MEETING_FILTER_OPT = [
     name: getTranslated("consulting.microloans"),
   },
 ];
+export const US_CURRENTCY = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+});
