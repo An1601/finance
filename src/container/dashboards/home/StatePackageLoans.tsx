@@ -1,14 +1,10 @@
 import { Link } from "react-router-dom";
 import LoanFilter from "../package-loan/LoanFilter";
 import { LoanStatus } from "../../../type/enum";
-import { LoanListItemType } from "@type/types";
+import { RecordItemType } from "@type/types";
 import { useTranslation } from "react-i18next";
 
-function StatePackageLoans({
-  loanRecords,
-}: {
-  loanRecords: LoanListItemType[];
-}) {
+function StatePackageLoans({ loanRecords }: { loanRecords: RecordItemType[] }) {
   const { t } = useTranslation();
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
@@ -71,10 +67,10 @@ function StatePackageLoans({
                     <th scope="row" className="!ps-4 !pe-5">
                       {index + 1}
                     </th>
-                    <td>{record.loan_name}</td>
-                    <td>{record.bank.name}</td>
-                    <td>{record.credit_limit}</td>
-                    <td>{new Date(record.time_began).toDateString()}</td>
+                    <td>{record.loan?.name}</td>
+                    <td>{record.loan?.user?.bank?.name}</td>
+                    <td>{record.loan?.credit_limit}</td>
+                    <td>{new Date(record?.time_submit).toDateString()}</td>
                     <td>
                       <span
                         className={`inline-flex ${record.state === LoanStatus.APPROVED ? "text-success bg-success/10" : record.state === LoanStatus.INPROGRESS ? "text-info bg-info/10" : "text-danger bg-danger/10"} !py-[0.15rem] !px-[0.45rem] rounded-sm !font-semibold !text-[0.75em]`}

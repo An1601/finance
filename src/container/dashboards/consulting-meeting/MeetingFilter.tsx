@@ -79,10 +79,10 @@ const MeetingFilter = () => {
           type="checkbox"
         />
         <div className="absolute peer-checked:flex hidden top-14 right-0 w-[226px] max-h-[60vh] overflow-scroll rounded-lg bg-light_finance-background drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)]  flex-col ">
-          {MEETING_FILTER_OPT.map((filterOpt, index) => {
+          {MEETING_FILTER_OPT.map((filterOpt) => {
             return (
               <div
-                key={index}
+                key={filterOpt.id}
                 className="self-stretch px-4 py-2 justify-start items-start gap-2 inline-flex"
               >
                 <input

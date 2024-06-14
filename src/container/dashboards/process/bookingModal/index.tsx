@@ -11,7 +11,6 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
-import { useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -28,7 +27,10 @@ const BookingModal = () => {
   const [date, setDate] = useState<Value>(new Date());
   const [startTime, setStartTime] = useState("");
   const [timeList, setTimeList] = useState<MeetingTimeType[]>([]);
-  const { loanId } = useParams();
+  const [currentTime, setCurrentTime] = useState(new Date());
+  const [note, setNote] = useState("");
+  const searchParams = new URLSearchParams(location.search);
+  const offerId = searchParams.get("offerId");
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useLoading();
@@ -52,6 +54,36 @@ const BookingModal = () => {
       }).format(date[0]);
     }
   };
+  const compareTime = (inputTimeString: string) => {
+    const parseTimeString = (timeString: string) => {
+      const [time, modifier] = timeString.split(" ");
+      let hours = time.split(":")[0];
+      if (hours === "12") {
+        hours = "00";
+      }
+      if (modifier === "PM") {
+        hours = String(parseInt(hours, 10) + 12);
+      }
+      return new Date().setHours(
+        parseInt(hours),
+        parseInt(time.split(":")[1]),
+        0,
+        0,
+      );
+    };
+
+    if (date) {
+      const current = new Date();
+      if (date > current) {
+        return true;
+      }
+    }
+    const inputTime = parseTimeString(inputTimeString);
+    if (inputTime <= currentTime.setSeconds(0, 0)) {
+      return false;
+    }
+    return true;
+  };
   const handleMeetingTime = async () => {
     try {
       const response = await api.post(`/check-time-meeting`, {
@@ -61,31 +93,47 @@ const BookingModal = () => {
         setTimeList(response.data.data);
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error?.response?.status === 400) {
-      } else toast.error(!axios.isAxiosError(error) && t("login.messageError"));
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
     }
   };
   const handleBookMeeting = async () => {
-    dispatch(setLoadingTrue());
-    try {
-      const response = await api.post(`/loans/meeting-submit`, {
-        id: loanId,
-        date_meeting: formatDateString(date),
-        start_time: startTime,
-      });
-      if (response.status === 200) {
-        setTimeList(response.data.data);
+    if (offerId) {
+      console.log(offerId);
+      dispatch(setLoadingTrue());
+      try {
+        const response = await api.post(`/loans/meeting-submit`, {
+          id: offerId,
+          date_meeting: formatDateString(date),
+          start_time: startTime,
+        });
+        if (response.status === 200) {
+          setTimeList(response.data.data);
+        }
+      } catch (error) {
+        const message =
+          axios.isAxiosError(error) && error.response?.data.message
+            ? error.response.data.message
+            : t("login.messageError");
+        toast.error(message);
+      } finally {
+        dispatch(setLoadingFalse());
       }
-    } catch (error) {
-      if (axios.isAxiosError(error) && error?.response?.status === 400) {
-      } else toast.error(!axios.isAxiosError(error) && t("login.messageError"));
-    } finally {
-      dispatch(setLoadingFalse());
     }
   };
   useEffect(() => {
     handleMeetingTime();
   }, [date]);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTime(new Date());
+      handleMeetingTime();
+    }, 10 * 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   if (isLoading) return <Loader />;
 
@@ -111,7 +159,14 @@ const BookingModal = () => {
             </div>
             <div className="grid grid-cols-2 gap-y-4 gap-x-14">
               <div className="col-span-2 md:col-span-1">
-                <Calendar onChange={setDate} />
+                <Calendar
+                  onChange={setDate}
+                  tileDisabled={({ date }) => {
+                    const current = new Date();
+                    current.setHours(0, 0, 0, 0);
+                    return date < current;
+                  }}
+                />
               </div>
               <div className="col-span-2 md:col-span-1 flex flex-col gap-6 items-center">
                 <div className="w-full flex flex-col gap-2">
@@ -122,16 +177,18 @@ const BookingModal = () => {
                     {timeList &&
                       timeList.map((availableTime) => (
                         <button
-                          disabled={!availableTime.status}
                           onClick={() => {
-                            if (availableTime.status)
+                            if (
+                              availableTime.status &&
+                              compareTime(availableTime.start_time)
+                            )
                               setStartTime(availableTime.start_time);
                           }}
                           key={availableTime.id}
                           className={`${availableTime.start_time === startTime ? "bg-light_finance-sub_second" : "bg-white"} col-span-3 xxs:col-span-2 flex items-center py-2 px-3 border-[1px] border-light_finance-textbody rounded-lg`}
                         >
                           <i
-                            className={`fa-solid fa-circle fa-2xs ${availableTime.status ? "text-light_finance-primary" : "text-light_finance-textsub"}`}
+                            className={`fa-solid fa-circle fa-2xs ${availableTime.status && compareTime(availableTime.start_time) ? "text-light_finance-primary" : "text-light_finance-red"}`}
                           ></i>
                           <div className="ml-2 text-md font-normal whitespace-nowrap">
                             {availableTime.start_time}
@@ -150,13 +207,20 @@ const BookingModal = () => {
                 </div>
                 <textarea
                   placeholder="Your note"
+                  value={note}
+                  onChange={(e) => {
+                    setNote(e.currentTarget.value);
+                  }}
                   className="h-32 w-full rounded-sm border-[1px] focus:!border-[1px] border-light_finance-texttitle focus:!border-light_finance-texttitle text-sm font-normal leading-5 text-light_finance-textbody"
                 />
               </div>
             </div>
             <PrimarySubmitBtn
               name={t("process.book")}
-              handleSubmit={handleBookMeeting}
+              handleSubmit={() => {
+                if (startTime) handleBookMeeting();
+                else toast.info(t("process.bookMeeting.timeAlert"));
+              }}
             />
           </div>
         </div>

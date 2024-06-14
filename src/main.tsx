@@ -33,7 +33,7 @@ import SurveyIndex from "@container/survey";
 import LoanDetail from "@container/dashboards/process/loan-detail";
 import UserProcess from "@pages/userProcess.tsx";
 import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
-import LoanSubmitConfirm from "@container/dashboards/process/loan-app-submit/LoanSubmitConfirm.tsx";
+import Projects from "@container/dashboards/project/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -66,7 +66,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="faq" element={<FAQ />} />
                 <Route path="search" element={<SearchMobile />} />
                 <Route path="loan-list" element={<PackageLoanIndex />} />
-                <Route path="loan-list/:userid" element={<RecordIndex />} />
+                <Route
+                  path="loan-list/:projectId"
+                  element={<PackageLoanIndex />}
+                />
+                <Route path="records" element={<RecordIndex />} />
                 <Route path="meeting" element={<MeetingIndex />} />
                 <Route path="meeting/:loanId" element={<MeetingIndex />} />
                 <Route path="profile" element={<Account />} />
@@ -74,8 +78,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="change-password" element={<ChangePassword />} />
                 <Route path="terms-conditions" element={<TermsConditions />} />
                 <Route path="message" element={<Message />} />
+                <Route path="projects" element={<Projects />} />
                 <Route path="/" element={<UserProcess />}>
-                  <Route path="loan/:loanId" element={<LoanDetail />} />
+                  <Route path="loan-detail" element={<LoanDetail />} />
                   <Route path="loan-submit" element={<LoanAppSubmit />} />
                   <Route
                     path="loan-submit-confirm"

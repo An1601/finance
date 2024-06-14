@@ -28,7 +28,7 @@ const LoanAppSubmit = () => {
   };
   const handleSubmitLoanForm = async (data: any) => {
     setItem(`loanSubmit_${loanId}`, JSON.stringify(data));
-    navigate("/loan-submit-confirm");
+    navigate(`/loan-submit-confirm?id=${loanId}`);
   };
 
   useEffect(() => {

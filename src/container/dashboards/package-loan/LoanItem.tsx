@@ -1,55 +1,92 @@
 import React from "react";
-import { LoanListItemType } from "@type/types";
+import { LoanItemType, RecordItemType } from "@type/types";
 import { LoanStatus } from "@type/enum";
 import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
-const LoanItem: React.FC<{ loan: LoanListItemType }> = ({ loan }) => {
+const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
+  loanItem,
+}) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const checkLoanItemType = (object: any): object is LoanItemType => {
+    return typeof object === "object" && "survey_answer_id" in object;
+  };
+  const isLoanItemType = checkLoanItemType(loanItem);
+  const formatCreditLimit = (price: number): string => {
+    if (price < 1000) {
+      return price.toFixed(2);
+    } else {
+      const prePrice = price > 1000000 ? price / 1000000 : price / 1000;
+      const roundPrice = Math.round(prePrice * 100) / 100;
+      return `${roundPrice}${price > 1000000 ? "M" : "K"}`;
+    }
+  };
+
   return (
-    <div className="p-4 bg-white rounded-xl flex max-[400px]:flex-col justify-between max-[375px]:justify-center items-end md:items-center gap-3 md:gap-8 lg:gap-20">
-      <div className="w-full flex flex-col md:flex-row md:justify-between gap-3">
-        <div className="flex gap-2">
-          <img
-            src={loan.bank_thumbnail}
-            className="h-11 w-11 xl:h-[4.5rem] xl:w-[4.5rem] rounded-full overflow-hidden"
-          />
-          <div className="max-w-full flex flex-col justify-center">
-            <div className="font-HelveticaNeue font-medium text-[10px] md:text-xs leading-4 text-light_finance-primary text-truncate">
-              {loan.project.name}
-            </div>
-            <div className="font-HelveticaNeue font-normal text-xs md:text-sm leading-4 tracking-tight text-light_finance-textsub text-truncate">
-              {loan.bank.name}
-            </div>
-            <div className="max-w-full font-HelveticaNeue font-bold text-base md:text-xl leading-7 text-light_finance-textbody text-truncate">
-              {loan.loan_name}
-            </div>
+    <div className="p-4 bg-white rounded-xl w-full flex flex-col md:flex-row md:justify-between gap-3">
+      <div className="flex gap-2 max-w-[85%] md:max-w-[30%]">
+        <img
+          src={
+            isLoanItemType
+              ? loanItem?.loans?.thumbnail &&
+                "https://i.pinimg.com/736x/2a/2c/1d/2a2c1d90075390b22e7e6060254dab0d.jpg"
+              : loanItem?.loan?.thumbnail &&
+                "https://i.pinimg.com/736x/2a/2c/1d/2a2c1d90075390b22e7e6060254dab0d.jpg"
+          }
+          className="h-[44px] min-w-[44px] xl:h-[4.5rem] xl:min-w-[4.5rem] rounded-full overflow-hidden"
+        />
+        <div className="max-w-full flex flex-col justify-center">
+          <div className="font-HelveticaNeue font-medium text-[10px] md:text-xs leading-4 text-light_finance-primary text-truncate">
+            {isLoanItemType
+              ? loanItem?.survey_answers?.property_address[0]
+              : "Default name"}
+          </div>
+          <div className="font-HelveticaNeue font-normal text-xs md:text-sm leading-4 tracking-tight text-light_finance-textsub text-truncate">
+            {isLoanItemType
+              ? loanItem?.loans?.bank?.name
+              : loanItem?.loan?.user?.bank?.name}
+          </div>
+          <div className="font-HelveticaNeue font-bold text-base md:text-xl leading-7 text-light_finance-textbody text-truncate">
+            {isLoanItemType ? loanItem?.loans?.name : loanItem?.loan?.name}
           </div>
         </div>
-        <div className="flex flex-col justify-center-center lg:items-end gap-3 ">
+      </div>
+      <div className="flex-1 w-full flex max-[400px]:flex-col justify-end items-end md:items-center gap-3 lg:gap-8 xxl:gap-20">
+        <div className="w-full md:w-fit flex flex-col justify-center-center lg:items-end gap-3">
           <div className="flex items-center gap-4 max-[415px]:gap-2">
-            <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col md:flex-row lg:flex-col xl:flex-row text-center whitespace-nowrap">
+            <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
-                ${loan.credit_limit}
+                $
+                {formatCreditLimit(
+                  isLoanItemType
+                    ? loanItem?.loans.credit_limit
+                    : loanItem.loan?.credit_limit,
+                )}
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
                 Credit limit
               </div>
             </div>
-            <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col md:flex-row lg:flex-col xl:flex-row text-center whitespace-nowrap">
+            <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
-                {loan.rate_month}%
+                {isLoanItemType
+                  ? loanItem?.loans.interest_rate
+                  : loanItem.loan?.interest_rate}
+                %
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
                 Rate
               </div>
             </div>
-            <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col md:flex-row lg:flex-col xl:flex-row text-center whitespace-nowrap">
+            <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
-                {loan.origination_fee}%
+                {isLoanItemType
+                  ? loanItem?.loans.origination_fee
+                  : loanItem.loan?.origination_fee}
+                %
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
                 Origination fee
@@ -58,45 +95,57 @@ const LoanItem: React.FC<{ loan: LoanListItemType }> = ({ loan }) => {
           </div>
           <div className="lg:flex hidden gap-1">
             <img className="h-5 w-5" src={calendar} />
-            <div>24,Oct 2024</div>
+            <div>
+              {isLoanItemType
+                ? loanItem?.loans.time_began
+                : loanItem?.time_submit}
+            </div>
           </div>
         </div>
+        {(() => {
+          switch (loanItem.state) {
+            case LoanStatus.APPROVED:
+              return (
+                <div className="h-5 w-[66px] bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-[10px] leading-4">
+                    {t("packageLoanList.approval")}
+                  </div>
+                </div>
+              );
+            case LoanStatus.INPROGRESS:
+              return (
+                <div className="h-5 w-[66px] bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#408CFF] text-[10px] leading-4">
+                    {t("packageLoanList.inProgress")}
+                  </div>
+                </div>
+              );
+            case LoanStatus.REJECT:
+              return (
+                <div className="h-5 w-[66px] bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#F65160] text-[10px] leading-4">
+                    {t("packageLoanList.reject")}
+                  </div>
+                </div>
+              );
+            default:
+              return (
+                <MobileHomeBtn
+                  name="Submit"
+                  handleSubmit={() =>
+                    navigate(
+                      `/loan-detail?loanId=${
+                        isLoanItemType
+                          ? loanItem?.loans?.id
+                          : loanItem?.loan?.id
+                      }&offerId=${loanItem.id}`,
+                    )
+                  }
+                />
+              );
+          }
+        })()}
       </div>
-      {(() => {
-        switch (loan.state) {
-          case LoanStatus.APPROVED:
-            return (
-              <div className="h-5 w-[66px] bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
-                <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-[10px] leading-4">
-                  {t("packageLoanList.approval")}
-                </div>
-              </div>
-            );
-          case LoanStatus.INPROGRESS:
-            return (
-              <div className="h-5 w-[66px] bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center">
-                <div className="text-center font-HelveticaNeue font-medium text-[#408CFF] text-[10px] leading-4">
-                  {t("packageLoanList.inProgress")}
-                </div>
-              </div>
-            );
-          case LoanStatus.REJECT:
-            return (
-              <div className="h-5 w-[66px] bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center">
-                <div className="text-center font-HelveticaNeue font-medium text-[#F65160] text-[10px] leading-4">
-                  {t("packageLoanList.reject")}
-                </div>
-              </div>
-            );
-          default:
-            return (
-              <MobileHomeBtn
-                name="Submit"
-                handleSubmit={() => navigate(`/loan/${loan.id}`)}
-              />
-            );
-        }
-      })()}
     </div>
   );
 };

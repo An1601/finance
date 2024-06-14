@@ -1,4 +1,4 @@
-export function useLocalStorage() {
+export const useLocalStorage = () => {
   const checkEnableCookie = () => {
     let cookieEnabled = navigator.cookieEnabled;
     if (!cookieEnabled) {
@@ -34,4 +34,4 @@ export function useLocalStorage() {
     getItem,
     removeItem,
   };
-}
+};

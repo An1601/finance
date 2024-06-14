@@ -1,7 +1,7 @@
 import { Fragment } from "react/jsx-runtime";
 import ItemNotification from "./ItemNotification";
 
-function NotificationList() {
+const NotificationList = () => {
   return (
     <Fragment>
       {Array.from({ length: 6 }).map((_, index) => (
@@ -14,6 +14,6 @@ function NotificationList() {
       ))}
     </Fragment>
   );
-}
+};
 
 export default NotificationList;

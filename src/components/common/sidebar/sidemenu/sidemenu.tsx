@@ -3,8 +3,6 @@ import Consulting from "@components/svg/Consulting";
 import DashboardIcon from "@components/svg/Dashboard";
 import LoanList from "@components/svg/LoanList";
 import ManagementRecord from "@components/svg/ManageRecord";
-import { store } from "@redux/store";
-const userId = store.getState().rootReducer.userReducer.id;
 import { getTranslated } from "@i18n/index";
 
 export const MENUITEMS = [
@@ -42,7 +40,7 @@ export const MENUITEMS = [
     iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
     type: "sub",
     children: [],
-    path: `/loan-list/${userId}`,
+    path: `/records`,
   },
   {
     title: getTranslated("sideBar.chat"),

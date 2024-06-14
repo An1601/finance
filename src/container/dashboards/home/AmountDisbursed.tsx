@@ -1,6 +1,5 @@
 import { useTranslation } from "react-i18next";
 import { Revenueanalytics } from "./indexData";
-import { Link } from "react-router-dom";
 
 function AmountDisbursed() {
   const { t } = useTranslation();
@@ -10,41 +9,31 @@ function AmountDisbursed() {
         <div className="box-header !gap-0 !m-0 justify-between">
           <div className="box-title">Revenue Analytics</div>
           <div className="hs-dropdown ti-dropdown">
-            <Link
-              to="#"
+            <div
               className="text-[0.75rem] px-2 font-normal text-[#8c9097] dark:text-white/50"
               aria-expanded="false"
             >
               {t("home.viewAll")}
               <i className="ri-arrow-down-s-line align-middle ms-1 inline-block"></i>
-            </Link>
+            </div>
             <ul
               className="hs-dropdown-menu ti-dropdown-menu hidden"
               role="menu"
             >
               <li>
-                <Link
-                  className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                  to="#"
-                >
+                <div className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block">
                   {t("home.today")}
-                </Link>
+                </div>
               </li>
               <li>
-                <Link
-                  className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                  to="#"
-                >
+                <div className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block">
                   {t("home.thisWeek")}
-                </Link>
+                </div>
               </li>
               <li>
-                <Link
-                  className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block"
-                  to="#"
-                >
+                <div className="ti-dropdown-item !py-2 !px-[0.9375rem] !text-[0.8125rem] !font-medium block">
                   {t("home.lastWeek")}
-                </Link>
+                </div>
               </li>
             </ul>
           </div>

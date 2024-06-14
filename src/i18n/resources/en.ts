@@ -157,7 +157,7 @@ export default {
     businessLoans: "Business Loans",
     mortgagesLoans: "Mortgages Loans",
     rate: "Rate",
-    apr: "APR",
+    originationFee: "Origination fee",
     creditLimit: "Credit limit",
     merchantCash: "Merchant cash",
     franchiseLoans: "Franchise loans",
@@ -359,6 +359,7 @@ export default {
     bookMeeting: {
       title: "Book an appointment",
       selectTime: "Select available time",
+      timeAlert: "Please pick a time",
     },
     loanSubmit: {
       title: "THE LOAN APPLICATION",
