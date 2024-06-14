@@ -34,6 +34,7 @@ import LoanDetail from "@container/dashboards/process/loan-detail";
 import UserProcess from "@pages/userProcess.tsx";
 import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
 import Projects from "@container/dashboards/project/index.tsx";
+import LoanSubmitConfirm from "@container/dashboards/process/loan-app-submit/LoanSubmitConfirm.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
