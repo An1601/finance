@@ -203,7 +203,7 @@ function ChangePassword() {
                 <div className="w-full flex justify-center">
                   <PrimarySubmitBtn
                     name={t("changePassword.update")}
-                    type="button"
+                    type="submit"
                   />
                 </div>
               </div>
