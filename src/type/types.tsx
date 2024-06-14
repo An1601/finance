@@ -1,7 +1,7 @@
 import { SurveyAnsType } from "./enum";
 
 export type SignUpInfo = {
-  name: string;
+  fullname: string;
   phone?: string;
   email: string;
   DOB: string;
@@ -141,4 +141,33 @@ export type SurveyQuestion = {
   type: SurveyAnsType;
   choice: Array<string>;
   subQuestions?: Array<SurveyQuestion>;
+};
+
+export type Loan = {
+  id: number;
+  bank_id: number;
+  name: string;
+  type: number;
+  category_id: number;
+  credit_limit: number;
+  interest_rate: number;
+  interest_rate_type: number;
+};
+
+export type Meeting = {
+  id: number;
+  loan_business_list_id: number;
+  date_meeting: string;
+  start_time: string;
+  end_time: string;
+  zoom_meeting: string;
+};
+export type ConsultingMeeting = {
+  id: number;
+  business_id: number;
+  loan_id: number;
+  time_submit: string;
+  state: number;
+  meeting: Meeting;
+  loan: Loan;
 };

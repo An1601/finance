@@ -1,7 +1,7 @@
 import faqIcon from "@assets/icon/FAQIcon.svg";
 import useWindowWidth from "../../hook/useWindowWidth";
 import PrimarySubmitBtn from "../button/primary-submit-btn";
-import NotificationList from "@container/dashboards/notification/NotificationList";
+import NotificationList from "@container/dashboards/Notification/NotificationList";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import NotificationHeader from "@assets/icon/NotificationHeader.svg";

@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -14,6 +14,7 @@ import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
 import { useLoading } from "@redux/useSelector";
+import DatePickerField from "@components/common/input-date";
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -22,12 +23,16 @@ const SignUp = () => {
   const [showPassword2, setShowPassword2] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useLoading();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const {
     handleSubmit,
     register,
     formState: { errors },
     getValues,
+    setValue,
+    clearErrors,
+    setError,
   } = useForm<SignUpInfo>();
 
   const handleSignUp = async (data: SignUpInfo) => {
@@ -49,6 +54,31 @@ const SignUp = () => {
     }
   };
 
+  useEffect(() => {
+    if (selectedDate) {
+      clearErrors("DOB");
+    }
+  }, [selectedDate, clearErrors]);
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    if (date) {
+      setValue(
+        "DOB",
+        date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }),
+      );
+      clearErrors("DOB");
+    } else {
+      setError("DOB", {
+        type: "required",
+        message: t("signup.requireDate"),
+      });
+    }
+  };
   if (isLoading) return <Loader />;
 
   return (
@@ -73,10 +103,10 @@ const SignUp = () => {
             <InputField
               label={t("signup.name")}
               placeholder={t("signup.yourName")}
-              register={register("name", {
+              register={register("fullname", {
                 required: t("signup.requireName"),
               })}
-              error={errors.name}
+              error={errors.fullname}
             />
             <InputField
               label={t("signup.phone")}
@@ -100,14 +130,14 @@ const SignUp = () => {
               })}
               error={errors.email}
             />
-            <InputField
-              label={t("signup.date")}
-              placeholder={t("signup.yourDate")}
-              type="date"
+            <DatePickerField
+              label={t("editProfile.dateOfBirth")}
+              selected={selectedDate}
+              onChange={handleDateChange}
+              error={errors.DOB}
               register={register("DOB", {
                 required: t("signup.requireDate"),
               })}
-              error={errors.DOB}
             />
             <InputField
               label={t("signup.address")}
