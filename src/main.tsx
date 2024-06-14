@@ -16,17 +16,17 @@ import ForgotPassword from "@container/auth/ForgotPassword.tsx";
 import VerifyOTP from "@container/auth/VerifyOTP.tsx";
 import ResetPassword from "@container/auth/ResetPassword.tsx";
 import Home from "@container/dashboards/home/Index.tsx";
-import NotificationIndex from "@container/dashboards/notification";
-import FAQ from "@container/dashboards/faq/Index.tsx";
+import NotificationIndex from "@container/dashboards/Notification/index.tsx";
+import FAQ from "@container/dashboards/FAQ/index.tsx";
 import PackageLoanIndex from "@container/dashboards/package-loan";
 import Account from "@container/dashboards/profile";
-import SearchMobile from "@container/dashboards/search";
-import RecordIndex from "@container/dashboards/record/Index.tsx";
+import SearchMobile from "@container/dashboards/search/index.tsx";
+import RecordIndex from "@container/dashboards/Record/index.tsx";
 import MeetingIndex from "@container/dashboards/consulting-meeting";
 import EditProfile from "@container/dashboards/edit-profile";
 import ChangePassword from "@container/dashboards/change-password";
 import TermsConditions from "@container/dashboards/terms-conditions";
-import Message from "@container/dashboards/message";
+import Message from "@container/dashboards/Message/index.tsx";
 import Dashboard from "@pages/dashboard.tsx";
 import Survey from "@pages/survey.tsx";
 import SurveyIndex from "@container/survey";
@@ -68,6 +68,7 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="loan-list" element={<PackageLoanIndex />} />
                 <Route path="loan-list/:userid" element={<RecordIndex />} />
                 <Route path="meeting" element={<MeetingIndex />} />
+                <Route path="meeting/:loanId" element={<MeetingIndex />} />
                 <Route path="profile" element={<Account />} />
                 <Route path="edit-profile" element={<EditProfile />} />
                 <Route path="change-password" element={<ChangePassword />} />

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { AppDispatch, RootState } from "@redux/store";
@@ -15,6 +15,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader";
 import BackIcon from "@components/svg/Back";
+import "react-datepicker/dist/react-datepicker.css";
+import DatePickerField from "@components/common/input-date";
 
 function EditProfile() {
   const { t } = useTranslation();
@@ -26,22 +28,30 @@ function EditProfile() {
     (state: RootState) => state.rootReducer.commonReducer.isloading,
   );
   const dispatch = useDispatch<AppDispatch>();
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
     handleSubmit,
     register,
     formState: { errors },
     setValue,
+    clearErrors,
+    setError,
   } = useForm<UpdateProfile>();
 
   const windowWidth = useWindowWidth();
 
   useEffect(() => {
-    if (business_profile) setValue("name", business_profile?.name ?? "");
-    if (business_profile) setValue("phone", business_profile?.phone ?? "");
-    if (business_profile) setValue("email", business_profile?.email ?? "");
-    if (business_profile) setValue("DOB", business_profile?.DOB ?? "");
-    if (business_profile)
+    if (business_profile) {
+      setValue("name", business_profile?.name ?? "");
+      setValue("phone", business_profile?.phone ?? "");
+      setValue("email", business_profile?.email ?? "");
+      setValue("DOB", business_profile?.DOB ?? "");
       setValue("business_address", business_profile?.business_address ?? "");
+
+      if (business_profile?.DOB) {
+        setSelectedDate(new Date(business_profile.DOB));
+      }
+    }
   }, [business_profile]);
 
   const handleUpdate = async (data: UpdateProfile) => {
@@ -60,6 +70,32 @@ function EditProfile() {
       toast.error(message);
     } finally {
       dispatch(setLoadingFalse());
+    }
+  };
+
+  useEffect(() => {
+    if (selectedDate) {
+      clearErrors("DOB");
+    }
+  }, [selectedDate, clearErrors]);
+
+  const handleDateChange = (date: Date | null) => {
+    setSelectedDate(date);
+    if (date) {
+      setValue(
+        "DOB",
+        date.toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }),
+      );
+      clearErrors("DOB");
+    } else {
+      setError("DOB", {
+        type: "required",
+        message: t("signup.requireDate"),
+      });
     }
   };
 
@@ -113,13 +149,14 @@ function EditProfile() {
                   />
                 </div>
                 <div className="w-1/2 flex flex-col space-y-4">
-                  <InputField
+                  <DatePickerField
                     label={t("editProfile.dateOfBirth")}
-                    type="date"
+                    selected={selectedDate}
+                    onChange={handleDateChange}
+                    error={errors.DOB}
                     register={register("DOB", {
                       required: t("signup.requireDate"),
                     })}
-                    error={errors.DOB}
                   />
                   <InputField
                     label={t("editProfile.address")}
@@ -180,12 +217,20 @@ function EditProfile() {
                   })}
                   error={errors.email}
                 />
-                <InputField
+                <DatePickerField
                   label={t("editProfile.dateOfBirth")}
-                  type="date"
-                  register={register("DOB", {
-                    required: t("signup.requireDate"),
-                  })}
+                  selected={selectedDate}
+                  onChange={(date: Date) => {
+                    setSelectedDate(date);
+                    setValue(
+                      "DOB",
+                      date.toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "2-digit",
+                        day: "2-digit",
+                      }),
+                    );
+                  }}
                   error={errors.DOB}
                 />
                 <InputField
