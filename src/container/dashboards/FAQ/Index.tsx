@@ -12,7 +12,7 @@ const FAQ = () => {
     formState: { errors },
   } = useForm();
   return (
-    <div className="min-h-screen relative pt-7 md:m-0 flex flex-col gap-6 bg-light_finance-background1">
+    <div className="min-h-screen relative pt-7 md:p-0 flex flex-col gap-6 bg-light_finance-background1">
       <div className="md:hidden flex items-center justify-between">
         <div className="flex gap-3 items-center mx-6">
           <i

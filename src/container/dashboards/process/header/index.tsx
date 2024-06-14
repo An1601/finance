@@ -47,7 +47,7 @@ const ProcessHeader = () => {
         >
           {MENU_PROCESS.map((item, index) => (
             <Fragment key={item.id}>
-              <div className="flex flex-col gap-2 items-center">
+              <div className="flex flex-col gap-2 items-center mt-1">
                 {index < activeIndex ? item.iconActive : item.icon}
                 <div className="w-[100px] h-8 font-HelveticaNeue text-center text-[11.5px] font-bold text-light_finance-textbody tracking-tight">
                   {item.name}

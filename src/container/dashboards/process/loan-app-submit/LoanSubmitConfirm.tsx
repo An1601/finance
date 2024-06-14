@@ -108,7 +108,7 @@ const LoanSubmitConfirm = () => {
           <CancelBtn
             label={t("process.edit")}
             handleOnClick={() => {
-              navigate("/loan-submit");
+              navigate(`/loan-submit?id=${loanId}`);
             }}
           />
           <PrimarySubmitBtn

@@ -44,7 +44,7 @@ export const LOAN_FILTER_OPT = [
     ],
   },
   {
-    name: getTranslated("consulting.apr"),
+    name: getTranslated("consulting.originationFee"),
     child: [
       {
         id: 1,

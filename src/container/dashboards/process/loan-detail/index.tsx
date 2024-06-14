@@ -4,33 +4,34 @@ import calendar from "@assets/icon/CalendarIcon.svg";
 import { InterestRateType, LoanType } from "@type/enum";
 import api from "@api/axios";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import LoanDetailItem from "./LoanDetailItem";
 import BookingModal from "../bookingModal";
 import { LoanDetailProcessType } from "@type/types";
+import Loader from "@components/common/loader";
 const LoanDetail = () => {
   const { t } = useTranslation();
-  const { loanId } = useParams();
+  const searchParams = new URLSearchParams(location.search);
+  const loanId = searchParams.get("loanId");
   const [loanDetail, setLoanDetail] = useState<LoanDetailProcessType>();
-  const dispatch = useDispatch<AppDispatch>();
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleGetLoanDetail = async () => {
-    dispatch(setLoadingTrue());
+    setIsLoading(true);
     try {
       const response = await api.get(`/loans/${loanId}`);
       if (response.status === 200) {
         setLoanDetail(response.data.data);
       }
     } catch (error) {
-      if (axios.isAxiosError(error) && error?.response?.status === 400) {
-      } else toast.error(!axios.isAxiosError(error) && t("login.messageError"));
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      setIsLoading(false);
     }
   };
 
@@ -38,9 +39,7 @@ const LoanDetail = () => {
     handleGetLoanDetail();
   }, []);
 
-  useEffect(() => {
-    console.log(loanDetail);
-  }, [loanDetail]);
+  if (isLoading) return <Loader />;
 
   return (
     <div className="mt-10 mx-6 flex flex-col gap-6 md:gap-5">

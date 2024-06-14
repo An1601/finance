@@ -1,7 +1,7 @@
 import { Sourcedata } from "./indexData";
 import { useTranslation } from "react-i18next";
 
-function StateLoansChart() {
+const StateLoansChart = () => {
   const { t } = useTranslation();
   return (
     <div className="xxl:col-span-12 xl:col-span-12  col-span-12">
@@ -58,6 +58,6 @@ function StateLoansChart() {
       </div>
     </div>
   );
-}
+};
 
 export default StateLoansChart;

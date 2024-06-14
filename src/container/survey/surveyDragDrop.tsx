@@ -10,12 +10,12 @@ const SurveyDragDrop = ({
   const dragPerson = useRef<number>(0);
   const draggedOverPerson = useRef<number>(0);
 
-  function handleSort() {
+  const handleSort = () => {
     const peopleClone = [...choices];
     [peopleClone[dragPerson.current], peopleClone[draggedOverPerson.current]] =
       [peopleClone[draggedOverPerson.current], peopleClone[dragPerson.current]];
     setSortChoices(peopleClone);
-  }
+  };
 
   return (
     <Fragment>

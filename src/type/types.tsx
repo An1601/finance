@@ -59,26 +59,52 @@ export type UserInfo = {
   check_submit?: boolean;
 };
 
-export type LoanCategory = {
+export type RecordItemType = {
   id: number;
-  name: string;
-  thumbnail: string;
-};
-
-export type LoanListItemType = {
-  id: number;
-  loan_name: string;
-  origination_fee: number;
-  rate_month: number;
-  credit_limit: number;
-  state?: number;
-  bank: {
+  loan_id: number;
+  time_submit: string;
+  state: number;
+  loan: {
+    id: number;
+    bank_id: number;
     name: string;
+    category_id: number;
+    credit_limit: number;
+    interest_rate: number;
+    origination_fee: number;
+    thumbnail?: string;
+    category: {};
+    user: {
+      id: number;
+      bank: {
+        bank_id: number;
+        name: string;
+      };
+    };
   };
-  bank_thumbnail: string;
-  time_began: Date;
-  project: {
+};
+export type LoanItemType = {
+  id: number;
+  loan_id: number;
+  survey_answer_id: number;
+  state?: number;
+  loans: {
+    id: number;
+    bank_id: number;
     name: string;
+    time_began: string;
+    credit_limit: number;
+    interest_rate: number;
+    origination_fee: number;
+    thumbnail: string;
+    bank: {
+      bank_id: number;
+      name: string;
+    };
+  };
+  survey_answers: {
+    id: number;
+    property_address: string[];
   };
 };
 
@@ -171,3 +197,8 @@ export type ConsultingMeeting = {
   meeting: Meeting;
   loan: Loan;
 };
+export interface ProjectItemType {
+  id: string;
+  project_name: string;
+  status?: boolean;
+}

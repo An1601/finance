@@ -8,11 +8,9 @@ import HomeActive from "@components/svg/HomeActive";
 import DocumentBottomBarActive from "@components/svg/DocumentBottomActive";
 import MessageActive from "@components/svg/MessageActive";
 import ProfileActive from "@components/svg/ProfileActive";
-import { useUser } from "@redux/useSelector";
 
 const BottomBarCustom = () => {
   const navigate = useNavigate();
-  const user = useUser();
   const [activeTab, setActiveTab] = useState<string>("home");
 
   const handleNavigate = (path: string, tab: string) => {
@@ -23,7 +21,7 @@ const BottomBarCustom = () => {
   useEffect(() => {
     if (location.pathname === "/dashboard") {
       setActiveTab("home");
-    } else if (location.pathname.includes("/loan-list")) {
+    } else if (location.pathname.includes("/records")) {
       setActiveTab("document");
     } else if (location.pathname.includes("/message")) {
       setActiveTab("message");
@@ -51,7 +49,7 @@ const BottomBarCustom = () => {
           data-tooltip-target="tooltip-wallet"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 "
-          onClick={() => handleNavigate(`/loan-list/${user.id}`, "document")}
+          onClick={() => handleNavigate(`/records`, "document")}
         >
           {activeTab === "document" ? (
             <DocumentBottomBarActive className="w-9 h-9" />

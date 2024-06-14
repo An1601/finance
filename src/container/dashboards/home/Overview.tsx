@@ -3,8 +3,10 @@ import loanRejected from "@assets/icon/LoanRejected.svg";
 import loanInProgress from "@assets/icon/LoanInProgress.svg";
 import { useTranslation } from "react-i18next";
 import { useUser } from "@redux/useSelector";
+import { RecordItemType } from "@type/types";
+import { LoanStatus } from "@type/enum";
 
-function Overview() {
+const Overview = ({ records }: { records: RecordItemType[] }) => {
   const { t } = useTranslation();
   const user = useUser();
   return (
@@ -21,7 +23,10 @@ function Overview() {
             <img className="h-11 w-11" src={loanApproval} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
-                {user.check_submit ? "12" : "0"}
+                {user.check_submit
+                  ? records.filter((item) => item.state === LoanStatus.APPROVED)
+                      .length
+                  : "0"}
               </div>
               <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
                 {t("home.totalApproval")}
@@ -35,7 +40,11 @@ function Overview() {
             <img className="h-11 w-11" src={loanInProgress} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
-                {user.check_submit ? "12" : "0"}
+                {user.check_submit
+                  ? records.filter(
+                      (item) => item.state === LoanStatus.INPROGRESS,
+                    ).length
+                  : "0"}
               </div>
               <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
                 {t("home.totalProgress")}
@@ -49,7 +58,10 @@ function Overview() {
             <img className="h-11 w-11" src={loanRejected} />
             <div className="flex flex-col ml-4">
               <div className="font-HelveticaNeue font-bold text-2xl text-light_finance-textbody">
-                {user.check_submit ? "12" : "0"}
+                {user.check_submit
+                  ? records.filter((item) => item.state === LoanStatus.REJECT)
+                      .length
+                  : "0"}
               </div>
               <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-textbody">
                 {t("home.totalReject")}
@@ -61,6 +73,6 @@ function Overview() {
       </div>
     </div>
   );
-}
+};
 
 export default Overview;

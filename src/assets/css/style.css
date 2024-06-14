@@ -12720,7 +12720,7 @@ label {
 /* Loader Styles */
 /* Start:: Loader */
 #loader {
-  @apply fixed top-0 start-0 w-full h-full bg-white dark:bg-bodybg2 flex justify-center items-center z-[9999];
+  @apply fixed top-0 start-0 w-screen h-screen bg-white dark:bg-bodybg2 flex justify-center items-center z-[9999];
 }
 
 /* End:: Loader */
@@ -16246,7 +16246,7 @@ code {
 }
 
 .main-content {
-  @apply sm:px-6 xl:pl-10 xl:pr-20 p-0;
+  @apply sm:px-6 xl:px-10 p-0;
 }
 
 .content {
@@ -19459,11 +19459,11 @@ input[type="color" i]::-webkit-color-swatch {
 }
 
 .react-calendar button {
-  @apply !basis-[13.7%] !m-[2px];
+  @apply !basis-[13%] !m-[2px];
 }
 
 .react-calendar__tile {
-  @apply hover:!bg-light_finance-sub_second hover:text-black !rounded-lg;
+  @apply xl:hover:!bg-light_finance-sub_second hover:text-black !rounded-lg;
 }
 
 .react-calendar__tile--active {

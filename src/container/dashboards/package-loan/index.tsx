@@ -1,13 +1,68 @@
 import PackageLoanList from "./PackageLoanList";
 import bg1 from "@assets/images/authentication/1.svg";
-import { useNavigate } from "react-router-dom";
-import { loanDetails } from "./LoanListData";
+import { useNavigate, useParams } from "react-router-dom";
 import LoanFilter from "./LoanFilter";
 import { useTranslation } from "react-i18next";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
+import { useLoading } from "@redux/useSelector";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
+import { useEffect, useState } from "react";
+import api from "@api/axios";
+import axios from "axios";
+import { toast } from "react-toastify";
+import Loader from "@components/common/loader";
 function PackageLoanIndex() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const loanList = loanDetails;
+  const [loanList, setLoanList] = useState([]);
+  const { projectId } = useParams();
+
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading = useLoading();
+
+  const handleGetUserLoans = async () => {
+    dispatch(setLoadingTrue());
+    try {
+      const response = await api.get("/business/package-loan-list");
+      if (response.status === 200) {
+        setLoanList(response.data.data);
+      }
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
+  const handleGeProjectLoans = async () => {
+    dispatch(setLoadingTrue());
+    try {
+      const response = await api.get(`/project/loan-list/${projectId}`);
+      if (response.status === 200) {
+        setLoanList(response.data.data);
+      }
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
+
+  useEffect(() => {
+    if (projectId) handleGeProjectLoans();
+    else handleGetUserLoans();
+  }, [projectId]);
+
+  if (isLoading) return <Loader />;
+
   return (
     <div className="min-h-screen relative overflow-hidden">
       <div className=" z-10 relative mx-6 pt-7">

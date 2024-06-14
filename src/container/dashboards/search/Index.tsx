@@ -4,7 +4,7 @@ import RecentSearch from "./RecentSearch";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
 
-function SearchMobile() {
+const SearchMobile = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   if (useWindowWidth() > 480) navigate("/");
@@ -31,6 +31,6 @@ function SearchMobile() {
       </div>
     </div>
   );
-}
+};
 
 export default SearchMobile;
