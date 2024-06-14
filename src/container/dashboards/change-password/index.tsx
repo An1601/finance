@@ -28,7 +28,7 @@ function ChangePassword() {
     formState: { errors },
   } = useForm<ChangePasswordInfo>();
   const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
+    (state: RootState) => state.rootReducer.commonReducer.isloading
   );
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
@@ -127,9 +127,10 @@ function ChangePassword() {
               </div>
             </div>
             <div className="flex justify-center mt-10">
-              <button type="submit">
-                <PrimarySubmitBtn name={t("changePassword.update")} />
-              </button>
+              <PrimarySubmitBtn
+                name={t("changePassword.update")}
+                type="submit"
+              />
             </div>
           </div>
         </div>
