@@ -173,7 +173,7 @@ const BookingModal = () => {
                   <div className="font-HelveticaNeue text-sm font-bold leading-5">
                     {t("process.bookMeeting.selectTime")}
                   </div>
-                  <div className="grid grid-cols-6 gap-y-5 gap-x-8 max-[450px]:gap-x-4 max-h-[25vh] overflow-y-auto shadow-md">
+                  <div className="grid grid-cols-6 gap-y-5 gap-x-3 sm:gap-x-5 xl:gap-x-8 max-h-[25vh] overflow-y-auto shadow-md">
                     {timeList &&
                       timeList.map((availableTime) => (
                         <button
