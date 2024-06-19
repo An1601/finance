@@ -169,17 +169,6 @@ export type SurveyQuestion = {
   subQuestions?: Array<SurveyQuestion>;
 };
 
-export type Loan = {
-  id: number;
-  bank_id: number;
-  name: string;
-  type: number;
-  category_id: number;
-  credit_limit: number;
-  interest_rate: number;
-  interest_rate_type: number;
-};
-
 export type Meeting = {
   id: number;
   loan_business_list_id: number;
@@ -187,7 +176,22 @@ export type Meeting = {
   start_time: string;
   end_time: string;
   zoom_meeting: string;
+  state: number;
 };
+
+export type Loans = {
+  interest_rate_type: number;
+};
+
+export type SurveyAnswers = {
+  property_address: string;
+};
+
+export type LoanOffer = {
+  loans: Loans;
+  survey_answers: SurveyAnswers;
+};
+
 export type ConsultingMeeting = {
   id: number;
   business_id: number;
@@ -195,7 +199,7 @@ export type ConsultingMeeting = {
   time_submit: string;
   state: number;
   meeting: Meeting;
-  loan: Loan;
+  loan_offer: LoanOffer;
 };
 export interface ProjectItemType {
   id: string;

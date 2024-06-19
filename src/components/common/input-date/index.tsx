@@ -6,7 +6,7 @@ import "react-datepicker/dist/react-datepicker.css";
 interface DatePickerFieldProps {
   label: string;
   selected: Date | null;
-  onChange: (date: Date) => void;
+  onChange: (date: any) => void;
   error?: FieldError;
   register?: UseFormRegisterReturn;
 }
@@ -33,6 +33,10 @@ const DatePickerField: React.FC<DatePickerFieldProps> = ({
             className="w-full text-light_finance-textbody text-sm font-normal leading-tight border-none outline-none"
             placeholderText="MM/DD/YYYY"
             ref={register?.ref}
+            peekNextMonth
+            showMonthDropdown
+            showYearDropdown
+            dropdownMode="select"
           />
         </div>
         <div className="px-1 left-[12px] top-[-0.5rem] h-4 absolute bg-light_finance-background rounded-[0.25rem] flex items-center">

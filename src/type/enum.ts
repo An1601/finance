@@ -3,6 +3,12 @@ export enum LoanStatus {
   REJECT = 0,
   INPROGRESS = 2,
 }
+export enum MeetingStatus {
+  PENDING = 0,
+  CONNECT = 1,
+  REJECT = 2,
+}
+
 export enum FilterOption {
   LATEST = "Latest",
   DATE_LAST_OPEN = "Date last opened",

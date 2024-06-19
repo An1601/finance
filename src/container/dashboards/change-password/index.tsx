@@ -127,9 +127,10 @@ function ChangePassword() {
               </div>
             </div>
             <div className="flex justify-center mt-10">
-              <button type="submit">
-                <PrimarySubmitBtn name={t("changePassword.update")} />
-              </button>
+              <PrimarySubmitBtn
+                name={t("changePassword.update")}
+                type="submit"
+              />
             </div>
           </div>
         </div>
@@ -202,7 +203,7 @@ function ChangePassword() {
                 <div className="w-full flex justify-center">
                   <PrimarySubmitBtn
                     name={t("changePassword.update")}
-                    type="button"
+                    type="submit"
                   />
                 </div>
               </div>

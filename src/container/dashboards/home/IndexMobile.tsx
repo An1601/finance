@@ -99,7 +99,7 @@ const HomeMobile = ({
               {t("home.viewAll")}
             </div>
           </div>
-          <div className=" my-0 sm:my-[1.5rem]">
+          <div className=" my-0 sm:my-[1.5rem] pb-[70px]">
             <ConsultingMeetingList />
           </div>
         </div>
