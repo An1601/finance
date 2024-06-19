@@ -1,5 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { bankListData } from "../package-loan/LoanListData";
+import { US_CURRENTCY } from "@constant/Constant";
 
 const TopBank = () => {
   const { t } = useTranslation();
@@ -30,10 +31,7 @@ const TopBank = () => {
               </div>
             </div>
             <div className="font-HelveticaNeue font-medium text-xs leading-4 text-light_finance-primary text-right">
-              $
-              {bank.loan_portfolio
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ".")}
+              {US_CURRENTCY.format(bank.loan_portfolio)}
             </div>
           </div>
         ))}

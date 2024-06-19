@@ -13,6 +13,10 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Loader from "@components/common/loader";
 import HomeProject from "../project/HomeProject";
+import { AppDispatch } from "@redux/store";
+import { useDispatch } from "react-redux";
+import { useLoading } from "@redux/useSelector";
+import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 
 interface CrmProps {}
 
@@ -20,11 +24,13 @@ const Home: FC<CrmProps> = () => {
   const windowWidth = useWindowWidth();
   const [loanRecords, setLoanRecords] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [loanList, setLoanList] = useState([]);
+  const [meetingList, setMeeting] = useState([]);
   const { t } = useTranslation();
-  const [isLoading, setLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const isLoading = useLoading();
 
   const handleGetRecords = async () => {
-    setLoading(true);
     try {
       const response = await api.get("/list-loans-submit");
       if (response.status === 200) {
@@ -36,12 +42,9 @@ const Home: FC<CrmProps> = () => {
           ? error.response.data.message
           : t("login.messageError");
       toast.error(message);
-    } finally {
-      setLoading(false);
     }
   };
   const handleGetTopProjects = async () => {
-    setLoading(true);
     try {
       const response = await api.get("/list-project");
       if (response.status === 200) {
@@ -53,15 +56,59 @@ const Home: FC<CrmProps> = () => {
           ? error.response.data.message
           : t("login.messageError");
       toast.error(message);
-    } finally {
-      setLoading(false);
     }
+  };
+  const handleGetUserLoans = async () => {
+    dispatch(setLoadingTrue());
+    try {
+      const response = await api.get("/business/package-loan-list");
+      if (response.status === 200) {
+        setLoanList(response.data.data?.slice(0, 6));
+      }
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
+  const handleGetMeeting = async () => {
+    try {
+      const response = await api.get("/meeting/");
+      if (response.status === 2000) setMeeting(response.data.data);
+    } catch (error) {}
   };
 
   useEffect(() => {
-    handleGetRecords();
-    handleGetTopProjects();
+    const fetchData = async () => {
+      dispatch(setLoadingTrue());
+      try {
+        await Promise.all([handleGetRecords(), handleGetTopProjects()]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        dispatch(setLoadingFalse());
+      }
+    };
+    fetchData();
   }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      dispatch(setLoadingTrue());
+      try {
+        await Promise.all([handleGetUserLoans(), handleGetMeeting()]);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        dispatch(setLoadingFalse());
+      }
+    };
+    fetchData();
+    if (windowWidth < 480) fetchData();
+  }, [windowWidth]);
 
   if (isLoading) return <Loader />;
 
@@ -89,7 +136,12 @@ const Home: FC<CrmProps> = () => {
       ) : (
         <div className="w-full min-h-screen relative overflow-hidden">
           <div className="w-full z-10 relative">
-            <HomeMobile records={loanRecords} userProjects={projects} />
+            <HomeMobile
+              records={loanRecords}
+              userProjects={projects}
+              loanList={loanList}
+              meetingList={meetingList}
+            />
           </div>
           <div className="absolute w-full sm:hidden top-[-1.5rem]">
             {[...Array(Math.ceil(window.innerHeight / 987) + 1)].map(
