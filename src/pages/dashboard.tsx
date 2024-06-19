@@ -28,7 +28,6 @@ function Dashboard() {
 
   return accessToken ? (
     <Fragment>
-      <Loader />
       <HelmetProvider>
         <Helmet
           htmlAttributes={{
@@ -39,7 +38,6 @@ function Dashboard() {
             "data-nav-layout": "vertical",
             "data-header-styles": "light",
             "data-vertical-style": "overlay",
-            loader: "disable",
             "data-icon-text": MyclassName,
           }}
         />

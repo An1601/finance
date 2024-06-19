@@ -11,10 +11,10 @@ import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useTranslation } from "react-i18next";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
-
 interface MeetingTimeType {
   id: number;
   start_time: string;
@@ -23,6 +23,7 @@ interface MeetingTimeType {
   status: Boolean;
 }
 
+let choosenDate: Value = new Date();
 const BookingModal = () => {
   const [date, setDate] = useState<Value>(new Date());
   const [startTime, setStartTime] = useState("");
@@ -34,52 +35,42 @@ const BookingModal = () => {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useLoading();
+  const navigate = useNavigate();
 
-  const formatDateString = (date: Value) => {
+  const formatISOStringToTime = (isoString: string) => {
+    const date = new Date(isoString);
+    const formattedTime = date.toLocaleString(undefined, {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+    return formattedTime;
+  };
+  const formatValueToISOString = (date: Value): string | undefined => {
+    let newDate = new Date();
     if (date instanceof Date) {
-      return new Intl.DateTimeFormat("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }).format(date);
+      newDate = date;
     } else if (
       Array.isArray(date) &&
       date[0] instanceof Date &&
       date[1] instanceof Date
     ) {
-      return new Intl.DateTimeFormat("en-US", {
-        year: "numeric",
-        month: "short",
-        day: "numeric",
-      }).format(date[0]);
+      newDate = date[0];
     }
+    newDate.setHours(currentTime.getHours());
+    newDate.setMinutes(currentTime.getMinutes());
+    newDate.setSeconds(currentTime.getSeconds());
+    const utcDate = newDate.toISOString();
+    return utcDate.split("T")[0];
   };
   const compareTime = (inputTimeString: string) => {
-    const parseTimeString = (timeString: string) => {
-      const [time, modifier] = timeString.split(" ");
-      let hours = time.split(":")[0];
-      if (hours === "12") {
-        hours = "00";
-      }
-      if (modifier === "PM") {
-        hours = String(parseInt(hours, 10) + 12);
-      }
-      return new Date().setHours(
-        parseInt(hours),
-        parseInt(time.split(":")[1]),
-        0,
-        0,
-      );
-    };
-
     if (date) {
       const current = new Date();
       if (date > current) {
         return true;
       }
     }
-    const inputTime = parseTimeString(inputTimeString);
-    if (inputTime <= currentTime.setSeconds(0, 0)) {
+    const inputTime = new Date(inputTimeString);
+    if (inputTime <= currentTime) {
       return false;
     }
     return true;
@@ -87,10 +78,17 @@ const BookingModal = () => {
   const handleMeetingTime = async () => {
     try {
       const response = await api.post(`/check-time-meeting`, {
-        datetime: date,
+        date_meeting: formatValueToISOString(choosenDate),
       });
       if (response.status === 200) {
-        setTimeList(response.data.data);
+        const times = response.data?.data?.map((time: MeetingTimeType) => ({
+          id: time.id,
+          start_time: time.start_time,
+          end_time: time.end_time,
+          slots: time.slots,
+          status: time.status,
+        }));
+        setTimeList(times);
       }
     } catch (error) {
       const message =
@@ -102,16 +100,16 @@ const BookingModal = () => {
   };
   const handleBookMeeting = async () => {
     if (offerId) {
-      console.log(offerId);
       dispatch(setLoadingTrue());
       try {
         const response = await api.post(`/loans/meeting-submit`, {
-          id: offerId,
-          date_meeting: formatDateString(date),
+          loan_offer_id: offerId,
+          date_meeting: formatValueToISOString(date),
           start_time: startTime,
+          note: note,
         });
         if (response.status === 200) {
-          setTimeList(response.data.data);
+          navigate(`/meeting/${response.data?.data}`);
         }
       } catch (error) {
         const message =
@@ -124,19 +122,20 @@ const BookingModal = () => {
       }
     }
   };
+
   useEffect(() => {
     handleMeetingTime();
   }, [date]);
   useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTime(new Date());
+    let timerId = setTimeout(function tick() {
       handleMeetingTime();
-    }, 10 * 1000);
-    return () => clearInterval(interval);
+      setCurrentTime(new Date());
+      timerId = setTimeout(tick, 10000);
+    }, 10000);
+    return () => clearTimeout(timerId);
   }, []);
 
   if (isLoading) return <Loader />;
-
   return (
     <div
       id="booking-modal"
@@ -160,7 +159,10 @@ const BookingModal = () => {
             <div className="grid grid-cols-2 gap-y-4 gap-x-14">
               <div className="col-span-2 md:col-span-1">
                 <Calendar
-                  onChange={setDate}
+                  onChange={(date) => {
+                    setDate(date);
+                    choosenDate = date;
+                  }}
                   tileDisabled={({ date }) => {
                     const current = new Date();
                     current.setHours(0, 0, 0, 0);
@@ -173,14 +175,14 @@ const BookingModal = () => {
                   <div className="font-HelveticaNeue text-sm font-bold leading-5">
                     {t("process.bookMeeting.selectTime")}
                   </div>
-                  <div className="grid grid-cols-6 gap-y-5 gap-x-8 max-[450px]:gap-x-4 max-h-[25vh] overflow-y-auto shadow-md">
+                  <div className="grid grid-cols-6 gap-y-5 gap-x-3 sm:gap-x-5 xl:gap-x-8 max-h-[25vh] overflow-y-auto shadow-md">
                     {timeList &&
                       timeList.map((availableTime) => (
                         <button
                           onClick={() => {
                             if (
                               availableTime.status &&
-                              compareTime(availableTime.start_time)
+                              compareTime(availableTime?.start_time)
                             )
                               setStartTime(availableTime.start_time);
                           }}
@@ -191,7 +193,7 @@ const BookingModal = () => {
                             className={`fa-solid fa-circle fa-2xs ${availableTime.status && compareTime(availableTime.start_time) ? "text-light_finance-primary" : "text-light_finance-red"}`}
                           ></i>
                           <div className="ml-2 text-md font-normal whitespace-nowrap">
-                            {availableTime.start_time}
+                            {formatISOStringToTime(availableTime.start_time)}
                           </div>
                         </button>
                       ))}
@@ -228,5 +230,4 @@ const BookingModal = () => {
     </div>
   );
 };
-
 export default BookingModal;

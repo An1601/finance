@@ -81,7 +81,7 @@ const MeetingItem = ({
                     {loanDetails?.meeting?.date_meeting}
                   </div>
                 </div>
-                <div className="justify-start items-center gap-1 flex w-[170px]">
+                <div className="justify-start items-center gap-1 flex w-[180px]">
                   <div className="w-5 h-5 relative ">
                     <img
                       className="w-4 h-4 absolute left-[2px] top-[2px]"

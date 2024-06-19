@@ -16,12 +16,8 @@ import ForgotPassword from "@container/auth/ForgotPassword.tsx";
 import VerifyOTP from "@container/auth/VerifyOTP.tsx";
 import ResetPassword from "@container/auth/ResetPassword.tsx";
 import Home from "@container/dashboards/home/Index.tsx";
-import NotificationIndex from "@container/dashboards/Notification/Index.tsx";
-import FAQ from "@container/dashboards/FAQ/Index.tsx";
 import PackageLoanIndex from "@container/dashboards/package-loan";
 import Account from "@container/dashboards/profile";
-import SearchMobile from "@container/dashboards/search/Index.tsx";
-import RecordIndex from "@container/dashboards/Record/Index.tsx";
 import MeetingIndex from "@container/dashboards/consulting-meeting";
 import EditProfile from "@container/dashboards/edit-profile";
 import ChangePassword from "@container/dashboards/change-password";
@@ -35,6 +31,10 @@ import UserProcess from "@pages/userProcess.tsx";
 import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
 import Projects from "@container/dashboards/project/index.tsx";
 import LoanSubmitConfirm from "@container/dashboards/process/loan-app-submit/LoanSubmitConfirm.tsx";
+import RecordIndex from "@container/dashboards/Record/index.tsx";
+import NotificationIndex from "@container/dashboards/Notification/index.tsx";
+import SearchMobile from "@container/dashboards/search/index.tsx";
+import FAQ from "@container/dashboards/FAQ/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>

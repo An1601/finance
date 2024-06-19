@@ -1,4 +1,4 @@
-import { Fragment, useEffect, useState } from "react";
+import { Fragment } from "react";
 import Overview from "./Overview";
 import PackageLoanList from "../package-loan/PackageLoanList";
 import ConsultingMeetingList from "../consulting-meeting/ConsultingMeetingList";
@@ -8,47 +8,27 @@ import ProfileHeader from "@components/common/header/ProfileHeader";
 import Notification from "@components/common/header/Notification";
 import SearchBar from "@components/common/header/SearchBar";
 import { useTranslation } from "react-i18next";
-import axios from "axios";
-import { toast } from "react-toastify";
-import api from "@api/axios";
-import Loader from "@components/common/loader";
 import HomeProject from "../project/HomeProject";
-import { ProjectItemType, RecordItemType } from "@type/types";
+import {
+  ConsultingMeeting,
+  LoanItemType,
+  ProjectItemType,
+  RecordItemType,
+} from "@type/types";
 const HomeMobile = ({
   userProjects,
   records,
+  loanList,
+  meetingList,
 }: {
   userProjects: ProjectItemType[];
   records: RecordItemType[];
+  loanList: LoanItemType[];
+  meetingList: ConsultingMeeting[];
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const [isLoading, setLoading] = useState(false);
-  const [loanList, setLoanList] = useState([]);
 
-  const handleGetUserLoans = async () => {
-    setLoading(true);
-    try {
-      const response = await api.get("/business/package-loan-list");
-      if (response.status === 200) {
-        setLoanList(response.data.data?.slice(0, 6));
-      }
-    } catch (error) {
-      const message =
-        axios.isAxiosError(error) && error.response?.data.message
-          ? error.response.data.message
-          : t("login.messageError");
-      toast.error(message);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    handleGetUserLoans();
-  }, []);
-
-  if (isLoading) return <Loader />;
   return (
     <Fragment>
       <div className="mx-6 my-7 flex flex-col gap-8">
@@ -99,8 +79,8 @@ const HomeMobile = ({
               {t("home.viewAll")}
             </div>
           </div>
-          <div className=" my-0 sm:my-[1.5rem] pb-[70px]">
-            <ConsultingMeetingList />
+          <div className=" my-0 sm:my-[1.5rem]">
+            <ConsultingMeetingList loanData={meetingList} />
           </div>
         </div>
         <BottomBarCustom />

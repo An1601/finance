@@ -33,7 +33,7 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
             isLoanItemType
               ? loanItem?.loans?.thumbnail &&
                 "https://i.pinimg.com/736x/2a/2c/1d/2a2c1d90075390b22e7e6060254dab0d.jpg"
-              : loanItem?.loan?.thumbnail &&
+              : loanItem?.loan_offer?.loans?.user?.bank?.thumbnail &&
                 "https://i.pinimg.com/736x/2a/2c/1d/2a2c1d90075390b22e7e6060254dab0d.jpg"
           }
           className="h-[44px] min-w-[44px] xl:h-[4.5rem] xl:min-w-[4.5rem] rounded-full overflow-hidden"
@@ -42,15 +42,17 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
           <div className="font-HelveticaNeue font-medium text-[10px] md:text-xs leading-4 text-light_finance-primary text-truncate">
             {isLoanItemType
               ? loanItem?.survey_answers?.property_address[0]
-              : "Default name"}
+              : loanItem?.loan_offer?.survey_answers?.property_address[0]}
           </div>
           <div className="font-HelveticaNeue font-normal text-xs md:text-sm leading-4 tracking-tight text-light_finance-textsub text-truncate">
             {isLoanItemType
               ? loanItem?.loans?.bank?.name
-              : loanItem?.loan?.user?.bank?.name}
+              : loanItem?.loan_offer?.loans?.user?.bank?.name}
           </div>
           <div className="font-HelveticaNeue font-bold text-base md:text-xl leading-7 text-light_finance-textbody text-truncate">
-            {isLoanItemType ? loanItem?.loans?.name : loanItem?.loan?.name}
+            {isLoanItemType
+              ? loanItem?.loans?.name
+              : loanItem?.loan_offer?.loans?.name}
           </div>
         </div>
       </div>
@@ -62,19 +64,19 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
                 $
                 {formatCreditLimit(
                   isLoanItemType
-                    ? loanItem?.loans.credit_limit
-                    : loanItem.loan?.credit_limit,
+                    ? loanItem?.loans?.credit_limit
+                    : loanItem.loan_offer?.loans?.credit_limit,
                 )}
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
-                Credit limit
+                Credit limitư
               </div>
             </div>
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
                 {isLoanItemType
-                  ? loanItem?.loans.interest_rate
-                  : loanItem.loan?.interest_rate}
+                  ? loanItem?.loans?.interest_rate
+                  : loanItem.loan_offer?.loans?.interest_rate}
                 %
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
@@ -84,8 +86,8 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
                 {isLoanItemType
-                  ? loanItem?.loans.origination_fee
-                  : loanItem.loan?.origination_fee}
+                  ? loanItem?.loans?.origination_fee
+                  : loanItem.loan_offer?.loans?.origination_fee}
                 %
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
@@ -97,33 +99,33 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
             <img className="h-5 w-5" src={calendar} />
             <div>
               {isLoanItemType
-                ? loanItem?.loans.time_began
+                ? loanItem?.loans?.time_began
                 : loanItem?.time_submit}
             </div>
           </div>
         </div>
         {(() => {
-          switch (loanItem.state) {
+          switch (loanItem?.state) {
             case LoanStatus.APPROVED:
               return (
-                <div className="h-5 w-[66px] bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
-                  <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-[10px] leading-4">
+                <div className="bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
                     {t("packageLoanList.approval")}
                   </div>
                 </div>
               );
             case LoanStatus.INPROGRESS:
               return (
-                <div className="h-5 w-[66px] bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center">
-                  <div className="text-center font-HelveticaNeue font-medium text-[#408CFF] text-[10px] leading-4">
+                <div className="bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#408CFF] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
                     {t("packageLoanList.inProgress")}
                   </div>
                 </div>
               );
             case LoanStatus.REJECT:
               return (
-                <div className="h-5 w-[66px] bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center">
-                  <div className="text-center font-HelveticaNeue font-medium text-[#F65160] text-[10px] leading-4">
+                <div className="bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#F65160] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
                     {t("packageLoanList.reject")}
                   </div>
                 </div>
@@ -135,10 +137,8 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
                   handleSubmit={() =>
                     navigate(
                       `/loan-detail?loanId=${
-                        isLoanItemType
-                          ? loanItem?.loans?.id
-                          : loanItem?.loan?.id
-                      }&offerId=${loanItem.id}`,
+                        isLoanItemType && loanItem?.loans?.id
+                      }&offerId=${isLoanItemType && loanItem?.id}`,
                     )
                   }
                 />
