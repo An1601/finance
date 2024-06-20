@@ -3,7 +3,7 @@ import timer from "@assets/icon/TimerIcon.svg";
 import { InterestRateType, MeetingStatus } from "@type/enum";
 import { useTranslation } from "react-i18next";
 import { ConsultingMeeting } from "@type/types";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import AlertModal from "@components/common/alert-modal";
 import EditIcon from "@components/svg/Edit";
 import DeleteIcon from "@components/svg/Delete";
@@ -11,9 +11,11 @@ import DeleteIcon from "@components/svg/Delete";
 const MeetingItem = ({
   loanDetails,
   handleDelete,
+  setCurrent,
 }: {
   loanDetails: ConsultingMeeting;
   handleDelete: (id: number) => void;
+  setCurrent: Dispatch<SetStateAction<ConsultingMeeting | undefined>>;
 }) => {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -102,6 +104,7 @@ const MeetingItem = ({
                   className="w-5 h-5 relative"
                   data-hs-overlay="#booking-modal"
                   disabled={loanDetails.meeting.state === MeetingStatus.REJECT}
+                  onClick={() => setCurrent(loanDetails)}
                 >
                   <EditIcon
                     color={

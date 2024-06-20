@@ -5,6 +5,7 @@ import Loader from "@components/common/loader";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { AppDispatch } from "@redux/store";
 import { useLoading } from "@redux/useSelector";
+import { ConsultingMeeting } from "@type/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
@@ -24,7 +25,11 @@ interface MeetingTimeType {
 }
 
 let choosenDate: Value = new Date();
-const BookingModal = () => {
+const BookingModal = ({
+  meetingData,
+}: {
+  meetingData: ConsultingMeeting | undefined;
+}) => {
   const [date, setDate] = useState<Value>(new Date());
   const [startTime, setStartTime] = useState("");
   const [timeList, setTimeList] = useState<MeetingTimeType[]>([]);
@@ -99,28 +104,60 @@ const BookingModal = () => {
     }
   };
   const handleBookMeeting = async () => {
-    if (offerId) {
-      dispatch(setLoadingTrue());
-      try {
-        const response = await api.post(`/loans/meeting-submit`, {
-          loan_offer_id: offerId,
+    if (startTime) {
+      if (offerId) {
+        dispatch(setLoadingTrue());
+        try {
+          const response = await api.post(`/loans/meeting-submit`, {
+            loan_offer_id: offerId,
+            date_meeting: formatValueToISOString(date),
+            start_time: startTime,
+            note: note,
+          });
+          if (response.status === 200) {
+            navigate(`/meeting/${response.data?.data?.loan_business_list_id}`);
+          }
+        } catch (error) {
+          const message =
+            axios.isAxiosError(error) && error.response?.data.message
+              ? error.response.data.message
+              : t("login.messageError");
+          toast.error(message);
+        } finally {
+          dispatch(setLoadingFalse());
+        }
+      }
+    } else toast.info(t("process.bookMeeting.timeAlert"));
+  };
+  console.log(meetingData?.meeting.id);
+  const handleUpdateMeeting = async () => {
+    dispatch(setLoadingTrue());
+    try {
+      const response = await api.post(
+        `/meeting/${meetingData?.meeting.id}/update`,
+        {
+          id: meetingData?.meeting.id,
           date_meeting: formatValueToISOString(date),
           start_time: startTime,
           note: note,
-        });
-        if (response.status === 200) {
-          navigate(`/meeting/${response.data?.data}`);
-        }
-      } catch (error) {
-        const message =
-          axios.isAxiosError(error) && error.response?.data.message
-            ? error.response.data.message
-            : t("login.messageError");
-        toast.error(message);
-      } finally {
-        dispatch(setLoadingFalse());
+        },
+      );
+      if (response.status === 200) {
+        toast.success("Updated meeting successfully!");
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
       }
+    } catch (error) {
+      toast.error("Failed to update meeting!");
+    } finally {
+      dispatch(setLoadingFalse());
     }
+  };
+  const handleSubmit = () => {
+    if (meetingData) {
+      handleUpdateMeeting();
+    } else handleBookMeeting();
   };
 
   useEffect(() => {
@@ -134,6 +171,7 @@ const BookingModal = () => {
     }, 10000);
     return () => clearTimeout(timerId);
   }, []);
+  console.log(meetingData?.meeting.id);
 
   if (isLoading) return <Loader />;
   return (
@@ -219,10 +257,7 @@ const BookingModal = () => {
             </div>
             <PrimarySubmitBtn
               name={t("process.book")}
-              handleSubmit={() => {
-                if (startTime) handleBookMeeting();
-                else toast.info(t("process.bookMeeting.timeAlert"));
-              }}
+              handleSubmit={handleSubmit}
             />
           </div>
         </div>

@@ -78,36 +78,40 @@ const Home: FC<CrmProps> = () => {
   const handleGetMeeting = async () => {
     try {
       const response = await api.get("/meeting/");
-      if (response.status === 2000) setMeeting(response.data.data);
+      if (response.status === 200) setMeeting(response.data.data);
     } catch (error) {}
   };
 
+  const fetchDataMobile = async () => {
+    dispatch(setLoadingTrue());
+    try {
+      await Promise.all([
+        handleGetUserLoans(),
+        handleGetMeeting(),
+        handleGetRecords(),
+        handleGetTopProjects(),
+      ]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
+
+  const fetchData = async () => {
+    dispatch(setLoadingTrue());
+    try {
+      await Promise.all([handleGetRecords(), handleGetTopProjects()]);
+    } catch (error) {
+      console.error(error);
+    } finally {
+      dispatch(setLoadingFalse());
+    }
+  };
+
   useEffect(() => {
-    const fetchData = async () => {
-      dispatch(setLoadingTrue());
-      try {
-        await Promise.all([handleGetRecords(), handleGetTopProjects()]);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        dispatch(setLoadingFalse());
-      }
-    };
-    fetchData();
-  }, []);
-  useEffect(() => {
-    const fetchData = async () => {
-      dispatch(setLoadingTrue());
-      try {
-        await Promise.all([handleGetUserLoans(), handleGetMeeting()]);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        dispatch(setLoadingFalse());
-      }
-    };
-    fetchData();
-    if (windowWidth < 480) fetchData();
+    if (windowWidth > 480) fetchData();
+    else fetchDataMobile();
   }, [windowWidth]);
 
   if (isLoading) return <Loader />;
