@@ -3,17 +3,19 @@ import timer from "@assets/icon/TimerIcon.svg";
 import { useTranslation } from "react-i18next";
 import { ConsultingMeeting } from "@type/types";
 import { InterestRateType, MeetingStatus } from "@type/enum";
-import { useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import AlertModal from "@components/common/alert-modal";
 
 const ConsultingMeetingItem = ({
   loanDetails,
   handleDelete,
   isSetting,
+  setCurrent,
 }: {
   loanDetails?: ConsultingMeeting;
   handleDelete?: (id: number) => void;
   isSetting?: boolean;
+  setCurrent: Dispatch<SetStateAction<ConsultingMeeting | undefined>>;
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);
@@ -134,6 +136,9 @@ const ConsultingMeetingItem = ({
                 <button
                   className="px-4 py-2 hover:bg-gray-300 w-full flex items-center"
                   data-hs-overlay="#booking-modal"
+                  onClick={() => {
+                    setCurrent(loanDetails);
+                  }}
                 >
                   <i className="fas fa-edit mr-4"></i>
                   {t("consulting.edit")}

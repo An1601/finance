@@ -37,7 +37,7 @@ function MeetingIndex() {
   const fetchDataMeetingUser = async () => {
     dispatch(setLoadingTrue());
     try {
-      const response = await api.get(`/meeting/${loanId}`);
+      const response = await api.get(`/meeting/submit/${loanId}`);
       setLoanData(response.data.data);
     } catch (error) {}
     dispatch(setLoadingFalse());
@@ -64,11 +64,15 @@ function MeetingIndex() {
     else fetchDataMeeting();
   }, [loanId]);
 
+  const [current, setCurrent] = useState<ConsultingMeeting>();
+  useEffect(() => {
+    console.log(current);
+  }, [current]);
   if (isLoading) return <Loader />;
 
   return (
     <>
-      <BookingModal />
+      <BookingModal meetingData={current} />
       {windowWidth >= 910 ? (
         <div className="min-h-screen relative ">
           <div className="mx-6 pt-7">
@@ -90,6 +94,7 @@ function MeetingIndex() {
                     key={index}
                     loanDetails={loan}
                     handleDelete={handleDeleteMeeting}
+                    setCurrent={setCurrent}
                   />
                 );
               })}
@@ -129,6 +134,7 @@ function MeetingIndex() {
                     key={index}
                     handleDelete={handleDeleteMeeting}
                     isSetting
+                    setCurrent={setCurrent}
                   />
                 );
               })}

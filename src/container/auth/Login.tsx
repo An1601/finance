@@ -15,6 +15,7 @@ import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
 import { useLoading } from "@redux/useSelector";
+import { fetchProfileData } from "@redux/userThunks";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -51,6 +52,7 @@ const Login = () => {
       const response = await api.post("/login", data);
       if (response.status === 200) {
         dispatch(handleReduxLogin(response.data.data));
+        dispatch(fetchProfileData());
         handleCheckSubmitSurvey();
       }
     } catch (error) {

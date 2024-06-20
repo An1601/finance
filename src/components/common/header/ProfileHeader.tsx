@@ -10,8 +10,6 @@ import { AppDispatch } from "@redux/store";
 import ProfileLink from "./ProfileLink";
 import useWindowWidth from "../../hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
-import { useEffect } from "react";
-import { fetchProfileData } from "@redux/userThunks";
 import { useUser, useLoading } from "@redux/useSelector";
 
 function ProfileHeader() {
@@ -22,10 +20,6 @@ function ProfileHeader() {
   const windowWidth = useWindowWidth();
 
   const user = useUser();
-
-  useEffect(() => {
-    dispatch(fetchProfileData());
-  }, []);
 
   const handleLogout = async () => {
     try {
