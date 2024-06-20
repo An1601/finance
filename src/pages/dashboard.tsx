@@ -1,5 +1,4 @@
 import { Fragment, useEffect, useState } from "react";
-import Loader from "../components/common/loader";
 import Sidebar from "../components/common/sidebar";
 import Switcher from "../components/common/switcher";
 import Header from "../components/common/header/index";
