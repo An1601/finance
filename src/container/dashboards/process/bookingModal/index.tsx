@@ -28,7 +28,7 @@ let choosenDate: Value = new Date();
 const BookingModal = ({
   meetingData,
 }: {
-  meetingData: ConsultingMeeting | undefined;
+  meetingData?: ConsultingMeeting | undefined;
 }) => {
   const [date, setDate] = useState<Value>(new Date());
   const [startTime, setStartTime] = useState("");

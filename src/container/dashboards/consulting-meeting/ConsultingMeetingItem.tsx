@@ -3,7 +3,7 @@ import timer from "@assets/icon/TimerIcon.svg";
 import { useTranslation } from "react-i18next";
 import { ConsultingMeeting } from "@type/types";
 import { InterestRateType, MeetingStatus } from "@type/enum";
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import AlertModal from "@components/common/alert-modal";
 
 const ConsultingMeetingItem = ({
@@ -12,10 +12,10 @@ const ConsultingMeetingItem = ({
   isSetting,
   setCurrent,
 }: {
-  loanDetails?: ConsultingMeeting;
+  loanDetails?: ConsultingMeeting | undefined;
   handleDelete?: (id: number) => void;
   isSetting?: boolean;
-  setCurrent: Dispatch<SetStateAction<ConsultingMeeting | undefined>>;
+  setCurrent?: any;
 }) => {
   const { t } = useTranslation();
   const [isOpen, setIsOpen] = useState(false);

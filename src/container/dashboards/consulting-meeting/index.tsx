@@ -24,6 +24,7 @@ function MeetingIndex() {
   const dispatch = useDispatch<AppDispatch>();
   const { loanId } = useParams();
   const isLoading = useLoading();
+  const [current, setCurrent] = useState<ConsultingMeeting>();
 
   const fetchDataMeeting = async () => {
     dispatch(setLoadingTrue());
@@ -64,10 +65,6 @@ function MeetingIndex() {
     else fetchDataMeeting();
   }, [loanId]);
 
-  const [current, setCurrent] = useState<ConsultingMeeting>();
-  useEffect(() => {
-    console.log(current);
-  }, [current]);
   if (isLoading) return <Loader />;
 
   return (
