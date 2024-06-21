@@ -39,7 +39,7 @@ function MeetingIndex() {
     dispatch(setLoadingTrue());
     try {
       const response = await api.get(`/meeting/submit/${loanId}`);
-      if (response.status === 200) setLoanData(response.data.data);
+      setLoanData(response.data.data);
     } catch (error) {}
     dispatch(setLoadingFalse());
   };
@@ -49,13 +49,13 @@ function MeetingIndex() {
     try {
       const response = await api.delete(`/meeting/${id}/delete`);
       if (response.status === 200) {
-        toast.success("Deleted meeting successfully!");
-        setTimeout(() => {
-          window.location.reload();
-        }, 2000);
+        toast.success(t("consulting.deleteSuccess"));
+        document.body.style.overflow = "";
+        if (loanId) fetchDataMeetingUser();
+        else fetchDataMeeting();
       }
     } catch (error) {
-      toast.error("Failed to delete meeting!");
+      toast.error(t("consulting.failedDelete"));
     }
     dispatch(setLoadingFalse());
   };
@@ -69,7 +69,10 @@ function MeetingIndex() {
 
   return (
     <>
-      <BookingModal meetingData={current} />
+      <BookingModal
+        meetingData={current}
+        reFetchMeeeting={loanId ? fetchDataMeetingUser : fetchDataMeeting}
+      />
       {windowWidth >= 910 ? (
         <div className="min-h-screen relative ">
           <div className="mx-6 pt-7">

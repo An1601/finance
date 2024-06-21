@@ -176,6 +176,8 @@ export default {
     delete: "Delete",
     comfirmDelete: "Do you want to delete this meeting?",
     notAvailable: "Time not available",
+    deleteSuccess: "Deleted meeting successfully!",
+    failedDelete: "Failed to delete meeting!",
   },
   editProfile: {
     editProfile: "Edit Profile",
