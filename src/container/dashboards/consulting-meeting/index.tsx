@@ -39,7 +39,7 @@ function MeetingIndex() {
     dispatch(setLoadingTrue());
     try {
       const response = await api.get(`/meeting/submit/${loanId}`);
-      setLoanData(response.data.data);
+      if (response.status === 200) setLoanData(response.data.data);
     } catch (error) {}
     dispatch(setLoadingFalse());
   };

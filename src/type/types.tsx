@@ -186,6 +186,7 @@ export type Meeting = {
   end_time: string;
   zoom_meeting: string;
   state: number;
+  note: string;
 };
 
 export type Loans = {
