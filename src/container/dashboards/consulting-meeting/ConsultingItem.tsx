@@ -68,7 +68,7 @@ const MeetingItem = ({
           <div className=" self-stretch justify-start items-center gap-[84px] flex">
             <div className="self-stretch flex-col justify-between items-end inline-flex">
               <div className="self-stretch justify-end items-center gap-6 inline-flex">
-                <div className="justify-start items-center gap-1 flex">
+                <div className="justify-start items-center gap-1 flex w-[160px]">
                   <div className="w-5 h-5 relative">
                     <div className="w-5 h-5 left-0 top-0 absolute">
                       <div className="w-5 h-5 left-0 top-0 absolute" />
@@ -79,7 +79,7 @@ const MeetingItem = ({
                       />
                     </div>
                   </div>
-                  <div className="text-slate-900 text-sm font-normal font-['Helvetica Neue'] leading-tight">
+                  <div className="text-slate-900 text-sm font-normal font-['Helvetica Neue'] leading-tight ">
                     {loanDetails?.meeting?.date_meeting}
                   </div>
                 </div>
