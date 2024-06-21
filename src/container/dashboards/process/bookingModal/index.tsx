@@ -83,10 +83,10 @@ const BookingModal = ({
     return true;
   };
 
-  const formattedDateTimeString = (dateTimeString: string) => {
-    const dateObject = new Date(dateTimeString.replace(" ", "T") + "Z");
-    const isoString = dateObject.toISOString();
-    return isoString;
+  const formatInitDate = (dateTimeString: string) => {
+    const [datePart, timePart] = dateTimeString.split(" ");
+    const formattedDate = `${datePart}T${timePart}.000000Z`;
+    return formattedDate;
   };
 
   const handleMeetingTime = async () => {
@@ -153,13 +153,13 @@ const BookingModal = ({
         },
       );
       if (response.status === 200) {
-        toast.success("Updated meeting successfully!");
+        toast.success(t("process.bookMeeting.updateSucess"));
         setTimeout(() => {
           window.location.reload();
         }, 2000);
       }
     } catch (error) {
-      toast.error("Failed to update meeting!");
+      toast.error(t("process.bookMeeting.failedUpdate"));
     } finally {
       dispatch(setLoadingFalse());
     }
@@ -167,8 +167,17 @@ const BookingModal = ({
 
   const handleSubmit = () => {
     if (meetingData) {
-      handleUpdateMeeting();
-    } else handleBookMeeting();
+      if (
+        startTime === formatInitDate(meetingData.meeting.start_time) &&
+        note === meetingData.meeting.note
+      ) {
+        toast.info(t("process.bookMeeting.existed"));
+      } else {
+        handleUpdateMeeting();
+      }
+    } else {
+      handleBookMeeting();
+    }
   };
 
   useEffect(() => {
@@ -187,7 +196,9 @@ const BookingModal = ({
   useEffect(() => {
     if (meetingData) {
       setNote(meetingData.meeting?.note);
-      setDate(new Date(meetingData.meeting.start_time));
+      choosenDate = new Date(meetingData.meeting.date_meeting);
+      setDate(new Date(meetingData.meeting.date_meeting));
+      setStartTime(formatInitDate(meetingData.meeting.start_time));
     }
   }, [meetingData]);
 
@@ -216,15 +227,15 @@ const BookingModal = ({
               <div className="col-span-2 md:col-span-1">
                 <Calendar
                   onChange={(date) => {
-                    setDate(date);
                     choosenDate = date;
+                    setDate(choosenDate);
                   }}
                   tileDisabled={({ date }) => {
                     const current = new Date();
                     current.setHours(0, 0, 0, 0);
                     return date < current;
                   }}
-                  value={meetingData?.meeting?.start_time}
+                  value={date}
                 />
               </div>
               <div className="col-span-2 md:col-span-1 flex flex-col gap-6 items-center">
@@ -238,19 +249,34 @@ const BookingModal = ({
                         <button
                           onClick={() => {
                             if (
-                              availableTime.status &&
-                              compareTime(availableTime?.start_time)
+                              (availableTime.status &&
+                                compareTime(availableTime?.start_time)) ||
+                              (meetingData &&
+                                availableTime.start_time ===
+                                  formatInitDate(
+                                    meetingData?.meeting.start_time,
+                                  ))
                             )
                               setStartTime(availableTime.start_time);
                           }}
                           key={availableTime.id}
-                          className={`${availableTime.start_time === startTime || (meetingData?.meeting?.start_time && formattedDateTimeString(meetingData?.meeting?.start_time).slice(0, 22)) === availableTime?.start_time.slice(0, 22) ? "bg-light_finance-sub_second" : "bg-white"} col-span-3 xxs:col-span-2 flex items-center py-2 px-3 border-[1px] border-light_finance-textbody rounded-lg`}
+                          className={`${availableTime.start_time === startTime ? "bg-light_finance-sub_second" : "bg-white"} col-span-3 xxs:col-span-2 flex items-center py-2 px-3 border-[1px] border-light_finance-textbody rounded-lg`}
                         >
                           <i
-                            className={`fa-solid fa-circle fa-2xs ${availableTime.status && compareTime(availableTime.start_time) ? "text-light_finance-primary" : "text-light_finance-red"}`}
+                            className={`fa-solid fa-circle fa-2xs ${
+                              (availableTime.status &&
+                                compareTime(availableTime?.start_time)) ||
+                              (meetingData &&
+                                availableTime.start_time ===
+                                  formatInitDate(
+                                    meetingData?.meeting.start_time,
+                                  ))
+                                ? "text-light_finance-primary"
+                                : "text-light_finance-red"
+                            }`}
                           ></i>
                           <div className="ml-2 text-md font-normal whitespace-nowrap">
-                            {formatISOStringToTime(availableTime?.start_time)}
+                            {formatISOStringToTime(availableTime.start_time)}
                           </div>
                         </button>
                       ))}
@@ -277,6 +303,7 @@ const BookingModal = ({
             <PrimarySubmitBtn
               name={t("process.book")}
               handleSubmit={handleSubmit}
+              dataHsOverlay="#booking-modal"
             />
           </div>
         </div>

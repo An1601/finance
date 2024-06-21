@@ -369,6 +369,9 @@ export default {
       title: "Book an appointment",
       selectTime: "Select available time",
       timeAlert: "Please pick a time",
+      existed: "Time has existed",
+      updateSucess: "Updated meeting successfully!",
+      failedUpdate: "Failed to update meeting!",
     },
     loanSubmit: {
       title: "THE LOAN APPLICATION",
