@@ -81,7 +81,7 @@ const ConsultingMeetingItem = ({
             }`}
           </div>
           <div className="font-HelveticaNeue font-bold text-lg leading-7 text-light_finance-textbody overflow-hidden text-ellipsis whitespace-nowrap">
-            {t("consulting.loanName")}
+            {loanDetails?.loan_offer?.loans?.name}
           </div>
         </div>
         <div>

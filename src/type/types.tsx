@@ -96,6 +96,7 @@ export type LoanItemType = {
   loan_id: number;
   survey_answer_id: number;
   state?: number;
+  state_submit: number;
   loans: {
     id: number;
     bank_id: number;
@@ -108,6 +109,7 @@ export type LoanItemType = {
     bank: {
       bank_id: number;
       name: string;
+      thumbnail: string;
     };
   };
   loan_business_list: {};
@@ -191,6 +193,7 @@ export type Meeting = {
 
 export type Loans = {
   interest_rate_type: number;
+  name: string;
 };
 
 export type SurveyAnswers = {
