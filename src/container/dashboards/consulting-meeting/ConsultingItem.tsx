@@ -60,7 +60,7 @@ const MeetingItem = ({
                   }`}
                 </div>
                 <div className="text-slate-900 text-xl font-bold font-['Helvetica Neue'] leading-7">
-                  {t("consulting.loanName")}
+                  {loanDetails?.loan_offer?.loans?.name}
                 </div>
               </div>
             </div>

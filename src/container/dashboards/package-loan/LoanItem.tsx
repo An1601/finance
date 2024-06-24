@@ -1,6 +1,6 @@
 import React from "react";
 import { LoanItemType, RecordItemType } from "@type/types";
-import { LoanStatus } from "@type/enum";
+import { LoanStatus, LoanSubmitState } from "@type/enum";
 import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import { useTranslation } from "react-i18next";
@@ -24,6 +24,7 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
       return `${roundPrice}${price > 1000000 ? "M" : "K"}`;
     }
   };
+  console.log(loanItem);
 
   return (
     <div className="p-4 bg-white rounded-xl w-full flex flex-col md:flex-row md:justify-between gap-3">
@@ -31,9 +32,9 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
         <img
           src={
             isLoanItemType
-              ? loanItem?.loans?.thumbnail &&
+              ? loanItem?.loans?.bank.thumbnail ??
                 "https://i.pinimg.com/736x/2a/2c/1d/2a2c1d90075390b22e7e6060254dab0d.jpg"
-              : loanItem?.loan_offer?.loans?.user?.bank?.thumbnail &&
+              : loanItem?.loan_offer?.loans?.user?.bank?.thumbnail ??
                 "https://i.pinimg.com/736x/2a/2c/1d/2a2c1d90075390b22e7e6060254dab0d.jpg"
           }
           className="h-[44px] min-w-[44px] xl:h-[4.5rem] xl:min-w-[4.5rem] rounded-full overflow-hidden"
@@ -69,7 +70,7 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
                 )}
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
-                Credit limitư
+                {t("home.creditLimit")}
               </div>
             </div>
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
@@ -80,7 +81,7 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
                 %
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
-                Rate
+                {t("home.rate")}
               </div>
             </div>
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
@@ -91,7 +92,7 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
                 %
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
-                Origination fee
+                {t("process.loanDetail.originalFee")}
               </div>
             </div>
           </div>
@@ -134,12 +135,20 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
               return (
                 <MobileHomeBtn
                   name="Submit"
-                  handleSubmit={() =>
-                    navigate(
-                      `/loan-detail?loanId=${
-                        isLoanItemType && loanItem?.loans?.id
-                      }&offerId=${isLoanItemType && loanItem?.id}`,
+                  handleSubmit={() => {
+                    if (
+                      isLoanItemType &&
+                      loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
                     )
+                      navigate(
+                        `/loan-detail?loanId=${
+                          isLoanItemType && loanItem?.loans?.id
+                        }&offerId=${isLoanItemType && loanItem?.id}`,
+                      );
+                  }}
+                  isDisable={
+                    isLoanItemType &&
+                    loanItem.state_submit !== LoanSubmitState.NOT_SUBMIT
                   }
                 />
               );

@@ -52,3 +52,8 @@ export enum LoanType {
   SECURE = 1,
   UNSECURE = 0,
 }
+export enum LoanSubmitState {
+  NOT_SUBMIT = 0,
+  SUBMIT = 1,
+  REJECT = 2,
+}

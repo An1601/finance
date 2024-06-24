@@ -30,7 +30,7 @@ const BookingModal = ({
   reFetchMeeeting,
 }: {
   meetingData?: ConsultingMeeting | undefined;
-  reFetchMeeeting: () => Promise<void>;
+  reFetchMeeeting?: (() => Promise<void>) | undefined;
 }) => {
   const [date, setDate] = useState<Value>(new Date());
   const [startTime, setStartTime] = useState("");
@@ -127,7 +127,6 @@ const BookingModal = ({
             note: note,
           });
           if (response.status === 200) {
-            document.body.style.overflow = "";
             navigate(`/meeting/${response.data?.data?.loan_business_list_id}`);
           }
         } catch (error) {
@@ -138,6 +137,7 @@ const BookingModal = ({
           toast.error(message);
         } finally {
           dispatch(setLoadingFalse());
+          document.body.style.overflow = "";
         }
       }
     } else toast.info(t("process.bookMeeting.timeAlert"));
@@ -157,13 +157,15 @@ const BookingModal = ({
       );
       if (response.status === 200) {
         toast.success(t("process.bookMeeting.updateSucess"));
-        document.body.style.overflow = "";
-        reFetchMeeeting();
+        if (reFetchMeeeting) {
+          reFetchMeeeting();
+        }
       }
     } catch (error) {
       toast.error(t("process.bookMeeting.failedUpdate"));
     } finally {
       dispatch(setLoadingFalse());
+      document.body.style.overflow = "";
     }
   };
 
