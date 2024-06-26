@@ -8,13 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { ChangePasswordInfo } from "@type/types";
-import { useDispatch, useSelector } from "react-redux";
-import { AppDispatch, RootState } from "@redux/store";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import axios from "axios";
 import { toast } from "react-toastify";
 import api from "@api/axios";
 import Loader from "@components/common/loader";
+import { useLoading } from "@redux/useSelector";
 
 function ChangePassword() {
   const { t } = useTranslation();
@@ -27,9 +28,7 @@ function ChangePassword() {
     watch,
     formState: { errors },
   } = useForm<ChangePasswordInfo>();
-  const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
-  );
+  const isLoading = useLoading();
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [showPassword3, setShowPassword3] = useState(false);

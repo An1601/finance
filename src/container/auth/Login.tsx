@@ -16,6 +16,7 @@ import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
 import { useLoading } from "@redux/useSelector";
 import { fetchProfileData } from "@redux/userThunks";
+import { UserRole } from "@type/enum";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -52,8 +53,9 @@ const Login = () => {
       const response = await api.post("/login", data);
       if (response.status === 200) {
         dispatch(handleReduxLogin(response.data.data));
+        if (response.data.data.type === UserRole.BUSINESS)
+          handleCheckSubmitSurvey();
         dispatch(fetchProfileData());
-        handleCheckSubmitSurvey();
       }
     } catch (error) {
       const message =

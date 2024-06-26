@@ -1,6 +1,7 @@
 import reducer from "./reducer";
 import userReducer from "./userReducers";
 import commonReducer from "./commonReducer";
+import createLoanReducer from "./createLoanReducer";
 import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
@@ -19,17 +20,6 @@ const persistedUserReducer = persistReducer(
   {
     key: "User",
     storage: storage,
-    whitelist: [
-      "id",
-      "access_token",
-      "refresh_token",
-      "name",
-      "phone",
-      "date_of_birth",
-      "address",
-      "email",
-      "check_submit",
-    ],
   },
   userReducer,
 );
@@ -38,6 +28,7 @@ const rootReducer = combineReducers({
   reducer: reducer,
   userReducer: persistedUserReducer,
   commonReducer: commonReducer,
+  createLoanReducer: createLoanReducer,
 });
 
 export const store = configureStore({

@@ -56,7 +56,7 @@ const LoanDetail = () => {
         <div className="w-full py-3 text-center bg-white text-light_finance-textbody font-bold text-base leading-6 tracking-tighter rounded-[24px] ">
           {t("process.loanDetail.title")}
         </div>
-        <div className="bg-light_finance-background rounded-[24px] px-4 py-6">
+        <div className="bg-light_finance-background rounded-[24px] px-4 py-6 flex flex-col gap-4">
           <div className="w-full flex justify-between">
             <div className="flex flex-col gap-1">
               <div className="flex gap-1">
@@ -64,11 +64,12 @@ const LoanDetail = () => {
                 <div>{loanDetail?.time_began}</div>
               </div>
               <div className="uppercase text-sm font-medium text-light_finance-textsub">
-                {"("}
-                {loanDetail?.interest_rate_type
-                  ? InterestRateType.ADJUSTABLE_RATE
-                  : InterestRateType.FIXED_RATE}
-                {")"}
+                {"( "}
+                {loanDetail?.interest_rate_type ===
+                InterestRateType.ADJUSTABLE_RATE
+                  ? t("process.loanDetail.adjustType")
+                  : t("process.loanDetail.fixType")}
+                {" )"}
               </div>
               <div className="uppercase text-xl font-bold leading-7 text-light_finance-textbody">
                 {loanDetail?.name}
@@ -80,7 +81,8 @@ const LoanDetail = () => {
               </div>
             </div>
           </div>
-          <div className="w-full grid grid-cols-10 gap-3 mt-1 md:gap-10 xl:gap-20">
+          <hr className="text-stroke" />
+          <div className="w-full grid grid-cols-10 gap-3 md:gap-10 xl:gap-20">
             <div className="col-span-12 md:col-span-4 border-[1px] rounded-lg border-stroke mt-1 flex flex-col gap-3 p-3">
               <LoanDetailItem
                 label={t("process.loanDetail.id")}
@@ -107,7 +109,7 @@ const LoanDetail = () => {
                 value={`${loanDetail?.origination_fee ?? ""}%`}
               />
             </div>
-            <div className="col-span-12 md:col-span-6 font-HelveticaNeue font-normal text-sm leading-5 text-light_finance-textbody">
+            <div className="col-span-12 py-4 md:col-span-6 font-HelveticaNeue font-normal text-sm leading-5 text-light_finance-textbody">
               {loanDetail?.description}
             </div>
           </div>

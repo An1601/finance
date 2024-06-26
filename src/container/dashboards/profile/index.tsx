@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { handleReduxLogOut } from "@redux/userReducers";
 import api from "@api/axios";
-import { AppDispatch, RootState } from "@redux/store";
+import { AppDispatch } from "@redux/store";
 import HeaderItem from "../profile/Header";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import BottomBarCustom from "@components/common/bottom-bar";
@@ -21,7 +21,7 @@ import LogoutIcon from "@assets/icon/LogoutIcon.svg";
 import { fetchProfileData } from "@redux/userThunks";
 import { useTranslation } from "react-i18next";
 import Loader from "@components/common/loader";
-import { useLoading } from "@redux/useSelector";
+import { useBusinessProfile, useLoading } from "@redux/useSelector";
 
 function Account() {
   const { t } = useTranslation();
@@ -33,9 +33,7 @@ function Account() {
   const handleEditProfile = () => navigate("/edit-profile");
   const handleChangePassword = () => navigate("/change-password");
   const handleTermsConditions = () => navigate("/terms-conditions");
-  const { business_profile } = useSelector(
-    (state: RootState) => state.rootReducer.userReducer,
-  );
+  const businessProfile = useBusinessProfile();
   const isLoading = useLoading();
 
   useEffect(() => {
@@ -101,8 +99,8 @@ function Account() {
           <HeaderItem
             showIconImage={true}
             className="rounded-t-[24px] py-6"
-            userName={business_profile?.name}
-            email={business_profile?.email}
+            userName={businessProfile?.name}
+            email={businessProfile?.email}
           />
           <div className="p-6 grid grid-cols-2 gap-20  bg-white">
             <div>
@@ -131,8 +129,8 @@ function Account() {
             <HeaderItem
               className="pt-[70px] pb-[28px]"
               showIconImage={true}
-              userName={business_profile?.name}
-              email={business_profile?.email}
+              userName={businessProfile?.name}
+              email={businessProfile?.email}
             />
             <div className="bg-[#01D2B4] mb-20">
               {MENU_ITEMS_LEFT.concat(MENU_ITEMS_RIGHT).map((item) => (

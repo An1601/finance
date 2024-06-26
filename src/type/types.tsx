@@ -1,4 +1,4 @@
-import { SurveyAnsType } from "./enum";
+import { SurveyAnsType, UserRole } from "./enum";
 
 export type SignUpInfo = {
   fullname: string;
@@ -12,11 +12,14 @@ export type SignUpInfo = {
 };
 
 export type BusinessProfile = {
+  id: number;
+  business_id: string;
   name: string;
   email: string;
   phone: string;
   DOB: string;
   business_address: string;
+  thumbnail: string;
 };
 
 export type LoginInfo = {
@@ -31,30 +34,15 @@ export type ResetPasswordInfo = {
 
 export type LoginResponse = {
   id: number;
-  name: string;
-  email: string;
-  phone: string;
-  date_of_birth: string;
-  address: string;
-  email_verified_at: string;
-  verified_code: string;
-  expired_code: string;
-  created_at: string;
-  updated_at: string;
   access_token: string;
   refresh_token: string;
+  type: number;
 };
 
 export type UserInfo = {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  date_of_birth: string;
-  address: string;
-  email_verified_at: string;
   access_token: string;
   refresh_token: string;
+  role: UserRole | -1;
   business_profile: BusinessProfile | null;
   check_submit?: boolean;
 };
@@ -122,17 +110,16 @@ export type LoanItemType = {
 export type LoanDetailProcessType = {
   id: number;
   name: string;
-  category_id: string;
-  interest_rate_type: string;
+  interest_rate_type: number;
   type: number;
-  origination_fee: string;
-  interest_rate: string;
-  duration: string;
-  credit_limit: string;
+  origination_fee: number;
+  interest_rate: number;
+  duration: number;
+  credit_limit: number;
   description: string;
-  time_began: string;
-  category: {};
-  bank: {
+  time_began?: string;
+  category?: {};
+  bank?: {
     name: string;
   };
 };

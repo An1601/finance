@@ -31,10 +31,13 @@ import UserProcess from "@pages/userProcess.tsx";
 import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
 import Projects from "@container/dashboards/project/index.tsx";
 import LoanSubmitConfirm from "@container/dashboards/process/loan-app-submit/LoanSubmitConfirm.tsx";
+import BankDashboard from "@pages/bank.tsx";
+import CreateLoanForm from "@container/bank/record/create-loan-list/index.tsx";
 import RecordIndex from "@container/dashboards/Record/index.tsx";
 import NotificationIndex from "@container/dashboards/Notification/index.tsx";
 import SearchMobile from "@container/dashboards/search/index.tsx";
 import FAQ from "@container/dashboards/FAQ/index.tsx";
+import BankLoanDetail from "@container/bank/record/package-loan/BankLoanDetail.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -88,6 +91,12 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                     element={<LoanSubmitConfirm />}
                   />
                 </Route>
+              </Route>
+              <Route path="/bank/" element={<BankDashboard />}>
+                <Route path="loan-create" element={<CreateLoanForm />} />
+                <Route path="loan-detail" element={<BankLoanDetail />} />
+                <Route path="chat" element={<Message />} />
+                <Route path="profile" element={<Account />} />
               </Route>
             </Routes>
           </BrowserRouter>

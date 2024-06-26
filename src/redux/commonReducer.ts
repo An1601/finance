@@ -5,7 +5,7 @@ export const initialUser = {
 };
 
 const commonReducer = createSlice({
-  name: "auth",
+  name: "common",
   initialState: initialUser,
   reducers: {
     setLoadingTrue: (state) => {

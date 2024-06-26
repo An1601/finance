@@ -10,7 +10,8 @@ import { AppDispatch } from "@redux/store";
 import ProfileLink from "./ProfileLink";
 import useWindowWidth from "../../hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
-import { useUser, useLoading } from "@redux/useSelector";
+import { useLoading, useUser } from "@redux/useSelector";
+import { UserRole } from "@type/enum";
 
 function ProfileHeader() {
   const { t } = useTranslation();
@@ -60,8 +61,8 @@ function ProfileHeader() {
           <div className="font-normal leading-4 !text-light_finance-textsub block text-[0.6875rem] ">
             {t("header.goodMorning")}
           </div>
-          <div className="font-bold  !text-light_finance-textbody text-base tracking-tighter">
-            {user?.name}
+          <div className="font-bold  !text-light_finance-textbody text-base tracking-tighter text-truncate">
+            {user?.business_profile?.name}
           </div>
         </div>
       </div>
@@ -72,7 +73,7 @@ function ProfileHeader() {
         >
           <ul className="text-defaulttextcolor font-medium dark:text-[#8C9097] dark:text-white/50">
             <ProfileLink
-              to="/profile"
+              to={`${user.role === UserRole.BANK ? "/bank" : ""}/profile`}
               icon="ti-user-circle"
               label={t("header.profile")}
             />

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "@redux/store";
+import { AppDispatch } from "@redux/store";
 import Breadcrumb from "@components/common/breadcrumb";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
@@ -17,16 +17,13 @@ import Loader from "@components/common/loader";
 import BackIcon from "@components/svg/Back";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePickerField from "@components/common/input-date";
+import { useBusinessProfile, useLoading } from "@redux/useSelector";
 
 function EditProfile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { business_profile } = useSelector(
-    (state: RootState) => state.rootReducer.userReducer,
-  );
-  const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
-  );
+  const businessProfile = useBusinessProfile();
+  const isLoading = useLoading();
   const dispatch = useDispatch<AppDispatch>();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
@@ -41,18 +38,18 @@ function EditProfile() {
   const windowWidth = useWindowWidth();
 
   useEffect(() => {
-    if (business_profile) {
-      setValue("name", business_profile?.name ?? "");
-      setValue("phone", business_profile?.phone ?? "");
-      setValue("email", business_profile?.email ?? "");
-      setValue("DOB", business_profile?.DOB ?? "");
-      setValue("business_address", business_profile?.business_address ?? "");
+    if (businessProfile) {
+      setValue("name", businessProfile?.name ?? "");
+      setValue("phone", businessProfile?.phone ?? "");
+      setValue("email", businessProfile?.email ?? "");
+      setValue("DOB", businessProfile?.DOB ?? "");
+      setValue("business_address", businessProfile?.business_address ?? "");
 
-      if (business_profile?.DOB) {
-        setSelectedDate(new Date(business_profile.DOB));
+      if (businessProfile?.DOB) {
+        setSelectedDate(new Date(businessProfile.DOB));
       }
     }
-  }, [business_profile]);
+  }, [businessProfile]);
 
   const handleUpdate = async (data: UpdateProfile) => {
     dispatch(setLoadingTrue());
