@@ -3,18 +3,18 @@ import bg1 from "@assets/images/authentication/1.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import LoanFilter from "./LoanFilter";
 import { useTranslation } from "react-i18next";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import api from "@api/axios";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 function PackageLoanIndex() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loanList, setLoanList] = useState([]);
   const { projectId } = useParams();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
 
   const handleGetUserLoans = async () => {
     toggleLoading(true);

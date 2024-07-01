@@ -6,19 +6,19 @@ import Notification from "@components/common/header/Notification";
 import BottomBarCustom from "@components/common/bottom-bar";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import StatePackageLoans from "../home/StatePackageLoans";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import api from "@api/axios";
 import { useTranslation } from "react-i18next";
 import Loader from "@components/common/loader";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 const RecordIndex = () => {
   const windowWidth = useWindowWidth();
   const { t } = useTranslation();
   const [loanRecords, setLoanRecords] = useState([]);
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
 
   const handleGetRecords = async () => {
     toggleLoading(true);

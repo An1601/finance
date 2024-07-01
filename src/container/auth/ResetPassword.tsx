@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "@assets/images/brand-logos/1.png";
@@ -10,7 +10,7 @@ import { BASE_URL } from "@api/axios";
 import { ResetPasswordInfo } from "@type/types";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 const ResetPassword = () => {
   const { t } = useTranslation();
@@ -18,7 +18,7 @@ const ResetPassword = () => {
   const token = searchParams.get("token");
   const navigate = useNavigate();
 
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
   const [passwordShow1, setPasswordShow1] = useState(false);
   const [passwordShow2, setPasswordShow2] = useState(false);
 

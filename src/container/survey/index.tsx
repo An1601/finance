@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SurveyProgress from "./SurveyProgress";
 import AlertModals from "./AlertModals";
@@ -19,12 +19,12 @@ import { modalShow } from "@components/common/alert-modal";
 import SurveyUnit from "./SurveyUnit";
 import { SurveyAnsEnum } from "@type/enum";
 import SurveyControls from "./SurveyControls";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 import Loader from "@components/common/loader";
 
 const SurveyIndex: React.FC = () => {
   const user = useUser();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
   const surveyQuestion = user.check_submit
     ? surveyProjectQuestion
     : surveyFullQuestion;

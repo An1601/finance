@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from "react";
+import React, { createContext, useState, ReactNode, useContext } from "react";
 
 interface LoadingContextType {
   isLoading: boolean;
@@ -28,5 +28,7 @@ const LoadingProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     </LoadingContext.Provider>
   );
 };
+
+export const useLoading = () => useContext(LoadingContext);
 
 export default LoadingProvider;

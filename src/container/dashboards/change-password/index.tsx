@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import Breadcrumb from "@components/common/breadcrumb";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
@@ -12,7 +12,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import api from "@api/axios";
 import Loader from "@components/common/loader";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 function ChangePassword() {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ function ChangePassword() {
     watch,
     formState: { errors },
   } = useForm<ChangePasswordInfo>();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [showPassword3, setShowPassword3] = useState(false);

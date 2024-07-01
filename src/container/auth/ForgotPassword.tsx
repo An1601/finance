@@ -9,13 +9,12 @@ import axios from "axios";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
-import { useContext } from "react";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 const ForgotPassword = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
   const {
     handleSubmit: SubmitForgotPassword,
     register: changePwdData,

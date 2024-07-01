@@ -5,13 +5,13 @@ import { useTranslation } from "react-i18next";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import MeetingItem from "./ConsultingItem";
 import api from "@api/axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import ConsultingMeetingItem from "./ConsultingMeetingItem";
 import Loader from "@components/common/loader";
 import BookingModal from "../process/bookingModal";
 import { ConsultingMeeting } from "@type/types";
 import { toast } from "react-toastify";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 function MeetingIndex() {
   const { t } = useTranslation();
@@ -19,7 +19,7 @@ function MeetingIndex() {
   const windowWidth = useWindowWidth();
   const [loanData, setLoanData] = useState<ConsultingMeeting[]>([]);
   const { loanId } = useParams();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
   const [current, setCurrent] = useState<ConsultingMeeting>();
 
   const fetchDataMeeting = async () => {

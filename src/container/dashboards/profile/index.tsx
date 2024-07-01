@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -21,7 +21,7 @@ import { fetchProfileData } from "@redux/userThunks";
 import { useTranslation } from "react-i18next";
 import Loader from "@components/common/loader";
 import { useBusinessProfile } from "@redux/useSelector";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 function Account() {
   const { t } = useTranslation();
@@ -34,7 +34,7 @@ function Account() {
   const handleChangePassword = () => navigate("/change-password");
   const handleTermsConditions = () => navigate("/terms-conditions");
   const businessProfile = useBusinessProfile();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
 
   useEffect(() => {
     dispatch(fetchProfileData());

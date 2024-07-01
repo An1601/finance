@@ -1,4 +1,4 @@
-import { FC, Fragment, useContext, useEffect, useState } from "react";
+import { FC, Fragment, useEffect, useState } from "react";
 import Overview from "./Overview";
 import AmountDisbursed from "./AmountDisbursed";
 import TopBank from "./TopBank";
@@ -13,7 +13,7 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Loader from "@components/common/loader";
 import HomeProject from "../project/HomeProject";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 interface CrmProps {}
 
@@ -24,7 +24,7 @@ const Home: FC<CrmProps> = () => {
   const [loanList, setLoanList] = useState([]);
   const [meetingList, setMeeting] = useState([]);
   const { t } = useTranslation();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
 
   const handleGetRecords = async () => {
     try {

@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Breadcrumb from "@components/common/breadcrumb";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
@@ -15,13 +15,13 @@ import BackIcon from "@components/svg/Back";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePickerField from "@components/common/input-date";
 import { useBusinessProfile } from "@redux/useSelector";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 function EditProfile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const businessProfile = useBusinessProfile();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
     handleSubmit,

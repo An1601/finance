@@ -1,4 +1,4 @@
-import { Fragment, useContext, useState } from "react";
+import { Fragment, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -15,14 +15,14 @@ import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
 import { fetchProfileData } from "@redux/userThunks";
 import { UserRole } from "@type/enum";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 const Login = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [passwordShow, setPasswordShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
 
   const {
     handleSubmit,

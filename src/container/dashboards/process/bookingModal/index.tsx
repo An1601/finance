@@ -2,10 +2,10 @@ import api from "@api/axios";
 import bookingTitleIcon from "@assets/icon/bookingTitleIcon.svg";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import Loader from "@components/common/loader";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 import { ConsultingMeeting } from "@type/types";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useTranslation } from "react-i18next";
@@ -37,7 +37,7 @@ const BookingModal = ({
   const searchParams = new URLSearchParams(location.search);
   const offerId = searchParams.get("offerId");
   const { t } = useTranslation();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
   const navigate = useNavigate();
 
   const formatISOStringToTime = (isoString: string) => {

@@ -1,6 +1,6 @@
 import api from "@api/axios";
 import axios from "axios";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -9,12 +9,12 @@ import { ProjectItemType } from "@type/types";
 import Breadcrumb from "@components/common/breadcrumb";
 import Loader from "@components/common/loader";
 import bg1 from "@assets/images/authentication/1.svg";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 const Projects = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
   const [projects, setProjects] = useState<ProjectItemType[]>([]);
 
   const handleGetTopProjects = async () => {

@@ -1,6 +1,6 @@
 import { Fragment } from "react/jsx-runtime";
 import logo from "@assets/images/brand-logos/1.png";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader";
@@ -8,14 +8,14 @@ import api from "@api/axios";
 import axios from "axios";
 import { useLocalStorage } from "@utils/index";
 import { useTranslation } from "react-i18next";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 function VerifyOTP() {
   const searchParams = new URLSearchParams(location.search);
   const signupMode = searchParams.get("signup") === "true" ? true : false;
   const email = searchParams.get("email");
   const { setItem, getItem, removeItem } = useLocalStorage();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  const { isLoading, toggleLoading } = useLoading();
 
   const navigate = useNavigate();
   const [otp, setOTP] = useState<string[]>(Array(5).fill(""));

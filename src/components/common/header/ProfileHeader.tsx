@@ -11,13 +11,13 @@ import useWindowWidth from "../../hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
 import { useUser } from "@redux/useSelector";
 import { UserRole } from "@type/enum";
-import { useContext } from "react";
-import { LoadingContext } from "@components/hook/useLoading";
+import { useLoading } from "@components/hook/useLoading";
 
 function ProfileHeader() {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
-  const { isLoading, toggleLoading } = useContext(LoadingContext);
+  // const { isLoading, toggleLoading } = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
   const navigate = useNavigate();
   const windowWidth = useWindowWidth();
 
