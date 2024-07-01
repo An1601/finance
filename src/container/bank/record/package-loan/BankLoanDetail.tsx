@@ -6,40 +6,73 @@ import { LoanDetailProcessType } from "@type/types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import api from "@api/axios";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { FileIcon } from "react-file-icon";
+import Loader from "@components/common/loader";
 
 const BankLoanDetail = () => {
   const { t } = useTranslation();
+  const searchParams = new URLSearchParams(location.search);
+  const loanId = searchParams.get("loanId");
   const navigate = useNavigate();
   const [loanDetail, setLoanDetail] = useState<LoanDetailProcessType>();
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleGetLoanDetail = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.get(`/loans/${loanId}`);
+      if (response.status === 200) {
+        setLoanDetail(response.data.data);
+      }
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+  const handleSaveFile = async () => {
+    setIsLoading(true);
+    try {
+      const response = await api.get(`/loans/view/term/${loanId}`, {
+        responseType: "blob",
+      });
+      if (response.status === 200) {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute(
+          "download",
+          loanDetail?.document?.file_name ?? "term",
+        );
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
-    setLoanDetail({
-      id: 2,
-      name: "Tremayne Beahan",
-      interest_rate_type: 0,
-      type: 0,
-      origination_fee: 3.3,
-      interest_rate: 1.24,
-      duration: 2.34,
-      credit_limit: 300000,
-      description:
-        "Temporibus eligendi minima optio inventore. Aliquam qui velit aspernatur saepe iusto unde.",
-      time_began: "1991-07-16",
-      category: {
-        id: 4,
-        name: "Car Loans",
-        thumbnail: "https://www.google.com.vn/car",
-        created_at: null,
-        updated_at: null,
-      },
-      bank: {
-        name: "Bank banh",
-      },
-    });
+    handleGetLoanDetail();
   }, []);
 
+  if (isLoading) return <Loader />;
   return (
-    <div className="h-screen my-8">
+    <div className="h-screen flex flex-col sm:pb-8">
       <div className="hidden sm:block">
         <Breadcrumb
           primaryText={t("sideBar.record")}
@@ -58,28 +91,91 @@ const BankLoanDetail = () => {
           {t("sideBar.createLoan")}
         </div>
       </div>
-      <div className="bg-light_finance-background drop-shadow-[0_4px_4px_rgba(196,203,214,0.15)] rounded-[24px] px-4 py-6 flex flex-col gap-4">
-        <div className="w-full flex justify-between">
-          <div className="flex flex-col gap-1">
-            <div className="flex gap-1">
-              <img className="h-5 w-5" src={calendar} />
-              <div>{loanDetail?.time_began}</div>
+      <div className="flex-1 md:flex-0 bg-light_finance-background drop-shadow-[0_4px_4px_rgba(196,203,214,0.15)] rounded-[24px] px-4 py-6 flex flex-col gap-4">
+        <div className="flex flex-col justify-between gap-3 xl:gap-0">
+          <div className="w-full flex justify-between">
+            <div className="flex flex-col gap-1">
+              <div className="flex gap-1">
+                <img className="h-5 w-5" src={calendar} />
+                <div>{loanDetail?.time_began}</div>
+              </div>
+              <div className="uppercase text-sm font-medium text-light_finance-textsub">
+                {"( "}
+                {loanDetail?.interest_rate_type ===
+                InterestRateType.ADJUSTABLE_RATE
+                  ? t("process.loanDetail.adjustType")
+                  : t("process.loanDetail.fixType")}
+                {" )"}
+              </div>
+              <div className="uppercase text-xl font-bold leading-7 text-light_finance-textbody">
+                {loanDetail?.name}
+              </div>
             </div>
-            <div className="uppercase text-sm font-medium text-light_finance-textsub">
-              {"( "}
-              {loanDetail?.interest_rate_type ===
-              InterestRateType.ADJUSTABLE_RATE
-                ? t("process.loanDetail.adjustType")
-                : t("process.loanDetail.fixType")}
-              {" )"}
-            </div>
-            <div className="uppercase text-xl font-bold leading-7 text-light_finance-textbody">
-              {loanDetail?.name}
+            <div className="flex flex-col gap-4 items-end">
+              <div className="w-fit p-2 rounded-[20px] bg-light_finance-sub_second text-light_finance-primary font-HelveticaNeue font-medium leading-4 whitespace-nowrap">
+                {loanDetail?.bank?.name}
+              </div>
+              <div className="gap-6 hidden xl:flex">
+                <div className="flex h-fit items-center py-1 px-3">
+                  <div className="mr-3 font-HelveticaNeue font-bold text-xs text-light_finance-textbody leading-4">
+                    Term:
+                  </div>
+                  <div className="w-4 mr-2">
+                    <FileIcon
+                      extension={loanDetail?.document?.file_name
+                        .split(".")
+                        .pop()}
+                      color="#D14423"
+                      labelColor="#D14423"
+                      labelUppercase
+                      type="presentation"
+                      glyphColor="rgba(255,255,255,0.4)"
+                    />
+                  </div>
+                  <div className="font-HelveticaNeue text-sm text-light_finance-textbody leading-5">
+                    {loanDetail?.document?.file_name}
+                  </div>
+                </div>
+                <div className="px-3 py-1 bg-light_finance-background1 rounded-lg justify-center items-center gap-2 inline-flex">
+                  <div className="text-light_finance-textbody text-xs font-bold font-HelveticaNeue leading-none tracking-tight">
+                    Application form:
+                  </div>
+                  <div className="text-center text-primary text-sm font-normal font-HelveticaNeue underline leading-tight">
+                    View
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-          <div>
-            <div className="p-2 rounded-[20px] bg-light_finance-sub_second text-light_finance-primary font-HelveticaNeue font-medium leading-4 whitespace-nowrap">
-              {loanDetail?.bank?.name}
+          <div className="w-full justify-between flex gap-2 xl:gap-6 xl:hidden flex-col sm:flex-row">
+            <div
+              className="sm:w-1/2 flex h-fit items-center py-1 px-3 cursor-pointer"
+              onClick={() => handleSaveFile()}
+            >
+              <div className="mr-3 font-HelveticaNeue font-bold text-xs text-light_finance-textbody leading-4">
+                Term:
+              </div>
+              <div className="w-4 mr-2">
+                <FileIcon
+                  extension={loanDetail?.document?.file_name.split(".").pop()}
+                  color="#D14423"
+                  labelColor="#D14423"
+                  labelUppercase
+                  type="presentation"
+                  glyphColor="rgba(255,255,255,0.4)"
+                />
+              </div>
+              <div className="w-full font-HelveticaNeue text-sm text-light_finance-textbody leading-5 text-truncate">
+                {loanDetail?.document?.file_name}
+              </div>
+            </div>
+            <div className="w-40 px-3 py-1 bg-light_finance-background1 rounded-lg justify-center items-center gap-2 inline-flex">
+              <div className="text-light_finance-textbody text-xs font-bold font-HelveticaNeue leading-none tracking-tight">
+                Application form:
+              </div>
+              <div className="text-center text-primary text-sm font-normal font-HelveticaNeue underline leading-tight">
+                View
+              </div>
             </div>
           </div>
         </div>

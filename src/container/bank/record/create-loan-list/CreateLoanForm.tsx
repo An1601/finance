@@ -214,7 +214,34 @@ const CreateLoanForm = ({ register, errors }: createLoanFormType) => {
                           <input
                             className={`sm:flex-1 h-[52px] border-[1px] ${field.id === loanData?.validateOpt?.fieldId && section.id === loanData.validateOpt.sectionId ? "!border-red focus:!border-red" : "!border-light_finance-texttitle focus:!border-light_finance-texttitle"} rounded-sm text-sm font-normal text-light_finance-textbody font-HelveticaNeue`}
                             onKeyUp={(e) => {
-                              if (e.key === "Enter") {
+                              if (
+                                e.key === "Enter" &&
+                                e.currentTarget.value !== ""
+                              ) {
+                                dispatch(
+                                  handleAddOption({
+                                    fieldId: field.id,
+                                    sectionId: section.id,
+                                    value: e.currentTarget.value,
+                                  }),
+                                );
+                                e.currentTarget.value = "";
+                              }
+                            }}
+                            onKeyDown={(event) => {
+                              if (event.key === "Enter") event.preventDefault();
+                            }}
+                            onChange={(e) => {
+                              if (e.currentTarget.value !== "")
+                                setInputOpt(e.currentTarget.value);
+                            }}
+                            placeholder={t("createLoanForm.inputAns")}
+                            id={`input_${section.id}_${field.id}`}
+                          />
+                          <div
+                            className="w-fit flex gap-2 items-center px-4 py-3 bg-light_finance-background1 cursor-pointer"
+                            onClick={() => {
+                              if (inputOption !== "") {
                                 dispatch(
                                   handleAddOption({
                                     fieldId: field.id,
@@ -222,26 +249,9 @@ const CreateLoanForm = ({ register, errors }: createLoanFormType) => {
                                     value: inputOption,
                                   }),
                                 );
-                                e.currentTarget.value = "";
+                                setInputOpt("");
                               }
                             }}
-                            onChange={(e) => {
-                              setInputOpt(e.currentTarget.value);
-                            }}
-                            placeholder={t("createLoanForm.inputAns")}
-                            id={`input_${section.id}_${field.id}`}
-                          />
-                          <div
-                            className="w-fit flex gap-2 items-center px-4 py-3 bg-light_finance-background1 cursor-pointer"
-                            onClick={() =>
-                              dispatch(
-                                handleAddOption({
-                                  fieldId: field.id,
-                                  sectionId: section.id,
-                                  value: inputOption,
-                                }),
-                              )
-                            }
                           >
                             <img src={addFieldIcon} className="h-7 w-7" />
                             <div className="font-HelveticaNeue text-sm font-normal leading-5 text-light_finance-textbody">

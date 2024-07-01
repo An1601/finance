@@ -122,6 +122,11 @@ export type LoanDetailProcessType = {
   bank?: {
     name: string;
   };
+  document?: {
+    id: number;
+    file_name: string;
+    path: string;
+  };
 };
 
 export type UpdateProfile = {

@@ -226,6 +226,9 @@ const createLoanReducer = createSlice({
         selectedForm: action.payload,
       };
     },
+    handleResetCreateLoan: () => {
+      return initialForm;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
@@ -255,5 +258,6 @@ export const {
   hanldeOnChangeField,
   handleSelectForm,
   handleSetValidateOpt,
+  handleResetCreateLoan,
 } = createLoanReducer.actions;
 export default createLoanReducer.reducer;
