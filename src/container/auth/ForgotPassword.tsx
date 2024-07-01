@@ -2,9 +2,6 @@ import { Fragment } from "react/jsx-runtime";
 import logo from "../../assets/images/brand-logos/1.png";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader";
 import api from "@api/axios";
@@ -12,13 +9,13 @@ import axios from "axios";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
-import { useLoading } from "@redux/useSelector";
+import { useContext } from "react";
+import { LoadingContext } from "@components/hook/useLoading";
 
 const ForgotPassword = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
   const {
     handleSubmit: SubmitForgotPassword,
     register: changePwdData,
@@ -27,7 +24,7 @@ const ForgotPassword = () => {
 
   const HandleForgotPassword = async (changePwdData: { email: string }) => {
     try {
-      dispatch(setLoadingTrue());
+      toggleLoading(true);
       const response = await api.post("/forgot", changePwdData);
       if (response && response.status === 200) {
         const data = await response?.data;
@@ -51,7 +48,7 @@ const ForgotPassword = () => {
         toast.error(t("forgotPassword.messageError"));
       }
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

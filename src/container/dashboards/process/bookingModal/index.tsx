@@ -2,16 +2,13 @@ import api from "@api/axios";
 import bookingTitleIcon from "@assets/icon/bookingTitleIcon.svg";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import Loader from "@components/common/loader";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
-import { AppDispatch } from "@redux/store";
-import { useLoading } from "@redux/useSelector";
+import { LoadingContext } from "@components/hook/useLoading";
 import { ConsultingMeeting } from "@type/types";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 type ValuePiece = Date | null;
@@ -40,8 +37,7 @@ const BookingModal = ({
   const searchParams = new URLSearchParams(location.search);
   const offerId = searchParams.get("offerId");
   const { t } = useTranslation();
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
   const navigate = useNavigate();
 
   const formatISOStringToTime = (isoString: string) => {
@@ -118,7 +114,7 @@ const BookingModal = ({
   const handleBookMeeting = async () => {
     if (startTime) {
       if (offerId) {
-        dispatch(setLoadingTrue());
+        toggleLoading(true);
         try {
           const response = await api.post(`/loans/meeting-submit`, {
             loan_offer_id: offerId,
@@ -136,7 +132,7 @@ const BookingModal = ({
               : t("login.messageError");
           toast.error(message);
         } finally {
-          dispatch(setLoadingFalse());
+          toggleLoading(false);
           document.body.style.overflow = "";
         }
       }
@@ -144,7 +140,7 @@ const BookingModal = ({
   };
 
   const handleUpdateMeeting = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post(
         `/meeting/${meetingData?.meeting.id}/update`,
@@ -164,7 +160,7 @@ const BookingModal = ({
     } catch (error) {
       toast.error(t("process.bookMeeting.failedUpdate"));
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
       document.body.style.overflow = "";
     }
   };

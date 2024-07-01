@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import ava from "@assets/images/profile/avatar.jpeg";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import { toast } from "react-toastify";
 import Loader from "../loader";
@@ -10,13 +9,15 @@ import { AppDispatch } from "@redux/store";
 import ProfileLink from "./ProfileLink";
 import useWindowWidth from "../../hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
-import { useLoading, useUser } from "@redux/useSelector";
+import { useUser } from "@redux/useSelector";
 import { UserRole } from "@type/enum";
+import { useContext } from "react";
+import { LoadingContext } from "@components/hook/useLoading";
 
 function ProfileHeader() {
   const { t } = useTranslation();
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
   const navigate = useNavigate();
   const windowWidth = useWindowWidth();
 
@@ -24,9 +25,8 @@ function ProfileHeader() {
 
   const handleLogout = async () => {
     try {
-      dispatch(setLoadingTrue());
+      toggleLoading(true);
       const response = await api.post("/logout");
-      dispatch(setLoadingFalse());
       if (response && response.status === 200) {
         navigate("/signin");
         dispatch(handleReduxLogOut());
@@ -38,6 +38,8 @@ function ProfileHeader() {
       if (error instanceof Error && error.message) {
         toast.error(t("header.messError"));
       }
+    } finally {
+      toggleLoading(false);
     }
   };
   if (isLoading) return <Loader />;

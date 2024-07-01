@@ -1,6 +1,5 @@
 import reducer from "./reducer";
 import userReducer from "./userReducers";
-import commonReducer from "./commonReducer";
 import createLoanReducer from "./createLoanReducer";
 import storage from "redux-persist/lib/storage";
 import { configureStore } from "@reduxjs/toolkit";
@@ -27,7 +26,6 @@ const persistedUserReducer = persistReducer(
 const rootReducer = combineReducers({
   reducer: reducer,
   userReducer: persistedUserReducer,
-  commonReducer: commonReducer,
   createLoanReducer: createLoanReducer,
 });
 

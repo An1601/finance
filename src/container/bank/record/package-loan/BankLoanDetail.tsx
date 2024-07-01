@@ -3,7 +3,7 @@ import calendar from "@assets/icon/CalendarIcon.svg";
 import LoanDetailItem from "@container/dashboards/process/loan-detail/LoanDetailItem";
 import { InterestRateType, LoanType } from "@type/enum";
 import { LoanDetailProcessType } from "@type/types";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import api from "@api/axios";
@@ -11,6 +11,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { FileIcon } from "react-file-icon";
 import Loader from "@components/common/loader";
+import { LoadingContext } from "@components/hook/useLoading";
 
 const BankLoanDetail = () => {
   const { t } = useTranslation();
@@ -18,10 +19,10 @@ const BankLoanDetail = () => {
   const loanId = searchParams.get("loanId");
   const navigate = useNavigate();
   const [loanDetail, setLoanDetail] = useState<LoanDetailProcessType>();
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
 
   const handleGetLoanDetail = async () => {
-    setIsLoading(true);
+    toggleLoading(true);
     try {
       const response = await api.get(`/loans/${loanId}`);
       if (response.status === 200) {
@@ -34,11 +35,11 @@ const BankLoanDetail = () => {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      setIsLoading(false);
+      toggleLoading(false);
     }
   };
   const handleSaveFile = async () => {
-    setIsLoading(true);
+    toggleLoading(true);
     try {
       const response = await api.get(`/loans/view/term/${loanId}`, {
         responseType: "blob",
@@ -62,7 +63,7 @@ const BankLoanDetail = () => {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      setIsLoading(false);
+      toggleLoading(false);
     }
   };
 

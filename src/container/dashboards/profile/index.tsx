@@ -1,8 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { handleReduxLogOut } from "@redux/userReducers";
 import api from "@api/axios";
 import { AppDispatch } from "@redux/store";
@@ -21,7 +20,8 @@ import LogoutIcon from "@assets/icon/LogoutIcon.svg";
 import { fetchProfileData } from "@redux/userThunks";
 import { useTranslation } from "react-i18next";
 import Loader from "@components/common/loader";
-import { useBusinessProfile, useLoading } from "@redux/useSelector";
+import { useBusinessProfile } from "@redux/useSelector";
+import { LoadingContext } from "@components/hook/useLoading";
 
 function Account() {
   const { t } = useTranslation();
@@ -34,7 +34,7 @@ function Account() {
   const handleChangePassword = () => navigate("/change-password");
   const handleTermsConditions = () => navigate("/terms-conditions");
   const businessProfile = useBusinessProfile();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
 
   useEffect(() => {
     dispatch(fetchProfileData());
@@ -42,9 +42,9 @@ function Account() {
 
   const handleLogout = async () => {
     try {
-      dispatch(setLoadingTrue());
+      toggleLoading(true);
       const response = await api.post("/logout");
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
       if (response?.status === 200) {
         navigate("/signin");
         dispatch(handleReduxLogOut());

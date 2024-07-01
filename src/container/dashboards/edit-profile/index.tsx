@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch } from "@redux/store";
 import Breadcrumb from "@components/common/breadcrumb";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
@@ -9,7 +7,6 @@ import useWindowWidth from "@components/hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { UpdateProfile } from "@type/types";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -17,14 +14,14 @@ import Loader from "@components/common/loader";
 import BackIcon from "@components/svg/Back";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePickerField from "@components/common/input-date";
-import { useBusinessProfile, useLoading } from "@redux/useSelector";
+import { useBusinessProfile } from "@redux/useSelector";
+import { LoadingContext } from "@components/hook/useLoading";
 
 function EditProfile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const businessProfile = useBusinessProfile();
-  const isLoading = useLoading();
-  const dispatch = useDispatch<AppDispatch>();
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
     handleSubmit,
@@ -52,7 +49,7 @@ function EditProfile() {
   }, [businessProfile]);
 
   const handleUpdate = async (data: UpdateProfile) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post("/me/profile/update", data);
       if (response.status === 200) {
@@ -66,7 +63,7 @@ function EditProfile() {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

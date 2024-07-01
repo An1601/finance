@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Breadcrumb from "@components/common/breadcrumb";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
@@ -8,33 +8,29 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { ChangePasswordInfo } from "@type/types";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import axios from "axios";
 import { toast } from "react-toastify";
 import api from "@api/axios";
 import Loader from "@components/common/loader";
-import { useLoading } from "@redux/useSelector";
+import { LoadingContext } from "@components/hook/useLoading";
 
 function ChangePassword() {
   const { t } = useTranslation();
   const windowWidth = useWindowWidth();
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
   const {
     handleSubmit,
     register,
     watch,
     formState: { errors },
   } = useForm<ChangePasswordInfo>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
   const [showPassword3, setShowPassword3] = useState(false);
   const newPassword = watch("new_password");
   const handleChangePassword = async (data: ChangePasswordInfo) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post("/me/change-password", data);
       if (response.status === 200) {
@@ -48,7 +44,7 @@ function ChangePassword() {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

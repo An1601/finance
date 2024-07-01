@@ -58,6 +58,7 @@ export enum LoanSubmitState {
   REJECT = 2,
 }
 export enum UserRole {
+  GUESS = 0,
   BUSINESS = 1,
   BANK = 2,
 }

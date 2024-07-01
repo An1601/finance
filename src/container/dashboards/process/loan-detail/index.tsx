@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import { InterestRateType, LoanType } from "@type/enum";
@@ -10,15 +10,16 @@ import LoanDetailItem from "./LoanDetailItem";
 import BookingModal from "../bookingModal";
 import { LoanDetailProcessType } from "@type/types";
 import Loader from "@components/common/loader";
+import { LoadingContext } from "@components/hook/useLoading";
 const LoanDetail = () => {
   const { t } = useTranslation();
   const searchParams = new URLSearchParams(location.search);
   const loanId = searchParams.get("loanId");
   const [loanDetail, setLoanDetail] = useState<LoanDetailProcessType>();
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
 
   const handleGetLoanDetail = async () => {
-    setIsLoading(true);
+    toggleLoading(true);
     try {
       const response = await api.get(`/loans/${loanId}`);
       if (response.status === 200) {
@@ -31,7 +32,7 @@ const LoanDetail = () => {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      setIsLoading(false);
+      toggleLoading(false);
     }
   };
 

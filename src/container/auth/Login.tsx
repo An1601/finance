@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -8,22 +8,21 @@ import logo from "@assets/images/brand-logos/1.png";
 import { LoginInfo } from "@type/types";
 import { AppDispatch } from "@redux/store";
 import { handleCheckSubmit, handleReduxLogin } from "@redux/userReducers";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader";
 import api from "../../API/axios";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
-import { useLoading } from "@redux/useSelector";
 import { fetchProfileData } from "@redux/userThunks";
 import { UserRole } from "@type/enum";
+import { LoadingContext } from "@components/hook/useLoading";
 
 const Login = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [passwordShow, setPasswordShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
 
   const {
     handleSubmit,
@@ -33,6 +32,7 @@ const Login = () => {
 
   const handleCheckSubmitSurvey = async () => {
     try {
+      toggleLoading(true);
       const response = await api.get("/survey/check-survey");
       if (response.status === 200) {
         dispatch(handleCheckSubmit(true));
@@ -44,11 +44,11 @@ const Login = () => {
         navigate("/survey");
       } else toast.error(!axios.isAxiosError(error) && t("login.messageError"));
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
   const handleLogin = async (data: LoginInfo) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post("/login", data);
       if (response.status === 200) {
@@ -64,7 +64,7 @@ const Login = () => {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

@@ -1,28 +1,24 @@
 import api from "@api/axios";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
-import { AppDispatch } from "@redux/store";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import ProjectIcon from "@components/svg/ProjectIcon";
 import { ProjectItemType } from "@type/types";
 import Breadcrumb from "@components/common/breadcrumb";
-import { useLoading } from "@redux/useSelector";
 import Loader from "@components/common/loader";
 import bg1 from "@assets/images/authentication/1.svg";
+import { LoadingContext } from "@components/hook/useLoading";
 
 const Projects = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useContext(LoadingContext);
   const [projects, setProjects] = useState<ProjectItemType[]>([]);
 
   const handleGetTopProjects = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get("/list-project");
       if (response.status === 200) {
@@ -35,7 +31,7 @@ const Projects = () => {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
