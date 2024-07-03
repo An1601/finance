@@ -8,10 +8,10 @@ const DashboardLayout: React.FC<{
   children?: React.ReactNode;
   isBank: boolean;
 }> = ({ children, isBank }) => {
-  const [MyclassName, setMyClass] = useState("");
+  const [myClassName, setMyclassName] = useState("");
   const Bodyclickk = () => {
-    if (localStorage.getItem("zenverticalstyles") == "icontext") {
-      setMyClass("");
+    if (localStorage.getItem("zenverticalstyles") === "icontext") {
+      setMyclassName("");
     }
     if (window.innerWidth > 1024) {
       const html = document.documentElement;
@@ -37,7 +37,7 @@ const DashboardLayout: React.FC<{
             "data-nav-layout": "vertical",
             "data-header-styles": "light",
             "data-vertical-style": "overlay",
-            "data-icon-text": MyclassName,
+            "data-icon-text": myClassName,
           }}
         />
         <Switcher />

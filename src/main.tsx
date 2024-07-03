@@ -39,11 +39,17 @@ import Dashboard from "@pages/dashboard.tsx";
 import UserProcess from "@pages/userProcess.tsx";
 import BankDashboard from "@pages/bank.tsx";
 import LoadingProvider from "@components/hook/useLoading.tsx";
+import RoleBaseGuard from "@container/RoleBaseGuard.tsx";
+import { UserRole } from "@type/enum.ts";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Auth />,
+    element: (
+      <RoleBaseGuard>
+        <Auth />
+      </RoleBaseGuard>
+    ),
     children: [
       { path: "", element: <Login /> },
       { path: "signin", element: <Login /> },
@@ -55,12 +61,20 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Survey />,
+    element: (
+      <RoleBaseGuard role={UserRole.BUSINESS}>
+        <Survey />
+      </RoleBaseGuard>
+    ),
     children: [{ path: "survey", element: <SurveyIndex /> }],
   },
   {
     path: "/",
-    element: <Dashboard />,
+    element: (
+      <RoleBaseGuard role={UserRole.BUSINESS}>
+        <Dashboard />
+      </RoleBaseGuard>
+    ),
     children: [
       { path: "dashboard", element: <Home /> },
       { path: "notification", element: <NotificationIndex /> },
@@ -90,7 +104,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/bank/",
-    element: <BankDashboard />,
+    element: (
+      <RoleBaseGuard role={UserRole.BANK}>
+        <BankDashboard />
+      </RoleBaseGuard>
+    ),
     children: [
       { path: "loan-create", element: <CreateLoanForm /> },
       { path: "loan-detail", element: <BankLoanDetail /> },

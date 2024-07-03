@@ -31,6 +31,21 @@ const CreateLoanForm = ({ register, errors }: createLoanFormType) => {
   const loanData = useCreateLoan();
   const dispatch = useDispatch<AppDispatch>();
 
+  const getDisplayType = (fieldType: number) => {
+    switch (fieldType) {
+      case LoanSubmit.TEXT:
+        return questionType.text.display;
+      case LoanSubmit.CHECKBOX:
+        return questionType.chechbox.display;
+      case LoanSubmit.RADIO:
+        return questionType.radio.display;
+      case LoanSubmit.NUMBER:
+        return questionType.number.display;
+      case LoanSubmit.DATE:
+        return questionType.date.display;
+    }
+  };
+
   return (
     <div className="w-full flex flex-col gap-4">
       <div className="w-full flex flex-col xl:flex-row gap-4 xl:gap-2 justify-between">
@@ -126,20 +141,7 @@ const CreateLoanForm = ({ register, errors }: createLoanFormType) => {
                           )}
                         />
                         <div className="relative w-2/3 md:flex-[35%] flex justify-between items-center h-[52px] px-4 py-2 border-[1px] !border-light_finance-primary rounded-sm cursor-pointer">
-                          {(() => {
-                            switch (field.fieldType) {
-                              case LoanSubmit.TEXT:
-                                return questionType.text.display;
-                              case LoanSubmit.CHECKBOX:
-                                return questionType.chechbox.display;
-                              case LoanSubmit.RADIO:
-                                return questionType.radio.display;
-                              case LoanSubmit.NUMBER:
-                                return questionType.number.display;
-                              case LoanSubmit.DATE:
-                                return questionType.date.display;
-                            }
-                          })()}
+                          {getDisplayType(field.fieldType)}
                           <input
                             type="checkbox"
                             className="filter-btn absolute top-0 left-0 w-full h-full z-10 opacity-0 peer"
