@@ -7,45 +7,41 @@ import MeetingItem from "./ConsultingItem";
 import api from "@api/axios";
 import { useEffect, useState } from "react";
 import ConsultingMeetingItem from "./ConsultingMeetingItem";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader";
-import { useLoading } from "@redux/useSelector";
 import BookingModal from "../process/bookingModal";
 import { ConsultingMeeting } from "@type/types";
 import { toast } from "react-toastify";
+import { useLoading } from "@components/hook/useLoading";
 
 function MeetingIndex() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const windowWidth = useWindowWidth();
   const [loanData, setLoanData] = useState<ConsultingMeeting[]>([]);
-  const dispatch = useDispatch<AppDispatch>();
   const { loanId } = useParams();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
   const [current, setCurrent] = useState<ConsultingMeeting>();
 
   const fetchDataMeeting = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get("/meeting/");
       if (response.status === 200) setLoanData(response.data.data);
     } catch (error) {}
-    dispatch(setLoadingFalse());
+    toggleLoading(false);
   };
 
   const fetchDataMeetingUser = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/meeting/submit/${loanId}`);
       setLoanData(response.data.data);
     } catch (error) {}
-    dispatch(setLoadingFalse());
+    toggleLoading(false);
   };
 
   const handleDeleteMeeting = async (id: number) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.delete(`/meeting/${id}/delete`);
       if (response.status === 200) {
@@ -57,7 +53,7 @@ function MeetingIndex() {
     } catch (error) {
       toast.error(t("consulting.failedDelete"));
     }
-    dispatch(setLoadingFalse());
+    toggleLoading(false);
   };
 
   useEffect(() => {

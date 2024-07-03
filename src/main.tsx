@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
@@ -9,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "./index.scss";
 import { persistor, store } from "./redux/store.ts";
 import i18n from "@i18n/index.tsx";
-import Auth from "@pages/auth.tsx";
 import Login from "@container/auth/Login.tsx";
 import SignUp from "@container/auth/SignUp.tsx";
 import ForgotPassword from "@container/auth/ForgotPassword.tsx";
@@ -23,76 +22,123 @@ import EditProfile from "@container/dashboards/edit-profile";
 import ChangePassword from "@container/dashboards/change-password";
 import TermsConditions from "@container/dashboards/terms-conditions";
 import Message from "@container/dashboards/Message/index.tsx";
-import Dashboard from "@pages/dashboard.tsx";
-import Survey from "@pages/survey.tsx";
 import SurveyIndex from "@container/survey";
 import LoanDetail from "@container/dashboards/process/loan-detail";
-import UserProcess from "@pages/userProcess.tsx";
 import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
 import Projects from "@container/dashboards/project/index.tsx";
 import LoanSubmitConfirm from "@container/dashboards/process/loan-app-submit/LoanSubmitConfirm.tsx";
+import CreateLoanForm from "@container/bank/record/create-loan-list/index.tsx";
 import RecordIndex from "@container/dashboards/Record/index.tsx";
 import NotificationIndex from "@container/dashboards/Notification/index.tsx";
 import SearchMobile from "@container/dashboards/search/index.tsx";
 import FAQ from "@container/dashboards/FAQ/index.tsx";
+import BankLoanDetail from "@container/bank/record/package-loan/BankLoanDetail.tsx";
+import Auth from "@pages/auth.tsx";
+import Survey from "@pages/survey.tsx";
+import Dashboard from "@pages/dashboard.tsx";
+import UserProcess from "@pages/userProcess.tsx";
+import BankDashboard from "@pages/bank.tsx";
+import LoadingProvider from "@components/hook/useLoading.tsx";
+import RoleBaseGuard from "@container/RoleBaseGuard.tsx";
+import { UserRole } from "@type/enum.ts";
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: (
+      <RoleBaseGuard>
+        <Auth />
+      </RoleBaseGuard>
+    ),
+    children: [
+      { path: "", element: <Login /> },
+      { path: "signin", element: <Login /> },
+      { path: "signup", element: <SignUp /> },
+      { path: "forgot-password", element: <ForgotPassword /> },
+      { path: "verify-code", element: <VerifyOTP /> },
+      { path: "reset-password", element: <ResetPassword /> },
+    ],
+  },
+  {
+    path: "/",
+    element: (
+      <RoleBaseGuard role={UserRole.BUSINESS}>
+        <Survey />
+      </RoleBaseGuard>
+    ),
+    children: [{ path: "survey", element: <SurveyIndex /> }],
+  },
+  {
+    path: "/",
+    element: (
+      <RoleBaseGuard role={UserRole.BUSINESS}>
+        <Dashboard />
+      </RoleBaseGuard>
+    ),
+    children: [
+      { path: "dashboard", element: <Home /> },
+      { path: "notification", element: <NotificationIndex /> },
+      { path: "faq", element: <FAQ /> },
+      { path: "search", element: <SearchMobile /> },
+      { path: "loan-list", element: <PackageLoanIndex /> },
+      { path: "loan-list/:projectId", element: <PackageLoanIndex /> },
+      { path: "records", element: <RecordIndex /> },
+      { path: "meeting", element: <MeetingIndex /> },
+      { path: "meeting/:loanId", element: <MeetingIndex /> },
+      { path: "profile", element: <Account /> },
+      { path: "edit-profile", element: <EditProfile /> },
+      { path: "change-password", element: <ChangePassword /> },
+      { path: "terms-conditions", element: <TermsConditions /> },
+      { path: "message", element: <Message /> },
+      { path: "projects", element: <Projects /> },
+      {
+        path: "/",
+        element: <UserProcess />,
+        children: [
+          { path: "loan-detail", element: <LoanDetail /> },
+          { path: "loan-submit", element: <LoanAppSubmit /> },
+          { path: "loan-submit-confirm", element: <LoanSubmitConfirm /> },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/bank/",
+    element: (
+      <RoleBaseGuard role={UserRole.BANK}>
+        <BankDashboard />
+      </RoleBaseGuard>
+    ),
+    children: [
+      { path: "loan-create", element: <CreateLoanForm /> },
+      { path: "loan-detail", element: <BankLoanDetail /> },
+      { path: "chat", element: <Message /> },
+      { path: "profile", element: <Account /> },
+    ],
+  },
+]);
+
+const NestedApp = () => {
+  return <RouterProvider router={router}></RouterProvider>;
+};
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <I18nextProvider i18n={i18n}>
-          <BrowserRouter>
-            <ToastContainer
-              position={"top-right"}
-              autoClose={5000}
-              closeOnClick={true}
-              pauseOnHover={true}
-              draggable={true}
-            />
-            <Routes>
-              <Route path="/" element={<Auth />}>
-                <Route path="" element={<Login />} />
-                <Route path="signin" element={<Login />} />
-                <Route path="signup" element={<SignUp />} />
-                <Route path="forgot-password" element={<ForgotPassword />} />
-                <Route path="verify-code" element={<VerifyOTP />} />
-                <Route path="reset-password" element={<ResetPassword />} />
-              </Route>
-              <Route path="/" element={<Survey />}>
-                <Route path="survey" element={<SurveyIndex />} />
-              </Route>
-              <Route path="/" element={<Dashboard />}>
-                <Route path="dashboard" element={<Home />} />
-                <Route path="notification" element={<NotificationIndex />} />
-                <Route path="faq" element={<FAQ />} />
-                <Route path="search" element={<SearchMobile />} />
-                <Route path="loan-list" element={<PackageLoanIndex />} />
-                <Route
-                  path="loan-list/:projectId"
-                  element={<PackageLoanIndex />}
-                />
-                <Route path="records" element={<RecordIndex />} />
-                <Route path="meeting" element={<MeetingIndex />} />
-                <Route path="meeting/:loanId" element={<MeetingIndex />} />
-                <Route path="profile" element={<Account />} />
-                <Route path="edit-profile" element={<EditProfile />} />
-                <Route path="change-password" element={<ChangePassword />} />
-                <Route path="terms-conditions" element={<TermsConditions />} />
-                <Route path="message" element={<Message />} />
-                <Route path="projects" element={<Projects />} />
-                <Route path="/" element={<UserProcess />}>
-                  <Route path="loan-detail" element={<LoanDetail />} />
-                  <Route path="loan-submit" element={<LoanAppSubmit />} />
-                  <Route
-                    path="loan-submit-confirm"
-                    element={<LoanSubmitConfirm />}
-                  />
-                </Route>
-              </Route>
-            </Routes>
-          </BrowserRouter>
-        </I18nextProvider>
-      </PersistGate>
-    </Provider>
+    <LoadingProvider>
+      <Provider store={store}>
+        <PersistGate loading={null} persistor={persistor}>
+          <ToastContainer
+            position={"top-right"}
+            autoClose={5000}
+            closeOnClick={true}
+            pauseOnHover={true}
+            draggable={true}
+          />
+          <I18nextProvider i18n={i18n}>
+            <NestedApp />
+          </I18nextProvider>
+        </PersistGate>
+      </Provider>
+    </LoadingProvider>
   </React.Fragment>,
 );

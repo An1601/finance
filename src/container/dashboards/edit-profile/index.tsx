@@ -1,7 +1,5 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { AppDispatch, RootState } from "@redux/store";
 import Breadcrumb from "@components/common/breadcrumb";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
@@ -9,7 +7,6 @@ import useWindowWidth from "@components/hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
 import { useForm } from "react-hook-form";
 import { UpdateProfile } from "@type/types";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -17,17 +14,14 @@ import Loader from "@components/common/loader";
 import BackIcon from "@components/svg/Back";
 import "react-datepicker/dist/react-datepicker.css";
 import DatePickerField from "@components/common/input-date";
+import { useBusinessProfile } from "@redux/useSelector";
+import { useLoading } from "@components/hook/useLoading";
 
 function EditProfile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { business_profile } = useSelector(
-    (state: RootState) => state.rootReducer.userReducer,
-  );
-  const isLoading = useSelector(
-    (state: RootState) => state.rootReducer.commonReducer.isloading,
-  );
-  const dispatch = useDispatch<AppDispatch>();
+  const businessProfile = useBusinessProfile();
+  const { isLoading, toggleLoading } = useLoading();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const {
     handleSubmit,
@@ -41,21 +35,21 @@ function EditProfile() {
   const windowWidth = useWindowWidth();
 
   useEffect(() => {
-    if (business_profile) {
-      setValue("name", business_profile?.name ?? "");
-      setValue("phone", business_profile?.phone ?? "");
-      setValue("email", business_profile?.email ?? "");
-      setValue("DOB", business_profile?.DOB ?? "");
-      setValue("business_address", business_profile?.business_address ?? "");
+    if (businessProfile) {
+      setValue("name", businessProfile?.name ?? "");
+      setValue("phone", businessProfile?.phone ?? "");
+      setValue("email", businessProfile?.email ?? "");
+      setValue("DOB", businessProfile?.DOB ?? "");
+      setValue("business_address", businessProfile?.business_address ?? "");
 
-      if (business_profile?.DOB) {
-        setSelectedDate(new Date(business_profile.DOB));
+      if (businessProfile?.DOB) {
+        setSelectedDate(new Date(businessProfile.DOB));
       }
     }
-  }, [business_profile]);
+  }, [businessProfile]);
 
   const handleUpdate = async (data: UpdateProfile) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post("/me/profile/update", data);
       if (response.status === 200) {
@@ -69,7 +63,7 @@ function EditProfile() {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

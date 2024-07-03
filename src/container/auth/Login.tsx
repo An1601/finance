@@ -8,21 +8,21 @@ import logo from "@assets/images/brand-logos/1.png";
 import { LoginInfo } from "@type/types";
 import { AppDispatch } from "@redux/store";
 import { handleCheckSubmit, handleReduxLogin } from "@redux/userReducers";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader";
 import api from "../../API/axios";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
-import { useLoading } from "@redux/useSelector";
 import { fetchProfileData } from "@redux/userThunks";
+import { UserRole } from "@type/enum";
+import { useLoading } from "@components/hook/useLoading";
 
 const Login = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [passwordShow, setPasswordShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
 
   const {
     handleSubmit,
@@ -32,6 +32,7 @@ const Login = () => {
 
   const handleCheckSubmitSurvey = async () => {
     try {
+      toggleLoading(true);
       const response = await api.get("/survey/check-survey");
       if (response.status === 200) {
         dispatch(handleCheckSubmit(true));
@@ -43,17 +44,18 @@ const Login = () => {
         navigate("/survey");
       } else toast.error(!axios.isAxiosError(error) && t("login.messageError"));
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
   const handleLogin = async (data: LoginInfo) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post("/login", data);
       if (response.status === 200) {
         dispatch(handleReduxLogin(response.data.data));
+        if (response.data.data.type === UserRole.BUSINESS)
+          handleCheckSubmitSurvey();
         dispatch(fetchProfileData());
-        handleCheckSubmitSurvey();
       }
     } catch (error) {
       const message =
@@ -62,7 +64,7 @@ const Login = () => {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

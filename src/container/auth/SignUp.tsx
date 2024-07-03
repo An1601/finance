@@ -1,28 +1,24 @@
 import { Fragment, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "@assets/images/brand-logos/1.png";
 import { SignUpInfo } from "@type/types";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader";
 import api from "@api/axios";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
-import { useLoading } from "@redux/useSelector";
 import DatePickerField from "@components/common/input-date";
+import { useLoading } from "@components/hook/useLoading";
 
 const SignUp = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [showPassword1, setShowPassword1] = useState(false);
   const [showPassword2, setShowPassword2] = useState(false);
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const {
@@ -36,7 +32,7 @@ const SignUp = () => {
   } = useForm<SignUpInfo>();
 
   const handleSignUp = async (data: SignUpInfo) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post("/register", data);
       if (response.status === 200) {
@@ -50,7 +46,7 @@ const SignUp = () => {
           : t("signup.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

@@ -3,7 +3,7 @@ import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import EyeOpen from "@assets/icon/EyeOpen.svg";
 import EyeSlash from "@assets/icon/EyeSlash.svg";
 
-export interface InputFieldProps {
+export interface CustomInputProps {
   label: string;
   type?: string;
   placeholder?: string;
@@ -15,6 +15,8 @@ export interface InputFieldProps {
   toggleShowPassword?: () => void;
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
+export type InputFieldProps = CustomInputProps &
+  React.InputHTMLAttributes<HTMLInputElement>;
 
 const InputField: React.FC<InputFieldProps> = ({
   label,
@@ -27,6 +29,7 @@ const InputField: React.FC<InputFieldProps> = ({
   showPassword,
   toggleShowPassword,
   onChange,
+  ...props
 }) => {
   return (
     <div className="w-full flex flex-col gap-2 relative">
@@ -43,6 +46,7 @@ const InputField: React.FC<InputFieldProps> = ({
             value={value}
             onChange={onChange}
             {...register}
+            {...props}
           />
           {isPassword && (
             <div onClick={toggleShowPassword}>

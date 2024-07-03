@@ -3,17 +3,11 @@ import { BusinessProfile, LoginResponse, UserInfo } from "@type/types";
 import { fetchProfileData } from "./userThunks";
 
 export const initialUser: UserInfo = {
-  id: "1",
-  name: "",
-  email: "",
-  phone: "",
-  date_of_birth: "",
-  address: "",
-  email_verified_at: "",
   access_token: "",
   refresh_token: "",
   business_profile: null,
   check_submit: true,
+  role: -1,
 };
 
 const userReducer = createSlice({
@@ -23,15 +17,9 @@ const userReducer = createSlice({
     handleReduxLogin: (state, action: PayloadAction<LoginResponse>) => {
       return {
         ...state,
-        id: action.payload.id.toString(),
-        name: action.payload.name,
-        email: action.payload.email,
-        phone: action.payload.phone,
-        date_of_birth: action.payload.date_of_birth,
-        address: action.payload.address,
-        email_verified_at: action.payload.email,
         access_token: action.payload.access_token,
         refresh_token: action.payload.refresh_token,
+        role: action.payload.type,
       };
     },
     handleCheckSubmit: (state, action: PayloadAction<boolean>) => {
