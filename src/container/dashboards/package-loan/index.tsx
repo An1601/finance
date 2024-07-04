@@ -17,10 +17,8 @@ function PackageLoanIndex() {
   const navigate = useNavigate();
   const [loanList, setLoanList] = useState([]);
   const { projectId } = useParams();
-
   const dispatch = useDispatch<AppDispatch>();
   const isLoading = useLoading();
-
   const handleGetUserLoans = async () => {
     dispatch(setLoadingTrue());
     try {

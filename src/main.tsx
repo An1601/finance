@@ -30,11 +30,14 @@ import LoanDetail from "@container/dashboards/process/loan-detail";
 import UserProcess from "@pages/userProcess.tsx";
 import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
 import Projects from "@container/dashboards/project/index.tsx";
-import LoanSubmitConfirm from "@container/dashboards/process/loan-app-submit/LoanSubmitConfirm.tsx";
+import LoanSubmitConfirm from "@container/dashboards/process/loanComfirmSubmit/LoanSubmitConfirm.tsx";
 import RecordIndex from "@container/dashboards/Record/index.tsx";
 import NotificationIndex from "@container/dashboards/Notification/index.tsx";
 import SearchMobile from "@container/dashboards/search/index.tsx";
 import FAQ from "@container/dashboards/FAQ/index.tsx";
+import Meeting from "@container/dashboards/process/bookMeeting/index.tsx";
+import LoanReview from "@container/dashboards/process/loanReview/index.tsx";
+import CompeleteBookMeeting from "@container/dashboards/process/compeleteMeeting/index.tsx";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.Fragment>
@@ -82,11 +85,20 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
                 <Route path="projects" element={<Projects />} />
                 <Route path="/" element={<UserProcess />}>
                   <Route path="loan-detail" element={<LoanDetail />} />
-                  <Route path="loan-submit" element={<LoanAppSubmit />} />
+                  <Route path="book-meeting/:loanId" element={<Meeting />} />
+                  <Route
+                    path="book-meeting-success/:loanId"
+                    element={<CompeleteBookMeeting />}
+                  />
+                  <Route
+                    path="loan-submit/:loanId"
+                    element={<LoanAppSubmit />}
+                  />
                   <Route
                     path="loan-submit-confirm"
                     element={<LoanSubmitConfirm />}
                   />
+                  <Route path="loan-review/:loanId" element={<LoanReview />} />
                 </Route>
               </Route>
             </Routes>

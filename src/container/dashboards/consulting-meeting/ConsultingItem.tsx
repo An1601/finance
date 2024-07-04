@@ -12,10 +12,12 @@ const MeetingItem = ({
   loanDetails,
   handleDelete,
   setCurrent,
+  isShowButton,
 }: {
   loanDetails: ConsultingMeeting;
   handleDelete: (id: number) => void;
   setCurrent: Dispatch<SetStateAction<ConsultingMeeting | undefined>>;
+  isShowButton?: boolean;
 }) => {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -103,13 +105,16 @@ const MeetingItem = ({
                 <button
                   className="w-5 h-5 relative"
                   data-hs-overlay="#booking-modal"
-                  disabled={loanDetails.meeting.state === MeetingStatus.REJECT}
+                  disabled={
+                    loanDetails.meeting.state === MeetingStatus.CONNECT ||
+                    loanDetails.meeting.state === MeetingStatus.REJECT
+                  }
                   onClick={() => setCurrent(loanDetails)}
                 >
                   <EditIcon
                     color={
                       loanDetails.meeting.state === MeetingStatus.CONNECT
-                        ? "#45556E"
+                        ? "#C7CCD4"
                         : loanDetails.meeting.state === MeetingStatus.PENDING
                           ? "#45556E"
                           : loanDetails?.meeting?.state === MeetingStatus.REJECT
@@ -121,13 +126,16 @@ const MeetingItem = ({
                 <button
                   className="w-5 h-5 relative"
                   onClick={handleDeleteClick}
-                  disabled={loanDetails.meeting.state === MeetingStatus.REJECT}
+                  disabled={
+                    loanDetails.meeting.state === MeetingStatus.CONNECT ||
+                    loanDetails.meeting.state === MeetingStatus.REJECT
+                  }
                   data-hs-overlay={`#modal_${loanDetails.meeting.id}`}
                 >
                   <DeleteIcon
                     color={
                       loanDetails.meeting.state === MeetingStatus.CONNECT
-                        ? "#45556E"
+                        ? "#C7CCD4"
                         : loanDetails.meeting.state === MeetingStatus.PENDING
                           ? "#45556E"
                           : loanDetails?.meeting?.state === MeetingStatus.REJECT
@@ -137,39 +145,41 @@ const MeetingItem = ({
                   />
                 </button>
               </div>
-              <button
-                className={`w-[94px] px-6 py-2 rounded-lg justify-center items-center gap-1 inline-flex ${
-                  loanDetails.meeting.state === MeetingStatus.CONNECT
-                    ? "bg-light_finance-primary"
-                    : loanDetails.meeting.state === MeetingStatus.PENDING
-                      ? "bg-[#FFE9C9]"
-                      : loanDetails?.meeting?.state === MeetingStatus.REJECT
-                        ? "bg-[#FFD4D8]"
-                        : ""
-                }`}
-                onClick={handleSubmit}
-                disabled={loanDetails.meeting.state !== MeetingStatus.CONNECT}
-              >
-                <div
-                  className={`text-center text-sm font-medium  leading-tight  ${
+              {isShowButton && (
+                <button
+                  className={`w-[94px] px-6 py-2 rounded-lg justify-center items-center gap-1 inline-flex ${
                     loanDetails.meeting.state === MeetingStatus.CONNECT
-                      ? "text-white"
+                      ? "bg-light_finance-primary"
                       : loanDetails.meeting.state === MeetingStatus.PENDING
-                        ? "text-[#FFA621]"
+                        ? "bg-[#FFE9C9]"
                         : loanDetails?.meeting?.state === MeetingStatus.REJECT
-                          ? "text-[#F65160]"
+                          ? "bg-[#FFD4D8]"
                           : ""
                   }`}
+                  onClick={handleSubmit}
+                  disabled={loanDetails.meeting.state !== MeetingStatus.CONNECT}
                 >
-                  {loanDetails.meeting.state === MeetingStatus.CONNECT
-                    ? t("consulting.connect")
-                    : loanDetails.meeting.state === MeetingStatus.PENDING
-                      ? t("consulting.pending")
-                      : loanDetails?.meeting?.state === MeetingStatus.REJECT
-                        ? "Rejct"
-                        : ""}
-                </div>
-              </button>
+                  <div
+                    className={`text-center text-sm font-medium  leading-tight  ${
+                      loanDetails.meeting.state === MeetingStatus.CONNECT
+                        ? "text-white"
+                        : loanDetails.meeting.state === MeetingStatus.PENDING
+                          ? "text-[#FFA621]"
+                          : loanDetails?.meeting?.state === MeetingStatus.REJECT
+                            ? "text-[#F65160]"
+                            : ""
+                    }`}
+                  >
+                    {loanDetails.meeting.state === MeetingStatus.CONNECT
+                      ? t("consulting.connect")
+                      : loanDetails.meeting.state === MeetingStatus.PENDING
+                        ? t("consulting.pending")
+                        : loanDetails?.meeting?.state === MeetingStatus.REJECT
+                          ? "Rejct"
+                          : ""}
+                  </div>
+                </button>
+              )}
             </div>
           </div>
         </div>

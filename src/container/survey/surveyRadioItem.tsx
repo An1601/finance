@@ -3,11 +3,13 @@ const SurveyRadioItem = ({
   name,
   id,
   onChangeAnswer,
+  checked,
 }: {
-  label: string;
-  name: string;
-  id: string;
-  onChangeAnswer: () => void;
+  label?: string;
+  name?: string;
+  id?: string;
+  onChangeAnswer?: () => void;
+  checked?: boolean;
 }) => {
   return (
     <div className="w-full h-[52px] relative">
@@ -17,6 +19,7 @@ const SurveyRadioItem = ({
         name={name}
         id={id}
         onChange={onChangeAnswer}
+        checked={checked}
       />
       <label
         htmlFor={id}
