@@ -24,7 +24,6 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
       return `${roundPrice}${price > 1000000 ? "M" : "K"}`;
     }
   };
-  console.log(loanItem);
 
   return (
     <div className="p-4 bg-white rounded-xl w-full flex flex-col md:flex-row md:justify-between gap-3">
@@ -134,22 +133,31 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
             default:
               return (
                 <MobileHomeBtn
-                  name="Submit"
-                  handleSubmit={() => {
-                    if (
-                      isLoanItemType &&
-                      loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
-                    )
-                      navigate(
-                        `/loan-detail?loanId=${
-                          isLoanItemType && loanItem?.loans?.id
-                        }&offerId=${isLoanItemType && loanItem?.id}`,
-                      );
-                  }}
-                  isDisable={
+                  className={
                     isLoanItemType &&
-                    loanItem.state_submit !== LoanSubmitState.NOT_SUBMIT
+                    loanItem.state_submit === LoanSubmitState.SUBMIT
+                      ? "bg-light_finance-textsub"
+                      : isLoanItemType &&
+                          loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
+                        ? "bg-light_finance-primary items-center"
+                        : ""
                   }
+                  name={
+                    isLoanItemType &&
+                    loanItem.state_submit === LoanSubmitState.SUBMIT
+                      ? "Details"
+                      : isLoanItemType &&
+                          loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
+                        ? "Submit"
+                        : ""
+                  }
+                  handleSubmit={() => {
+                    navigate(
+                      `/loan-detail?loanId=${
+                        isLoanItemType && loanItem?.loans?.id
+                      }&offerId=${isLoanItemType && loanItem?.id}`,
+                    );
+                  }}
                 />
               );
           }

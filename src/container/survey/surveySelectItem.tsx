@@ -1,9 +1,12 @@
 const SurveySelectItem = ({
   label,
   onChangeAnswer,
+  checked,
 }: {
-  label: string;
-  onChangeAnswer: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: string;
+  onChangeAnswer?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  checked?: any;
+  id?: string;
 }) => {
   return (
     <div className="w-full h-[52px] relative">
@@ -13,6 +16,7 @@ const SurveySelectItem = ({
         name={label}
         className="absolute top-4 right-4 w-5 h-5 peer rounded-sm border border-light_finance-textsub checked:!bg-light_finance-primary  cursor-pointer"
         onChange={onChangeAnswer}
+        checked={checked}
       />
       <label
         htmlFor={label}

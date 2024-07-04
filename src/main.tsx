@@ -26,9 +26,7 @@ import SurveyIndex from "@container/survey";
 import LoanDetail from "@container/dashboards/process/loan-detail";
 import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
 import Projects from "@container/dashboards/project/index.tsx";
-import LoanSubmitConfirm from "@container/dashboards/process/loan-app-submit/LoanSubmitConfirm.tsx";
 import CreateLoanForm from "@container/bank/record/create-loan-list/index.tsx";
-import RecordIndex from "@container/dashboards/Record/index.tsx";
 import NotificationIndex from "@container/dashboards/Notification/index.tsx";
 import SearchMobile from "@container/dashboards/search/index.tsx";
 import FAQ from "@container/dashboards/FAQ/index.tsx";
@@ -41,6 +39,11 @@ import BankDashboard from "@pages/bank.tsx";
 import LoadingProvider from "@components/hook/useLoading.tsx";
 import RoleBaseGuard from "@container/RoleBaseGuard.tsx";
 import { UserRole } from "@type/enum.ts";
+import Meeting from "@container/dashboards/process/bookMeeting/index.tsx";
+import LoanReview from "@container/dashboards/process/loanReview/index.tsx";
+import CompeleteBookMeeting from "@container/dashboards/process/compeleteMeeting/index.tsx";
+import LoanSubmitConfirm from "@container/dashboards/process/loanComfirmSubmit/LoanSubmitConfirm.tsx";
+import RecordIndex from "@container/dashboards/Record/Index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -96,8 +99,14 @@ const router = createBrowserRouter([
         element: <UserProcess />,
         children: [
           { path: "loan-detail", element: <LoanDetail /> },
-          { path: "loan-submit", element: <LoanAppSubmit /> },
+          { path: "loan-submit/:loanId", element: <LoanAppSubmit /> },
           { path: "loan-submit-confirm", element: <LoanSubmitConfirm /> },
+          { path: "loan-review/:loanId", element: <LoanReview /> },
+          { path: "book-meeting/:loanId", element: <Meeting /> },
+          {
+            path: "book-meeting-success/:loanId",
+            element: <CompeleteBookMeeting />,
+          },
         ],
       },
     ],

@@ -16,18 +16,18 @@ const Input: React.FC<InputFieldProps> = ({
 }) => {
   return (
     <div className="flex flex-col gap-2">
-      <div className="font-HelveticaNeue font-bold text-sm text-light_finance-text">
+      <div className="text-slate-600 text-sm font-normal font-HelveticaNeue leading-none tracking-tight">
         {label}
       </div>
       <div
-        className={`w-full h-12 border-b-[1px] ${
-          error ? "border-red" : "border-[#C1C7CD]"
-        }  bg-white flex items-center px-4 py-2`}
+        className={`w-full h-12 rounded-lg border ${
+          error ? "border-red" : "border-[#C8D0DD]"
+        }  flex items-center px-4 py-2`}
       >
         <input
           className="w-full text-light_finance-textbody text-sm font-normal leading-tight border-none outline-none p-0 "
           placeholder={placeholder}
-          type={isPassword && !showPassword ? "password" : type}
+          type={type}
           value={value}
           onChange={onChange}
           {...register}

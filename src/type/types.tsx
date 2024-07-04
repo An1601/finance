@@ -100,7 +100,9 @@ export type LoanItemType = {
       thumbnail: string;
     };
   };
-  loan_business_list: {};
+  loan_business_list: {
+    id: number;
+  };
   survey_answers: {
     id: number;
     property_address: string[];
@@ -186,6 +188,11 @@ export type Meeting = {
 export type Loans = {
   interest_rate_type: number;
   name: string;
+  credit_limit: number;
+  interest_rate: string;
+  bank: {
+    name: string;
+  };
 };
 
 export type SurveyAnswers = {
@@ -211,3 +218,39 @@ export interface ProjectItemType {
   project_name: string;
   status?: boolean;
 }
+
+export type FieldApplicationForm = {
+  id: number;
+  application_form_section_id: number;
+  field_name: string;
+  field_type: number;
+  field_options: any;
+  order_num: number;
+};
+
+export type ApplicationFormSection = {
+  id: number;
+  application_form_id: number;
+  name: string;
+  order_num: number;
+  field_application_forms: FieldApplicationForm[];
+};
+
+export type ApplicationForm = {
+  id: number;
+  bank_id: number;
+  name: string;
+  description: string | null;
+  application_form_sections: ApplicationFormSection[];
+};
+
+export type UserProcess = {
+  current_step: string;
+  state: number;
+  idRecord: number;
+};
+
+export type StatusCheck = {
+  status: number;
+  current_step: string;
+};

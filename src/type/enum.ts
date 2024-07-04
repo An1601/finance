@@ -69,3 +69,20 @@ export enum LoanSubmit {
   RADIO = 3,
   CHECKBOX = 4,
 }
+
+export enum StatusProcess {
+  BOOK_MEETUNG = "book meeting",
+  ADMIN_CONSULTATION = "admin consultation",
+  LOAN_ASSIGN = "loan assign",
+  LOAN_SUBMIT = "loan submit",
+  BANK_REVIEW = "bank review",
+  ELIGIBILITY_ASSESSMENT = "Eligibility Assessment",
+  APPROVAL_LOAN_APP = "Approval the loan application",
+}
+
+export enum Status {
+  NO_0 = 0,
+  NO_1 = 1,
+  NO_2 = 2,
+  NO_3 = 3,
+}

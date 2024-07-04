@@ -91,6 +91,7 @@ function MeetingIndex() {
                     loanDetails={loan}
                     handleDelete={handleDeleteMeeting}
                     setCurrent={setCurrent}
+                    isShowButton
                   />
                 );
               })}
@@ -131,6 +132,7 @@ function MeetingIndex() {
                     handleDelete={handleDeleteMeeting}
                     isSetting
                     setCurrent={setCurrent}
+                    isShowButton
                   />
                 );
               })}

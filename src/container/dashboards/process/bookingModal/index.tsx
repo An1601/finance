@@ -123,7 +123,9 @@ const BookingModal = ({
             note: note,
           });
           if (response.status === 200) {
-            navigate(`/meeting/${response.data?.data?.loan_business_list_id}`);
+            navigate(
+              `/book-meeting/${response.data?.data?.loan_business_list_id}`,
+            );
           }
         } catch (error) {
           const message =

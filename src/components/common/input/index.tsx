@@ -9,7 +9,7 @@ export interface CustomInputProps {
   placeholder?: string;
   value?: string;
   register?: UseFormRegisterReturn;
-  error?: FieldError;
+  error?: any;
   isPassword?: boolean;
   showPassword?: boolean;
   toggleShowPassword?: () => void;
