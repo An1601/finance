@@ -1,18 +1,53 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { MENU_PROCESS } from "@constant/processItemData";
 import { Fragment } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
+import { useLoading } from "@components/hook/useLoading";
+import api from "@api/axios";
+import { StatusCheck } from "@type/types";
+import { StatusProcess } from "@type/enum";
 
 const ProcessHeader = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const currentPath = window.location.pathname;
   const [activeIndex, setActiveIndex] = useState(0);
+  const { loanId } = useParams();
+  const { toggleLoading } = useLoading();
+  const [check, setCheck] = useState<StatusCheck>();
+
+  const fetchCheck = async () => {
+    toggleLoading(true);
+    try {
+      const response = await api.post(`/list-loans-submit/process/${loanId}`);
+      if (response.status === 200) {
+        setCheck(response.data.data);
+      }
+    } catch (error) {}
+  };
 
   useEffect(() => {
-    if (currentPath.includes("/loan-submit")) setActiveIndex(2);
+    fetchCheck();
   }, []);
+
+  useEffect(() => {
+    if (
+      currentPath.includes(`/book-meeting-success/${loanId}`) ||
+      currentPath.includes(`/loan-submit/${loanId}`) ||
+      currentPath.includes(`/loan-submit-confirm/${loanId}`)
+    ) {
+      setActiveIndex(1);
+    } else if (currentPath.includes(`/loan-review/${loanId}`)) {
+      setActiveIndex(2);
+    } else if (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {
+      setActiveIndex(3);
+    } else if (check?.current_step === StatusProcess.APPROVAL_LOAN_APP) {
+      setActiveIndex(4);
+    } else {
+      setActiveIndex(0);
+    }
+  }, [check?.current_step, currentPath]);
 
   return (
     <div className="w-full flex flex-col gap-7">
@@ -54,7 +89,7 @@ const ProcessHeader = () => {
                 </div>
               </div>
               {index !== MENU_PROCESS.length - 1 && (
-                <div className=" bg-light_finance-textsub">
+                <div className=" bg-light_finance-textsub flex-1">
                   <div className="h-px min-w-12"></div>
                 </div>
               )}

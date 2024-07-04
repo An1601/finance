@@ -99,14 +99,17 @@ const router = createBrowserRouter([
         element: <UserProcess />,
         children: [
           { path: "loan-detail", element: <LoanDetail /> },
-          { path: "loan-submit/:loanId", element: <LoanAppSubmit /> },
-          { path: "loan-submit-confirm", element: <LoanSubmitConfirm /> },
-          { path: "loan-review/:loanId", element: <LoanReview /> },
           { path: "book-meeting/:loanId", element: <Meeting /> },
           {
             path: "book-meeting-success/:loanId",
             element: <CompeleteBookMeeting />,
           },
+          { path: "loan-submit/:loanId", element: <LoanAppSubmit /> },
+          {
+            path: "loan-submit-confirm/:loanId",
+            element: <LoanSubmitConfirm />,
+          },
+          { path: "loan-review/:loanId", element: <LoanReview /> },
         ],
       },
     ],

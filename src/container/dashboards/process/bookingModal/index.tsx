@@ -126,6 +126,7 @@ const BookingModal = ({
             navigate(
               `/book-meeting/${response.data?.data?.loan_business_list_id}`,
             );
+            document.body.style.overflow = "";
           }
         } catch (error) {
           const message =
