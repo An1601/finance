@@ -3,13 +3,12 @@ import { useTranslation } from "react-i18next";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "@api/axios";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { ApplicationForm } from "@type/types";
 import { toast } from "react-toastify";
 import { useLocalStorage } from "@utils/index";
 import LoanFormField from "./QuestionItem";
+import { useLoading } from "@components/hook/useLoading";
+import Loader from "@components/common/loader";
 
 interface Answers {
   [key: number]: any;
@@ -21,17 +20,16 @@ interface Errors {
 
 const LoanAppSubmit = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState<ApplicationForm>();
   const [answers, setAnswers] = useState<Answers>({});
   const [errors, setErrors] = useState<Errors>({});
-  const [files, setFiles] = useState<File[]>([]);
   const navigate = useNavigate();
   const { getItem, setItem } = useLocalStorage();
   const { loanId } = useParams();
+  const { isLoading, toggleLoading } = useLoading();
 
   const fetchDataFrom = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/application-form/render/${loanId}`);
       if (response.status === 200) {
@@ -41,7 +39,7 @@ const LoanAppSubmit = () => {
       console.error("Error fetching data:", error);
       toast.error("Failed to fetch data");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
@@ -51,11 +49,6 @@ const LoanAppSubmit = () => {
     if (storageItem) {
       const storedData = JSON.parse(storageItem);
       setAnswers(storedData.answers);
-      if (storedData.files) {
-        setFiles(
-          storedData.files.map((file: any) => new File([file], file.name)),
-        );
-      }
     }
   }, []);
 
@@ -131,7 +124,7 @@ const LoanAppSubmit = () => {
     };
 
     setItem(`loanSubmit_${loanId}`, JSON.stringify(data));
-    navigate(`/loan-submit-confirm?id=${loanId}`);
+    navigate(`/loan-submit-confirm/${loanId}`);
   };
 
   const formatDate = (isoString: any) => {
@@ -141,6 +134,8 @@ const LoanAppSubmit = () => {
     const year = date.getFullYear();
     return `${month}/${day}/${year}`;
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="w-full pt-10 px-6 flex flex-col gap-6 md:gap-5 items-center">

@@ -3,13 +3,12 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useLocalStorage } from "@utils/index";
 import CancelBtn from "@components/common/button/cancel-btn";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import { ApplicationForm } from "@type/types";
+import { useLoading } from "@components/hook/useLoading";
+import Loader from "@components/common/loader";
 
 interface Answers {
   [key: number]: any;
@@ -25,11 +24,10 @@ const LoanSubmitConfirm = () => {
     answers: {},
   });
   const { getItem, removeItem } = useLocalStorage();
-  const searchParams = new URLSearchParams(location.search);
-  const loanId = searchParams.get("id");
-  const dispatch = useDispatch<AppDispatch>();
+  const { loanId } = useParams();
   const [formData, setFormData] = useState<ApplicationForm>();
   const [files, setFiles] = useState<File[]>([]);
+  const { isLoading, toggleLoading } = useLoading();
 
   const mapDataBody = (arr: Answers) => {
     const mappedObject = Object.keys(arr).reduce(
@@ -44,16 +42,17 @@ const LoanSubmitConfirm = () => {
   };
 
   const fetchDataFrom = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/application-form/render/${loanId}`);
       if (response.status === 200) {
         setFormData(response.data.data[0]);
       }
     } catch (error) {
-      console.log("loi");
+      console.error("Error fetching data:", error);
+      toast.error("Failed to fetch data");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
@@ -62,7 +61,7 @@ const LoanSubmitConfirm = () => {
   }, []);
 
   const handleSubmitLoanForm = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post("/application-form/store-answer", {
         loan_business_list_id: loanId,
@@ -70,13 +69,11 @@ const LoanSubmitConfirm = () => {
       });
       if (response.status === 200) {
         removeItem(`loanSubmit_${loanId}`);
-        toast.success(t("process.loanSubmit.formSuccess"));
-        navigate(`/loan-review/${loanId}`);
       }
     } catch (error) {
       toast.error("Form submission failed");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
@@ -96,7 +93,7 @@ const LoanSubmitConfirm = () => {
   };
 
   const handleSubmitFile = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const formData = new FormData();
       files.forEach((file, index) => {
@@ -115,9 +112,8 @@ const LoanSubmitConfirm = () => {
       if (response.status === 200) {
       }
     } catch (error) {
-      toast.error("Form submission failed");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
@@ -129,9 +125,27 @@ const LoanSubmitConfirm = () => {
   };
 
   const handleSubmitBoth = async () => {
-    await handleSubmitLoanForm();
-    await handleSubmitFile();
+    if (files.length === 0) {
+      const userConfirmed = window.confirm(
+        "Are you sure you don't want to add document",
+      );
+      if (!userConfirmed) {
+        return;
+      }
+    }
+    toggleLoading(true);
+    try {
+      await Promise.all([handleSubmitLoanForm(), handleSubmitFile()]);
+      toast.success(t("process.loanSubmit.formSuccess"));
+      navigate(`/loan-review/${loanId}`);
+    } catch (error) {
+      toast.error("Form submission failed");
+    } finally {
+      toggleLoading(false);
+    }
   };
+
+  if (isLoading) return <Loader />;
 
   return (
     <div className="ww-full mt-10 mx-6 flex flex-col gap-1 drop-shadow-[0_4px_4px_rgba(196,203,214,0.15)]">

@@ -1,9 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import api from "@api/axios";
 import { ApplicationForm, StatusCheck } from "@type/types";
 import { toast } from "react-toastify";
@@ -13,6 +10,8 @@ import { Status, StatusProcess } from "@type/enum";
 import Warning from "@assets/icon/Warning.svg";
 import Pdf from "@assets/icon/Pdf.svg";
 import Faild from "@assets/icon/Faild.svg";
+import Loader from "@components/common/loader";
+import { useLoading } from "@components/hook/useLoading";
 
 interface AnswerData {
   answers: { [key: string]: any };
@@ -24,13 +23,13 @@ interface ViewTerm {
 
 const LoanReview = () => {
   const { t } = useTranslation();
-  const dispatch = useDispatch<AppDispatch>();
   const [formData, setFormData] = useState<ApplicationForm>();
   const { loanId } = useParams();
   const [answerData, setAnswersData] = useState<AnswerData>({ answers: {} });
   const [check, setCheck] = useState<StatusCheck>();
   const [term, setTerm] = useState<ViewTerm>();
   const [file, setfile] = useState<any[]>([]);
+  const { isLoading, toggleLoading } = useLoading();
 
   const transformData = (data: {
     [key: string]: any;
@@ -45,7 +44,7 @@ const LoanReview = () => {
   };
 
   const fetchDataFrom = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/application-form/render/${loanId}`);
       if (response.status === 200) {
@@ -55,12 +54,12 @@ const LoanReview = () => {
       console.error("Error fetching data:", error);
       toast.error("Failed to fetch data");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   const fetchDataAnswer = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/application-form/view/answer/${loanId}`);
       if (response.status === 200) {
@@ -70,26 +69,25 @@ const LoanReview = () => {
       console.error("Error fetching data:", error);
       toast.error("Failed to fetch data");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   const fetchViewTerm = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/loans/view/term/${loanId}`);
       if (response.status === 200) {
         setTerm(response.data.data);
       }
     } catch (error) {
-      console.log(error);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   const fetchDataTerm = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/loans/download-term/${loanId}`, {
         responseType: "blob",
@@ -108,14 +106,13 @@ const LoanReview = () => {
         }
       }
     } catch (error) {
-      console.log(error);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   const fetchDataFileDoc = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(
         `/application-form/view/documents/${loanId}`,
@@ -124,15 +121,13 @@ const LoanReview = () => {
         setfile(response.data.data);
       }
     } catch (error) {
-      console.error("Error fetching data:", error);
-      toast.error("Failed to fetch data");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   const fetchDataViewFileDoc = async (path: string) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/signed-url/${path}`);
       if (response.status === 200) {
@@ -143,12 +138,12 @@ const LoanReview = () => {
       console.error("Error fetching data:", error);
       toast.error("Failed to fetch data");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   const fetchCheck = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post(`/list-loans-submit/process/${loanId}`);
       if (response.status === 200) {
@@ -158,7 +153,7 @@ const LoanReview = () => {
       console.error("Error fetching data:", error);
       toast.error("Failed to fetch data");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
@@ -168,7 +163,7 @@ const LoanReview = () => {
     fetchCheck();
     fetchViewTerm();
     fetchDataFileDoc();
-  }, [loanId]);
+  }, [loanId, check?.current_step]);
 
   const HeaderStatus = () => {
     if (check?.current_step === StatusProcess.LOAN_SUBMIT) {
@@ -255,10 +250,12 @@ const LoanReview = () => {
     return null;
   };
 
+  if (isLoading) return <Loader />;
+
   return (
     <div className="mt-10 mx-6 flex flex-col gap-1 drop-shadow-[0_4px_4px_rgba(196,203,214,0.15)]">
       <HeaderStatus />
-      <div className=" w-full py-3 text-center bg-white text-light_finance-textbody font-bold text-base leading-6 tracking-tighter rounded-[5px] ">
+      <div className="w-full py-3 text-center bg-white text-light_finance-textbody font-bold text-base md:text-lg leading-6 tracking-tighter rounded-[5px]">
         {t("process.loanSubmit.title")}
       </div>
       <div className="w-full flex flex-col gap-3 mt-1 md:flex-row md:gap-10 xl:gap-20">
@@ -273,13 +270,13 @@ const LoanReview = () => {
                   {section?.order_num}. {section?.name}
                 </div>
                 {section?.field_application_forms?.map((question, index) => (
-                  <div className="flex flex-col gap-4 px-4 " key={index}>
-                    <div className="flex justify-between flex-wrap ">
-                      <div className="font-HelveticaNeue font-normal text-[18px] leading-5 text-light_finance-textsub dot-before">
+                  <div className="flex flex-col gap-4 px-4" key={index}>
+                    <div className="flex justify-between flex-wrap">
+                      <div className="font-HelveticaNeue font-normal text-[16px] md:text-[18px] leading-5 text-light_finance-textsub dot-before">
                         {question.field_name} :
                       </div>
                       <div
-                        className="font-medium text-[16px] leading-5 tracking-tight text-light_finance-textbody py-2 "
+                        className="font-medium text-[14px] md:text-[16px] leading-5 tracking-tight text-light_finance-textbody py-2"
                         dangerouslySetInnerHTML={{
                           __html: Array.isArray(
                             transformData(answerData.answers)[`${question.id}`],
@@ -307,23 +304,21 @@ const LoanReview = () => {
             {t("profile.document")}
           </div>
         </div>
-        {file.map((item, index) => {
-          return (
-            <div className="flex flex-col gap-4 px-4" key={index}>
-              <div className="flex justify-between flex-wrap mt-2">
-                <div className="font-HelveticaNeue font-normal text-[18px] leading-5 text-light_finance-textsub dot-before">
-                  {item?.file_name}
-                </div>
-                <a
-                  className="font-medium text-[16px] leading-5 tracking-tight py-2 text-light_finance-primary cursor-pointer underline"
-                  onClick={() => fetchDataViewFileDoc(item.path)}
-                >
-                  {t("process.loanSubmit.link")}
-                </a>
+        {file.map((item, index) => (
+          <div className="flex flex-col gap-4 px-4" key={index}>
+            <div className="flex justify-between flex-wrap mt-2">
+              <div className="font-HelveticaNeue font-normal text-[16px] md:text-[18px] leading-5 text-light_finance-textsub dot-before">
+                {item?.file_name}
               </div>
+              <a
+                className="font-medium text-[14px] md:text-[16px] leading-5 tracking-tight py-2 text-light_finance-primary cursor-pointer underline"
+                onClick={() => fetchDataViewFileDoc(item.path)}
+              >
+                {t("process.loanSubmit.link")}
+              </a>
             </div>
-          );
-        })}
+          </div>
+        ))}
       </div>
       <div className="w-full bg-white p-4 rounded-md border-[1px] border-stroke mt-3">
         <div className="flex items-center gap-2">
@@ -348,12 +343,12 @@ const LoanReview = () => {
             <>
               <div className="flex items-center gap-1">
                 <img className="w-6 h-6" src={Pdf} alt="PDF icon" />
-                <div className="text-slate-900 text-sm font-normal font-['Helvetica Neue'] leading-tight">
+                <div className="text-sm md:text-base font-normal font-['Helvetica Neue'] leading-tight">
                   {term.file_name}
                 </div>
               </div>
               <div
-                className="text-sm font-medium font-['Helvetica Neue'] leading-tight text-light_finance-primary cursor-pointer underline"
+                className="text-sm md:text-base font-medium font-['Helvetica Neue'] leading-tight text-light_finance-primary cursor-pointer underline"
                 onClick={() => fetchDataTerm()}
               >
                 {t("process.loanSubmit.download")}

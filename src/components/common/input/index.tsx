@@ -1,5 +1,5 @@
 import React from "react";
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import { UseFormRegisterReturn } from "react-hook-form";
 import EyeOpen from "@assets/icon/EyeOpen.svg";
 import EyeSlash from "@assets/icon/EyeSlash.svg";
 

@@ -8,7 +8,7 @@ export const MENU_PROCESS = [
   {
     id: 1,
     name: getTranslated("process.header.meetBookingIcon"),
-    icon: <MeetBookingIcon isActive={true} />,
+    icon: <MeetBookingIcon isActive={false} />,
     iconActive: <MeetBookingIcon isActive={true} />,
   },
   {

@@ -2,11 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import api from "@api/axios";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader";
-import { useLoading } from "@redux/useSelector";
 import { ConsultingMeeting, StatusCheck } from "@type/types";
 import { toast } from "react-toastify";
 import BookingModal from "../bookingModal";
@@ -14,38 +10,37 @@ import Warning from "@assets/icon/Warning.svg";
 import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import MeetingItem from "../bookMeeting/ConsultingItem";
 import { StatusProcess } from "@type/enum";
+import { useLoading } from "@components/hook/useLoading";
 
 function CompeleteBookMeeting() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loanData, setLoanData] = useState<ConsultingMeeting[]>([]);
-  const dispatch = useDispatch<AppDispatch>();
   const { loanId } = useParams();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
   const [current, setCurrent] = useState<ConsultingMeeting>();
   const [check, setCheck] = useState<StatusCheck>();
-  console.log(check);
 
   const fetchDataMeeting = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get("/meeting/");
       if (response.status === 200) setLoanData(response.data.data);
     } catch (error) {}
-    dispatch(setLoadingFalse());
+    toggleLoading(false);
   };
 
   const fetchDataMeetingUser = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/meeting/submit/${loanId}`);
       setLoanData(response.data.data);
     } catch (error) {}
-    dispatch(setLoadingFalse());
+    toggleLoading(false);
   };
 
   const handleDeleteMeeting = async (id: number) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.delete(`/meeting/${id}/delete`);
       if (response.status === 200) {
@@ -57,11 +52,11 @@ function CompeleteBookMeeting() {
     } catch (error) {
       toast.error(t("consulting.failedDelete"));
     }
-    dispatch(setLoadingFalse());
+    toggleLoading(false);
   };
 
   const fetchCheck = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.post(`/list-loans-submit/process/${loanId}`);
       if (response.status === 200) {
@@ -71,19 +66,19 @@ function CompeleteBookMeeting() {
       console.error("Error fetching data:", error);
       toast.error("Failed to fetch data");
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   useEffect(() => {
     fetchDataMeetingUser();
     fetchCheck();
-  }, []);
+  }, [check?.current_step]);
 
   const handleLoanForm = () => {
-    if (check?.current_step === StatusProcess.LOAN_ASSIGN) {
-      navigate(`/loan-submit/${loanId}`);
-    }
+    check?.current_step === StatusProcess.LOAN_ASSIGN
+      ? navigate(`/loan-submit/${loanId}`)
+      : toast.warning("Wait for application form to be sent");
   };
 
   if (isLoading) return <Loader />;
@@ -105,7 +100,7 @@ function CompeleteBookMeeting() {
                 {t("process.bookMeeting.compleMeeting")}
               </div>
             </div>
-            <MobileHomeBtn name="Next" handleSubmit={handleLoanForm} />
+            <MobileHomeBtn name="Check" handleSubmit={handleLoanForm} />
           </div>
           {loanData?.map((loan, index) => {
             return (
