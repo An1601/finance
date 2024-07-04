@@ -13,10 +13,7 @@ import axios from "axios";
 import { useTranslation } from "react-i18next";
 import Loader from "@components/common/loader";
 import HomeProject from "../project/HomeProject";
-import { AppDispatch } from "@redux/store";
-import { useDispatch } from "react-redux";
-import { useLoading } from "@redux/useSelector";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
+import { useLoading } from "@components/hook/useLoading";
 
 interface CrmProps {}
 
@@ -27,8 +24,7 @@ const Home: FC<CrmProps> = () => {
   const [loanList, setLoanList] = useState([]);
   const [meetingList, setMeeting] = useState([]);
   const { t } = useTranslation();
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
 
   const handleGetRecords = async () => {
     try {
@@ -59,7 +55,7 @@ const Home: FC<CrmProps> = () => {
     }
   };
   const handleGetUserLoans = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get("/business/package-loan-list");
       if (response.status === 200) {
@@ -72,7 +68,7 @@ const Home: FC<CrmProps> = () => {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
   const handleGetMeeting = async () => {
@@ -83,7 +79,7 @@ const Home: FC<CrmProps> = () => {
   };
 
   const fetchDataMobile = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       await Promise.all([
         handleGetUserLoans(),
@@ -94,18 +90,18 @@ const Home: FC<CrmProps> = () => {
     } catch (error) {
       console.error(error);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   const fetchData = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       await Promise.all([handleGetRecords(), handleGetTopProjects()]);
     } catch (error) {
       console.error(error);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

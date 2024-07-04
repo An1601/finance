@@ -3,24 +3,21 @@ import bg1 from "@assets/images/authentication/1.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import LoanFilter from "./LoanFilter";
 import { useTranslation } from "react-i18next";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { useLoading } from "@redux/useSelector";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { useEffect, useState } from "react";
 import api from "@api/axios";
 import axios from "axios";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader";
+import { useLoading } from "@components/hook/useLoading";
 function PackageLoanIndex() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loanList, setLoanList] = useState([]);
   const { projectId } = useParams();
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
+
   const handleGetUserLoans = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get("/business/package-loan-list");
       if (response.status === 200) {
@@ -33,11 +30,11 @@ function PackageLoanIndex() {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
   const handleGeProjectLoans = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get(`/project/loan-list/${projectId}`);
       if (response.status === 200) {
@@ -50,7 +47,7 @@ function PackageLoanIndex() {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

@@ -45,8 +45,8 @@ export enum SurveyAnsEnum {
   income = "11c",
 }
 export enum InterestRateType {
-  ADJUSTABLE_RATE = "Conforming adjustable-rate mortgage loans",
-  FIXED_RATE = "Conventional fixed rate loans",
+  ADJUSTABLE_RATE = 0,
+  FIXED_RATE = 1,
 }
 export enum LoanType {
   SECURE = 1,
@@ -57,7 +57,11 @@ export enum LoanSubmitState {
   SUBMIT = 1,
   REJECT = 2,
 }
-
+export enum UserRole {
+  GUESS = 0,
+  BUSINESS = 1,
+  BANK = 2,
+}
 export enum LoanSubmit {
   TEXT = 0,
   NUMBER = 1,

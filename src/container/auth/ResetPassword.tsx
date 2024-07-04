@@ -1,27 +1,24 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { Fragment, useState } from "react";
-import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 import axios from "axios";
 import logo from "@assets/images/brand-logos/1.png";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import Loader from "@components/common/loader";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import { BASE_URL } from "@api/axios";
 import { ResetPasswordInfo } from "@type/types";
 import InputField from "@components/common/input";
 import { useTranslation } from "react-i18next";
-import { useLoading } from "@redux/useSelector";
+import { useLoading } from "@components/hook/useLoading";
 
 const ResetPassword = () => {
   const { t } = useTranslation();
   const searchParams = new URLSearchParams(location.search);
   const token = searchParams.get("token");
-  const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
-  const isLoading = useLoading();
+
+  const { isLoading, toggleLoading } = useLoading();
   const [passwordShow1, setPasswordShow1] = useState(false);
   const [passwordShow2, setPasswordShow2] = useState(false);
 
@@ -33,7 +30,7 @@ const ResetPassword = () => {
   } = useForm<ResetPasswordInfo>();
 
   const handleResetPassword = async (data: ResetPasswordInfo) => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await axios.post(
         `${BASE_URL}/set-new-password`,
@@ -60,7 +57,7 @@ const ResetPassword = () => {
           : t("resetPassword.resetUnsuccessful");
       toast.warning(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

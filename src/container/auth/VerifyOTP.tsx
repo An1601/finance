@@ -2,24 +2,20 @@ import { Fragment } from "react/jsx-runtime";
 import logo from "@assets/images/brand-logos/1.png";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader";
 import api from "@api/axios";
 import axios from "axios";
 import { useLocalStorage } from "@utils/index";
 import { useTranslation } from "react-i18next";
-import { useLoading } from "@redux/useSelector";
+import { useLoading } from "@components/hook/useLoading";
 
 function VerifyOTP() {
   const searchParams = new URLSearchParams(location.search);
   const signupMode = searchParams.get("signup") === "true" ? true : false;
   const email = searchParams.get("email");
-  const dispatch = useDispatch<AppDispatch>();
   const { setItem, getItem, removeItem } = useLocalStorage();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
 
   const navigate = useNavigate();
   const [otp, setOTP] = useState<string[]>(Array(5).fill(""));
@@ -115,7 +111,7 @@ function VerifyOTP() {
       };
     }
     try {
-      dispatch(setLoadingTrue());
+      toggleLoading(true);
       const response = await api.post(
         `${signupMode ? "verify_otp" : "check-otp"}`,
         requestBody,
@@ -148,13 +144,13 @@ function VerifyOTP() {
         toast.error(t("verify.messageError"));
       }
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
   const handleResend = async () => {
     try {
-      dispatch(setLoadingTrue());
+      toggleLoading(true);
       const response = await api.post("resend-otp", { email: email });
       if (response && response.status === 200) {
         resetState();
@@ -179,7 +175,7 @@ function VerifyOTP() {
         toast.error(t("verify.messageError"));
       }
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

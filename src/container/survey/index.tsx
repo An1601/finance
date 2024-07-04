@@ -13,16 +13,18 @@ import { useUser } from "@redux/useSelector";
 import api from "@api/axios";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { setLoadingFalse } from "@redux/commonReducer";
 import { handleCheckSubmit } from "@redux/userReducers";
 import { AppDispatch } from "@redux/store";
 import { modalShow } from "@components/common/alert-modal";
 import SurveyUnit from "./SurveyUnit";
 import { SurveyAnsEnum } from "@type/enum";
 import SurveyControls from "./SurveyControls";
+import { useLoading } from "@components/hook/useLoading";
+import Loader from "@components/common/loader";
 
 const SurveyIndex: React.FC = () => {
   const user = useUser();
+  const { isLoading, toggleLoading } = useLoading();
   const surveyQuestion = user.check_submit
     ? surveyProjectQuestion
     : surveyFullQuestion;
@@ -211,6 +213,7 @@ const SurveyIndex: React.FC = () => {
 
   const handleSubmitSurvey = async () => {
     try {
+      toggleLoading(true);
       const response = await api.post(
         `${user.check_submit ? "survey/store-survey" : "/survey/store-first-survey"}`,
         mapBodyRequest(),
@@ -235,7 +238,7 @@ const SurveyIndex: React.FC = () => {
           : t("login.messageError"),
       );
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 
@@ -247,6 +250,7 @@ const SurveyIndex: React.FC = () => {
     modalShow("survey-begin-modal");
   }, []);
 
+  if (isLoading) return <Loader />;
   return (
     <div className="min-h-screen lg:min-h-full w-screen z-10 pt-7 md:pt-10 flex flex-col gap-6">
       <AlertModals handleSubmitSurvey={handleSubmitSurvey} />

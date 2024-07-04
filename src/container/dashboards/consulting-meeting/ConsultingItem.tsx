@@ -1,6 +1,6 @@
 import calendar from "@assets/icon/CalendarIcon.svg";
 import timer from "@assets/icon/TimerIcon.svg";
-import { InterestRateType, MeetingStatus } from "@type/enum";
+import { MeetingStatus } from "@type/enum";
 import { useTranslation } from "react-i18next";
 import { ConsultingMeeting } from "@type/types";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -57,8 +57,8 @@ const MeetingItem = ({
                 <div className="text-slate-600 text-sm font-normal font-['Helvetica Neue'] leading-tight">
                   {`${
                     loanDetails?.loan_offer?.loans?.interest_rate_type
-                      ? InterestRateType.ADJUSTABLE_RATE
-                      : InterestRateType.FIXED_RATE
+                      ? t("process.loanDetail.adjustType")
+                      : t("process.loanDetail.fixType")
                   }`}
                 </div>
                 <div className="text-slate-900 text-xl font-bold font-['Helvetica Neue'] leading-7">

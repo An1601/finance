@@ -7,25 +7,21 @@ import BottomBarCustom from "@components/common/bottom-bar";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import StatePackageLoans from "../home/StatePackageLoans";
 import { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { AppDispatch } from "@redux/store";
-import { setLoadingFalse, setLoadingTrue } from "@redux/commonReducer";
 import axios from "axios";
 import { toast } from "react-toastify";
 import api from "@api/axios";
 import { useTranslation } from "react-i18next";
-import { useLoading } from "@redux/useSelector";
 import Loader from "@components/common/loader";
+import { useLoading } from "@components/hook/useLoading";
 
 const RecordIndex = () => {
   const windowWidth = useWindowWidth();
   const { t } = useTranslation();
   const [loanRecords, setLoanRecords] = useState([]);
-  const dispatch = useDispatch<AppDispatch>();
-  const isLoading = useLoading();
+  const { isLoading, toggleLoading } = useLoading();
 
   const handleGetRecords = async () => {
-    dispatch(setLoadingTrue());
+    toggleLoading(true);
     try {
       const response = await api.get("/list-loans-submit");
       if (response.status === 200) {
@@ -38,7 +34,7 @@ const RecordIndex = () => {
           : t("login.messageError");
       toast.error(message);
     } finally {
-      dispatch(setLoadingFalse());
+      toggleLoading(false);
     }
   };
 

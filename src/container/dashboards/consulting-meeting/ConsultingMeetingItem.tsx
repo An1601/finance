@@ -77,9 +77,10 @@ const ConsultingMeetingItem = ({
         <div className="max-w-full flex flex-col">
           <div className="font-HelveticaNeue font-normal text-xs leading-4 tracking-tight text-light_finance-textsub overflow-hidden text-ellipsis whitespace-nowrap w-32 text-truncate">
             {`${
-              loanDetails?.loan_offer?.loans?.interest_rate_type
-                ? InterestRateType.ADJUSTABLE_RATE
-                : InterestRateType.FIXED_RATE
+              loanDetails?.loan_offer?.loans?.interest_rate_type ===
+              InterestRateType.ADJUSTABLE_RATE
+                ? t("process.loanDetail.adjustType")
+                : t("process.loanDetail.fixType")
             }`}
           </div>
           <div className="font-HelveticaNeue font-bold text-lg leading-7 text-light_finance-textbody overflow-hidden text-ellipsis whitespace-nowrap">

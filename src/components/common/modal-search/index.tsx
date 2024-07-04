@@ -33,8 +33,8 @@ const Modalsearch: FC<ModalsearchProps> = () => {
       className="hs-overlay ti-modal hidden"
       onClick={handleClose}
     >
-      <div className="mt-28 ti-modal-box">
-        <div className="ti-modal-content min-h-80 p-6 !border !border-defaultborder dark:!border-defaultborder/10 !rounded-[0.5rem]">
+      <div className="w-full h-full ti-modal-box flex justify-center items-center">
+        <div className="w-full ti-modal-content h-auto min-h-[50vh] max-h-[95vh] p-6 overflow-scroll !border !border-defaultborder dark:!border-defaultborder/10 !rounded-[0.5rem]">
           <SearchBar isEnable={true} />
           <div className="mt-5 bg-light_finance-background ">
             <RecentSearch />
