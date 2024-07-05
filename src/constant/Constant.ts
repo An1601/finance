@@ -120,6 +120,92 @@ export const MEETING_FILTER_OPT = [
     name: getTranslated("consulting.microloans"),
   },
 ];
+export const SURVEY_FILTER_OPT = [
+  {
+    name: getTranslated("surveyBank.netWorth"),
+    child: [
+      {
+        id: 1,
+        name: "< $1 million",
+      },
+      {
+        id: 2,
+        name: "$1-$5 million",
+      },
+      {
+        id: 3,
+        name: "$5-$10 million",
+      },
+      {
+        id: 4,
+        name: "$10+ million",
+      },
+    ],
+  },
+  {
+    name: getTranslated("surveyBank.liquidity"),
+    child: [
+      {
+        id: 1,
+        name: "< $500K",
+      },
+      {
+        id: 2,
+        name: "$500K-$1 million",
+      },
+      {
+        id: 3,
+        name: "$1-$3 million",
+      },
+      {
+        id: 4,
+        name: "$3+ million",
+      },
+    ],
+  },
+  {
+    name: getTranslated("surveyBank.income"),
+    child: [
+      {
+        id: 1,
+        name: "< $100,000",
+      },
+      {
+        id: 2,
+        name: "$100,001 - $250,000",
+      },
+      {
+        id: 3,
+        name: "$250,000 - $500,000",
+      },
+      {
+        id: 4,
+        name: "> $500,000",
+      },
+    ],
+  },
+  {
+    name: getTranslated("consulting.loanName"),
+    child: [
+      {
+        id: 1,
+        name: getTranslated("consulting.consumerLending"),
+      },
+      {
+        id: 2,
+        name: getTranslated("consulting.studentLoans"),
+      },
+      {
+        id: 3,
+        name: getTranslated("consulting.businessLoans"),
+      },
+      {
+        id: 4,
+        name: getTranslated("consulting.mortgagesLoans"),
+      },
+    ],
+  },
+];
 export const US_CURRENTCY = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",

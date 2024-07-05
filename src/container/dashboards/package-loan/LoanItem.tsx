@@ -80,7 +80,7 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
                 %
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
-                {t("home.rate")}
+                {t("consulting.rate")}
               </div>
             </div>
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">

@@ -9,7 +9,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader";
 import { useLoading } from "@components/hook/useLoading";
-function PackageLoanIndex() {
+const PackageLoanIndex = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [loanList, setLoanList] = useState([]);
@@ -60,7 +60,7 @@ function PackageLoanIndex() {
 
   return (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 pt-7">
+      <div className=" z-10 relative mx-6 py-8 flex flex-col gap-8">
         <div className="flex md:hidden items-center justify-between">
           <div className="flex gap-3 md:gap-2 items-center">
             <i
@@ -74,7 +74,7 @@ function PackageLoanIndex() {
             </div>
           </div>
         </div>
-        <div className="flex flex-col gap-5 my-7">
+        <div className="flex flex-col gap-5">
           <div className="w-full flex items-center justify-between">
             <div className="md:flex items-center gap-2 hidden">
               <div className="w-1 h-5 bg-danger rounded-sm" />
@@ -99,6 +99,6 @@ function PackageLoanIndex() {
       </div>
     </div>
   );
-}
+};
 
 export default PackageLoanIndex;

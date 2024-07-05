@@ -12,11 +12,7 @@ function TermsConditions() {
   if (windowWidth >= 480) {
     return (
       <div>
-        <Breadcrumb
-          primaryText="Account"
-          secondaryText="Terms & Conditions"
-          showSecondary
-        />
+        <Breadcrumb primaryText="Account" secondaryText="Terms & Conditions" />
         <div className="p-6 gap-20  bg-white rounded-md">
           <div className="flex flex-row items-center gap-2 mb-4">
             <div className="w-1 h-5 bg-[#F57156] rounded-sm" />
