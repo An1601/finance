@@ -57,7 +57,6 @@ function ChangePassword() {
           <Breadcrumb
             primaryText={t("changePassword.account")}
             secondaryText={t("changePassword.changePassword")}
-            showSecondary
           />
           <div className="p-6 gap-20  bg-white rounded-md">
             <div className="flex flex-row items-center gap-2 mb-4">

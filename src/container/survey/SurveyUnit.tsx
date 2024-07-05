@@ -108,7 +108,7 @@ const SurveyUnit: React.FC<SurveyUnitProps> = ({
                     switch (subQuestion.type) {
                       case SurveyAnsType.TEXT:
                         if (
-                          subQuestion.id === "4b" &&
+                          subQuestion.id === "loan_amount" &&
                           !answers[0][0]?.ans.includes("Refinance") &&
                           !answers[0][0]?.ans.includes("Bridge")
                         ) {

@@ -37,21 +37,23 @@ import Dashboard from "@pages/dashboard.tsx";
 import UserProcess from "@pages/userProcess.tsx";
 import BankDashboard from "@pages/bank.tsx";
 import LoadingProvider from "@components/hook/useLoading.tsx";
-import RoleBaseGuard from "@container/RoleBaseGuard.tsx";
+import RoleBasedGuard from "@container/RoleBasedGuard.tsx";
 import { UserRole } from "@type/enum.ts";
 import Meeting from "@container/dashboards/process/bookMeeting/index.tsx";
 import LoanReview from "@container/dashboards/process/loanReview/index.tsx";
 import CompeleteBookMeeting from "@container/dashboards/process/compeleteMeeting/index.tsx";
 import LoanSubmitConfirm from "@container/dashboards/process/loanComfirmSubmit/LoanSubmitConfirm.tsx";
 import RecordIndex from "@container/dashboards/Record/Index.tsx";
+import SurveyBankIndex from "@container/bank/record/survey-list/index.tsx";
+import BankSurveyDetail from "@container/bank/record/survey-list/survey-detail/index.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <RoleBaseGuard>
+      <RoleBasedGuard>
         <Auth />
-      </RoleBaseGuard>
+      </RoleBasedGuard>
     ),
     children: [
       { path: "", element: <Login /> },
@@ -65,18 +67,18 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <RoleBaseGuard role={UserRole.BUSINESS}>
+      <RoleBasedGuard role={UserRole.BUSINESS}>
         <Survey />
-      </RoleBaseGuard>
+      </RoleBasedGuard>
     ),
     children: [{ path: "survey", element: <SurveyIndex /> }],
   },
   {
     path: "/",
     element: (
-      <RoleBaseGuard role={UserRole.BUSINESS}>
+      <RoleBasedGuard role={UserRole.BUSINESS}>
         <Dashboard />
-      </RoleBaseGuard>
+      </RoleBasedGuard>
     ),
     children: [
       { path: "dashboard", element: <Home /> },
@@ -117,13 +119,15 @@ const router = createBrowserRouter([
   {
     path: "/bank/",
     element: (
-      <RoleBaseGuard role={UserRole.BANK}>
+      <RoleBasedGuard role={UserRole.BANK}>
         <BankDashboard />
-      </RoleBaseGuard>
+      </RoleBasedGuard>
     ),
     children: [
       { path: "loan-create", element: <CreateLoanForm /> },
       { path: "loan-detail", element: <BankLoanDetail /> },
+      { path: "survey-list", element: <SurveyBankIndex /> },
+      { path: "survey-detail/:id", element: <BankSurveyDetail /> },
       { path: "chat", element: <Message /> },
       { path: "profile", element: <Account /> },
     ],

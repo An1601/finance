@@ -17,7 +17,6 @@ import { handleCheckSubmit } from "@redux/userReducers";
 import { AppDispatch } from "@redux/store";
 import { modalShow } from "@components/common/alert-modal";
 import SurveyUnit from "./SurveyUnit";
-import { SurveyAnsEnum } from "@type/enum";
 import SurveyControls from "./SurveyControls";
 import { useLoading } from "@components/hook/useLoading";
 import Loader from "@components/common/loader";
@@ -36,7 +35,7 @@ const SurveyIndex: React.FC = () => {
     Array<{ id: string; ans: string[] }[]>
   >(Array.from({ length: surveyQuestion.length }, () => []));
   const [sortQuestion, setSortQuestion] = useState(
-    surveyQuestion[6].find((item) => item.id === "8")?.choice ?? [],
+    surveyQuestion[6].find((item) => item.id === "finance_goal")?.choice ?? [],
   );
 
   const handleAnswer = (
@@ -176,38 +175,25 @@ const SurveyIndex: React.FC = () => {
   };
 
   const mapBodyRequest = () => {
-    const result: { [key: string]: any } = {};
-    const mapIdToKey = (id: string): string | undefined => {
-      for (const key in SurveyAnsEnum) {
-        if (SurveyAnsEnum[key as keyof typeof SurveyAnsEnum] === id) {
-          return key;
-        }
-      }
-      return undefined;
-    };
-
-    const propertyAddressValues: string[] = [];
-    answers.forEach((group) => {
-      group.forEach((item) => {
-        const key = mapIdToKey(item.id);
-        if (key) {
-          if (key.startsWith("property_address")) {
-            propertyAddressValues.push(...item.ans);
-          } else {
-            if (item.ans.length > 1 || item.id === "1" || item.id === "2") {
-              result[key] = item.ans;
-            } else {
-              result[key] = item.ans[0];
-            }
+    const result: { [key: string]: string | string[] } = {};
+    answers.forEach((items) => {
+      items.forEach((item) => {
+        if (item.id.startsWith("property_address")) {
+          if (!result["property_address"]) {
+            result["property_address"] = [];
           }
+          (result["property_address"] as string[]).push(item.ans[0]);
+        } else if (
+          item.ans.length > 1 ||
+          item.id === "finance_type" ||
+          item.id === "collateral_type"
+        ) {
+          result[item.id] = item.ans;
+        } else {
+          result[item.id] = item.ans[0];
         }
       });
     });
-
-    if (propertyAddressValues.length > 0) {
-      result["property_address"] = propertyAddressValues;
-    }
-
     return result;
   };
 
@@ -224,7 +210,7 @@ const SurveyIndex: React.FC = () => {
         toast.success(
           <div className="sm:w-[380px] flex flex-col">
             <div className="text-base font-bold leading-8 text-light_finance-textbody">
-              Successfully!!
+              {t("createLoanForm.messageSuccess")}
             </div>
             <div>{t("survey.survey_success")}</div>
           </div>,
@@ -243,7 +229,8 @@ const SurveyIndex: React.FC = () => {
   };
 
   useEffect(() => {
-    if (currentIndex === 6) handleAnswer([{ id: "8", ans: sortQuestion }], 6);
+    if (currentIndex === 6)
+      handleAnswer([{ id: "finance_goal", ans: sortQuestion }], 6);
   }, [sortQuestion, currentIndex]);
 
   useEffect(() => {

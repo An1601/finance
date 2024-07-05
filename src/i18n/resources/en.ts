@@ -1,4 +1,7 @@
 export default {
+  toast: {
+    success: "Successfully!!",
+  },
   login: {
     signIn: "Sign in",
     descriptionSignIn: "365 people are online",
@@ -437,12 +440,23 @@ export default {
     addQuestion: "Add new question",
     addOption: "Add a answer",
     inputName: "Input title name",
-    inputText: "Input text",
+    home: "Input text",
     inputAns: "Input your answer",
     term: "Term",
     updateTerm: "Update Term",
     selectForm: "Select available application form",
     formReuse: "Save this application form in the record",
-    messageSuccess: "Create loan form successfully!",
+    messageSuccess: "You had created a package loan",
+  },
+  surveyBank: {
+    netWorth: "Net Worth",
+    liquidity: "Liquidity",
+    income: "Income",
+    loanSent: "Loans Sent",
+    view: "View",
+    surveyDisplayName: "The Survey",
+    detail: "Detail",
+    selectLoan: "Select loans sent",
+    sendLoan: "Send loans",
   },
 };

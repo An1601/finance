@@ -66,7 +66,7 @@ const ProcessHeader = () => {
         <div className="hidden gap-3 items-center md:flex">
           <div className="md:block hidden w-1 h-5 bg-danger rounded-sm" />
           <div className="flex gap-2 items-center">
-            <span className="text-center text-light_finance-textbody text-2xl font-bold font-HelveticaNeue leading-8">
+            <span className="text-center text-light_finance-textbody text-xl font-bold font-HelveticaNeue leading-8">
               {t("home.packageLoansList")}
             </span>
             <i className="fa-solid fa-angles-right fa-lg"></i>

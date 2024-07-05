@@ -103,7 +103,7 @@ export const BANK_MENUITEMS = [
         iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
         type: "link",
         children: [],
-        path: `/bank`,
+        path: `/bank/survey-list`,
         selected: false,
       },
       {

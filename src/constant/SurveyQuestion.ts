@@ -5,7 +5,7 @@ import { getTranslated } from "@i18n/index";
 export const surveyFullQuestion: SurveyQuestion[][] = [
   [
     {
-      id: "1",
+      id: "finance_type",
       content: getTranslated("survey.question_1_content"),
       type: SurveyAnsType.MULTI_CHOICE,
       choice: [
@@ -18,7 +18,7 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
   ],
   [
     {
-      id: "2",
+      id: "collateral_type",
       content: getTranslated("survey.question_2_content"),
       type: SurveyAnsType.ONE_CHOICE,
       choice: [
@@ -33,31 +33,31 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
   ],
   [
     {
-      id: "3",
+      id: "property_address",
       content: getTranslated("survey.question_3_content"),
       type: SurveyAnsType.SUB_QUESTION,
       choice: [],
       subQuestions: [
         {
-          id: "3a",
+          id: "property_address_a",
           label: getTranslated("survey.question_3a_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "3b",
+          id: "property_address_b",
           label: getTranslated("survey.question_3b_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "3c",
+          id: "property_address_c",
           label: getTranslated("survey.question_3c_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "3d",
+          id: "property_address_d",
           label: getTranslated("survey.question_3d_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
@@ -71,13 +71,13 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
       choice: [],
       subQuestions: [
         {
-          id: "5a",
+          id: "number_unit",
           label: getTranslated("survey.question_5a_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "5b",
+          id: "total_square_footage",
           label: getTranslated("survey.question_5b_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
@@ -93,13 +93,13 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
       choice: [],
       subQuestions: [
         {
-          id: "4a",
+          id: "property_valuation",
           label: getTranslated("survey.question_4a_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "4b",
+          id: "loan_amount",
           label: getTranslated("survey.question_4b_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
@@ -109,7 +109,7 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
   ],
   [
     {
-      id: "6",
+      id: "property_rent",
       content: getTranslated("survey.question_6_content"),
       type: SurveyAnsType.TEXT,
       label: getTranslated("survey.question_6_label"),
@@ -124,31 +124,31 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
       choice: [],
       subQuestions: [
         {
-          id: "7a",
+          id: "property_taxe",
           label: getTranslated("survey.question_7a_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "7b",
+          id: "property_insurance",
           label: getTranslated("survey.question_7b_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "7c",
+          id: "utilities",
           label: getTranslated("survey.question_7c_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "7d",
+          id: "repair_maintenance",
           label: getTranslated("survey.question_7d_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
         },
         {
-          id: "7e",
+          id: "management_fee",
           label: getTranslated("survey.question_7e_label"),
           type: SurveyAnsType.TEXT,
           choice: [],
@@ -158,7 +158,7 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
   ],
   [
     {
-      id: "8",
+      id: "finance_goal",
       content: getTranslated("survey.question_8_content"),
       type: SurveyAnsType.ARRAY,
       choice: [
@@ -170,7 +170,7 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
   ],
   [
     {
-      id: "9",
+      id: "property_own",
       content: getTranslated("survey.question_9_content"),
       type: SurveyAnsType.ONE_CHOICE,
       choice: [
@@ -180,7 +180,7 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
       ],
     },
     {
-      id: "10",
+      id: "credit_score",
       content: getTranslated("survey.question_10_content"),
       type: SurveyAnsType.ONE_CHOICE,
       choice: [
@@ -199,7 +199,7 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
       choice: [],
       subQuestions: [
         {
-          id: "11a",
+          id: "net_worth",
           content: getTranslated("survey.question_11a_label"),
           type: SurveyAnsType.ONE_CHOICE,
           choice: [
@@ -210,7 +210,7 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
           ],
         },
         {
-          id: "11b",
+          id: "liquidity",
           content: getTranslated("survey.question_11b_label"),
           type: SurveyAnsType.ONE_CHOICE,
           choice: [
@@ -221,7 +221,7 @@ export const surveyFullQuestion: SurveyQuestion[][] = [
           ],
         },
         {
-          id: "11c",
+          id: "income",
           content: getTranslated("survey.question_11c_label"),
           type: SurveyAnsType.ONE_CHOICE,
           choice: [

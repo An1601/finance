@@ -102,7 +102,6 @@ function EditProfile() {
           <Breadcrumb
             primaryText={t("editProfile.account")}
             secondaryText={t("editProfile.editProfile")}
-            showSecondary
           />
           <div className="p-6 gap-20  bg-white rounded-md">
             <div className="flex flex-row items-center gap-2 mb-4">

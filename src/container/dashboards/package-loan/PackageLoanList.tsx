@@ -8,7 +8,7 @@ const PackageLoanList = ({
 }) => {
   const user = useUser();
   return (
-    <div className="flex flex-col gap-3 my-0 sm:my-[1.5rem]">
+    <div className="flex flex-col gap-3">
       {user.check_submit &&
         loanDetails.map((loanitem, index) => {
           return <LoanItem key={index} loanItem={loanitem} />;

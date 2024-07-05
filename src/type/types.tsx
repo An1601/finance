@@ -254,3 +254,14 @@ export type StatusCheck = {
   status: number;
   current_step: string;
 };
+
+export type BankSurveyItem = {
+  id: number;
+  business_name: string;
+  thumbnail: string;
+  net_worth: string;
+  income: string;
+  liquidity: string;
+  state: boolean;
+  time_submit: string;
+};

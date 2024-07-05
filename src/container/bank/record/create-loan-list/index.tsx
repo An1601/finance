@@ -7,7 +7,7 @@ import { useTranslation } from "react-i18next";
 import defaultProfileImage from "@assets/images/profile/avatar.jpeg";
 import ImageIcon from "@assets/icon/ImageIcon.svg";
 import CancelBtn from "@components/common/button/cancel-btn";
-import { Fragment, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import CreateLoanForm from "./CreateLoanForm";
 import { InterestRateType, LoanSubmit, LoanType } from "@type/enum";
 import { US_CURRENTCY } from "@constant/Constant";
@@ -181,7 +181,14 @@ const CreateLoan = () => {
         if (respId) {
           const loanResp = await handleSubmitLoan(data, respId);
           if (loanResp && loanResp?.status === 200) {
-            toast.success(t("createLoanForm.messageSuccess"));
+            toast.success(
+              <div className="sm:w-[380px] flex flex-col">
+                <div className="text-base font-bold leading-8 text-light_finance-textbody">
+                  {t("createLoanForm.messageSuccess")}
+                </div>
+                <div>{t("createLoanForm.messageSuccess")}</div>
+              </div>,
+            );
             navigate(`/bank/loan-detail/?loanId=${loanResp.data.data}`);
             dispatch(handleResetCreateLoan());
           }
@@ -220,14 +227,13 @@ const CreateLoan = () => {
 
   if (isLoading) return <Loader />;
   return (
-    <Fragment>
+    <div className="min-h-screen relative overflow-hidden">
       <SelectFormModal />
       <div className="relative z-10 min-h-screen">
         <div className="hidden sm:block">
           <Breadcrumb
             primaryText={t("sideBar.record")}
             secondaryText={t("sideBar.createLoan")}
-            showSecondary
           />
         </div>
         <div className="sm:hidden my-7 mx-6 flex gap-3 items-center">
@@ -623,9 +629,16 @@ const CreateLoan = () => {
         </form>
       </div>
       <div className="absolute w-full sm:hidden top-[-1.5rem]">
-        <img className="w-full bg-cover bg-center" src={bg1} alt="" />
+        {[...Array(Math.ceil(window.innerHeight / 987) + 1)].map((_, index) => (
+          <img
+            key={index}
+            className="w-full bg-cover bg-center"
+            src={bg1}
+            alt=""
+          />
+        ))}
       </div>
-    </Fragment>
+    </div>
   );
 };
 
