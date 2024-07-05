@@ -38,11 +38,20 @@ const ProcessHeader = () => {
       currentPath.includes(`/loan-submit-confirm/${loanId}`)
     ) {
       setActiveIndex(1);
-    } else if (currentPath.includes(`/loan-review/${loanId}`)) {
+    } else if (
+      currentPath.includes(`/loan-review/${loanId}`) &&
+      check?.current_step === StatusProcess.BANK_REVIEW
+    ) {
       setActiveIndex(2);
-    } else if (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {
+    } else if (
+      currentPath.includes(`/loan-review/${loanId}`) &&
+      check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT
+    ) {
       setActiveIndex(3);
-    } else if (check?.current_step === StatusProcess.APPROVAL_LOAN_APP) {
+    } else if (
+      currentPath.includes(`/loan-review/${loanId}`) &&
+      check?.current_step === StatusProcess.APPROVAL_LOAN_APP
+    ) {
       setActiveIndex(4);
     } else {
       setActiveIndex(0);
