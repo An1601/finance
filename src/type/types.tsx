@@ -1,3 +1,4 @@
+import { strict } from "assert";
 import { SurveyAnsType, UserRole } from "./enum";
 
 export type SignUpInfo = {
@@ -264,4 +265,28 @@ export type BankSurveyItem = {
   liquidity: string;
   state: boolean;
   time_submit: string;
+};
+
+export type BankRecordItemType = {
+  id: number;
+  loan_id: number;
+  loan_name: string;
+  project_name: string;
+  customer_name: string;
+  credit_limit: number;
+  interest_rate: number;
+  origination_fee: number;
+  time_submit: string;
+  state: number;
+};
+export type BankLoanItemType = {
+  id: number;
+  application_form_id: number;
+  application_form_name?: string;
+  name: string;
+  origination_fee: number;
+  interest_rate: number;
+  duration: number;
+  credit_limit: number;
+  time_began: string;
 };

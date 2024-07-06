@@ -119,9 +119,9 @@ const SurveyUnit: React.FC<SurveyUnitProps> = ({
                             label={subQuestion.label ?? ""}
                             key={subQuestion.id}
                             type={
-                              subQuestion.id !== "3a" &&
-                              subQuestion.id !== "3b" &&
-                              subQuestion.id !== "3c"
+                              subQuestion.id !== "property_address_a" &&
+                              subQuestion.id !== "property_address_b" &&
+                              subQuestion.id !== "property_address_c"
                                 ? "number"
                                 : "text"
                             }

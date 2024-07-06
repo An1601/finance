@@ -8,10 +8,13 @@ import HomeActive from "@components/svg/HomeActive";
 import DocumentBottomBarActive from "@components/svg/DocumentBottomActive";
 import MessageActive from "@components/svg/MessageActive";
 import ProfileActive from "@components/svg/ProfileActive";
+import { useUser } from "@redux/useSelector";
+import { UserRole } from "@type/enum";
 
 const BottomBarCustom = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<string>("home");
+  const user = useUser();
 
   const handleNavigate = (path: string, tab: string) => {
     setActiveTab(tab);
@@ -19,7 +22,7 @@ const BottomBarCustom = () => {
   };
 
   useEffect(() => {
-    if (location.pathname === "/dashboard") {
+    if (location.pathname === "/dashboard" || location.pathname === "/bank") {
       setActiveTab("home");
     } else if (location.pathname.includes("/records")) {
       setActiveTab("document");
@@ -37,7 +40,12 @@ const BottomBarCustom = () => {
           data-tooltip-target="tooltip-home"
           type="button"
           className="inline-flex flex-col items-center justify-center rounded-s-full "
-          onClick={() => handleNavigate("/dashboard", "home")}
+          onClick={() =>
+            handleNavigate(
+              `${user.role === UserRole.BANK ? "/bank" : "/dashboard"}`,
+              "home",
+            )
+          }
         >
           {activeTab === "home" ? (
             <HomeActive className="w-9 h-9" />
@@ -49,7 +57,12 @@ const BottomBarCustom = () => {
           data-tooltip-target="tooltip-wallet"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 "
-          onClick={() => handleNavigate(`/records`, "document")}
+          onClick={() =>
+            handleNavigate(
+              `${user.role === UserRole.BANK ? "/bank" : ""}/records`,
+              "document",
+            )
+          }
         >
           {activeTab === "document" ? (
             <DocumentBottomBarActive className="w-9 h-9" />
@@ -61,7 +74,12 @@ const BottomBarCustom = () => {
           data-tooltip-target="tooltip-settings"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 "
-          onClick={() => handleNavigate("/message", "message")}
+          onClick={() =>
+            handleNavigate(
+              `${user.role === UserRole.BANK ? "/bank" : ""}/message`,
+              "message",
+            )
+          }
         >
           {activeTab === "message" ? (
             <MessageActive className="w-9 h-9" />
@@ -73,7 +91,12 @@ const BottomBarCustom = () => {
           data-tooltip-target="tooltip-profile"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 rounded-e-full "
-          onClick={() => handleNavigate("/profile", "profile")}
+          onClick={() =>
+            handleNavigate(
+              `${user.role === UserRole.BANK ? "/bank" : ""}/profile`,
+              "profile",
+            )
+          }
         >
           {activeTab === "profile" ? (
             <ProfileActive className="w-9 h-9" />

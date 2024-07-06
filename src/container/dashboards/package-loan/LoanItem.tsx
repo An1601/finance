@@ -5,6 +5,7 @@ import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { formatCreditLimit } from "@constant/Constant";
 
 const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
   loanItem,
@@ -15,15 +16,6 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
     return typeof object === "object" && "survey_answer_id" in object;
   };
   const isLoanItemType = checkLoanItemType(loanItem);
-  const formatCreditLimit = (price: number): string => {
-    if (price < 1000) {
-      return price.toFixed(2);
-    } else {
-      const prePrice = price > 1000000 ? price / 1000000 : price / 1000;
-      const roundPrice = Math.round(prePrice * 100) / 100;
-      return `${roundPrice}${price > 1000000 ? "M" : "K"}`;
-    }
-  };
 
   return (
     <div className="p-4 bg-white rounded-xl w-full flex flex-col md:flex-row md:justify-between gap-3">

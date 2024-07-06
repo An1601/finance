@@ -46,6 +46,8 @@ import LoanSubmitConfirm from "@container/dashboards/process/loanComfirmSubmit/L
 import RecordIndex from "@container/dashboards/Record/Index.tsx";
 import SurveyBankIndex from "@container/bank/record/survey-list/index.tsx";
 import BankSurveyDetail from "@container/bank/record/survey-list/survey-detail/index.tsx";
+import BankRecordManagement from "@container/bank/record/record-management/index.tsx";
+import BankLoanList from "@container/bank/record/package-loan/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -128,7 +130,9 @@ const router = createBrowserRouter([
       { path: "loan-detail", element: <BankLoanDetail /> },
       { path: "survey-list", element: <SurveyBankIndex /> },
       { path: "survey-detail/:id", element: <BankSurveyDetail /> },
-      { path: "chat", element: <Message /> },
+      { path: "records", element: <BankRecordManagement /> },
+      { path: "message", element: <Message /> },
+      { path: "loan-list", element: <BankLoanList /> },
       { path: "profile", element: <Account /> },
     ],
   },

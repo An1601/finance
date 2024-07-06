@@ -1,5 +1,4 @@
 import bg1 from "@assets/images/authentication/1.svg";
-import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import Loader from "@components/common/loader";
@@ -11,6 +10,7 @@ import { toast } from "react-toastify";
 import ProfileHeader from "@components/common/header/ProfileHeader";
 import Notification from "@components/common/header/Notification";
 import BankTabHeader from "@components/common/bank-tab-header";
+import BottomBarCustom from "@components/common/bottom-bar";
 
 const SurveyBankIndex = () => {
   const { t } = useTranslation();
@@ -39,22 +39,29 @@ const SurveyBankIndex = () => {
   if (isLoading) return <Loader />;
   return (
     <div className="min-h-screen relative overflow-hidden">
+      <BottomBarCustom />
       <div className=" z-10 relative mx-6 py-8">
-        <div className="flex flex-col gap-8 sm:gap-5">
+        <div className="flex flex-col gap-5">
           <div className="flex sm:hidden justify-between">
             <ProfileHeader />
             <Notification />
           </div>
           <div className="w-full flex flex-col gap-4 md:flex-row md:gap-0 items-center justify-between">
-            <div className="w-full hidden sm:flex items-center gap-2">
-              <div className="w-1 h-5 bg-danger rounded-sm" />
-              <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                {t("packageLoanList.packageLoanList")}
+            <div className="hidden gap-3 items-center md:flex">
+              <div className="sm:block hidden w-1 h-5 bg-danger rounded-sm" />
+              <div className="flex gap-2 items-center">
+                <span className="text-center text-light_finance-textbody text-xl font-bold font-HelveticaNeue leading-8">
+                  {t("sideBar.record")}
+                </span>
+                <i className="fa-solid fa-angles-right fa-lg"></i>
+                <span className="text-sm text-light_finance-textsub font-normal font-HelveticaNeue">
+                  {t("sideBar.surveyList")}
+                </span>
               </div>
             </div>
+            <BankTabHeader />
             <BankSurveyFilter />
           </div>
-          <BankTabHeader />
           <div className="flex flex-col gap-3">
             {surveyList.map((loanitem, index) => {
               return <BankSurveyItem key={index} surveyItem={loanitem} />;

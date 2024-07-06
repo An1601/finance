@@ -5,7 +5,19 @@ import LoanList from "@components/svg/LoanList";
 import ManagementRecord from "@components/svg/ManageRecord";
 import { getTranslated } from "@i18n/index";
 
-export const MENUITEMS = [
+export interface MenuItem {
+  id: number;
+  title: string;
+  icon: JSX.Element;
+  iconDark: JSX.Element;
+  iconStroke: JSX.Element;
+  type: "link" | "sub";
+  path: string;
+  selected: boolean;
+  active?: boolean;
+  children: MenuItem[];
+}
+export const MENUITEMS: MenuItem[] = [
   {
     id: 1,
     title: getTranslated("sideBar.dashboard"),
@@ -62,7 +74,7 @@ export const MENUITEMS = [
     selected: false,
   },
 ];
-export const BANK_MENUITEMS = [
+export const BANK_MENUITEMS: MenuItem[] = [
   {
     id: 1,
     title: getTranslated("sideBar.dashboard"),
@@ -97,6 +109,17 @@ export const BANK_MENUITEMS = [
       },
       {
         id: 5,
+        title: getTranslated("sideBar.applyLoanList"),
+        icon: <ManagementRecord isActive={true} isFocus={false} />,
+        iconDark: <ManagementRecord isActive={true} isFocus={true} />,
+        iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
+        type: "link",
+        children: [],
+        path: `/bank/loan-list`,
+        selected: false,
+      },
+      {
+        id: 6,
         title: getTranslated("sideBar.surveyList"),
         icon: <ManagementRecord isActive={true} isFocus={false} />,
         iconDark: <ManagementRecord isActive={true} isFocus={true} />,
@@ -107,17 +130,6 @@ export const BANK_MENUITEMS = [
         selected: false,
       },
       {
-        id: 6,
-        title: getTranslated("sideBar.applyLoanList"),
-        icon: <ManagementRecord isActive={true} isFocus={false} />,
-        iconDark: <ManagementRecord isActive={true} isFocus={true} />,
-        iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
-        type: "link",
-        children: [],
-        path: `/bank`,
-        selected: false,
-      },
-      {
         id: 7,
         title: getTranslated("sideBar.recordManagement"),
         icon: <ManagementRecord isActive={true} isFocus={false} />,
@@ -125,7 +137,7 @@ export const BANK_MENUITEMS = [
         iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
         type: "link",
         children: [],
-        path: `/bank`,
+        path: `/bank/records`,
         selected: false,
       },
     ],
@@ -139,7 +151,7 @@ export const BANK_MENUITEMS = [
     iconStroke: <Chat isActive={false} isFocus={false} />,
     type: "link",
     children: [],
-    path: "/bank/chat",
+    path: "/bank/message",
     selected: false,
   },
 ];
