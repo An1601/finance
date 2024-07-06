@@ -36,7 +36,7 @@ const LoanReview = () => {
   }): { [key: number]: any } => {
     const newData: { [key: number]: any } = {};
     let index = 1;
-    for (let key in data) {
+    for (const key in data) {
       newData[index] = data[key];
       index++;
     }

@@ -184,7 +184,7 @@ const CreateLoan = () => {
             toast.success(
               <div className="sm:w-[380px] flex flex-col">
                 <div className="text-base font-bold leading-8 text-light_finance-textbody">
-                  {t("createLoanForm.messageSuccess")}
+                  {t("toast.success")}
                 </div>
                 <div>{t("createLoanForm.messageSuccess")}</div>
               </div>,

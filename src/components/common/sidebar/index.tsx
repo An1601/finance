@@ -1,7 +1,7 @@
 import { FC, Fragment, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { BANK_MENUITEMS, MENUITEMS } from "./sidemenu/sidemenu";
+import { BANK_MENUITEMS, MenuItem, MENUITEMS } from "./sidemenu/sidemenu";
 import { ThemeChanger } from "@redux/action";
 import { store } from "@redux/store";
 import logo1 from "@assets/images/brand-logos/desktop-dark.svg";
@@ -78,12 +78,13 @@ const Sidebar: FC<SidebarProps> = ({ ThemeChanger, isBank }) => {
       }
     }
   };
-  const clickLevelone = (levelone: any) => {
+  const clickLevelone = (levelone: MenuItem) => {
     if (levelone.type === "sub") {
       setMenuitems((prevItems: any) =>
         prevItems.map((item: any) => ({
           ...item,
-          active: !item.active,
+          active: levelone.id === item.id ? !item.active : false,
+          selected: levelone.id === item.id ? true : false,
         })),
       );
     } else if (
@@ -91,36 +92,43 @@ const Sidebar: FC<SidebarProps> = ({ ThemeChanger, isBank }) => {
       levelone.type === "link"
     ) {
       navigate(levelone.path);
-      setMenuitems((prevItems: any) =>
-        prevItems.map((item: any) => ({
-          ...item,
-          selected: item.id === levelone.id,
-          children: item.children?.map((childItem: any) => ({
-            ...childItem,
-            selected: false,
-          })),
-        })),
-      );
     }
   };
-  const clickChild = (child: any, levelone: any) => {
-    if (
-      (user.check_submit || user.role !== UserRole.BUSINESS) &&
-      child.type === "link"
-    ) {
-      navigate(child.path);
-      setMenuitems((prevItems: any) =>
-        prevItems.map((item: any) => ({
-          ...item,
-          selected: item.id === levelone.id,
-          children: item.children.map((childItem: any) => ({
-            ...childItem,
-            selected: childItem.id === child.id,
-          })),
-        })),
-      );
+  const updateMenuItems = (items: MenuItem[]): MenuItem[] => {
+    let foundSelected = false;
+
+    const updatedItems = items.map((item) => {
+      if (item.path === location.pathname) {
+        foundSelected = true;
+        return { ...item, selected: true };
+      }
+
+      if (item.children.length > 0) {
+        const updatedChildren = updateMenuItems(item.children);
+        const isChildSelected = updatedChildren.some((child) => child.selected);
+
+        if (isChildSelected) {
+          foundSelected = true;
+          return { ...item, children: updatedChildren, selected: true };
+        } else {
+          return { ...item, children: updatedChildren, selected: false };
+        }
+      }
+
+      return { ...item, selected: false };
+    });
+
+    if (!foundSelected) {
+      return updatedItems.map((item) => ({ ...item, selected: false }));
     }
+
+    return updatedItems;
   };
+
+  useEffect(() => {
+    setMenuitems(updateMenuItems(menuitems));
+  }, [location.pathname]);
+
   useEffect(() => {
     const mainContent: any = document.querySelector(".main-content");
     mainContent.addEventListener("click", menuClose);
@@ -197,7 +205,15 @@ const Sidebar: FC<SidebarProps> = ({ ThemeChanger, isBank }) => {
                       {levelone?.children?.map((child: any) => (
                         <div
                           key={child.id}
-                          onClick={() => clickChild(child, levelone)}
+                          onClick={() => {
+                            if (
+                              (user.check_submit ||
+                                user.role !== UserRole.BUSINESS) &&
+                              child.type === "link"
+                            ) {
+                              navigate(child.path);
+                            }
+                          }}
                           className={`group py-3 pr-3 pl-10 ${(user.check_submit || user.role !== UserRole.BUSINESS) && "hover:!bg-white/30 hover:rounded-lg cursor-pointer"} ${
                             child.selected ? "active" : ""
                           }`}

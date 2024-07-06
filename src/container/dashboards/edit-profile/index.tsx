@@ -16,10 +16,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import DatePickerField from "@components/common/input-date";
 import { useBusinessProfile } from "@redux/useSelector";
 import { useLoading } from "@components/hook/useLoading";
+import { fetchProfileData } from "@redux/userThunks";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
 
 function EditProfile() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
   const businessProfile = useBusinessProfile();
   const { isLoading, toggleLoading } = useLoading();
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
@@ -55,6 +59,7 @@ function EditProfile() {
       if (response.status === 200) {
         toast.success(t("editProfile.messSuccess"));
         navigate("/profile");
+        dispatch(fetchProfileData());
       }
     } catch (error) {
       const message =

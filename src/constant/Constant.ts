@@ -210,3 +210,12 @@ export const US_CURRENTCY = new Intl.NumberFormat("en-US", {
   style: "currency",
   currency: "USD",
 });
+export const formatCreditLimit = (price: number): string => {
+  if (price < 1000) {
+    return price.toFixed(2);
+  } else {
+    const prePrice = price > 1000000 ? price / 1000000 : price / 1000;
+    const roundPrice = Math.round(prePrice * 100) / 100;
+    return `${roundPrice}${price > 1000000 ? "M" : "K"}`;
+  }
+};

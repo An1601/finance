@@ -87,7 +87,7 @@ export enum Status {
   NO_3 = 3,
 }
 export enum SurveyState {
-  PENDING = "0",
-  INPROGRESS = "1",
+  PENDING = 0,
+  INPROGRESS = 1,
   DONE = 2,
 }
