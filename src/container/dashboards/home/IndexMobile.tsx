@@ -15,17 +15,20 @@ import {
   ProjectItemType,
   RecordItemType,
 } from "@type/types";
+
+interface UserMobileHomeProps {
+  userProjects: ProjectItemType[];
+  records: RecordItemType[];
+  loanList: LoanItemType[];
+  meetingList: ConsultingMeeting[];
+}
+
 const HomeMobile = ({
   userProjects,
   records,
   loanList,
   meetingList,
-}: {
-  userProjects: ProjectItemType[];
-  records: RecordItemType[];
-  loanList: LoanItemType[];
-  meetingList: ConsultingMeeting[];
-}) => {
+}: UserMobileHomeProps) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 

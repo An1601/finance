@@ -251,14 +251,20 @@ const BankSurveyDetail = () => {
                           )}
                         </div>
                       ) : question.id === "property_address" ? (
-                        <div className="w-fit px-4 py-2 bg-light_finance-background1 rounded-[20px]">
-                          <div className="text-sm leading-5 text-light_finance-textbody font-bold tracking-tight font-HelveticaNeue">
-                            {(
-                              survey?.survey[
-                                question.id as keyof SurveyAns
-                              ] as string[]
-                            )?.join(", ")}
-                          </div>
+                        <div className="flex gap-6 flex-wrap">
+                          {question.subQuestions.map((subQuestion, index) => (
+                            <div
+                              key={subQuestion.id}
+                              className="px-4 py-2 bg-light_finance-background1 rounded-[20px]"
+                            >
+                              <div className="text-sm leading-5 text-light_finance-textbody font-bold tracking-tight font-HelveticaNeue">
+                                {survey?.survey["property_address"][index]}{" "}
+                                <span className="font-normal">
+                                  {subQuestion.label}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
                         </div>
                       ) : (
                         question.subQuestions.map((subQuestion) => (

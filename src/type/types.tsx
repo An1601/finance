@@ -125,7 +125,7 @@ export type LoanDetailProcessType = {
   bank?: {
     name: string;
   };
-  document?: {
+  document: {
     id: number;
     file_name: string;
     path: string;
@@ -256,7 +256,7 @@ export type StatusCheck = {
   current_step: string;
 };
 
-export type BankSurveyItem = {
+export type BankSurveyItemType = {
   id: number;
   business_name: string;
   thumbnail: string;
@@ -281,8 +281,7 @@ export type BankRecordItemType = {
 };
 export type BankLoanItemType = {
   id: number;
-  application_form_id: number;
-  application_form_name?: string;
+  term_name: string;
   name: string;
   origination_fee: number;
   interest_rate: number;

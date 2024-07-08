@@ -18,11 +18,11 @@ const BankTabHeader = () => {
       name: "My package loans",
       path: "/bank/loan-list",
     },
-    // {
-    //   id: 4,
-    //   name: "Application forms",
-    //   path: "/",
-    // },
+    {
+      id: 4,
+      name: "Application forms",
+      path: "/bank/form-list",
+    },
   ];
   return (
     <div className="w-full h-9 relative overflow-scroll no-scrollbar sm:hidden">

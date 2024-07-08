@@ -57,27 +57,35 @@ const LoanFilter = () => {
         <div className="absolute peer-checked:flex hidden top-14 w-[168px] bg-white rounded-lg drop-shadow-[0_4px_4px_rgba(0,0,0,0.12)] flex-col ">
           <div className="self-stretch px-3 py-2 justify-start items-start gap-2 inline-flex">
             <input
-              className="w-4 h-4 rounded-sm border border-light_finance-textsub checked:!bg-light_finance-primary"
+              className="w-4 h-4 rounded-sm border border-light_finance-textsub checked:!bg-light_finance-primary cursor-pointer"
               type="checkbox"
+              id={FilterOption.LATEST}
               value={FilterOption.LATEST}
               checked={selectedCheckbox === FilterOption.LATEST}
               onChange={() => handleCheckboxChange(FilterOption.LATEST)}
             />
-            <div className="text-light_finance-textsub text-sm font-normal font-['Helvetica Neue'] leading-5">
+            <label
+              htmlFor={FilterOption.LATEST}
+              className="text-light_finance-textsub text-sm font-normal font-['Helvetica Neue'] leading-5 cursor-pointer"
+            >
               {FilterOption.LATEST}
-            </div>
+            </label>
           </div>
           <div className="self-stretch px-3 py-2 justify-start items-start gap-2 inline-flex">
             <input
-              className="w-4 h-4 rounded-sm border border-light_finance-textsub checked:!bg-light_finance-primary"
+              className="w-4 h-4 rounded-sm border border-light_finance-textsub checked:!bg-light_finance-primary cursor-pointer"
               type="checkbox"
+              id={FilterOption.DATE_LAST_OPEN}
               value={FilterOption.DATE_LAST_OPEN}
               checked={selectedCheckbox === FilterOption.DATE_LAST_OPEN}
               onChange={() => handleCheckboxChange(FilterOption.DATE_LAST_OPEN)}
             />
-            <div className="text-light_finance-textsub text-sm font-normal font-['Helvetica Neue'] leading-5">
+            <label
+              htmlFor={FilterOption.DATE_LAST_OPEN}
+              className="text-light_finance-textsub text-sm font-normal font-['Helvetica Neue'] leading-5 cursor-pointer"
+            >
               {FilterOption.DATE_LAST_OPEN}
-            </div>
+            </label>
           </div>
         </div>
       </div>
@@ -102,10 +110,10 @@ const LoanFilter = () => {
                 </div>
                 <i className="fa-solid fa-chevron-up fa-lg transition-all duration-100 absolute top-4 right-4 text-light_finance-textsub peer-checked:rotate-180"></i>
                 <div className="w-full hidden peer-checked:flex bg-white flex-col ">
-                  {filterOpt.child.map((option, sub_index) => {
+                  {filterOpt.child.map((option) => {
                     return (
                       <div
-                        key={sub_index}
+                        key={option.id}
                         className="self-stretch px-4 py-2 justify-start items-start gap-2 inline-flex"
                       >
                         <input

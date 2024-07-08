@@ -47,7 +47,7 @@ const BankRecordManagement = () => {
 
   return windowWidth < 480 ? (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 pt-7">
+      <div className=" z-10 relative mx-6 pt-7 pb-10">
         <div className="flex justify-between">
           <ProfileHeader />
           <Notification />
