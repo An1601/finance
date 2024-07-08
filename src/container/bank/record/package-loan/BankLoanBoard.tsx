@@ -1,17 +1,44 @@
-import { Link } from "react-router-dom";
-import { LoanStatus } from "@type/enum";
+import { Link, useNavigate } from "react-router-dom";
 import { BankLoanItemType } from "@type/types";
 import { useTranslation } from "react-i18next";
 import { US_CURRENTCY } from "@constant/Constant";
 import LoanFilter from "@container/dashboards/package-loan/LoanFilter";
 import eyeOpen from "@assets/icon/EyeOpen.svg";
+import { useLoading } from "@components/hook/useLoading";
+import api from "@api/axios";
+import axios from "axios";
+import { toast } from "react-toastify";
 
-const BankLoanBoard = ({
-  loanRecords,
-}: {
-  loanRecords: BankLoanItemType[];
-}) => {
+const BankLoanBoard = ({ loans }: { loans: BankLoanItemType[] }) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { isLoading, toggleLoading } = useLoading();
+
+  const handleSaveFile = async (loanId: number, fileName: string) => {
+    toggleLoading(true);
+    try {
+      const response = await api.get(`/loans/download-term/${loanId}`, {
+        responseType: "blob",
+      });
+      if (response.status === 200) {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement("a");
+        link.href = url;
+        link.setAttribute("download", fileName ?? "term");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      }
+    } catch (error) {
+      const message =
+        axios.isAxiosError(error) && error.response?.data.message
+          ? error.response.data.message
+          : t("login.messageError");
+      toast.error(message);
+    } finally {
+      toggleLoading(false);
+    }
+  };
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
       <div className="box custom-card">
@@ -72,18 +99,12 @@ const BankLoanBoard = ({
                     scope="col"
                     className="font-Roboto font-medium text-sm text-light_finance-textbody leading-[15.4px]"
                   >
-                    {t("home.form")}
-                  </th>
-                  <th
-                    scope="col"
-                    className="font-Roboto font-medium text-sm text-light_finance-textbody leading-[15.4px]"
-                  >
                     {t("home.action")}
                   </th>
                 </tr>
               </thead>
               <tbody>
-                {loanRecords.map((record, index) => (
+                {loans.map((loan, index) => (
                   <tr
                     className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light font-HelveticaNeue font-normal text-sm text-light_finance-textsub leading-5"
                     key={index}
@@ -95,23 +116,32 @@ const BankLoanBoard = ({
                       {index + 1}
                     </th>
                     <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
-                      {record?.name}
+                      {loan?.name}
                     </td>
                     <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
-                      {US_CURRENTCY.format(record?.credit_limit)}
+                      {US_CURRENTCY.format(loan?.credit_limit)}
                     </td>
-                    <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">{`$${record.interest_rate}`}</td>
-                    <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">{`$${record.origination_fee}`}</td>
+                    <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">{`$${loan.interest_rate}`}</td>
+                    <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">{`$${loan.origination_fee}`}</td>
                     <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
-                      {record?.time_began}
+                      {loan?.time_began}
                     </td>
-                    <td> </td>
-                    <td className=" font-HelveticaNeue leading-5 text-sm underline text-light_finance-primary">
-                      {t("surveyBank.view")}
+                    <td
+                      className=" font-HelveticaNeue leading-5 text-sm underline text-light_finance-primary"
+                      onClick={() => {
+                        handleSaveFile(loan.id, loan.term_name);
+                      }}
+                    >
+                      {loan.term_name}
                     </td>
                     <td>
-                      <div className="w-full flex justify-center items-center">
-                        <img src={eyeOpen} />
+                      <div className="w-full flex justify-center items-center cursor-pointer">
+                        <img
+                          src={eyeOpen}
+                          onClick={() => {
+                            navigate(`/bank/loan-detail?loanId=${loan.id}`);
+                          }}
+                        />
                       </div>
                     </td>
                   </tr>

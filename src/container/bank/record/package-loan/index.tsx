@@ -18,15 +18,15 @@ import BankLoanItem from "../record-management/BankLoanItem";
 const BankLoanList = () => {
   const windowWidth = useWindowWidth();
   const { t } = useTranslation();
-  const [loanRecords, setLoanRecords] = useState([]);
+  const [loans, setLoans] = useState([]);
   const { isLoading, toggleLoading } = useLoading();
 
-  const handleGetRecords = async () => {
+  const handleGetLoans = async () => {
     toggleLoading(true);
     try {
       const response = await api.get("/loans");
       if (response.status === 200) {
-        setLoanRecords(response.data.data);
+        setLoans(response.data.data);
       }
     } catch (error) {
       const message =
@@ -40,14 +40,14 @@ const BankLoanList = () => {
   };
 
   useEffect(() => {
-    handleGetRecords();
+    handleGetLoans();
   }, []);
 
   if (isLoading) return <Loader />;
 
   return windowWidth < 480 ? (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 pt-7">
+      <div className=" z-10 relative mx-6 py-7">
         <div className="flex justify-between">
           <ProfileHeader />
           <Notification />
@@ -56,7 +56,7 @@ const BankLoanList = () => {
           <BankTabHeader />
           <LoanFilter />
           <div className="flex flex-col gap-3">
-            {loanRecords.map((loanitem, index) => {
+            {loans.map((loanitem, index) => {
               return <BankLoanItem key={index} loanItem={loanitem} />;
             })}
           </div>
@@ -76,7 +76,7 @@ const BankLoanList = () => {
     </div>
   ) : (
     <div className="mt-8">
-      <BankLoanBoard loanRecords={loanRecords} />
+      <BankLoanBoard loans={loans} />
     </div>
   );
 };

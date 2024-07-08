@@ -1,9 +1,5 @@
 import React from "react";
-import {
-  BankLoanItemType,
-  BankRecordItemType,
-  LoanItemType,
-} from "@type/types";
+import { BankLoanItemType, BankRecordItemType } from "@type/types";
 import { LoanStatus } from "@type/enum";
 import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";

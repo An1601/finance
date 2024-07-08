@@ -2,9 +2,9 @@ import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import type { BankSurveyItem } from "@type/types";
+import type { BankSurveyItemType } from "@type/types";
 
-const BankSurveyItem = ({ surveyItem }: { surveyItem: BankSurveyItem }) => {
+const BankSurveyItem = ({ surveyItem }: { surveyItem: BankSurveyItemType }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -65,7 +65,7 @@ const BankSurveyItem = ({ surveyItem }: { surveyItem: BankSurveyItem }) => {
             className="bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center cursor-pointer"
             onClick={() => navigate(`/bank/survey-detail/${surveyItem.id}`)}
           >
-            <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-sm leading-4 px-3 py-1 whitespace-nowrap">
+            <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-sm leading-4 px-3 py-2 whitespace-nowrap">
               {t("surveyBank.loanSent")}
             </div>
           </div>

@@ -325,7 +325,7 @@ export class Sourcedata extends Component<{}, spark3> {
           pie: {
             expandOnClick: false,
             donut: {
-              size: "82%",
+              size: "70%",
               labels: {
                 show: false,
                 name: {
@@ -348,6 +348,83 @@ export class Sourcedata extends Component<{}, spark3> {
           },
         },
         colors: ["rgb(35, 183, 229)", "rgb(38, 191, 148)", "#F65160"],
+      },
+    };
+  }
+
+  render() {
+    return (
+      <div>
+        <ReactApexChart
+          options={this.state.options}
+          series={this.state.series}
+          type="donut"
+          height={250}
+        />
+      </div>
+    );
+  }
+}
+
+export class SourceBankdata extends Component<{}, spark3> {
+  constructor(props: {} | Readonly<{}>) {
+    super(props);
+
+    this.state = {
+      series: [45, 55],
+      options: {
+        labels: ["My First Dataset"],
+        chart: {
+          events: {
+            mounted: (chart: any) => {
+              chart.windowResizeHandler();
+            },
+          },
+          height: 250,
+          type: "donut",
+        },
+        dataLabels: {
+          enabled: false,
+        },
+
+        legend: {
+          show: false,
+        },
+        stroke: {
+          show: true,
+          curve: "smooth",
+          lineCap: "round",
+          colors: ["#fff"],
+          width: 0,
+          dashArray: 0,
+        },
+        plotOptions: {
+          pie: {
+            expandOnClick: false,
+            donut: {
+              size: "70%",
+              labels: {
+                show: false,
+                name: {
+                  show: true,
+                  fontSize: "20px",
+                  color: "#495057",
+                  offsetY: -4,
+                },
+                value: {
+                  show: true,
+                  fontSize: "18px",
+                  color: undefined,
+                  offsetY: 8,
+                  formatter: function (val) {
+                    return val + "%";
+                  },
+                },
+              },
+            },
+          },
+        },
+        colors: ["rgb(35, 183, 229)", "rgb(38, 191, 148)"],
       },
     };
   }

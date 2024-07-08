@@ -6,12 +6,17 @@ import calendar from "@assets/icon/CalendarIcon.svg";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { formatCreditLimit } from "@constant/Constant";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
+import { handleSetIdRecord } from "@redux/processReducer";
 
 const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
   loanItem,
 }) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+
   const checkLoanItemType = (object: any): object is LoanItemType => {
     return typeof object === "object" && "survey_answer_id" in object;
   };
@@ -144,6 +149,11 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
                         : ""
                   }
                   handleSubmit={() => {
+                    dispatch(
+                      handleSetIdRecord(
+                        isLoanItemType ? loanItem.loan_business_list.id : 0,
+                      ),
+                    );
                     navigate(
                       `/loan-detail?loanId=${
                         isLoanItemType && loanItem?.loans?.id

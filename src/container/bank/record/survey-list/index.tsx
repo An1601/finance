@@ -11,18 +11,18 @@ import ProfileHeader from "@components/common/header/ProfileHeader";
 import Notification from "@components/common/header/Notification";
 import BankTabHeader from "@components/common/bank-tab-header";
 import BottomBarCustom from "@components/common/bottom-bar";
+import { BankSurveyItemType } from "@type/types";
 
 const SurveyBankIndex = () => {
   const { t } = useTranslation();
-  const [surveyList, setSurveyList] = useState<BankSurveyItem[]>([]);
+  const [surveyList, setSurveyList] = useState<BankSurveyItemType[]>([]);
   const { isLoading, toggleLoading } = useLoading();
 
-  const handleGetLoanDetail = async () => {
+  const handleGetSurveys = async () => {
     toggleLoading(true);
     try {
       const response = await api.get("/bank/surveys");
       if (response.status === 200) {
-        console.log(response.data.data);
         setSurveyList(response.data.data);
       }
     } catch (error) {
@@ -33,14 +33,14 @@ const SurveyBankIndex = () => {
   };
 
   useEffect(() => {
-    handleGetLoanDetail();
+    handleGetSurveys();
   }, []);
 
   if (isLoading) return <Loader />;
   return (
     <div className="min-h-screen relative overflow-hidden">
       <BottomBarCustom />
-      <div className=" z-10 relative mx-6 py-8">
+      <div className=" z-10 relative mx-6 pt-7 pb-14">
         <div className="flex flex-col gap-5">
           <div className="flex sm:hidden justify-between">
             <ProfileHeader />
@@ -55,7 +55,7 @@ const SurveyBankIndex = () => {
                 </span>
                 <i className="fa-solid fa-angles-right fa-lg"></i>
                 <span className="text-sm text-light_finance-textsub font-normal font-HelveticaNeue">
-                  {t("sideBar.surveyList")}
+                  {t("surveyBank.theSurveyList")}
                 </span>
               </div>
             </div>
