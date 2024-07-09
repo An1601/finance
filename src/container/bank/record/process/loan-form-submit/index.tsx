@@ -1,11 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import api from "@api/axios";
-import {
-  ApplicationForm,
-  LoanDetailProcessType,
-  StatusCheck,
-} from "@type/types";
+import { ApplicationForm, StatusCheck } from "@type/types";
 import { toast } from "react-toastify";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import Loader from "@components/common/loader";
@@ -22,6 +18,11 @@ interface AnswerData {
   answers: { [key: string]: any };
 }
 
+interface FileName {
+  id: number;
+  term_name: string;
+}
+
 const LoanFormBank = () => {
   const { t } = useTranslation();
   const [formData, setFormData] = useState<ApplicationForm>();
@@ -33,7 +34,7 @@ const LoanFormBank = () => {
   const [check, setCheck] = useState<StatusCheck>();
   const [file, setfile] = useState<any[]>([]);
   const { isLoading, toggleLoading } = useLoading();
-  const [loanDetail, setLoanDetail] = useState<LoanDetailProcessType>();
+  const [loanDetail, setLoanDetail] = useState<FileName>();
 
   const transformData = (data: {
     [key: string]: any;
@@ -119,7 +120,7 @@ const LoanFormBank = () => {
           });
           const link = document.createElement("a");
           link.href = window.URL.createObjectURL(blob);
-          link.download = loanDetail?.document?.file_name || "downloaded_file";
+          link.download = loanDetail?.term_name || "downloaded_file";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
@@ -407,7 +408,7 @@ const LoanFormBank = () => {
               </div>
               <a
                 className="font-medium text-[14px] md:text-[16px] leading-5 tracking-tight py-2 text-light_finance-primary cursor-pointer underline"
-                onClick={() => fetchDataViewFileDoc(item.path)}
+                onClick={() => fetchDataViewFileDoc(item?.path)}
               >
                 {t("process.loanSubmit.link")}
               </a>
@@ -417,7 +418,7 @@ const LoanFormBank = () => {
       </div>
       {check?.current_step === StatusProcess.BANK_REVIEW && (
         <TermItem
-          fileName={loanDetail?.document?.file_name}
+          fileName={loanDetail?.term_name}
           handleDownTerm={() => {
             fetchDataTerm();
           }}
@@ -428,7 +429,7 @@ const LoanFormBank = () => {
         <>
           <RequestItem description={formData?.description} />
           <TermItem
-            fileName={loanDetail?.document?.file_name}
+            fileName={loanDetail?.term_name}
             handleDownTerm={() => {
               fetchDataTerm();
             }}
