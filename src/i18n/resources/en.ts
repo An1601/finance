@@ -364,6 +364,9 @@ export default {
       bankReviewIcon: "Bank review",
       loanAssessmentIcon: "Eligibility Assessment",
       loanApprovalIcon: "Approval the loan application",
+      receiveCheckIcon: "Receive and check the loan application",
+      assessmentIcon: "Assessment of Eligibility",
+      finalIcon: "Final result of the application",
     },
     book: "Book",
     edit: "Edit",
@@ -443,5 +446,9 @@ export default {
     sendLoan: "Send loans",
     theSurveyList: "The survey list",
     loanSetSuccess: "You had created a package loan",
+  },
+  processBank: {
+    sendTerm: "Send Term",
+    approve: "Approve",
   },
 };

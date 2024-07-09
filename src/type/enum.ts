@@ -81,13 +81,19 @@ export enum StatusProcess {
 }
 
 export enum Status {
-  NO_0 = 0,
-  NO_1 = 1,
   NO_2 = 2,
   NO_3 = 3,
 }
+
 export enum SurveyState {
   PENDING = 0,
   INPROGRESS = 1,
   DONE = 2,
+}
+
+export enum BankReviewStatus {
+  REJECT = "reject",
+  SENDTERM = "send term",
+  ELIGIBILITY = "confirm",
+  APPOVAL = "approve",
 }

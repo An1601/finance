@@ -48,6 +48,8 @@ import SurveyBankIndex from "@container/bank/record/survey-list/index.tsx";
 import BankSurveyDetail from "@container/bank/record/survey-list/survey-detail/index.tsx";
 import BankRecordManagement from "@container/bank/record/record-management/index.tsx";
 import BankLoanList from "@container/bank/record/package-loan/index.tsx";
+import BankProcess from "@pages/bankProcess.tsx";
+import LoanFormBank from "@container/bank/record/process/loan-form-submit/index.tsx";
 import BankHome from "@container/bank/home/index.tsx";
 import BankApplicationForms from "@container/bank/record/application-forms/index.tsx";
 
@@ -138,6 +140,11 @@ const router = createBrowserRouter([
       { path: "loan-list", element: <BankLoanList /> },
       { path: "form-list", element: <BankApplicationForms /> },
       { path: "profile", element: <Account /> },
+      {
+        path: "process",
+        element: <BankProcess />,
+        children: [{ path: "loan-form-submit", element: <LoanFormBank /> }],
+      },
     ],
   },
 ]);

@@ -278,6 +278,7 @@ export type BankRecordItemType = {
   origination_fee: number;
   time_submit: string;
   state: number;
+  application_form_id: number;
 };
 export type BankLoanItemType = {
   id: number;
