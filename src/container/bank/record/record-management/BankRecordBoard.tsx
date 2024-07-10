@@ -132,7 +132,7 @@ const BankRecordBoard = ({
                     </td>
                     <td>
                       <div
-                        className="w-full flex justify-center items-center"
+                        className="w-full flex justify-center items-center cursor-pointer"
                         onClick={() =>
                           navigate(
                             `/bank/process/loan-form-submit?loanId=${record.loan_id}&recordId=${record.id}&formId=${record.application_form_id}`,

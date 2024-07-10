@@ -3,7 +3,6 @@ import calendar from "@assets/icon/CalendarIcon.svg";
 import bg1 from "@assets/images/authentication/1.svg";
 import LoanDetailItem from "@container/dashboards/process/loan-detail/LoanDetailItem";
 import { InterestRateType, LoanType } from "@type/enum";
-import { LoanDetailProcessType } from "@type/types";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
@@ -13,13 +12,14 @@ import { toast } from "react-toastify";
 import { FileIcon } from "react-file-icon";
 import Loader from "@components/common/loader";
 import { useLoading } from "@components/hook/useLoading";
+import { LoanDetailProcessProps } from "@type/types";
 
 const BankLoanDetail = () => {
   const { t } = useTranslation();
   const searchParams = new URLSearchParams(location.search);
   const loanId = searchParams.get("loanId");
   const navigate = useNavigate();
-  const [loanDetail, setLoanDetail] = useState<LoanDetailProcessType>();
+  const [loanDetail, setLoanDetail] = useState<LoanDetailProcessProps>();
   const { isLoading, toggleLoading } = useLoading();
 
   const handleGetLoanDetail = async () => {
@@ -49,10 +49,7 @@ const BankLoanDetail = () => {
         const url = window.URL.createObjectURL(new Blob([response.data]));
         const link = document.createElement("a");
         link.href = url;
-        link.setAttribute(
-          "download",
-          loanDetail?.document?.file_name ?? "term",
-        );
+        link.setAttribute("download", loanDetail?.term_name ?? "term");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -118,12 +115,12 @@ const BankLoanDetail = () => {
                     {" )"}
                   </div>
                   <div className="uppercase text-xl font-bold leading-7 text-light_finance-textbody">
-                    {loanDetail?.name}
+                    {loanDetail?.loan_name}
                   </div>
                 </div>
                 <div className="flex flex-col gap-4 items-end">
                   <div className="w-fit p-2 rounded-[20px] bg-light_finance-sub_second text-light_finance-primary font-HelveticaNeue font-medium leading-4 whitespace-nowrap">
-                    {loanDetail?.bank?.name}
+                    {loanDetail?.bank_name}
                   </div>
                   <div className="gap-6 hidden xl:flex">
                     <div
@@ -135,9 +132,7 @@ const BankLoanDetail = () => {
                       </div>
                       <div className="w-4 mr-2">
                         <FileIcon
-                          extension={loanDetail?.document?.file_name
-                            .split(".")
-                            .pop()}
+                          extension={loanDetail?.term_name.split(".").pop()}
                           color="#D14423"
                           labelColor="#D14423"
                           labelUppercase
@@ -146,7 +141,7 @@ const BankLoanDetail = () => {
                         />
                       </div>
                       <div className="font-HelveticaNeue text-sm text-light_finance-textbody leading-5">
-                        {loanDetail?.document?.file_name}
+                        {loanDetail?.term_name}
                       </div>
                     </div>
                     <div className="px-3 py-1 bg-light_finance-background1 rounded-lg justify-center items-center gap-2 inline-flex">
@@ -170,9 +165,7 @@ const BankLoanDetail = () => {
                   </div>
                   <div className="w-4 mr-2">
                     <FileIcon
-                      extension={loanDetail?.document?.file_name
-                        .split(".")
-                        .pop()}
+                      extension={loanDetail?.term_name.split(".").pop()}
                       color="#D14423"
                       labelColor="#D14423"
                       labelUppercase
@@ -181,7 +174,7 @@ const BankLoanDetail = () => {
                     />
                   </div>
                   <div className="w-full font-HelveticaNeue text-sm text-light_finance-textbody leading-5 text-truncate">
-                    {loanDetail?.document?.file_name}
+                    {loanDetail?.term_name}
                   </div>
                 </div>
                 <div className="w-40 px-3 py-1 bg-light_finance-background1 rounded-lg justify-center items-center gap-2 inline-flex">
@@ -215,7 +208,7 @@ const BankLoanDetail = () => {
                 />
                 <LoanDetailItem
                   label={t("process.loanDetail.loanType")}
-                  value={`${loanDetail?.type === LoanType.SECURE ? t("process.loanDetail.secure") : loanDetail?.type === LoanType.UNSECURE ? t("process.loanDetail.unsecure") : ""}`}
+                  value={`${loanDetail?.loan_type === LoanType.SECURE ? t("process.loanDetail.secure") : loanDetail?.loan_type === LoanType.UNSECURE ? t("process.loanDetail.unsecure") : ""}`}
                 />
                 <LoanDetailItem
                   label={t("process.loanDetail.originalFee")}

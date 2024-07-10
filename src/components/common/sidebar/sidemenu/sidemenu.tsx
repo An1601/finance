@@ -131,6 +131,17 @@ export const BANK_MENUITEMS: MenuItem[] = [
       },
       {
         id: 7,
+        title: getTranslated("sideBar.applicationForms"),
+        icon: <ManagementRecord isActive={true} isFocus={false} />,
+        iconDark: <ManagementRecord isActive={true} isFocus={true} />,
+        iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
+        type: "link",
+        children: [],
+        path: `/bank/form-list`,
+        selected: false,
+      },
+      {
+        id: 8,
         title: getTranslated("sideBar.recordManagement"),
         icon: <ManagementRecord isActive={true} isFocus={false} />,
         iconDark: <ManagementRecord isActive={true} isFocus={true} />,
@@ -151,7 +162,7 @@ export const BANK_MENUITEMS: MenuItem[] = [
     iconStroke: <Chat isActive={false} isFocus={false} />,
     type: "link",
     children: [],
-    path: "/bank/message",
+    path: "/message",
     selected: false,
   },
 ];

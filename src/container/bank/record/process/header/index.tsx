@@ -32,7 +32,7 @@ const ProcessHeaderBank = () => {
     if (
       check?.current_step === StatusProcess.BANK_REVIEW ||
       (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT &&
-        check.status === Status.NO_3)
+        check.status === Status.REJECTED)
     ) {
       setActiveIndex(1);
     } else if (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {

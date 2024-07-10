@@ -9,6 +9,10 @@ import api from "@api/axios";
 import { ApplicationForm } from "@type/types";
 import { useLoading } from "@components/hook/useLoading";
 import Loader from "@components/common/loader";
+import { fetchProcess } from "@redux/userThunks";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
+import { useProcess } from "@redux/useSelector";
 
 interface Answers {
   [key: number]: any;
@@ -28,6 +32,8 @@ const LoanSubmitConfirm = () => {
   const [formData, setFormData] = useState<ApplicationForm>();
   const [files, setFiles] = useState<File[]>([]);
   const { isLoading, toggleLoading } = useLoading();
+  const dispatch = useDispatch<AppDispatch>();
+  const check = useProcess();
 
   const mapDataBody = (arr: Answers) => {
     const mappedObject = Object.keys(arr).reduce(
@@ -137,7 +143,7 @@ const LoanSubmitConfirm = () => {
     try {
       await Promise.all([handleSubmitLoanForm(), handleSubmitFile()]);
       toast.success(t("process.loanSubmit.formSuccess"));
-      navigate(`/loan-review/${loanId}`);
+      await dispatch(fetchProcess(check.idRecord));
     } catch (error) {
       toast.error("Form submission failed");
     } finally {
@@ -184,7 +190,17 @@ const LoanSubmitConfirm = () => {
                 ))}
               </div>
             ))}
-
+            <div className="w-full bg-white p-4 rounded-md border-[1px] border-stroke mt-3">
+              <div className="flex items-center gap-2">
+                <div className="w-1 h-5 bg-danger rounded-sm" />
+                <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
+                  {t("process.loanSubmit.requestDoc")}
+                </div>
+              </div>
+              <div className="w-full border border-[#C8D0DD] text-sm p-3 rounded-sm my-3 font-normal">
+                {formData?.description}
+              </div>
+            </div>
             <div className="w-full bg-white p-4 rounded-md border-[1px] border-stroke">
               <div className="flex items-center gap-2">
                 <div className="w-1 h-5 bg-danger rounded-sm" />
@@ -228,7 +244,7 @@ const LoanSubmitConfirm = () => {
         <CancelBtn
           label={t("process.edit")}
           handleOnClick={() => {
-            navigate(`/loan-submit/${loanId}`);
+            navigate(`/process/loan-submit/${loanId}`);
           }}
         />
         <PrimarySubmitBtn

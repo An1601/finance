@@ -1,10 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { fetchProcess } from "./userThunks";
-import { UserProcess } from "@type/types";
+import { UserProcessType } from "@type/types";
 
-export const initialUser = {
+export const initialUser: UserProcessType = {
   current_step: "",
-  state: 0,
+  status: 0,
   idRecord: 0,
 };
 const userReducer = createSlice({
@@ -17,18 +17,27 @@ const userReducer = createSlice({
         idRecord: action.payload,
       };
     },
+    handleSetProcess: (state, action: PayloadAction<UserProcessType>) => {
+      return {
+        ...state,
+        current_step: action.payload.current_step,
+        status: action.payload.status,
+        idRecord: action.payload.idRecord,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(
       fetchProcess.fulfilled,
-      (state, action: PayloadAction<UserProcess>) => ({
-        ...state,
-        current_step: action.payload.current_step,
-        state: action.payload.state,
-        idRecord: action.payload.idRecord,
-      }),
+      (state, action: PayloadAction<UserProcessType>) => {
+        return {
+          ...state,
+          current_step: action.payload.current_step,
+          status: action.payload.status,
+        };
+      },
     );
   },
 });
-export const { handleSetIdRecord } = userReducer.actions;
+export const { handleSetIdRecord, handleSetProcess } = userReducer.actions;
 export default userReducer.reducer;

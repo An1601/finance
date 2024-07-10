@@ -22,6 +22,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "@components/common/loader";
 import { useBusinessProfile } from "@redux/useSelector";
 import { useLoading } from "@components/hook/useLoading";
+import { handleSetProcess } from "@redux/processReducer";
 
 function Account() {
   const { t } = useTranslation();
@@ -48,6 +49,13 @@ function Account() {
       if (response?.status === 200) {
         navigate("/signin");
         dispatch(handleReduxLogOut());
+        dispatch(
+          handleSetProcess({
+            current_step: "",
+            status: 0,
+            idRecord: 0,
+          }),
+        );
       } else {
         const error = await response?.data;
         toast.warning(error.message || t("profile.messWarning"));

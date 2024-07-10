@@ -35,13 +35,11 @@ import Auth from "@pages/auth.tsx";
 import Survey from "@pages/survey.tsx";
 import Dashboard from "@pages/dashboard.tsx";
 import UserProcess from "@pages/userProcess.tsx";
-import BankDashboard from "@pages/bank.tsx";
 import LoadingProvider from "@components/hook/useLoading.tsx";
 import RoleBasedGuard from "@container/RoleBasedGuard.tsx";
 import { UserRole } from "@type/enum.ts";
 import Meeting from "@container/dashboards/process/bookMeeting/index.tsx";
 import LoanReview from "@container/dashboards/process/loanReview/index.tsx";
-import CompeleteBookMeeting from "@container/dashboards/process/compeleteMeeting/index.tsx";
 import LoanSubmitConfirm from "@container/dashboards/process/loanComfirmSubmit/LoanSubmitConfirm.tsx";
 import RecordIndex from "@container/dashboards/Record/Index.tsx";
 import SurveyBankIndex from "@container/bank/record/survey-list/index.tsx";
@@ -52,12 +50,13 @@ import BankProcess from "@pages/bankProcess.tsx";
 import LoanFormBank from "@container/bank/record/process/loan-form-submit/index.tsx";
 import BankHome from "@container/bank/home/index.tsx";
 import BankApplicationForms from "@container/bank/record/application-forms/index.tsx";
+import UserMainProcess from "@container/dashboards/process/index.tsx";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <RoleBasedGuard>
+      <RoleBasedGuard roles={[]}>
         <Auth />
       </RoleBasedGuard>
     ),
@@ -73,7 +72,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <RoleBasedGuard role={UserRole.BUSINESS}>
+      <RoleBasedGuard roles={[UserRole.BUSINESS]}>
         <Survey />
       </RoleBasedGuard>
     ),
@@ -82,7 +81,22 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <RoleBasedGuard role={UserRole.BUSINESS}>
+      <RoleBasedGuard roles={[UserRole.BUSINESS, UserRole.BANK]}>
+        <Dashboard />
+      </RoleBasedGuard>
+    ),
+    children: [
+      { path: "profile", element: <Account /> },
+      { path: "edit-profile", element: <EditProfile /> },
+      { path: "change-password", element: <ChangePassword /> },
+      { path: "terms-conditions", element: <TermsConditions /> },
+      { path: "message", element: <Message /> },
+    ],
+  },
+  {
+    path: "/",
+    element: (
+      <RoleBasedGuard roles={[UserRole.BUSINESS]}>
         <Dashboard />
       </RoleBasedGuard>
     ),
@@ -96,22 +110,14 @@ const router = createBrowserRouter([
       { path: "records", element: <RecordIndex /> },
       { path: "meeting", element: <MeetingIndex /> },
       { path: "meeting/:loanId", element: <MeetingIndex /> },
-      { path: "profile", element: <Account /> },
-      { path: "edit-profile", element: <EditProfile /> },
-      { path: "change-password", element: <ChangePassword /> },
-      { path: "terms-conditions", element: <TermsConditions /> },
-      { path: "message", element: <Message /> },
       { path: "projects", element: <Projects /> },
       {
-        path: "/",
+        path: "/process/",
         element: <UserProcess />,
         children: [
+          { path: "", element: <UserMainProcess /> },
           { path: "loan-detail", element: <LoanDetail /> },
           { path: "book-meeting/:loanId", element: <Meeting /> },
-          {
-            path: "book-meeting-success/:loanId",
-            element: <CompeleteBookMeeting />,
-          },
           { path: "loan-submit/:loanId", element: <LoanAppSubmit /> },
           {
             path: "loan-submit-confirm/:loanId",
@@ -125,8 +131,8 @@ const router = createBrowserRouter([
   {
     path: "/bank/",
     element: (
-      <RoleBasedGuard role={UserRole.BANK}>
-        <BankDashboard />
+      <RoleBasedGuard roles={[UserRole.BANK]}>
+        <Dashboard />
       </RoleBasedGuard>
     ),
     children: [
@@ -136,10 +142,8 @@ const router = createBrowserRouter([
       { path: "survey-list", element: <SurveyBankIndex /> },
       { path: "survey-detail/:id", element: <BankSurveyDetail /> },
       { path: "records", element: <BankRecordManagement /> },
-      { path: "message", element: <Message /> },
       { path: "loan-list", element: <BankLoanList /> },
       { path: "form-list", element: <BankApplicationForms /> },
-      { path: "profile", element: <Account /> },
       {
         path: "process",
         element: <BankProcess />,

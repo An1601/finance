@@ -9,11 +9,12 @@ import { useLoading } from "@components/hook/useLoading";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import LoanFilter from "@container/dashboards/package-loan/LoanFilter";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import BankTabHeader from "@components/common/bank-tab-header";
 import BankLoanItem from "../record-management/BankLoanItem";
+import Breadcrumb from "@components/common/breadcrumb";
 
 const BankLoanList = () => {
   const windowWidth = useWindowWidth();
@@ -47,7 +48,7 @@ const BankLoanList = () => {
 
   return windowWidth < 480 ? (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 py-7">
+      <div className=" z-10 relative mx-6 pt-7 pb-10">
         <div className="flex justify-between">
           <ProfileHeader />
           <Notification />
@@ -75,9 +76,13 @@ const BankLoanList = () => {
       </div>
     </div>
   ) : (
-    <div className="mt-8">
+    <Fragment>
+      <Breadcrumb
+        primaryText={t("sideBar.record")}
+        secondaryText={t("sideBar.applyLoanList")}
+      />
       <BankLoanBoard loans={loans} />
-    </div>
+    </Fragment>
   );
 };
 

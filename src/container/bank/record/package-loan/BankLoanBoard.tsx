@@ -8,6 +8,7 @@ import { useLoading } from "@components/hook/useLoading";
 import api from "@api/axios";
 import axios from "axios";
 import { toast } from "react-toastify";
+import Loader from "@components/common/loader";
 
 const BankLoanBoard = ({ loans }: { loans: BankLoanItemType[] }) => {
   const { t } = useTranslation();
@@ -39,6 +40,8 @@ const BankLoanBoard = ({ loans }: { loans: BankLoanItemType[] }) => {
       toggleLoading(false);
     }
   };
+
+  if (isLoading) return <Loader />;
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
       <div className="box custom-card">
@@ -46,7 +49,7 @@ const BankLoanBoard = ({ loans }: { loans: BankLoanItemType[] }) => {
           <div className="flex items-center gap-2 ">
             <div className="w-1 h-5 bg-danger rounded-sm" />
             <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-              {t("packageLoanList.packageLoanList")}
+              {t("sideBar.applyLoanList")}
             </div>
           </div>
           <LoanFilter />

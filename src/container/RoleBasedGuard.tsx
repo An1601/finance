@@ -4,18 +4,18 @@ import { useUser } from "@redux/useSelector";
 import { UserRole } from "@type/enum";
 
 interface RoleBasedGuardProps {
-  role?: UserRole;
+  roles: UserRole[];
   children: ReactNode;
 }
 
-const RoleBasedGuard: React.FC<RoleBasedGuardProps> = ({ role, children }) => {
+const RoleBasedGuard: React.FC<RoleBasedGuardProps> = ({ roles, children }) => {
   const user = useUser();
 
   if (!user.access_token) {
-    if (role === UserRole.BANK || role === UserRole.BUSINESS) {
+    if (roles.includes(UserRole.BANK) || roles.includes(UserRole.BUSINESS)) {
       return <Navigate to="/signin" />;
     }
-  } else if (user.role !== role) {
+  } else if (!roles.includes(user.role)) {
     return user.role === UserRole.BANK ? (
       <Navigate to="/bank" />
     ) : (

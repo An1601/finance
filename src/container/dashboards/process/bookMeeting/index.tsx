@@ -3,14 +3,15 @@ import { useTranslation } from "react-i18next";
 import api from "@api/axios";
 import { useEffect, useState } from "react";
 import Loader from "@components/common/loader";
-import { ConsultingMeeting, StatusCheck } from "@type/types";
+import { ConsultingMeeting } from "@type/types";
 import { toast } from "react-toastify";
 import BookingModal from "../bookingModal";
 import Warning from "@assets/icon/Warning.svg";
-import { MeetingStatus, StatusProcess } from "@type/enum";
+import { Status, StatusProcess } from "@type/enum";
 import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import MeetingItem from "./ConsultingItem";
 import { useLoading } from "@components/hook/useLoading";
+import { useProcess } from "@redux/useSelector";
 
 function Meeting() {
   const { t } = useTranslation();
@@ -19,7 +20,7 @@ function Meeting() {
   const { loanId } = useParams();
   const { isLoading, toggleLoading } = useLoading();
   const [current, setCurrent] = useState<ConsultingMeeting>();
-  const [check, setCheck] = useState<StatusCheck>();
+  const check = useProcess();
 
   const fetchDataMeeting = async () => {
     toggleLoading(true);
@@ -54,30 +55,11 @@ function Meeting() {
     toggleLoading(false);
   };
 
-  const fetchCheck = async () => {
-    toggleLoading(true);
-    try {
-      const response = await api.post(`/list-loans-submit/process/${loanId}`);
-      if (response.status === 200) {
-        setCheck(response.data.data);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      toast.error("Failed to fetch data");
-    } finally {
-      toggleLoading(false);
-    }
-  };
-
   const handleLoanForm = () => {
     check?.current_step === StatusProcess.ADMIN_CONSULTATION
       ? navigate(`/book-meeting-success/${loanId}`)
       : toast.warning("Wait for the meeting to complete");
   };
-
-  useEffect(() => {
-    fetchCheck();
-  }, [check?.current_step]);
 
   useEffect(() => {
     loanId ? fetchDataMeetingUser() : fetchDataMeeting();
@@ -99,13 +81,16 @@ function Meeting() {
                 <img src={Warning} />
               </div>
               <div className="text-[16px] font-normal font-Helvetica Neue leading-tight text-light_finance-primary">
-                {loanData[0]?.meeting?.state === MeetingStatus.CONNECT
+                {check.current_step === StatusProcess.BOOK_MEETING &&
+                check.status === Status.APPROVAL
                   ? t("process.bookMeeting.notiConnect")
-                  : loanData[0]?.meeting?.state === MeetingStatus.PENDING
+                  : check.current_step === StatusProcess.BOOK_MEETING &&
+                      check.status === Status.SUBMITED
                     ? t("process.bookMeeting.notiPending")
-                    : loanData[0]?.meeting?.state === MeetingStatus.REJECT
+                    : check.current_step === StatusProcess.BOOK_MEETING &&
+                        check.status === Status.REJECTED
                       ? t("process.bookMeeting.notiReject")
-                      : ""}
+                      : t("process.bookMeeting.compleMeeting")}
               </div>
             </div>
             <MobileHomeBtn name="Check" handleSubmit={handleLoanForm} />
@@ -117,7 +102,11 @@ function Meeting() {
                 loanDetails={loan}
                 handleDelete={handleDeleteMeeting}
                 setCurrent={setCurrent}
-                isShowButton
+                isShowButton={
+                  check.current_step === StatusProcess.BOOK_MEETING
+                    ? true
+                    : false
+                }
               />
             );
           })}

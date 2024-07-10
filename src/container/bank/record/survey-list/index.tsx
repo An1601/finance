@@ -41,12 +41,12 @@ const SurveyBankIndex = () => {
     <div className="min-h-screen relative overflow-hidden">
       <BottomBarCustom />
       <div className=" z-10 relative mx-6 pt-7 pb-14">
-        <div className="flex flex-col gap-5">
+        <div className="flex flex-col gap-8 sm:gap-5">
           <div className="flex sm:hidden justify-between">
             <ProfileHeader />
             <Notification />
           </div>
-          <div className="w-full flex flex-col gap-4 md:flex-row md:gap-0 items-center justify-between">
+          <div className="w-full flex flex-col gap-6 md:flex-row md:gap-0 items-center justify-between">
             <div className="hidden gap-3 items-center md:flex">
               <div className="sm:block hidden w-1 h-5 bg-danger rounded-sm" />
               <div className="flex gap-2 items-center">
@@ -55,7 +55,7 @@ const SurveyBankIndex = () => {
                 </span>
                 <i className="fa-solid fa-angles-right fa-lg"></i>
                 <span className="text-sm text-light_finance-textsub font-normal font-HelveticaNeue">
-                  {t("surveyBank.theSurveyList")}
+                  {t("sideBar.surveyList")}
                 </span>
               </div>
             </div>

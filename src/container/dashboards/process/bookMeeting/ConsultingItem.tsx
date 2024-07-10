@@ -1,6 +1,11 @@
 import calendar from "@assets/icon/CalendarIcon.svg";
 import timer from "@assets/icon/TimerIcon.svg";
-import { InterestRateType, MeetingStatus } from "@type/enum";
+import {
+  InterestRateType,
+  MeetingStatus,
+  Status,
+  StatusProcess,
+} from "@type/enum";
 import { useTranslation } from "react-i18next";
 import { ConsultingMeeting } from "@type/types";
 import { Dispatch, SetStateAction, useState } from "react";
@@ -8,6 +13,7 @@ import AlertModal from "@components/common/alert-modal";
 import EditIcon from "@components/svg/Edit";
 import DeleteIcon from "@components/svg/Delete";
 import CompeleteIcon from "@assets/icon/Compelete.svg";
+import { useProcess } from "@redux/useSelector";
 
 const MeetingItem = ({
   loanDetails,
@@ -22,11 +28,12 @@ const MeetingItem = ({
 }) => {
   const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const check = useProcess();
 
   const handleSubmit = () => {
     if (
-      loanDetails.meeting.state === MeetingStatus.CONNECT &&
-      loanDetails.meeting.zoom_meeting
+      check.current_step === StatusProcess.BOOK_MEETING &&
+      check.status === Status.APPROVAL
     ) {
       window.open(loanDetails.meeting.zoom_meeting, "_blank");
     }
@@ -65,18 +72,22 @@ const MeetingItem = ({
                 className="w-5 h-5 relative"
                 data-hs-overlay="#booking-modal"
                 disabled={
-                  loanDetails?.meeting.state === MeetingStatus.CONNECT ||
-                  loanDetails?.meeting.state === MeetingStatus.REJECT
+                  (check.current_step === StatusProcess.BOOK_MEETING &&
+                    check.status === Status.APPROVAL) ||
+                  check.status === Status.REJECTED
                 }
                 onClick={() => setCurrent(loanDetails)}
               >
                 <EditIcon
                   color={
-                    loanDetails?.meeting.state === MeetingStatus.CONNECT
+                    check.current_step === StatusProcess.BOOK_MEETING &&
+                    check.status === Status.APPROVAL
                       ? "#C7CCD4"
-                      : loanDetails?.meeting.state === MeetingStatus.PENDING
+                      : check.current_step === StatusProcess.BOOK_MEETING &&
+                          check.status === Status.SUBMITED
                         ? "#45556E"
-                        : loanDetails?.meeting?.state === MeetingStatus.REJECT
+                        : check.current_step === StatusProcess.BOOK_MEETING &&
+                            check.status === Status.REJECTED
                           ? "#C7CCD4"
                           : ""
                   }
@@ -86,18 +97,22 @@ const MeetingItem = ({
                 className="w-5 h-5 relative"
                 onClick={handleDeleteClick}
                 disabled={
-                  loanDetails?.meeting.state === MeetingStatus.CONNECT ||
+                  (check.current_step === StatusProcess.BOOK_MEETING &&
+                    check.status === Status.APPROVAL) ||
                   loanDetails?.meeting.state === MeetingStatus.REJECT
                 }
                 data-hs-overlay={`#modal_${loanDetails?.meeting.id}`}
               >
                 <DeleteIcon
                   color={
-                    loanDetails?.meeting.state === MeetingStatus.CONNECT
+                    check.current_step === StatusProcess.BOOK_MEETING &&
+                    check.status === Status.APPROVAL
                       ? "#C7CCD4"
-                      : loanDetails?.meeting.state === MeetingStatus.PENDING
+                      : check.current_step === StatusProcess.BOOK_MEETING &&
+                          check.status === Status.SUBMITED
                         ? "#45556E"
-                        : loanDetails?.meeting?.state === MeetingStatus.REJECT
+                        : check.current_step === StatusProcess.BOOK_MEETING &&
+                            check.status === Status.REJECTED
                           ? "#C7CCD4"
                           : ""
                   }
@@ -191,11 +206,14 @@ const MeetingItem = ({
           {isShowButton && (
             <button
               className={`w-[280px] px-3 py-4  rounded-[28px] flex justify-center items-center ${
-                loanDetails?.meeting.state === MeetingStatus.CONNECT
+                check.current_step === StatusProcess.BOOK_MEETING &&
+                check.status === Status.APPROVAL
                   ? "bg-light_finance-primary"
-                  : loanDetails?.meeting.state === MeetingStatus.PENDING
+                  : check.current_step === StatusProcess.BOOK_MEETING &&
+                      check.status === Status.SUBMITED
                     ? "bg-[#FFE9C9]"
-                    : loanDetails?.meeting?.state === MeetingStatus.REJECT
+                    : check.current_step === StatusProcess.BOOK_MEETING &&
+                        check.status === Status.REJECTED
                       ? "bg-[#FFD4D8]"
                       : ""
               } `}
@@ -203,21 +221,27 @@ const MeetingItem = ({
             >
               <div
                 className={`text-base font-medium leading-normal tracking-tight ${
-                  loanDetails?.meeting?.state === MeetingStatus.CONNECT
+                  check.current_step === StatusProcess.BOOK_MEETING &&
+                  check.status === Status.APPROVAL
                     ? "text-white"
-                    : loanDetails?.meeting?.state === MeetingStatus.PENDING
+                    : check.current_step === StatusProcess.BOOK_MEETING &&
+                        check.status === Status.SUBMITED
                       ? "text-[#FFA621]"
-                      : loanDetails?.meeting?.state === MeetingStatus.REJECT
+                      : check.current_step === StatusProcess.BOOK_MEETING &&
+                          check.status === Status.REJECTED
                         ? "text-[#F65160]"
                         : ""
                 }`}
               >
-                {loanDetails?.meeting.state === MeetingStatus.CONNECT
+                {check.current_step === StatusProcess.BOOK_MEETING &&
+                check.status === Status.APPROVAL
                   ? t("consulting.connect")
-                  : loanDetails?.meeting.state === MeetingStatus.PENDING
+                  : check.current_step === StatusProcess.BOOK_MEETING &&
+                      check.status === Status.SUBMITED
                     ? t("consulting.pending")
-                    : loanDetails?.meeting?.state === MeetingStatus.REJECT
-                      ? "Rejct"
+                    : check.current_step === StatusProcess.BOOK_MEETING &&
+                        check.status === Status.REJECTED
+                      ? "Reject"
                       : ""}
               </div>
             </button>

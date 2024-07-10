@@ -8,12 +8,13 @@ import { useLoading } from "@components/hook/useLoading";
 import useWindowWidth from "@components/hook/useWindowWidth";
 import LoanFilter from "@container/dashboards/package-loan/LoanFilter";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import BankLoanItem from "./BankLoanItem";
 import BankTabHeader from "@components/common/bank-tab-header";
 import BankRecordBoard from "./BankRecordBoard";
+import Breadcrumb from "@components/common/breadcrumb";
 
 const BankRecordManagement = () => {
   const windowWidth = useWindowWidth();
@@ -75,9 +76,13 @@ const BankRecordManagement = () => {
       </div>
     </div>
   ) : (
-    <div className="mt-8">
+    <Fragment>
+      <Breadcrumb
+        primaryText={t("sideBar.record")}
+        secondaryText={t("sideBar.applyLoanList")}
+      />
       <BankRecordBoard loanRecords={loanRecords} />
-    </div>
+    </Fragment>
   );
 };
 export default BankRecordManagement;

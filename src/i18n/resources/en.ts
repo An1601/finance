@@ -266,7 +266,8 @@ export default {
     recordManagement: "Record Management",
     createLoan: "Create package loan",
     surveyList: "Surveys list",
-    applyLoanList: "My package loans",
+    applyLoanList: "My loan packages",
+    applicationForms: "Application forms",
     chat: "Chat",
   },
   type: {

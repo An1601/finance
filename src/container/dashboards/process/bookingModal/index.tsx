@@ -3,13 +3,16 @@ import bookingTitleIcon from "@assets/icon/bookingTitleIcon.svg";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import Loader from "@components/common/loader";
 import { useLoading } from "@components/hook/useLoading";
+import { handleSetIdRecord } from "@redux/processReducer";
+import { AppDispatch } from "@redux/store";
+import { fetchProcess } from "@redux/userThunks";
 import { ConsultingMeeting } from "@type/types";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
@@ -38,7 +41,7 @@ const BookingModal = ({
   const offerId = searchParams.get("offerId");
   const { t } = useTranslation();
   const { isLoading, toggleLoading } = useLoading();
-  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
 
   const formatISOStringToTime = (isoString: string) => {
     const date = new Date(isoString);
@@ -123,10 +126,13 @@ const BookingModal = ({
             note: note,
           });
           if (response.status === 200) {
-            navigate(
-              `/book-meeting/${response.data?.data?.loan_business_list_id}`,
-            );
             document.body.style.overflow = "";
+            dispatch(
+              handleSetIdRecord(response.data?.data?.loan_business_list_id),
+            );
+            await dispatch(
+              fetchProcess(response.data?.data?.loan_business_list_id),
+            );
           }
         } catch (error) {
           const message =

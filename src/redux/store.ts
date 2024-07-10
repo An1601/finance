@@ -23,12 +23,19 @@ const persistedUserReducer = persistReducer(
   },
   userReducer,
 );
+const persistedProcessReducer = persistReducer(
+  {
+    key: "Process",
+    storage: storage,
+  },
+  processReducer,
+);
 
 const rootReducer = combineReducers({
   reducer: reducer,
   userReducer: persistedUserReducer,
   createLoanReducer: createLoanReducer,
-  processReducer: processReducer,
+  processReducer: persistedProcessReducer,
 });
 
 export const store = configureStore({

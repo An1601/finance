@@ -1,4 +1,3 @@
-import { strict } from "assert";
 import { SurveyAnsType, UserRole } from "./enum";
 
 export type SignUpInfo = {
@@ -43,7 +42,7 @@ export type LoginResponse = {
 export type UserInfo = {
   access_token: string;
   refresh_token: string;
-  role: UserRole | -1;
+  role: UserRole;
   business_profile: BusinessProfile | null;
   check_submit?: boolean;
 };
@@ -109,29 +108,20 @@ export type LoanItemType = {
     property_address: string[];
   };
 };
-
-export type LoanDetailProcessType = {
+export type LoanDetailProcessProps = {
   id: number;
-  name: string;
+  loan_name: string;
+  bank_name: string;
   interest_rate_type: number;
-  type: number;
-  origination_fee: number;
   interest_rate: number;
-  duration: number;
   credit_limit: number;
+  duration: number;
+  loan_type: number;
+  origination_fee: number;
   description: string;
-  time_began?: string;
-  category?: {};
-  bank?: {
-    name: string;
-  };
-  document: {
-    id: number;
-    file_name: string;
-    path: string;
-  };
+  time_began: string;
+  term_name: string;
 };
-
 export type UpdateProfile = {
   name: string;
   phone: string;
@@ -243,11 +233,12 @@ export type ApplicationForm = {
   name: string;
   description: string | null;
   application_form_sections: ApplicationFormSection[];
+  created_at?: string;
 };
 
-export type UserProcess = {
+export type UserProcessType = {
   current_step: string;
-  state: number;
+  status: number;
   idRecord: number;
 };
 

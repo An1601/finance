@@ -1,12 +1,28 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import LoanFilter from "../package-loan/LoanFilter";
 import { LoanStatus } from "../../../type/enum";
 import { RecordItemType } from "@type/types";
 import { useTranslation } from "react-i18next";
 import { US_CURRENTCY } from "@constant/Constant";
+import { handleSetIdRecord } from "@redux/processReducer";
+import { useDispatch } from "react-redux";
+import { AppDispatch } from "@redux/store";
+import { fetchProcess } from "@redux/userThunks";
 
-function StatePackageLoans({ loanRecords }: { loanRecords: RecordItemType[] }) {
+const StatePackageLoans = ({
+  loanRecords,
+}: {
+  loanRecords: RecordItemType[];
+}) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch<AppDispatch>();
+  const handleNavigateRecord = async (idRecord: number) => {
+    dispatch(handleSetIdRecord(idRecord));
+    await dispatch(fetchProcess(idRecord));
+    navigate(`/process`);
+  };
+
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
       <div className="box custom-card">
@@ -62,6 +78,9 @@ function StatePackageLoans({ loanRecords }: { loanRecords: RecordItemType[] }) {
               <tbody>
                 {loanRecords.map((record, index) => (
                   <tr
+                    onClick={() => {
+                      handleNavigateRecord(record.id);
+                    }}
                     className="border border-inherit border-solid hover:bg-gray-100 dark:border-defaultborder/10 dark:hover:bg-light font-HelveticaNeue font-normal text-sm text-light_finance-textsub leading-5"
                     key={index}
                   >
@@ -133,6 +152,6 @@ function StatePackageLoans({ loanRecords }: { loanRecords: RecordItemType[] }) {
       </div>
     </div>
   );
-}
+};
 
 export default StatePackageLoans;

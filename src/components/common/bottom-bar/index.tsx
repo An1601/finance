@@ -24,7 +24,12 @@ const BottomBarCustom = () => {
   useEffect(() => {
     if (location.pathname === "/dashboard" || location.pathname === "/bank") {
       setActiveTab("home");
-    } else if (location.pathname.includes("/records")) {
+    } else if (
+      location.pathname.includes("/records") ||
+      location.pathname.includes("/bank/loan-list") ||
+      location.pathname.includes("/bank/survey-list") ||
+      location.pathname.includes("/bank/form-list")
+    ) {
       setActiveTab("document");
     } else if (location.pathname.includes("/message")) {
       setActiveTab("message");
@@ -74,12 +79,7 @@ const BottomBarCustom = () => {
           data-tooltip-target="tooltip-settings"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 "
-          onClick={() =>
-            handleNavigate(
-              `${user.role === UserRole.BANK ? "/bank" : ""}/message`,
-              "message",
-            )
-          }
+          onClick={() => handleNavigate(`/message`, "message")}
         >
           {activeTab === "message" ? (
             <MessageActive className="w-9 h-9" />
@@ -91,12 +91,7 @@ const BottomBarCustom = () => {
           data-tooltip-target="tooltip-profile"
           type="button"
           className="inline-flex flex-col items-center justify-center px-5 rounded-e-full "
-          onClick={() =>
-            handleNavigate(
-              `${user.role === UserRole.BANK ? "/bank" : ""}/profile`,
-              "profile",
-            )
-          }
+          onClick={() => handleNavigate(`/profile`, "profile")}
         >
           {activeTab === "profile" ? (
             <ProfileActive className="w-9 h-9" />

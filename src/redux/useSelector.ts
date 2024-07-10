@@ -11,3 +11,5 @@ export const useBusinessProfile = () =>
   );
 export const useCreateLoan = () =>
   useSelector((state: RootState) => state.rootReducer.createLoanReducer);
+export const useProcess = () =>
+  useSelector((state: RootState) => state.rootReducer.processReducer);

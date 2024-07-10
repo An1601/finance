@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BusinessProfile, LoginResponse, UserInfo } from "@type/types";
 import { fetchProfileData } from "./userThunks";
+import { UserRole } from "@type/enum";
 
 export const initialUser: UserInfo = {
   access_token: "",
   refresh_token: "",
   business_profile: null,
   check_submit: true,
-  role: -1,
+  role: UserRole.GUESS,
 };
 
 const userReducer = createSlice({

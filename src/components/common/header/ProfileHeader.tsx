@@ -10,8 +10,8 @@ import ProfileLink from "./ProfileLink";
 import useWindowWidth from "../../hook/useWindowWidth";
 import { useTranslation } from "react-i18next";
 import { useUser } from "@redux/useSelector";
-import { UserRole } from "@type/enum";
 import { useLoading } from "@components/hook/useLoading";
+import { handleSetProcess } from "@redux/processReducer";
 
 function ProfileHeader() {
   const { t } = useTranslation();
@@ -30,6 +30,13 @@ function ProfileHeader() {
       if (response && response.status === 200) {
         navigate("/signin");
         dispatch(handleReduxLogOut());
+        dispatch(
+          handleSetProcess({
+            current_step: "",
+            status: 0,
+            idRecord: 0,
+          }),
+        );
       } else {
         const error = await response?.data;
         toast.warning(error.message || t("header.messWarning"));
@@ -75,7 +82,7 @@ function ProfileHeader() {
         >
           <ul className="text-defaulttextcolor font-medium dark:text-[#8C9097] dark:text-white/50">
             <ProfileLink
-              to={`${user.role === UserRole.BANK ? "/bank" : ""}/profile`}
+              to={"/profile"}
               icon="ti-user-circle"
               label={t("header.profile")}
             />

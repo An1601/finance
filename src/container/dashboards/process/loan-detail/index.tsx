@@ -8,14 +8,15 @@ import { toast } from "react-toastify";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import LoanDetailItem from "./LoanDetailItem";
 import BookingModal from "../bookingModal";
-import { LoanDetailProcessType } from "@type/types";
 import Loader from "@components/common/loader";
 import { useLoading } from "@components/hook/useLoading";
+import { LoanDetailProcessProps } from "@type/types";
+
 const LoanDetail = () => {
   const { t } = useTranslation();
   const searchParams = new URLSearchParams(location.search);
   const loanId = searchParams.get("loanId");
-  const [loanDetail, setLoanDetail] = useState<LoanDetailProcessType>();
+  const [loanDetail, setLoanDetail] = useState<LoanDetailProcessProps>();
   const { isLoading, toggleLoading } = useLoading();
 
   const handleGetLoanDetail = async () => {
@@ -73,12 +74,12 @@ const LoanDetail = () => {
                 {" )"}
               </div>
               <div className="uppercase text-xl font-bold leading-7 text-light_finance-textbody">
-                {loanDetail?.name}
+                {loanDetail?.loan_name}
               </div>
             </div>
             <div>
               <div className="p-2 rounded-[20px] bg-light_finance-sub_second text-light_finance-primary font-HelveticaNeue font-medium leading-4 whitespace-nowrap">
-                {loanDetail?.bank?.name}
+                {loanDetail?.bank_name}
               </div>
             </div>
           </div>
@@ -103,7 +104,7 @@ const LoanDetail = () => {
               />
               <LoanDetailItem
                 label={t("process.loanDetail.loanType")}
-                value={`${loanDetail?.type === LoanType.SECURE ? t("process.loanDetail.secure") : loanDetail?.type === LoanType.UNSECURE ? t("process.loanDetail.unsecure") : ""}`}
+                value={`${loanDetail?.loan_type === LoanType.SECURE ? t("process.loanDetail.secure") : loanDetail?.loan_type === LoanType.UNSECURE ? t("process.loanDetail.unsecure") : ""}`}
               />
               <LoanDetailItem
                 label={t("process.loanDetail.originalFee")}

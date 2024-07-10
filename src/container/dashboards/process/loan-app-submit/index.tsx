@@ -124,7 +124,7 @@ const LoanAppSubmit = () => {
     };
 
     setItem(`loanSubmit_${loanId}`, JSON.stringify(data));
-    navigate(`/loan-submit-confirm/${loanId}`);
+    navigate(`/process/loan-submit-confirm/${loanId}`);
   };
 
   const formatDate = (isoString: any) => {

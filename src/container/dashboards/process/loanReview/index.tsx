@@ -2,9 +2,8 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "@api/axios";
-import { ApplicationForm, StatusCheck } from "@type/types";
+import { ApplicationForm } from "@type/types";
 import { toast } from "react-toastify";
-import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import LoanStatus from "./active";
 import { Status, StatusProcess } from "@type/enum";
 import Warning from "@assets/icon/Warning.svg";
@@ -12,6 +11,7 @@ import Pdf from "@assets/icon/Pdf.svg";
 import Faild from "@assets/icon/Faild.svg";
 import Loader from "@components/common/loader";
 import { useLoading } from "@components/hook/useLoading";
+import { useProcess } from "@redux/useSelector";
 
 interface AnswerData {
   answers: { [key: string]: any };
@@ -26,7 +26,7 @@ const LoanReview = () => {
   const [formData, setFormData] = useState<ApplicationForm>();
   const { loanId } = useParams();
   const [answerData, setAnswersData] = useState<AnswerData>({ answers: {} });
-  const [check, setCheck] = useState<StatusCheck>();
+  const check = useProcess();
   const [term, setTerm] = useState<ViewTerm>();
   const [file, setfile] = useState<any[]>([]);
   const { isLoading, toggleLoading } = useLoading();
@@ -142,32 +142,16 @@ const LoanReview = () => {
     }
   };
 
-  const fetchCheck = async () => {
-    toggleLoading(true);
-    try {
-      const response = await api.post(`/list-loans-submit/process/${loanId}`);
-      if (response.status === 200) {
-        setCheck(response.data.data);
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      toast.error("Failed to fetch data");
-    } finally {
-      toggleLoading(false);
-    }
-  };
-
   useEffect(() => {
     fetchDataFrom();
     fetchDataAnswer();
-    fetchCheck();
     fetchViewTerm();
     fetchDataFileDoc();
   }, [loanId, check?.current_step]);
 
   const HeaderStatus = () => {
     if (check?.current_step === StatusProcess.LOAN_SUBMIT) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
             title="Your application form is waiting for bank review"
@@ -176,7 +160,7 @@ const LoanReview = () => {
             styleText="text-light_finance-primary"
           />
         );
-      } else if (check?.status === Status.NO_3) {
+      } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
             title="The loan application have been rejected"
@@ -187,7 +171,7 @@ const LoanReview = () => {
         );
       }
     } else if (check?.current_step === StatusProcess.BANK_REVIEW) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
             title="The bank has reviewed your loan application and sent term to you"
@@ -196,7 +180,7 @@ const LoanReview = () => {
             styleText="text-light_finance-primary"
           />
         );
-      } else if (check?.status === Status.NO_3) {
+      } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
             title="The loan application have been rejected"
@@ -207,7 +191,7 @@ const LoanReview = () => {
         );
       }
     } else if (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
             title="The bank has checked Eligibility Assessment"
@@ -216,7 +200,7 @@ const LoanReview = () => {
             styleText="text-light_finance-primary"
           />
         );
-      } else if (check?.status === Status.NO_3) {
+      } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
             title="Unfortunately, Your application form has been rejected"
@@ -227,7 +211,7 @@ const LoanReview = () => {
         );
       }
     } else if (check?.current_step === StatusProcess.APPROVAL_LOAN_APP) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
             title="Congratulations! The bank has approved your loan "
@@ -236,7 +220,7 @@ const LoanReview = () => {
             styleText="text-light_finance-primary"
           />
         );
-      } else if (check?.status === Status.NO_3) {
+      } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
             title="Reject Eligibility Assessment"
@@ -358,15 +342,6 @@ const LoanReview = () => {
             ""
           )}
         </div>
-      </div>
-      <div className="flex items-center justify-center my-3">
-        <PrimarySubmitBtn
-          name="Check"
-          type="submit"
-          handleSubmit={() => {
-            fetchCheck();
-          }}
-        />
       </div>
     </div>
   );

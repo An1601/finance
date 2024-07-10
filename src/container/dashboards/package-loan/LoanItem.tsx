@@ -1,6 +1,6 @@
 import React from "react";
 import { LoanItemType, RecordItemType } from "@type/types";
-import { LoanStatus, LoanSubmitState } from "@type/enum";
+import { LoanStatus, LoanSubmitState, StatusProcess } from "@type/enum";
 import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import { useTranslation } from "react-i18next";
@@ -8,7 +8,8 @@ import { useNavigate } from "react-router-dom";
 import { formatCreditLimit } from "@constant/Constant";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@redux/store";
-import { handleSetIdRecord } from "@redux/processReducer";
+import { handleSetIdRecord, handleSetProcess } from "@redux/processReducer";
+import { fetchProcess } from "@redux/userThunks";
 
 const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
   loanItem,
@@ -16,11 +17,35 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
   const { t } = useTranslation();
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-
   const checkLoanItemType = (object: any): object is LoanItemType => {
     return typeof object === "object" && "survey_answer_id" in object;
   };
   const isLoanItemType = checkLoanItemType(loanItem);
+
+  const handleNavigateRecord = async () => {
+    const idRecord = isLoanItemType
+      ? loanItem?.loan_business_list?.id
+      : loanItem.id;
+    dispatch(handleSetIdRecord(idRecord));
+    await dispatch(fetchProcess(idRecord));
+    navigate(
+      `/process?loanId=${isLoanItemType ? loanItem?.loans?.id : ""}&offerId=${isLoanItemType ? loanItem?.id : ""}`,
+    );
+  };
+  const handleNavigateLoan = () => {
+    dispatch(
+      handleSetProcess({
+        current_step: StatusProcess.BOOK_MEETING,
+        idRecord: 0,
+        status: 0,
+      }),
+    );
+    navigate(
+      `/process/loan-detail?loanId=${
+        isLoanItemType && loanItem?.loans?.id
+      }&offerId=${isLoanItemType && loanItem?.id}`,
+    );
+  };
 
   return (
     <div className="p-4 bg-white rounded-xl w-full flex flex-col md:flex-row md:justify-between gap-3">
@@ -105,7 +130,10 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
           switch (loanItem?.state) {
             case LoanStatus.APPROVED:
               return (
-                <div className="bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
+                <div
+                  onClick={handleNavigateRecord}
+                  className="bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center"
+                >
                   <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
                     {t("packageLoanList.approval")}
                   </div>
@@ -113,7 +141,10 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
               );
             case LoanStatus.INPROGRESS:
               return (
-                <div className="bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center">
+                <div
+                  onClick={handleNavigateRecord}
+                  className="bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center"
+                >
                   <div className="text-center font-HelveticaNeue font-medium text-[#408CFF] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
                     {t("packageLoanList.inProgress")}
                   </div>
@@ -121,7 +152,10 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
               );
             case LoanStatus.REJECT:
               return (
-                <div className="bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center">
+                <div
+                  onClick={handleNavigateRecord}
+                  className="bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center"
+                >
                   <div className="text-center font-HelveticaNeue font-medium text-[#F65160] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
                     {t("packageLoanList.reject")}
                   </div>
@@ -132,33 +166,23 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
                 <MobileHomeBtn
                   className={
                     isLoanItemType &&
-                    loanItem.state_submit === LoanSubmitState.SUBMIT
-                      ? "bg-light_finance-textsub"
-                      : isLoanItemType &&
-                          loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
-                        ? "bg-light_finance-primary items-center"
-                        : ""
+                    loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
+                      ? "bg-light_finance-primary items-center"
+                      : "bg-light_finance-textsub"
                   }
                   name={
                     isLoanItemType &&
-                    loanItem.state_submit === LoanSubmitState.SUBMIT
-                      ? "Details"
-                      : isLoanItemType &&
-                          loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
-                        ? "Submit"
-                        : ""
+                    loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
+                      ? "Submit"
+                      : "Details"
                   }
                   handleSubmit={() => {
-                    dispatch(
-                      handleSetIdRecord(
-                        isLoanItemType ? loanItem.loan_business_list.id : 0,
-                      ),
-                    );
-                    navigate(
-                      `/loan-detail?loanId=${
-                        isLoanItemType && loanItem?.loans?.id
-                      }&offerId=${isLoanItemType && loanItem?.id}`,
-                    );
+                    if (
+                      isLoanItemType &&
+                      loanItem.state_submit === LoanSubmitState.NOT_SUBMIT
+                    )
+                      handleNavigateLoan();
+                    else handleNavigateRecord();
                   }}
                 />
               );

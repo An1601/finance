@@ -1,62 +1,31 @@
 import { useTranslation } from "react-i18next";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { MENU_PROCESS } from "@constant/processItemData";
 import { Fragment } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
-import { useLoading } from "@components/hook/useLoading";
-import api from "@api/axios";
-import { StatusCheck } from "@type/types";
 import { StatusProcess } from "@type/enum";
+import { useProcess } from "@redux/useSelector";
 
 const ProcessHeader = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const currentPath = window.location.pathname;
   const [activeIndex, setActiveIndex] = useState(0);
-  const { loanId } = useParams();
-  const { toggleLoading } = useLoading();
-  const [check, setCheck] = useState<StatusCheck>();
-
-  const fetchCheck = async () => {
-    toggleLoading(true);
-    try {
-      const response = await api.post(`/list-loans-submit/process/${loanId}`);
-      if (response.status === 200) {
-        setCheck(response.data.data);
-      }
-    } catch (error) {}
-  };
+  const check = useProcess();
 
   useEffect(() => {
-    fetchCheck();
-  }, []);
-
-  useEffect(() => {
-    if (
-      currentPath.includes(`/book-meeting-success/${loanId}`) ||
-      currentPath.includes(`/loan-submit/${loanId}`) ||
-      currentPath.includes(`/loan-submit-confirm/${loanId}`)
-    ) {
+    if (check?.current_step === StatusProcess.BOOK_MEETING) {
       setActiveIndex(1);
-    } else if (
-      currentPath.includes(`/loan-review/${loanId}`) &&
-      check?.current_step === StatusProcess.BANK_REVIEW
-    ) {
+    } else if (check?.current_step === StatusProcess.BANK_REVIEW) {
       setActiveIndex(2);
-    } else if (
-      currentPath.includes(`/loan-review/${loanId}`) &&
-      check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT
-    ) {
+    } else if (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {
       setActiveIndex(3);
-    } else if (
-      currentPath.includes(`/loan-review/${loanId}`) &&
-      check?.current_step === StatusProcess.APPROVAL_LOAN_APP
-    ) {
+    } else if (check?.current_step === StatusProcess.APPROVAL_LOAN_APP) {
       setActiveIndex(4);
     } else {
       setActiveIndex(0);
     }
-  }, [check?.current_step, currentPath]);
+  }, [check?.current_step, check.status, currentPath]);
 
   return (
     <div className="w-full flex flex-col gap-7">
@@ -86,9 +55,7 @@ const ProcessHeader = () => {
         </div>
       </div>
       <div className="w-full overflow-x-hidden ml-[18px]">
-        <div
-          className={`relative flex items-center justify-between right-[${148 * (activeIndex - 1)}px]`}
-        >
+        <div className="relative flex items-center justify-between max-[600px]:overflow-scroll">
           {MENU_PROCESS.map((item, index) => (
             <Fragment key={item.id}>
               <div className="flex flex-col gap-2 items-center mt-1">

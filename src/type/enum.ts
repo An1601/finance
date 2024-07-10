@@ -71,7 +71,7 @@ export enum LoanSubmit {
 }
 
 export enum StatusProcess {
-  BOOK_MEETUNG = "book meeting",
+  BOOK_MEETING = "book meeting",
   ADMIN_CONSULTATION = "admin consultation",
   LOAN_ASSIGN = "loan assign",
   LOAN_SUBMIT = "loan submit",
@@ -81,8 +81,10 @@ export enum StatusProcess {
 }
 
 export enum Status {
-  NO_2 = 2,
-  NO_3 = 3,
+  PENDING = 0,
+  SUBMITED = 1,
+  APPROVAL = 2,
+  REJECTED = 3,
 }
 
 export enum SurveyState {

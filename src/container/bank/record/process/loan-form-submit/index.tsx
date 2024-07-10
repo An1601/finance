@@ -200,7 +200,7 @@ const LoanFormBank = () => {
 
   const FooterStatus = () => {
     if (check?.current_step === StatusProcess.LOAN_SUBMIT) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <div className="flex flex-row items-center justify-center mt-5 mb-5 gap-4">
             <CancelBtn
@@ -220,7 +220,7 @@ const LoanFormBank = () => {
         );
       }
     } else if (check?.current_step === StatusProcess.BANK_REVIEW) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <div className="flex flex-row items-center justify-center mt-5 mb-5 gap-4">
             <CancelBtn
@@ -240,7 +240,7 @@ const LoanFormBank = () => {
         );
       }
     } else if (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <div className="flex flex-row items-center justify-center mt-5 mb-5 gap-4">
             <CancelBtn
@@ -266,7 +266,7 @@ const LoanFormBank = () => {
 
   const HeaderStatus = () => {
     if (check?.current_step === StatusProcess.LOAN_SUBMIT) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
             title="Please check the application form"
@@ -277,7 +277,7 @@ const LoanFormBank = () => {
         );
       }
     } else if (check?.current_step === StatusProcess.BANK_REVIEW) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
             title="Please access this applicant's eligibility assessment"
@@ -286,7 +286,7 @@ const LoanFormBank = () => {
             styleText="text-light_finance-primary"
           />
         );
-      } else if (check?.status === Status.NO_3) {
+      } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
             title="Application form have been rejected"
@@ -297,7 +297,7 @@ const LoanFormBank = () => {
         );
       }
     } else if (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
             title="Please send the final result for this application"
@@ -306,7 +306,7 @@ const LoanFormBank = () => {
             styleText="text-light_finance-primary"
           />
         );
-      } else if (check?.status === Status.NO_3) {
+      } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
             title="Application form have been rejected"
@@ -317,7 +317,7 @@ const LoanFormBank = () => {
         );
       }
     } else if (check?.current_step === StatusProcess.APPROVAL_LOAN_APP) {
-      if (check?.status === Status.NO_2) {
+      if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
             title="Final result is sent. You have completed the process!"
@@ -326,7 +326,7 @@ const LoanFormBank = () => {
             styleText="text-light_finance-primary"
           />
         );
-      } else if (check?.status === Status.NO_3) {
+      } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
             title="Application form have been rejected"
