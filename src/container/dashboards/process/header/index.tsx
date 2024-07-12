@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { MENU_PROCESS } from "@constant/processItemData";
 import { Fragment } from "react/jsx-runtime";
 import { useEffect, useState } from "react";
-import { StatusProcess } from "@type/enum";
+import { Status, StatusProcess } from "@type/enum";
 import { useProcess } from "@redux/useSelector";
 
 const ProcessHeader = () => {
@@ -14,18 +14,19 @@ const ProcessHeader = () => {
   const check = useProcess();
 
   useEffect(() => {
-    if (check?.current_step === StatusProcess.BOOK_MEETING) {
-      setActiveIndex(1);
-    } else if (check?.current_step === StatusProcess.BANK_REVIEW) {
+    if (check.current_step === StatusProcess.BOOK_MEETING) {
+      if (check.status === Status.PENDING) setActiveIndex(0);
+      else setActiveIndex(1);
+    } else if (check.current_step === StatusProcess.BANK_REVIEW) {
       setActiveIndex(2);
-    } else if (check?.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {
+    } else if (check.current_step === StatusProcess.ELIGIBILITY_ASSESSMENT) {
       setActiveIndex(3);
-    } else if (check?.current_step === StatusProcess.APPROVAL_LOAN_APP) {
+    } else if (check.current_step === StatusProcess.APPROVAL_LOAN_APP) {
       setActiveIndex(4);
     } else {
-      setActiveIndex(0);
+      setActiveIndex(1);
     }
-  }, [check?.current_step, check.status, currentPath]);
+  }, [check.current_step, check.status, currentPath]);
 
   return (
     <div className="w-full flex flex-col gap-7">

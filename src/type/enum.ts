@@ -99,3 +99,8 @@ export enum BankReviewStatus {
   ELIGIBILITY = "confirm",
   APPOVAL = "approve",
 }
+export enum LoanFormState {
+  DRAFT = 0,
+  PUBLIC = 1,
+  CLOSE = 2,
+}

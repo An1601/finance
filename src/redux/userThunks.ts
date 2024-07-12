@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { RootState } from "./store";
 import api from "@api/axios";
 import { BusinessProfile, UserProcessType } from "@type/types";
-import { formItem } from "@container/bank/record/create-loan-list";
+import { formItem } from "@container/bank/record/package-loan/create-loan-list";
 
 export const fetchProfileData = createAsyncThunk<
   BusinessProfile,

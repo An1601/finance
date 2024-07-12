@@ -3016,14 +3016,6 @@ label {
   @apply text-[0.8rem] text-textmuted;
 }
 
-.swal2-container .swal2-styled.swal2-confirm {
-  @apply bg-primary text-white py-[0.375rem] px-3 text-[0.8125rem] !important;
-}
-
-.swal2-container .swal2-styled.swal2-cancel {
-  @apply bg-light text-defaulttextcolor py-[0.375rem] px-3 text-[0.8125rem] !important;
-}
-
 /* end:: cart */
 /* Start:: Checkout */
 .product-checkout .tab-style-2 .nav-item .nav-link {

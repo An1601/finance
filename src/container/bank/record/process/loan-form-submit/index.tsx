@@ -1,12 +1,12 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import api from "@api/axios";
-import { ApplicationForm, StatusCheck } from "@type/types";
+import { ApplicationFormType, StatusCheck } from "@type/types";
 import { toast } from "react-toastify";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import Loader from "@components/common/loader";
 import { useLoading } from "@components/hook/useLoading";
-import LoanStatus from "@container/dashboards/process/loanReview/active";
+import LoanStatus from "@container/dashboards/process/loan-review/active";
 import Warning from "@assets/icon/Warning.svg";
 import CancelBtn from "@components/common/button/cancel-btn";
 import { BankReviewStatus, Status, StatusProcess } from "@type/enum";
@@ -25,7 +25,7 @@ interface FileName {
 
 const LoanFormBank = () => {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState<ApplicationForm>();
+  const [formData, setFormData] = useState<ApplicationFormType>();
   const searchParams = new URLSearchParams(location.search);
   const loanId = searchParams.get("loanId");
   const recordId = searchParams.get("recordId");
@@ -41,7 +41,7 @@ const LoanFormBank = () => {
   }): { [key: number]: any } => {
     const newData: { [key: number]: any } = {};
     let index = 1;
-    for (let key in data) {
+    for (const key in data) {
       newData[index] = data[key];
       index++;
     }

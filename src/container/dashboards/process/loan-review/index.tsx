@@ -2,7 +2,7 @@ import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import api from "@api/axios";
-import { ApplicationForm } from "@type/types";
+import { ApplicationFormType } from "@type/types";
 import { toast } from "react-toastify";
 import LoanStatus from "./active";
 import { Status, StatusProcess } from "@type/enum";
@@ -23,7 +23,7 @@ interface ViewTerm {
 
 const LoanReview = () => {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState<ApplicationForm>();
+  const [formData, setFormData] = useState<ApplicationFormType>();
   const { loanId } = useParams();
   const [answerData, setAnswersData] = useState<AnswerData>({ answers: {} });
   const check = useProcess();

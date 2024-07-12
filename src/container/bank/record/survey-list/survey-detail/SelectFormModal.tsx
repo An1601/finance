@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { RcmLoanProps } from ".";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
@@ -11,11 +11,13 @@ const SelectSurveyModal = ({
   rcmLoan,
   setRcmLoan,
   loanList,
+  assignedLoan,
   surveyId,
 }: {
   rcmLoan: number[];
   setRcmLoan: Dispatch<SetStateAction<number[]>>;
   loanList: RcmLoanProps[];
+  assignedLoan: number[];
   surveyId: number | undefined;
 }) => {
   const { t } = useTranslation();
@@ -30,6 +32,7 @@ const SelectSurveyModal = ({
       });
       document.body.style.overflow = "";
       if (response.status === 200) {
+        setRcmLoan([]);
         toast.success(
           <div className="sm:w-[380px] flex flex-col">
             <div className="text-base font-bold leading-8 text-light_finance-textbody">
@@ -72,7 +75,12 @@ const SelectSurveyModal = ({
                   <input
                     type="checkbox"
                     id={`form_${loan.id}`}
-                    className="w-4 h-4 rounded-sm border border-light_finance-textsub checked:!bg-light_finance-primary cursor-pointer"
+                    disabled={assignedLoan.includes(loan.id)}
+                    checked={
+                      assignedLoan.includes(loan.id) ||
+                      rcmLoan.includes(loan.id)
+                    }
+                    className={`w-4 h-4 rounded-sm border border-light_finance-textsub ${assignedLoan.includes(loan.id) ? "checked:!bg-gray-600" : "checked:!bg-light_finance-primary"} cursor-pointer`}
                     onChange={(e) => {
                       if (e.currentTarget.checked) {
                         setRcmLoan([...rcmLoan, loan.id]);

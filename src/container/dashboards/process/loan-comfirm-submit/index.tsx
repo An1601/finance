@@ -6,7 +6,7 @@ import CancelBtn from "@components/common/button/cancel-btn";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
 import api from "@api/axios";
-import { ApplicationForm } from "@type/types";
+import { ApplicationFormType } from "@type/types";
 import { useLoading } from "@components/hook/useLoading";
 import Loader from "@components/common/loader";
 import { fetchProcess } from "@redux/userThunks";
@@ -29,7 +29,7 @@ const LoanSubmitConfirm = () => {
   });
   const { getItem, removeItem } = useLocalStorage();
   const { loanId } = useParams();
-  const [formData, setFormData] = useState<ApplicationForm>();
+  const [formData, setFormData] = useState<ApplicationFormType>();
   const [files, setFiles] = useState<File[]>([]);
   const { isLoading, toggleLoading } = useLoading();
   const dispatch = useDispatch<AppDispatch>();

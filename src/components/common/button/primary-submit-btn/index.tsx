@@ -19,7 +19,7 @@ const PrimarySubmitBtn: React.FC<PrimarySubmitBtnProps> = ({
       onClick={handleSubmit}
       data-hs-overlay={dataHsOverlay}
     >
-      <div className="text-base text-light_finance-textbody font-medium font-['Helvetica Neue'] leading-normal tracking-tight">
+      <div className="text-base text-light_finance-textbody font-semibold font-['Helvetica Neue'] leading-normal tracking-tight">
         {name}
       </div>
     </button>

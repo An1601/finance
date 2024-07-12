@@ -55,10 +55,11 @@ const BankSurveyDetail = () => {
   const [loanList, setLoanList] = useState<RcmLoanProps[]>([]);
   const [survey, setSurvey] = useState<SurveyAnsProps>();
   const [rcmLoan, setRcmLoan] = useState<number[]>([]);
+  const [assignedLoan, setAssignedLoann] = useState<number[]>([]);
   const { t } = useTranslation();
   let questionNum = 0;
 
-  const handleGetLoanDetail = async () => {
+  const handleGetSurveyDetail = async () => {
     toggleLoading(true);
     try {
       const response = await api.get(`/bank/surveys/${id}`);
@@ -71,10 +72,10 @@ const BankSurveyDetail = () => {
       toggleLoading(false);
     }
   };
-  const handleGetRecommendLoan = async () => {
+  const handleGetRecommendLoans = async () => {
     toggleLoading(true);
     try {
-      const response = await api.get(`/loans`);
+      const response = await api.get(`/bank/loans-public`);
       if (response.status === 200) {
         setLoanList(response.data.data);
       }
@@ -84,11 +85,27 @@ const BankSurveyDetail = () => {
       toggleLoading(false);
     }
   };
+  const handleGetAssignedLoans = async () => {
+    toggleLoading(true);
+    try {
+      const response = await api.get(`/bank/loan-offers/${id}`);
+      if (response.status === 200) {
+        setAssignedLoann(response.data.data);
+      }
+    } catch (error) {
+      toast.error(t("login.messageError"));
+    } finally {
+      toggleLoading(false);
+    }
+  };
 
   useEffect(() => {
-    handleGetLoanDetail();
-    handleGetRecommendLoan();
+    handleGetSurveyDetail();
+    handleGetRecommendLoans();
   }, []);
+  useEffect(() => {
+    if (survey?.state) handleGetAssignedLoans();
+  }, [survey?.id]);
 
   if (isLoading) return <Loader />;
   return (
@@ -98,6 +115,7 @@ const BankSurveyDetail = () => {
         setRcmLoan={setRcmLoan}
         loanList={loanList}
         surveyId={survey?.id}
+        assignedLoan={assignedLoan}
       />
       <div className="relative z-10 w-full flex flex-col min-h-[95vh]">
         <div className="hidden sm:block">

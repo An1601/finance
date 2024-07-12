@@ -419,7 +419,7 @@ export default {
     loanInfo: "Loan information",
     loanDesc: "Loan description",
     requestDocs: "Request documents",
-    createLoan: "Create a loan application",
+    createLoan: "Create a loan application form",
     loanFormName: "Loan application name",
     titleSection: "Title section",
     titleQuestion: "Title question",
@@ -427,13 +427,14 @@ export default {
     addQuestion: "Add new question",
     addOption: "Add a answer",
     inputName: "Input title name",
-    home: "Input text",
+    inputText: "Input text",
     inputAns: "Input your answer",
     term: "Term",
     updateTerm: "Update Term",
     selectForm: "Select available application form",
     formReuse: "Save this application form in the record",
     messageSuccess: "You had created a package loan",
+    selectWarning: "Please select a loan!",
   },
   surveyBank: {
     netWorth: "Net Worth",
@@ -451,5 +452,22 @@ export default {
   processBank: {
     sendTerm: "Send Term",
     approve: "Approve",
+  },
+  bankForm: {
+    close: "Close",
+    public: "Public",
+    restore: "Restore",
+    closed: "Closed",
+    published: "Published",
+    addForm: "Add new form",
+    sectionWarning: "Section can not be null!",
+    formWarning: "Form can not be null!",
+  },
+  warning: {
+    title: "Are you sure?",
+    content: "It can't be undo!",
+  },
+  button: {
+    update: "Update",
   },
 };
