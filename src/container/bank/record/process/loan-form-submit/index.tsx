@@ -13,6 +13,7 @@ import { BankReviewStatus, Status, StatusProcess } from "@type/enum";
 import Faild from "@assets/icon/Faild.svg";
 import TermItem from "./TermItem";
 import RequestItem from "./RequestItem";
+import { useNavigate } from "react-router-dom";
 
 interface AnswerData {
   answers: { [key: string]: any };
@@ -25,7 +26,8 @@ interface FileName {
 
 const LoanFormBank = () => {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState<ApplicationFormType>();
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState<ApplicationForm>();
   const searchParams = new URLSearchParams(location.search);
   const loanId = searchParams.get("loanId");
   const recordId = searchParams.get("recordId");
@@ -230,7 +232,7 @@ const LoanFormBank = () => {
               }}
             />
             <PrimarySubmitBtn
-              name="Comfirm"
+              name={t("processBank.confrim")}
               type="submit"
               handleSubmit={() => {
                 handleSubmit();
@@ -250,7 +252,7 @@ const LoanFormBank = () => {
               }}
             />
             <PrimarySubmitBtn
-              name="Approve"
+              name={t("processBank.approve")}
               type="submit"
               handleSubmit={() => {
                 handleSubmit();
@@ -437,6 +439,18 @@ const LoanFormBank = () => {
         </>
       ) : null}
       <FooterStatus />
+      {check?.current_step === StatusProcess.LOAN_SUBMIT && (
+        <div
+          className="flex justify-center font-medium text-[14px] md:text-[16px] leading-5 tracking-tight py-2 text-light_finance-primary cursor-pointer underline"
+          onClick={() =>
+            navigate(
+              `/bank/process/request-document?loanId=${loanId}&recordId=${recordId}&formId=${formdId}`,
+            )
+          }
+        >
+          {t("processBank.requestDoc")}
+        </div>
+      )}
     </div>
   );
 };

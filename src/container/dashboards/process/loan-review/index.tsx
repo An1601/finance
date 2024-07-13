@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import api from "@api/axios";
 import { ApplicationFormType } from "@type/types";
 import { toast } from "react-toastify";
@@ -23,6 +23,7 @@ interface ViewTerm {
 
 const LoanReview = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState<ApplicationFormType>();
   const { loanId } = useParams();
   const [answerData, setAnswersData] = useState<AnswerData>({ answers: {} });
@@ -304,6 +305,26 @@ const LoanReview = () => {
           </div>
         ))}
       </div>
+      {check?.current_step !== StatusProcess.APPROVAL_LOAN_APP && (
+        <div className="w-full bg-white p-4 rounded-md border-[1px] border-stroke mt-3">
+          <div className="flex flex-row justify-between items-center">
+            <div className="flex items-center gap-2">
+              <div className="w-1 h-5 bg-danger rounded-sm" />
+              <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
+                {t("processBank.viewDoc")}
+              </div>
+            </div>
+            <div
+              className="text-sm md:text-base font-medium font-['Helvetica Neue'] leading-tight text-light_finance-primary cursor-pointer underline mr-[10px]"
+              onClick={() => {
+                navigate(`/view-document/${loanId}`);
+              }}
+            >
+              {t("processBank.view")}
+            </div>
+          </div>
+        </div>
+      )}
       <div className="w-full bg-white p-4 rounded-md border-[1px] border-stroke mt-3">
         <div className="flex items-center gap-2">
           <div className="w-1 h-5 bg-danger rounded-sm" />
