@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
 import { useNavigate, useParams } from "react-router-dom";
 import api from "@api/axios";
-import { ApplicationForm } from "@type/types";
+import { ApplicationFormType } from "@type/types";
 import { toast } from "react-toastify";
 import { useLocalStorage } from "@utils/index";
 import LoanFormField from "./QuestionItem";
@@ -20,7 +20,7 @@ interface Errors {
 
 const LoanAppSubmit = () => {
   const { t } = useTranslation();
-  const [formData, setFormData] = useState<ApplicationForm>();
+  const [formData, setFormData] = useState<ApplicationFormType>();
   const [answers, setAnswers] = useState<Answers>({});
   const [errors, setErrors] = useState<Errors>({});
   const navigate = useNavigate();

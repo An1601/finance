@@ -97,17 +97,6 @@ export const BANK_MENUITEMS: MenuItem[] = [
     active: false,
     children: [
       {
-        id: 4,
-        title: getTranslated("sideBar.createLoan"),
-        icon: <ManagementRecord isActive={true} isFocus={false} />,
-        iconDark: <ManagementRecord isActive={true} isFocus={true} />,
-        iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
-        type: "link",
-        children: [],
-        path: `/bank/loan-create`,
-        selected: false,
-      },
-      {
         id: 5,
         title: getTranslated("sideBar.applyLoanList"),
         icon: <ManagementRecord isActive={true} isFocus={false} />,

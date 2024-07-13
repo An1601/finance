@@ -26,7 +26,6 @@ import SurveyIndex from "@container/survey";
 import LoanDetail from "@container/dashboards/process/loan-detail";
 import LoanAppSubmit from "@container/dashboards/process/loan-app-submit";
 import Projects from "@container/dashboards/project/index.tsx";
-import CreateLoanForm from "@container/bank/record/create-loan-list/index.tsx";
 import NotificationIndex from "@container/dashboards/Notification/index.tsx";
 import SearchMobile from "@container/dashboards/search/index.tsx";
 import FAQ from "@container/dashboards/FAQ/index.tsx";
@@ -39,8 +38,8 @@ import LoadingProvider from "@components/hook/useLoading.tsx";
 import RoleBasedGuard from "@container/RoleBasedGuard.tsx";
 import { UserRole } from "@type/enum.ts";
 import Meeting from "@container/dashboards/process/bookMeeting/index.tsx";
-import LoanReview from "@container/dashboards/process/loanReview/index.tsx";
-import LoanSubmitConfirm from "@container/dashboards/process/loanComfirmSubmit/LoanSubmitConfirm.tsx";
+import LoanReview from "@container/dashboards/process/loan-review/index.tsx";
+import LoanSubmitConfirm from "@container/dashboards/process/loan-comfirm-submit/index.tsx";
 import RecordIndex from "@container/dashboards/Record/Index.tsx";
 import SurveyBankIndex from "@container/bank/record/survey-list/index.tsx";
 import BankSurveyDetail from "@container/bank/record/survey-list/survey-detail/index.tsx";
@@ -53,6 +52,8 @@ import BankApplicationForms from "@container/bank/record/application-forms/index
 import UserMainProcess from "@container/dashboards/process/index.tsx";
 import RequestDocument from "@container/bank/record/process/request-document/index.tsx";
 import ViewDocument from "@container/dashboards/request-document/index.tsx";
+import CreateLoan from "@container/bank/record/package-loan/create-loan-list/index.tsx";
+import CreateLoanForm from "@container/bank/record/application-forms/create-form/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -140,13 +141,16 @@ const router = createBrowserRouter([
     ),
     children: [
       { path: "", element: <BankHome /> },
-      { path: "loan-create", element: <CreateLoanForm /> },
+      { path: "loan-create", element: <CreateLoan /> },
+      { path: "loan/:loanId", element: <CreateLoan /> },
       { path: "loan-detail", element: <BankLoanDetail /> },
       { path: "survey-list", element: <SurveyBankIndex /> },
       { path: "survey-detail/:id", element: <BankSurveyDetail /> },
       { path: "records", element: <BankRecordManagement /> },
       { path: "loan-list", element: <BankLoanList /> },
       { path: "form-list", element: <BankApplicationForms /> },
+      { path: "form/:formId", element: <CreateLoanForm /> },
+      { path: "form-create", element: <CreateLoanForm /> },
       {
         path: "process",
         element: <BankProcess />,

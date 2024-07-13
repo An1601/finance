@@ -72,6 +72,7 @@ const BankHome = () => {
     <BankMobileHome
       loans={loans?.slice(0, 6)}
       surveyList={surveyList?.slice(0, 6)}
+      handleGetLoans={handleGetLoans}
     />
   );
 };

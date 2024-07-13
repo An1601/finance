@@ -212,26 +212,27 @@ export interface ProjectItemType {
 
 export type FieldApplicationForm = {
   id: number;
-  application_form_section_id: number;
+  application_form_section_id?: number;
   field_name: string;
   field_type: number;
-  field_options: any;
-  order_num: number;
+  field_options: Array<string>;
+  order_num?: number;
 };
 
 export type ApplicationFormSection = {
   id: number;
-  application_form_id: number;
+  application_form_id?: number;
   name: string;
-  order_num: number;
+  order_num?: number;
   field_application_forms: FieldApplicationForm[];
 };
 
-export type ApplicationForm = {
+export type ApplicationFormType = {
   id: number;
   bank_id: number;
   name: string;
   description: string | null;
+  visibility: number;
   application_form_sections: ApplicationFormSection[];
   created_at?: string;
 };
@@ -280,4 +281,6 @@ export type BankLoanItemType = {
   duration: number;
   credit_limit: number;
   time_began: string;
+  application_form_id?: number;
+  visibility?: number;
 };

@@ -13,8 +13,9 @@ import { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import BankTabHeader from "@components/common/bank-tab-header";
-import BankLoanItem from "../record-management/BankLoanItem";
 import Breadcrumb from "@components/common/breadcrumb";
+import CustomAddBtn from "@components/common/button/custom-add-btn";
+import BankLoanItem from "./BankLoanItem";
 
 const BankLoanList = () => {
   const windowWidth = useWindowWidth();
@@ -39,6 +40,37 @@ const BankLoanList = () => {
       toggleLoading(false);
     }
   };
+  const hanldeChangeState = async (state: number, loanId: number) => {
+    toggleLoading(true);
+    try {
+      const response = await api.post(
+        `/loans/${loanId}/update-loan-visibility`,
+        {
+          visibility: state,
+        },
+      );
+      if (response.status === 200) {
+        handleGetLoans();
+      }
+    } catch (error) {
+      toast.error(t("login.messageError"));
+    } finally {
+      toggleLoading(false);
+    }
+  };
+  const hanldeDeleteLoan = async (loanId: number) => {
+    toggleLoading(true);
+    try {
+      const response = await api.delete(`/loans/${loanId}/delete`);
+      if (response.status === 200) {
+        handleGetLoans();
+      }
+    } catch (error) {
+      toast.error(t("login.messageError"));
+    } finally {
+      toggleLoading(false);
+    }
+  };
 
   useEffect(() => {
     handleGetLoans();
@@ -56,9 +88,18 @@ const BankLoanList = () => {
         <div className="my-8 flex flex-col gap-6">
           <BankTabHeader />
           <LoanFilter />
+          <div className="w-full inline-flex justify-center">
+            <CustomAddBtn name={t("createLoanForm.addLoan")} />
+          </div>
           <div className="flex flex-col gap-3">
             {loans.map((loanitem, index) => {
-              return <BankLoanItem key={index} loanItem={loanitem} />;
+              return (
+                <BankLoanItem
+                  key={index}
+                  loanItem={loanitem}
+                  refetchLoans={handleGetLoans}
+                />
+              );
             })}
           </div>
         </div>
@@ -81,7 +122,11 @@ const BankLoanList = () => {
         primaryText={t("sideBar.record")}
         secondaryText={t("sideBar.applyLoanList")}
       />
-      <BankLoanBoard loans={loans} />
+      <BankLoanBoard
+        loans={loans}
+        hanldeChangeState={hanldeChangeState}
+        hanldeDeleteLoan={hanldeDeleteLoan}
+      />
     </Fragment>
   );
 };

@@ -1,23 +1,16 @@
 import React from "react";
-import { BankLoanItemType, BankRecordItemType } from "@type/types";
+import { BankRecordItemType } from "@type/types";
 import { LoanStatus } from "@type/enum";
-import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import calendar from "@assets/icon/CalendarIcon.svg";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 import { formatCreditLimit } from "@constant/Constant";
 import { useUser } from "@redux/useSelector";
 
-const BankLoanItem: React.FC<{
-  loanItem: BankLoanItemType | BankRecordItemType;
+const BankRecordItem: React.FC<{
+  loanItem: BankRecordItemType;
 }> = ({ loanItem }) => {
   const { t } = useTranslation();
   const user = useUser();
-  const navigate = useNavigate();
-  const checkLoanItemType = (object: any): object is BankRecordItemType => {
-    return typeof object === "object" && "project_name" in object;
-  };
-  const isLoanItemType = checkLoanItemType(loanItem);
 
   return (
     <div className="p-4 bg-white rounded-xl w-full flex flex-col md:flex-row md:justify-between gap-3">
@@ -34,7 +27,7 @@ const BankLoanItem: React.FC<{
             {user.business_profile?.name}
           </div>
           <div className="font-HelveticaNeue font-bold text-base md:text-xl leading-7 text-light_finance-textbody text-truncate">
-            {isLoanItemType ? loanItem?.loan_name : loanItem?.name}
+            {loanItem?.loan_name}
           </div>
         </div>
       </div>
@@ -68,51 +61,40 @@ const BankLoanItem: React.FC<{
           </div>
           <div className="lg:flex hidden gap-1">
             <img className="h-5 w-5" src={calendar} />
-            <div>
-              {isLoanItemType ? loanItem?.time_submit : loanItem?.time_began}
-            </div>
+            <div>{loanItem?.time_submit}</div>
           </div>
         </div>
-        {!isLoanItemType ? (
-          <MobileHomeBtn
-            name={t("surveyBank.view")}
-            handleSubmit={() => {
-              navigate(`/bank/loan-detail?loanId=${loanItem.id}`);
-            }}
-          />
-        ) : (
-          (() => {
-            switch (loanItem?.state) {
-              case LoanStatus.APPROVED:
-                return (
-                  <div className="bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
-                    <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
-                      {t("packageLoanList.approval")}
-                    </div>
+        {(() => {
+          switch (loanItem?.state) {
+            case LoanStatus.APPROVED:
+              return (
+                <div className="bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#00D097] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
+                    {t("packageLoanList.approval")}
                   </div>
-                );
-              case LoanStatus.INPROGRESS:
-                return (
-                  <div className="bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center">
-                    <div className="text-center font-HelveticaNeue font-medium text-[#408CFF] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
-                      {t("packageLoanList.inProgress")}
-                    </div>
+                </div>
+              );
+            case LoanStatus.INPROGRESS:
+              return (
+                <div className="bg-[#D9E8FF] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#408CFF] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
+                    {t("packageLoanList.inProgress")}
                   </div>
-                );
-              case LoanStatus.REJECT:
-                return (
-                  <div className="bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center">
-                    <div className="text-center font-HelveticaNeue font-medium text-[#F65160] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
-                      {t("packageLoanList.reject")}
-                    </div>
+                </div>
+              );
+            case LoanStatus.REJECT:
+              return (
+                <div className="bg-[#FFD4D8] rounded-sm inline-flex items-center justify-center">
+                  <div className="text-center font-HelveticaNeue font-medium text-[#F65160] text-[10px] leading-4 px-2 py-[2px] whitespace-nowrap">
+                    {t("packageLoanList.reject")}
                   </div>
-                );
-            }
-          })()
-        )}
+                </div>
+              );
+          }
+        })()}
       </div>
     </div>
   );
 };
 
-export default BankLoanItem;
+export default BankRecordItem;

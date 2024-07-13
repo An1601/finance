@@ -6,16 +6,21 @@ import TotalDisbursements from "./TotalDisbursements";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import { BankLoanItemType, BankSurveyItemType } from "@type/types";
-import BankLoanItem from "../record/record-management/BankLoanItem";
 import BankSurveyItem from "../record/survey-list/BankSurveyItem";
 import BottomBarCustom from "@components/common/bottom-bar";
+import BankLoanItem from "../record/package-loan/BankLoanItem";
 
 interface BankMobileHomeProps {
   loans: BankLoanItemType[];
   surveyList: BankSurveyItemType[];
+  handleGetLoans: () => Promise<void>;
 }
 
-const BankMobileHome = ({ loans, surveyList }: BankMobileHomeProps) => {
+const BankMobileHome = ({
+  loans,
+  surveyList,
+  handleGetLoans,
+}: BankMobileHomeProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -52,7 +57,13 @@ const BankMobileHome = ({ loans, surveyList }: BankMobileHomeProps) => {
               </div>
               <div className="flex flex-col gap-3">
                 {loans?.map((loanitem, index) => {
-                  return <BankLoanItem key={index} loanItem={loanitem} />;
+                  return (
+                    <BankLoanItem
+                      key={index}
+                      loanItem={loanitem}
+                      refetchLoans={handleGetLoans}
+                    />
+                  );
                 })}
               </div>
             </div>

@@ -11,7 +11,7 @@ import axios from "axios";
 import { Fragment, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
-import BankLoanItem from "./BankLoanItem";
+import BankRecordItem from "./BankRecordItem";
 import BankTabHeader from "@components/common/bank-tab-header";
 import BankRecordBoard from "./BankRecordBoard";
 import Breadcrumb from "@components/common/breadcrumb";
@@ -58,7 +58,7 @@ const BankRecordManagement = () => {
           <LoanFilter />
           <div className="flex flex-col gap-3">
             {loanRecords.map((loanitem, index) => {
-              return <BankLoanItem key={index} loanItem={loanitem} />;
+              return <BankRecordItem key={index} loanItem={loanitem} />;
             })}
           </div>
         </div>
