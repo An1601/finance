@@ -4,24 +4,26 @@ import { useTranslation } from "react-i18next";
 import { US_CURRENTCY } from "@constant/Constant";
 import LoanFilter from "@container/dashboards/package-loan/LoanFilter";
 import eyeOpen from "@assets/icon/YellowEyeIcon.svg";
-import { useLoading } from "@components/hook/useLoading";
-import api from "@api/axios";
-import axios from "axios";
-import { toast } from "react-toastify";
-import Loader from "@components/common/loader";
 import { LoanFormState } from "@type/enum";
 import EditIcon from "@components/svg/Edit";
 import { showSweetAlert } from "@components/sweet-alert/Alert";
 import DeleteIcon from "@components/svg/Delete";
 import CustomAddBtn from "@components/common/button/custom-add-btn";
+import { useLoading } from "@components/hook/useLoading";
+import api from "@api/axios";
+import axios from "axios";
+import { toast } from "react-toastify";
 
+interface BankLoanBoardProps {
+  loans: BankLoanItemType[];
+  hanldeChangeState: (state: number, loanId: number) => Promise<void>;
+  hanldeDeleteLoan: (loanId: number) => Promise<void>;
+}
 const BankLoanBoard = ({
   loans,
-  refetchLoans,
-}: {
-  loans: BankLoanItemType[];
-  refetchLoans: () => Promise<void>;
-}) => {
+  hanldeChangeState,
+  hanldeDeleteLoan,
+}: BankLoanBoardProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { isLoading, toggleLoading } = useLoading();
@@ -51,39 +53,7 @@ const BankLoanBoard = ({
       toggleLoading(false);
     }
   };
-  const hanldeChangeState = async (state: number, loanId: number) => {
-    toggleLoading(true);
-    try {
-      const response = await api.post(
-        `/loans/${loanId}/update-loan-visibility`,
-        {
-          visibility: state,
-        },
-      );
-      if (response.status === 200) {
-        refetchLoans();
-      }
-    } catch (error) {
-      toast.error(t("login.messageError"));
-    } finally {
-      toggleLoading(false);
-    }
-  };
-  const hanldeDeleteLoan = async (loanId: number) => {
-    toggleLoading(true);
-    try {
-      const response = await api.delete(`/loans/${loanId}/delete`);
-      if (response.status === 200) {
-        refetchLoans();
-      }
-    } catch (error) {
-      toast.error(t("login.messageError"));
-    } finally {
-      toggleLoading(false);
-    }
-  };
 
-  if (isLoading) return <Loader />;
   return (
     <div className="xxl:col-span-12 xl:col-span-12 col-span-12">
       <div className="box custom-card">
