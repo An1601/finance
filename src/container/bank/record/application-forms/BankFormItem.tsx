@@ -60,7 +60,10 @@ const BankFormItem = ({
 
   if (isLoading) return <Loader />;
   return (
-    <div className="px-4 py-[18px] bg-white flex justify-between rounded-xl">
+    <a
+      href={`/bank/form/${formItem.id}`}
+      className="px-4 py-[18px] bg-white flex justify-between rounded-xl cursor-pointer"
+    >
       <div className="flex flex-col gap-2 py-[10px]c">
         <div className="font-HelveticaNeue font-bold text-light_finance-textbody text-xl leading-7">
           {formItem.name}
@@ -82,39 +85,50 @@ const BankFormItem = ({
           <div className="flex w-fit gap-7">
             <div
               className="cursor-pointer"
-              onClick={() => navigate(`/bank/form-edit/${formItem.id}`)}
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/bank/form/${formItem.id}`);
+              }}
             >
               <EditIcon color={"#45556E"} />
             </div>
             <div
               className="cursor-pointer"
-              onClick={() =>
+              onClick={(e) => {
+                e.preventDefault();
                 showSweetAlert(
                   hanldeDeleteForm,
                   t("warning.title"),
                   t("warning.content"),
                   t("consulting.delete"),
                   t("survey.submit_modal_close"),
-                )
-              }
+                );
+              }}
             >
               <DeleteIcon color={"#45556E"} />
             </div>
           </div>
         )}
         {formItem.visibility === LoanFormState.DRAFT && (
-          <MobileHomeBtn
-            name={t("bankForm.public")}
-            handleSubmit={() =>
-              showSweetAlert(
-                () => hanldeChangeState(LoanFormState.PUBLIC),
-                t("warning.title"),
-                t("warning.content"),
-                t("bankForm.public"),
-                t("survey.submit_modal_close"),
-              )
-            }
-          />
+          <div
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
+          >
+            <MobileHomeBtn
+              name={t("bankForm.public")}
+              handleSubmit={() =>
+                showSweetAlert(
+                  () => hanldeChangeState(LoanFormState.PUBLIC),
+                  t("warning.title"),
+                  t("warning.content"),
+                  t("bankForm.public"),
+                  t("survey.submit_modal_close"),
+                )
+              }
+            />
+          </div>
         )}
         {formItem.visibility === LoanFormState.PUBLIC && (
           <Fragment>
@@ -123,11 +137,18 @@ const BankFormItem = ({
                 {t("bankForm.published")}
               </div>
             </div>
-            <MobileHomeBtn
-              name={t("bankForm.close")}
-              className="bg-rose-600 text-white"
-              handleSubmit={() => hanldeChangeState(LoanFormState.CLOSE)}
-            />
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              <MobileHomeBtn
+                name={t("bankForm.close")}
+                className="bg-rose-600 text-white"
+                handleSubmit={() => hanldeChangeState(LoanFormState.CLOSE)}
+              />
+            </div>
           </Fragment>
         )}
         {formItem.visibility === LoanFormState.CLOSE && (
@@ -137,15 +158,22 @@ const BankFormItem = ({
                 {t("bankForm.closed")}
               </div>
             </div>
-            <MobileHomeBtn
-              name={t("bankForm.restore")}
-              className="!bg-[#408CFF]"
-              handleSubmit={() => hanldeChangeState(LoanFormState.PUBLIC)}
-            />
+            <div
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+              }}
+            >
+              <MobileHomeBtn
+                name={t("bankForm.restore")}
+                className="!bg-[#408CFF]"
+                handleSubmit={() => hanldeChangeState(LoanFormState.PUBLIC)}
+              />
+            </div>
           </Fragment>
         )}
       </div>
-    </div>
+    </a>
   );
 };
 

@@ -281,4 +281,6 @@ export type BankLoanItemType = {
   duration: number;
   credit_limit: number;
   time_began: string;
+  application_form_id?: number;
+  visibility?: number;
 };

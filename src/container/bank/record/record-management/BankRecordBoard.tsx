@@ -4,7 +4,7 @@ import { BankRecordItemType } from "@type/types";
 import { useTranslation } from "react-i18next";
 import { US_CURRENTCY } from "@constant/Constant";
 import LoanFilter from "@container/dashboards/package-loan/LoanFilter";
-import eyeOpen from "@assets/icon/EyeOpen.svg";
+import eyeOpen from "@assets/icon/YellowEyeIcon.svg";
 
 const BankRecordBoard = ({
   loanRecords,
@@ -102,13 +102,13 @@ const BankRecordBoard = ({
                     >
                       {index + 1}
                     </th>
-                    <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
+                    <td className="max-w-60 text-truncate font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
                       {record?.loan_name}
                     </td>
-                    <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
+                    <td className="max-w-60 text-truncate font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
                       {record?.project_name}
                     </td>
-                    <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
+                    <td className="max-w-60 text-truncate font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">
                       {record?.customer_name}
                     </td>
                     <td className=" font-HelveticaNeue leading-5 text-sm text-light_finance-textsub">

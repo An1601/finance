@@ -15,6 +15,7 @@ import { toast } from "react-toastify";
 import BankTabHeader from "@components/common/bank-tab-header";
 import BankLoanItem from "../record-management/BankLoanItem";
 import Breadcrumb from "@components/common/breadcrumb";
+import CustomAddBtn from "@components/common/button/custom-add-btn";
 
 const BankLoanList = () => {
   const windowWidth = useWindowWidth();
@@ -56,6 +57,9 @@ const BankLoanList = () => {
         <div className="my-8 flex flex-col gap-6">
           <BankTabHeader />
           <LoanFilter />
+          <div className="w-full inline-flex justify-center">
+            <CustomAddBtn name={t("createLoanForm.addLoan")} />
+          </div>
           <div className="flex flex-col gap-3">
             {loans.map((loanitem, index) => {
               return <BankLoanItem key={index} loanItem={loanitem} />;
@@ -81,7 +85,7 @@ const BankLoanList = () => {
         primaryText={t("sideBar.record")}
         secondaryText={t("sideBar.applyLoanList")}
       />
-      <BankLoanBoard loans={loans} />
+      <BankLoanBoard loans={loans} refetchLoans={handleGetLoans} />
     </Fragment>
   );
 };

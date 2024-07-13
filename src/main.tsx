@@ -51,7 +51,7 @@ import BankHome from "@container/bank/home/index.tsx";
 import BankApplicationForms from "@container/bank/record/application-forms/index.tsx";
 import UserMainProcess from "@container/dashboards/process/index.tsx";
 import CreateLoan from "@container/bank/record/package-loan/create-loan-list/index.tsx";
-import CreateLoanForm from "@container/bank/record/application-forms/create-form/CreateLoanForm.tsx";
+import CreateLoanForm from "@container/bank/record/application-forms/create-form/index.tsx";
 
 const router = createBrowserRouter([
   {
@@ -139,13 +139,14 @@ const router = createBrowserRouter([
     children: [
       { path: "", element: <BankHome /> },
       { path: "loan-create", element: <CreateLoan /> },
+      { path: "loan/:loanId", element: <CreateLoan /> },
       { path: "loan-detail", element: <BankLoanDetail /> },
       { path: "survey-list", element: <SurveyBankIndex /> },
       { path: "survey-detail/:id", element: <BankSurveyDetail /> },
       { path: "records", element: <BankRecordManagement /> },
       { path: "loan-list", element: <BankLoanList /> },
       { path: "form-list", element: <BankApplicationForms /> },
-      { path: "form-edit/:formId", element: <CreateLoanForm /> },
+      { path: "form/:formId", element: <CreateLoanForm /> },
       { path: "form-create", element: <CreateLoanForm /> },
       {
         path: "process",
