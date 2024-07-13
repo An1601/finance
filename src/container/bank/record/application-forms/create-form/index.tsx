@@ -6,7 +6,7 @@ import addSectionIcon from "@assets/icon/addSectionIcon.svg";
 import bg1 from "@assets/images/authentication/1.svg";
 import defaultProfileImage from "@assets/images/profile/avatar.jpeg";
 import ImageIcon from "@assets/icon/ImageIcon.svg";
-import { LoanSubmit } from "@type/enum";
+import { LoanFormState, LoanSubmit } from "@type/enum";
 import { useForm } from "react-hook-form";
 import { questionType } from "./QuestionType";
 import { useDispatch } from "react-redux";
@@ -53,6 +53,7 @@ const CreateLoanForm = () => {
     fieldId: [],
     sectionId: [],
   });
+  const [dissable, setDisable] = useState(false);
   const loanData = useCreateLoan();
   const { formId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
@@ -226,6 +227,10 @@ const CreateLoanForm = () => {
             }));
           });
         });
+        setDisable(
+          data.visibility === LoanFormState.PUBLIC ||
+            data.visibility === LoanFormState.CLOSE,
+        );
       }
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -316,6 +321,7 @@ const CreateLoanForm = () => {
                   placeholder={t("createLoanForm.inputName")}
                   register={register("formName", { required: true })}
                   error={getFieldError(errors.formName)}
+                  disabled={dissable}
                 />
                 {loanData?.loanForm?.map((section) => (
                   <Fragment key={section.id}>
@@ -339,17 +345,23 @@ const CreateLoanForm = () => {
                           error={getFieldError(
                             errors[`sectionName_${section.id}`],
                           )}
+                          disabled={dissable}
                         />
                         <i
-                          className="fa-solid fa-x fa-lg cursor-pointer"
+                          className={`fa-solid fa-x fa-lg cursor-pointer ${dissable ? "hidden" : ""}`}
                           onClick={() => {
-                            dispatch(handleDeleteSection(section.id));
-                            unregister(`sectionName_${section.id}`);
-                            if (originalList.sectionId.includes(section.id))
-                              setDeleteList((prevList) => ({
-                                ...prevList,
-                                sectionId: [...prevList.sectionId, section.id],
-                              }));
+                            if (!dissable) {
+                              dispatch(handleDeleteSection(section.id));
+                              unregister(`sectionName_${section.id}`);
+                              if (originalList.sectionId.includes(section.id))
+                                setDeleteList((prevList) => ({
+                                  ...prevList,
+                                  sectionId: [
+                                    ...prevList.sectionId,
+                                    section.id,
+                                  ],
+                                }));
+                            }
                           }}
                         ></i>
                       </div>
@@ -382,6 +394,7 @@ const CreateLoanForm = () => {
                                   `titleQuestion_${section.id}_${field.id}`
                                 ],
                               )}
+                              disabled={dissable}
                             />
                             <div className="relative w-2/3 md:flex-[35%] flex justify-between items-center h-[52px] px-4 py-2 border-[1px] !border-light_finance-primary rounded-sm cursor-pointer">
                               {getDisplayType(field.field_type)}
@@ -401,6 +414,7 @@ const CreateLoanForm = () => {
                                       });
                                   }
                                 }}
+                                disabled={dissable}
                               />
                               <i
                                 className={`fa-solid fa-chevron-down text-light_finance-textbody peer-checked:rotate-180 transition-all duration-300`}
@@ -430,22 +444,24 @@ const CreateLoanForm = () => {
                             </div>
                           </div>
                           <i
-                            className="mt-6 md:mt-0 fa-solid fa-x fa-lg cursor-pointer"
+                            className={`mt-6 md:mt-0 fa-solid fa-x fa-lg cursor-pointer ${dissable ? "hidden" : ""}`}
                             onClick={() => {
-                              unregister(
-                                `titleQuestion_${section.id}_${field.id}`,
-                              );
-                              dispatch(
-                                handleDeleteField({
-                                  sectionId: section.id,
-                                  fieldId: field.id,
-                                }),
-                              );
-                              if (originalList.fieldId.includes(field.id))
-                                setDeleteList((prevList) => ({
-                                  ...prevList,
-                                  fieldId: [...prevList.fieldId, field.id],
-                                }));
+                              if (!dissable) {
+                                unregister(
+                                  `titleQuestion_${section.id}_${field.id}`,
+                                );
+                                dispatch(
+                                  handleDeleteField({
+                                    sectionId: section.id,
+                                    fieldId: field.id,
+                                  }),
+                                );
+                                if (originalList.fieldId.includes(field.id))
+                                  setDeleteList((prevList) => ({
+                                    ...prevList,
+                                    fieldId: [...prevList.fieldId, field.id],
+                                  }));
+                              }
                             }}
                           ></i>
                         </div>
@@ -462,16 +478,17 @@ const CreateLoanForm = () => {
                                     {option}
                                   </div>
                                   <i
-                                    className="fa-solid fa-x cursor-pointer"
-                                    onClick={() =>
-                                      dispatch(
-                                        handleDeleteOption({
-                                          fieldId: field.id,
-                                          sectionId: section.id,
-                                          opTionIndex: index,
-                                        }),
-                                      )
-                                    }
+                                    className={`fa-solid fa-x cursor-pointer ${dissable ? "hidden" : ""}`}
+                                    onClick={() => {
+                                      if (!dissable)
+                                        dispatch(
+                                          handleDeleteOption({
+                                            fieldId: field.id,
+                                            sectionId: section.id,
+                                            opTionIndex: index,
+                                          }),
+                                        );
+                                    }}
                                   ></i>
                                 </div>
                               ))}
@@ -482,7 +499,8 @@ const CreateLoanForm = () => {
                                 onKeyUp={(e) => {
                                   if (
                                     e.key === "Enter" &&
-                                    e.currentTarget.value !== ""
+                                    e.currentTarget.value !== "" &&
+                                    !dissable
                                   ) {
                                     dispatch(
                                       handleAddOption({
@@ -505,11 +523,12 @@ const CreateLoanForm = () => {
                                 placeholder={t("createLoanForm.inputAns")}
                                 id={`input_${section.id}_${field.id}`}
                                 value={inputOption}
+                                disabled={dissable}
                               />
                               <div
                                 className="w-fit flex gap-2 items-center px-4 py-3 bg-light_finance-background1 cursor-pointer"
                                 onClick={() => {
-                                  if (inputOption !== "") {
+                                  if (inputOption !== "" && !dissable) {
                                     dispatch(
                                       handleAddOption({
                                         fieldId: field.id,
@@ -534,7 +553,9 @@ const CreateLoanForm = () => {
                     <div className="w-full inline-flex justify-start">
                       <div
                         className="flex w-fit gap-2 items-center  cursor-pointer"
-                        onClick={() => dispatch(hanldeAddField(section.id))}
+                        onClick={() => {
+                          if (!dissable) dispatch(hanldeAddField(section.id));
+                        }}
                       >
                         <img src={addFieldIcon} />
                         <div className="font-HelveticaNeue text-sm font-normal leading-5">
@@ -548,7 +569,9 @@ const CreateLoanForm = () => {
               <div className="w-full inline-flex justify-center  cursor-pointer">
                 <div
                   className="flex w-fit gap-2 items-center"
-                  onClick={() => dispatch(hanldeAddSection())}
+                  onClick={() => {
+                    if (!dissable) dispatch(hanldeAddSection());
+                  }}
                 >
                   <img src={addSectionIcon} />
                   <div className="font-HelveticaNeue text-sm">
@@ -568,21 +591,24 @@ const CreateLoanForm = () => {
             <textarea
               className={`h-40 border-[1px] ${errors.requestDocs ? "border-red  focus:!border-red" : "border-light_finance-texttitle  focus:!border-light_finance-texttitle"}   rounded-sm text-sm font-normal text-light_finance-textbody font-HelveticaNeue`}
               {...register("requestDocs", { required: true })}
+              disabled={dissable}
             />
           </div>
-          <div className="w-full flex gap-7 justify-center">
-            <CancelBtn
-              label={t("survey.submit_modal_close")}
-              handleOnClick={() => {
-                dispatch(handleResetCreateLoan());
-                navigate("/bank/form-list");
-              }}
-            />
-            <PrimarySubmitBtn
-              type="submit"
-              name={formId ? t("button.update") : t("resetPassword.create")}
-            />
-          </div>
+          {!dissable && (
+            <div className="w-full flex gap-7 justify-center">
+              <CancelBtn
+                label={t("survey.submit_modal_close")}
+                handleOnClick={() => {
+                  dispatch(handleResetCreateLoan());
+                  navigate("/bank/form-list");
+                }}
+              />
+              <PrimarySubmitBtn
+                type="submit"
+                name={formId ? t("button.update") : t("resetPassword.create")}
+              />
+            </div>
+          )}
         </form>
       </div>
       <div className="absolute w-full sm:hidden top-[-1.5rem]">

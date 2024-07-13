@@ -14,6 +14,7 @@ import { toast } from "react-toastify";
 import bg1 from "@assets/images/authentication/1.svg";
 import Loader from "@components/common/loader";
 import { useNavigate } from "react-router-dom";
+import CustomAddBtn from "@components/common/button/custom-add-btn";
 
 const BankApplicationForms = () => {
   const { t } = useTranslation();
@@ -72,15 +73,10 @@ const BankApplicationForms = () => {
             <div className="w-full sm:w-fit">
               <BankSurveyFilter />
             </div>
-            <button
-              className="w-[200px] sm:w-[180px] lg:w-[200px] px-3 py-2 rounded-xl flex justify-evenly items-center bg-light_finance-primary drop-shadow-[0_6px_6px_rgba(50,215,75,0.35)] text-light_finance-textbody "
-              onClick={() => navigate("/bank/form-create")}
-            >
-              <i className="fa-solid fa-plus text-light_finance-primary fa-xl py-4 px-2 rounded-full bg-white"></i>
-              <div className="text-base text-white font-semibold font-['Helvetica Neue'] leading-normal tracking-tight">
-                {t("bankForm.addForm")}
-              </div>
-            </button>
+            <CustomAddBtn
+              name={t("bankForm.addForm")}
+              handleOnclick={() => navigate("/bank/form-create")}
+            />
           </div>
           <div className="grid grid-cols-2 gap-y-3 md:gap-y-5 md:gap-20">
             {forms?.map((form) => {

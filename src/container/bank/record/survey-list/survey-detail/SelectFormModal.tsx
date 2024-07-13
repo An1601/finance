@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect } from "react";
+import { Dispatch, SetStateAction } from "react";
 import { useTranslation } from "react-i18next";
 import { RcmLoanProps } from ".";
 import PrimarySubmitBtn from "@components/common/button/primary-submit-btn";
