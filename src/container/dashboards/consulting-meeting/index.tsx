@@ -69,7 +69,7 @@ function MeetingIndex() {
         meetingData={current}
         reFetchMeeeting={loanId ? fetchDataMeetingUser : fetchDataMeeting}
       />
-      {windowWidth >= 910 ? (
+      {windowWidth >= 940 ? (
         <div className="min-h-screen relative ">
           <div className="mx-6 pt-7">
             <div className="flex flex-col my-7">

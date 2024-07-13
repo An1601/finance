@@ -451,5 +451,15 @@ export default {
   processBank: {
     sendTerm: "Send Term",
     approve: "Approve",
+    requestDoc: "Request Document",
+    viewDoc: "New request document",
+    view: "View",
+    sendSuc: "Send request successfully",
+    sendWarn: "Please enter a note before submitting",
+    writeNote: "Write a comment...",
+    close: "Close",
+    add: "Add",
+    chosseFile: "Choose File",
+    confrim: "Comfirm",
   },
 };

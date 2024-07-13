@@ -4,6 +4,7 @@ interface PrimarySubmitBtnProps {
   type?: "button" | "submit" | "reset";
   dataHsOverlay?: string;
   customClass?: string;
+  styleText?: string;
 }
 const PrimarySubmitBtn: React.FC<PrimarySubmitBtnProps> = ({
   name,
@@ -11,6 +12,7 @@ const PrimarySubmitBtn: React.FC<PrimarySubmitBtnProps> = ({
   type,
   dataHsOverlay,
   customClass,
+  styleText,
 }) => {
   return (
     <button
@@ -19,7 +21,9 @@ const PrimarySubmitBtn: React.FC<PrimarySubmitBtnProps> = ({
       onClick={handleSubmit}
       data-hs-overlay={dataHsOverlay}
     >
-      <div className="text-base text-light_finance-textbody font-medium font-['Helvetica Neue'] leading-normal tracking-tight">
+      <div
+        className={`text-base text-light_finance-textbody font-medium font-['Helvetica Neue'] leading-normal tracking-tight ${styleText}`}
+      >
         {name}
       </div>
     </button>
