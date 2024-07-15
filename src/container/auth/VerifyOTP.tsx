@@ -1,6 +1,6 @@
 import { Fragment } from "react/jsx-runtime";
 import logo from "@assets/images/brand-logos/1.png";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import Loader from "@components/common/loader";
@@ -16,87 +16,73 @@ function VerifyOTP() {
   const email = searchParams.get("email");
   const { setItem, getItem, removeItem } = useLocalStorage();
   const { isLoading, toggleLoading } = useLoading();
-
+  const refOTP = useRef<(HTMLInputElement | null)[]>(Array(5).fill(null));
   const navigate = useNavigate();
   const [otp, setOTP] = useState<string[]>(Array(5).fill(""));
   const [time, setTime] = useState<number>(60);
   const [isFilled, setIsFilled] = useState(false);
   const { t } = useTranslation();
 
-  useEffect(() => {
-    setIsFilled(otp.every((o) => o !== ""));
-  }, [otp]);
-
-  useEffect(() => {
-    let currentTime: NodeJS.Timeout;
-    if (time && time >= 0) {
-      currentTime = setInterval(() => {
-        setTime((prevTime) => (prevTime && prevTime > 0 ? prevTime - 1 : 0));
-      }, 1000);
-      return () => clearInterval(currentTime);
-    } else {
-      resetState();
-    }
-    return () => {
-      clearInterval(currentTime);
-    };
-  }, [time]);
-
-  useEffect(() => {
-    const storedTime = getItem(`${email}_expirationTime`);
-    if (storedTime) {
-      setTime(calculateRemainingTime(parseInt(storedTime)));
-    } else {
-      saveExpireTimeToLocalStorage(60);
-    }
-  }, []);
-
   const focusNextOTPItem = (
     event: React.KeyboardEvent<HTMLInputElement>,
     index: number,
   ) => {
-    const currentInputId = `input_${index.toString()}`;
-    const currentInput = document.getElementById(
-      currentInputId,
-    ) as HTMLInputElement;
-
-    if (!currentInput) return;
-    const newotp = [...otp];
-    newotp[index] = currentInput?.value || "";
-    setOTP(newotp);
-
-    if (event.key === "Backspace") {
+    if (event.key === "Backspace" || event.key === "Delete") {
+      setOTP((prevState) =>
+        prevState.map((item, idx) => (idx === index ? "" : item)),
+      );
+      event.preventDefault();
       if (index > 0) {
-        const previousInputId = `input_${(index - 1).toString()}`;
-        const previousInput = document.getElementById(
-          previousInputId,
-        ) as HTMLInputElement;
-
-        if (previousInput) {
-          previousInput.focus();
+        if (refOTP.current[index]?.value !== "") {
+          refOTP.current[index]!.value = "";
+        }
+        const prevInput = refOTP.current[index - 1];
+        if (prevInput) {
+          prevInput.focus();
+        }
+      } else refOTP.current[index]!.value = "";
+    } else {
+      if (index < refOTP.current.length - 1 && event.key !== "Tab") {
+        if (refOTP.current[index]?.value && refOTP.current[index + 1]) {
+          refOTP.current[index + 1]!.focus();
         }
       }
+    }
+  };
+  const handlePaste = (
+    event: React.ClipboardEvent<HTMLInputElement>,
+    startIndex: number,
+  ) => {
+    event.preventDefault();
+    const pastedText = event.clipboardData.getData("text/plain").trim();
+    const newOTP = [...otp];
+    for (
+      let i = 0;
+      i < pastedText.length && startIndex + i < refOTP.current.length;
+      i++
+    ) {
+      if (refOTP.current[startIndex + i])
+        refOTP.current[startIndex + i]!.value = pastedText[i];
+
+      newOTP[startIndex + i] = pastedText[i];
+    }
+    setOTP(newOTP);
+    const nextIndex = startIndex + pastedText.length;
+    if (nextIndex < refOTP.current.length && refOTP.current[nextIndex]) {
+      refOTP.current[nextIndex].focus();
     } else {
-      const nextInputId = `input_${(index + 1).toString()}`;
-      const nextInput = document.getElementById(
-        nextInputId,
-      ) as HTMLInputElement;
-      if (nextInput && index < 4 && event.key !== "Tab") {
-        nextInput.focus();
-        nextInput.value = "";
+      const submitButton = document.querySelector("button[type='submit']");
+      if (submitButton instanceof HTMLElement) {
+        submitButton.focus();
       }
     }
-
-    setIsFilled(otp.every((o) => o !== ""));
   };
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (isFilled) {
       submitOTP();
     }
   };
-
   const submitOTP = async () => {
     let requestBody;
     if (signupMode) {
@@ -147,7 +133,6 @@ function VerifyOTP() {
       toggleLoading(false);
     }
   };
-
   const handleResend = async () => {
     try {
       toggleLoading(true);
@@ -178,7 +163,6 @@ function VerifyOTP() {
       toggleLoading(false);
     }
   };
-
   const resetState = () => {
     setOTP(Array(5).fill(""));
     const inputs =
@@ -208,6 +192,34 @@ function VerifyOTP() {
     }
   };
 
+  useEffect(() => {
+    let currentTime: NodeJS.Timeout;
+    if (time && time >= 0) {
+      currentTime = setInterval(() => {
+        setTime((prevTime) => (prevTime && prevTime > 0 ? prevTime - 1 : 0));
+      }, 1000);
+      return () => clearInterval(currentTime);
+    } else {
+      resetState();
+    }
+    return () => {
+      clearInterval(currentTime);
+    };
+  }, [time]);
+
+  useEffect(() => {
+    const storedTime = getItem(`${email}_expirationTime`);
+    if (storedTime) {
+      setTime(calculateRemainingTime(parseInt(storedTime)));
+    } else {
+      saveExpireTimeToLocalStorage(60);
+    }
+    refOTP.current[0]?.focus();
+  }, []);
+  useEffect(() => {
+    setIsFilled(otp.every((value) => value !== ""));
+  }, [otp]);
+
   if (isLoading) return <Loader />;
 
   return (
@@ -231,11 +243,21 @@ function VerifyOTP() {
           {Array.from({ length: 5 }).map((_, index) => (
             <input
               key={index}
-              id={`input_${index.toString()}`}
+              className={`h-[3.375rem] w-[3.375rem] bg-light_finance-background border-[1px] focus:!border-light_finance-textsub focus:outline-none border-light_finance-texttitle rounded-lg text-2xl font-HelveticaNeue font-medium leading-7 text-center animate-blink-horizontal [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none`}
               type="text"
-              className={`h-[3.375rem] w-[3.375rem] bg-light_finance-background border-[1px] focus:!border-light_finance-textsub focus:outline-none border-light_finance-texttitle rounded-lg text-2xl font-HelveticaNeue font-medium leading-7 text-center animate-blink-horizontal`}
               maxLength={1}
-              onKeyUp={(event) => focusNextOTPItem(event, index)}
+              onKeyDown={(event) => focusNextOTPItem(event, index)}
+              ref={(el) => (refOTP.current[index] = el)}
+              onChange={() => {
+                setOTP((prevState) =>
+                  prevState.map((item, idx) =>
+                    idx === index ? refOTP.current[index]?.value ?? "" : item,
+                  ),
+                );
+              }}
+              onPaste={(event) => {
+                handlePaste(event, index);
+              }}
             />
           ))}
         </div>

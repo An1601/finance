@@ -175,7 +175,7 @@ const MeetingItem = ({
                       : loanDetails.meeting.state === MeetingStatus.PENDING
                         ? t("consulting.pending")
                         : loanDetails?.meeting?.state === MeetingStatus.REJECT
-                          ? "Rejct"
+                          ? t("home.reject")
                           : ""}
                   </div>
                 </button>
