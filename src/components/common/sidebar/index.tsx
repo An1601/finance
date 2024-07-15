@@ -144,7 +144,12 @@ const Sidebar: FC<SidebarProps> = ({ ThemeChanger, isBank }) => {
         }}
       ></div>
       <aside className="app-sidebar !bg-dark_finance-background " id="sidebar">
-        <div className="h-[89px] flex items-center ml-7 gap-2">
+        <div
+          className="h-[89px] flex items-center ml-7 gap-2 cursor-pointer"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           <img src={logo1} alt="logo" className="desktop-logo" />
           <div>
             <span className="text-light_finance-primary text-2xl font-bold font-['Nunito Sans']">

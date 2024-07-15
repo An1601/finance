@@ -212,7 +212,7 @@ const LoanFormBank = () => {
               }}
             />
             <PrimarySubmitBtn
-              name="Approve"
+              name={t("processBank.approve")}
               type="submit"
               handleSubmit={() => {
                 handleSubmit();
@@ -271,7 +271,7 @@ const LoanFormBank = () => {
       if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
-            title="Please check the application form"
+            title={t("processBank.statusCheck")}
             icon={Warning}
             className="bg-[#E7FFFC]"
             styleText="text-light_finance-primary"
@@ -282,7 +282,7 @@ const LoanFormBank = () => {
       if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
-            title="Please access this applicant's eligibility assessment"
+            title={t("processBank.statusBank")}
             icon={Warning}
             className="bg-[#E7FFFC]"
             styleText="text-light_finance-primary"
@@ -291,7 +291,7 @@ const LoanFormBank = () => {
       } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
-            title="Application form have been rejected"
+            title={t("processBank.statusReject")}
             icon={Faild}
             className="bg-[#FFF3F4]"
             styleText="text-[#F65160]"
@@ -302,7 +302,7 @@ const LoanFormBank = () => {
       if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
-            title="Please send the final result for this application"
+            title={t("processBank.statusEligibility")}
             icon={Warning}
             className="bg-[#E7FFFC]"
             styleText="text-light_finance-primary"
@@ -311,7 +311,7 @@ const LoanFormBank = () => {
       } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
-            title="Application form have been rejected"
+            title={t("processBank.statusReject")}
             icon={Faild}
             className="bg-[#FFF3F4]"
             styleText="text-[#F65160]"
@@ -322,7 +322,7 @@ const LoanFormBank = () => {
       if (check?.status === Status.APPROVAL) {
         return (
           <LoanStatus
-            title="Final result is sent. You have completed the process!"
+            title={t("processBank.statusApprove")}
             icon={Warning}
             className="bg-[#E7FFFC]"
             styleText="text-light_finance-primary"
@@ -331,7 +331,7 @@ const LoanFormBank = () => {
       } else if (check?.status === Status.REJECTED) {
         return (
           <LoanStatus
-            title="Application form have been rejected"
+            title={t("processBank.statusReject")}
             icon={Faild}
             className="bg-[#FFF3F4]"
             styleText="text-[#F65160]"

@@ -9,6 +9,10 @@ interface RequestDocProps {
   note: string;
   id: number;
   loan_business_list_id: number;
+  documents: {
+    file_name: string;
+    path: string;
+  };
 }
 
 const ViewDocument = () => {

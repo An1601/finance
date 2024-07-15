@@ -389,6 +389,9 @@ export default {
       unsecure: "Unsecure",
       adjustType: "Conforming adjustable-rate mortgage loans",
       fixType: "Conventional fixed rate loans",
+      term: "Term:",
+      application: "Application form:",
+      view: "View",
     },
     bookMeeting: {
       title: "Book an appointment",
@@ -466,6 +469,13 @@ export default {
     add: "Add",
     chosseFile: "Choose File",
     confrim: "Comfirm",
+    note: "Note:",
+    document: "Documents:",
+    statusCheck: "Please check the application form",
+    statusBank: "Please access this applicant's eligibility assessment",
+    statusEligibility: "Please send the final result for this application",
+    statusReject: "Application form have been rejected",
+    statusApprove: "Final result is sent. You have completed the process!",
   },
   bankForm: {
     close: "Close",

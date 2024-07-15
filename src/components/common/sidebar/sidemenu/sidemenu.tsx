@@ -4,7 +4,6 @@ import DashboardIcon from "@components/svg/Dashboard";
 import LoanList from "@components/svg/LoanList";
 import ManagementRecord from "@components/svg/ManageRecord";
 import { getTranslated } from "@i18n/index";
-
 export interface MenuItem {
   id: number;
   title: string;
@@ -97,6 +96,28 @@ export const BANK_MENUITEMS: MenuItem[] = [
     active: false,
     children: [
       {
+        id: 3,
+        title: getTranslated("sideBar.surveyList"),
+        icon: <ManagementRecord isActive={true} isFocus={false} />,
+        iconDark: <ManagementRecord isActive={true} isFocus={true} />,
+        iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
+        type: "link",
+        children: [],
+        path: `/bank/survey-list`,
+        selected: false,
+      },
+      {
+        id: 4,
+        title: getTranslated("sideBar.applicationForms"),
+        icon: <ManagementRecord isActive={true} isFocus={false} />,
+        iconDark: <ManagementRecord isActive={true} isFocus={true} />,
+        iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
+        type: "link",
+        children: [],
+        path: `/bank/form-list`,
+        selected: false,
+      },
+      {
         id: 5,
         title: getTranslated("sideBar.applyLoanList"),
         icon: <ManagementRecord isActive={true} isFocus={false} />,
@@ -109,28 +130,6 @@ export const BANK_MENUITEMS: MenuItem[] = [
       },
       {
         id: 6,
-        title: getTranslated("sideBar.surveyList"),
-        icon: <ManagementRecord isActive={true} isFocus={false} />,
-        iconDark: <ManagementRecord isActive={true} isFocus={true} />,
-        iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
-        type: "link",
-        children: [],
-        path: `/bank/survey-list`,
-        selected: false,
-      },
-      {
-        id: 7,
-        title: getTranslated("sideBar.applicationForms"),
-        icon: <ManagementRecord isActive={true} isFocus={false} />,
-        iconDark: <ManagementRecord isActive={true} isFocus={true} />,
-        iconStroke: <ManagementRecord isActive={false} isFocus={false} />,
-        type: "link",
-        children: [],
-        path: `/bank/form-list`,
-        selected: false,
-      },
-      {
-        id: 8,
         title: getTranslated("sideBar.recordManagement"),
         icon: <ManagementRecord isActive={true} isFocus={false} />,
         iconDark: <ManagementRecord isActive={true} isFocus={true} />,
@@ -144,7 +143,7 @@ export const BANK_MENUITEMS: MenuItem[] = [
     path: `/`,
   },
   {
-    id: 3,
+    id: 7,
     title: getTranslated("sideBar.chat"),
     icon: <Chat isActive={true} isFocus={false} />,
     iconDark: <Chat isActive={true} isFocus={true} />,

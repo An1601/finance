@@ -128,7 +128,7 @@ const BankLoanDetail = () => {
                       onClick={() => handleSaveFile()}
                     >
                       <div className="mr-3 font-HelveticaNeue font-bold text-xs text-light_finance-textbody leading-4">
-                        Term:
+                        {t("process.loanDetail.term")}
                       </div>
                       <div className="w-4 mr-2">
                         <FileIcon
@@ -146,10 +146,10 @@ const BankLoanDetail = () => {
                     </div>
                     <div className="px-3 py-1 bg-light_finance-background1 rounded-lg justify-center items-center gap-2 inline-flex">
                       <div className="text-light_finance-textbody text-xs font-bold font-HelveticaNeue leading-none tracking-tight">
-                        Application form:
+                        {t("process.loanDetail.application")}
                       </div>
                       <div className="text-center text-primary text-sm font-normal font-HelveticaNeue underline leading-tight">
-                        View
+                        {t("process.loanDetail.view")}
                       </div>
                     </div>
                   </div>
@@ -161,7 +161,7 @@ const BankLoanDetail = () => {
                   onClick={() => handleSaveFile()}
                 >
                   <div className="mr-3 font-HelveticaNeue font-bold text-xs text-light_finance-textbody leading-4">
-                    Term:
+                    {t("process.loanDetail.term")}
                   </div>
                   <div className="w-4 mr-2">
                     <FileIcon
@@ -179,10 +179,13 @@ const BankLoanDetail = () => {
                 </div>
                 <div className="w-40 px-3 py-1 bg-light_finance-background1 rounded-lg justify-center items-center gap-2 inline-flex">
                   <div className="text-light_finance-textbody text-xs font-bold font-HelveticaNeue leading-none tracking-tight">
-                    Application form:
+                    {t("process.loanDetail.application")}
                   </div>
-                  <div className="text-center text-primary text-sm font-normal font-HelveticaNeue underline leading-tight">
-                    View
+                  <div
+                    className="text-center text-primary text-sm font-normal font-HelveticaNeue underline leading-tight"
+                    onClick={() => navigate(`/bank/form/${loanDetail?.id}`)}
+                  >
+                    {t("process.loanDetail.view")}
                   </div>
                 </div>
               </div>
