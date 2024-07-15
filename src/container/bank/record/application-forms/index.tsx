@@ -27,7 +27,7 @@ const BankApplicationForms = () => {
     try {
       const response = await api.get("/bank/application-forms");
       if (response.status === 200) {
-        setForms(response.data);
+        setForms(response.data.data);
       }
     } catch (error) {
       const message =
@@ -43,6 +43,10 @@ const BankApplicationForms = () => {
   useEffect(() => {
     handleGetForms();
   }, []);
+
+  useEffect(() => {
+    console.log(forms);
+  }, [forms]);
 
   if (isLoading) return <Loader />;
   return (
