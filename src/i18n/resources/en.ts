@@ -326,7 +326,8 @@ export default {
     question_7c_label: "Utilities",
     question_7d_label: "Repairs & Maintenance",
     question_7e_label: "Management Fee",
-    question_8_content: "What is your primary financing goal?",
+    question_8_content:
+      "What is your primary financing goal? (rank based on level of importance, from 1-3, 1 being most important)",
     question_8_choice1: "Minimize Financing Cost",
     question_8_choice2: "Maximize Leverage",
     question_8_choice3: "Closing Timing",
@@ -435,7 +436,7 @@ export default {
     formReuse: "Save this application form in the record",
     messageSuccess: "You have created a package loan",
     updateLoanOk: "Update loan successfully!",
-    selectWarning: "Please select a loan!",
+    selectWarning: "Please select a form!",
     fileWarning: "Please upload a file!",
     addLoan: "Add new loan",
   },

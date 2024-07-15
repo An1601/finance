@@ -16,6 +16,7 @@ import { useTranslation } from "react-i18next";
 import { fetchProfileData } from "@redux/userThunks";
 import { UserRole } from "@type/enum";
 import { useLoading } from "@components/hook/useLoading";
+import { useLocalStorage } from "@utils/index";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Login = () => {
   const [passwordShow, setPasswordShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
   const { isLoading, toggleLoading } = useLoading();
+  const { removeItem } = useLocalStorage();
 
   const {
     handleSubmit,
@@ -58,11 +60,18 @@ const Login = () => {
         dispatch(fetchProfileData());
       }
     } catch (error) {
-      const message =
-        axios.isAxiosError(error) && error.response?.data.message
-          ? error.response.data.message
-          : t("login.messageError");
-      toast.error(message);
+      if (axios.isAxiosError(error)) {
+        const message = error.response?.data.message || t("login.messageError");
+        if (error.response?.status === 403) {
+          removeItem(`${data.email}_expirationTime`);
+          navigate(`/verify-code?email=${data.email}&signup=true`);
+          toast.info(message);
+        } else {
+          toast.error(message);
+        }
+      } else {
+        toast.error(t("login.messageError"));
+      }
     } finally {
       toggleLoading(false);
     }

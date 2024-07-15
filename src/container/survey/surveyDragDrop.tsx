@@ -29,8 +29,11 @@ const SurveyDragDrop = ({
           onDragEnd={handleSort}
           onDragOver={(e) => e.preventDefault()}
         >
+          <div className="text-light_finance-textbody text-sm font-bold font-HelveticaNeue leading-tight">
+            {index + 1}
+          </div>
           <div className="text-light_finance-textbody text-sm font-normal font-HelveticaNeue leading-tight">
-            <p>{choice}</p>
+            {choice}
           </div>
           <i className="fa-solid fa-arrows-up-down-left-right fa-lg"></i>
         </div>
