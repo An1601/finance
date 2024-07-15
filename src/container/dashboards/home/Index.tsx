@@ -25,6 +25,7 @@ const Home: FC<CrmProps> = () => {
   const [meetingList, setMeeting] = useState([]);
   const { t } = useTranslation();
   const { isLoading, toggleLoading } = useLoading();
+  console.log(loanRecords);
 
   const handleGetRecords = async () => {
     try {

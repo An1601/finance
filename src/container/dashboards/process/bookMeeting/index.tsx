@@ -8,7 +8,6 @@ import { toast } from "react-toastify";
 import BookingModal from "../bookingModal";
 import Warning from "@assets/icon/Warning.svg";
 import { Status, StatusProcess } from "@type/enum";
-import MobileHomeBtn from "@components/common/button/mobile-home-btn";
 import MeetingItem from "./ConsultingItem";
 import { useLoading } from "@components/hook/useLoading";
 import { useProcess } from "@redux/useSelector";
@@ -55,12 +54,6 @@ function Meeting() {
     toggleLoading(false);
   };
 
-  const handleLoanForm = () => {
-    check?.current_step === StatusProcess.ADMIN_CONSULTATION
-      ? navigate(`/book-meeting-success/${loanId}`)
-      : toast.warning("Wait for the meeting to complete");
-  };
-
   useEffect(() => {
     loanId ? fetchDataMeetingUser() : fetchDataMeeting();
   }, [loanId]);
@@ -93,7 +86,6 @@ function Meeting() {
                       : t("process.bookMeeting.compleMeeting")}
               </div>
             </div>
-            <MobileHomeBtn name="Check" handleSubmit={handleLoanForm} />
           </div>
           {loanData?.map((loan, index) => {
             return (

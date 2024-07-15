@@ -27,7 +27,7 @@ interface FileName {
 const LoanFormBank = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<ApplicationForm>();
+  const [formData, setFormData] = useState<ApplicationFormType>();
   const searchParams = new URLSearchParams(location.search);
   const loanId = searchParams.get("loanId");
   const recordId = searchParams.get("recordId");

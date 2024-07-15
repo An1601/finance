@@ -26,7 +26,7 @@ const BankLoanBoard = ({
 }: BankLoanBoardProps) => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isLoading, toggleLoading } = useLoading();
+  const { toggleLoading } = useLoading();
 
   const handleSaveFile = async (loanId: number, fileName: string) => {
     toggleLoading(true);
