@@ -69,7 +69,7 @@ function VerifyOTP() {
     setOTP(newOTP);
     const nextIndex = startIndex + pastedText.length;
     if (nextIndex < refOTP.current.length && refOTP.current[nextIndex]) {
-      refOTP.current[nextIndex].focus();
+      refOTP.current[nextIndex]!.focus();
     } else {
       const submitButton = document.querySelector("button[type='submit']");
       if (submitButton instanceof HTMLElement) {
