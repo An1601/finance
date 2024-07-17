@@ -14,9 +14,9 @@ import { UserRole } from "@type/enum";
 const BottomBarCustom = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState<string>("home");
-  const user = useUser();
-
   const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+  const user = useUser();
 
   const handleNavigate = (path: string, tab: string) => {
     setActiveTab(tab);
@@ -39,38 +39,34 @@ const BottomBarCustom = () => {
       setActiveTab("profile");
     }
   }, [location.pathname]);
-  useEffect(() => {
-    let lastScrollY = window.scrollY;
 
+  useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > lastScrollY) {
-        // Trượt xuống
+        // Scrolling down
         setIsVisible(false);
       } else {
-        // Trượt lên
+        // Scrolling up
         setIsVisible(true);
       }
-      lastScrollY = window.scrollY;
+      setLastScrollY(window.scrollY);
     };
 
     window.addEventListener("scroll", handleScroll);
-
     return () => {
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [lastScrollY]);
 
   return (
     <div
-      className={`fixed z-50 w-screen sm:hidden max-w-[380px] h-[76px] bg-white border border-gray-200 rounded-full bottom-0 dark:bg-gray-700 dark:border-gray-600 shadow transition-transform duration-300 ease-in-out ${
-        isVisible ? "transform translate-y-0" : "transform translate-y-full"
-      }`}
+      className={`fixed z-50 w-screen sm:hidden max-w-[380px] h-[76px] -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600 shadow transition-transform duration-300 ${isVisible ? "translate-y-0" : "translate-y-full"}`}
     >
       <div className="grid h-full max-w-lg grid-cols-4 mx-auto">
         <button
           data-tooltip-target="tooltip-home"
           type="button"
-          className="inline-flex flex-col items-center justify-center rounded-s-full "
+          className="inline-flex flex-col items-center justify-center rounded-s-full"
           onClick={() =>
             handleNavigate(
               `${user.role === UserRole.BANK ? "/bank" : "/dashboard"}`,
@@ -87,7 +83,7 @@ const BottomBarCustom = () => {
         <button
           data-tooltip-target="tooltip-wallet"
           type="button"
-          className="inline-flex flex-col items-center justify-center px-5 "
+          className="inline-flex flex-col items-center justify-center px-5"
           onClick={() =>
             handleNavigate(
               `${user.role === UserRole.BANK ? "/bank" : ""}/records`,
@@ -104,7 +100,7 @@ const BottomBarCustom = () => {
         <button
           data-tooltip-target="tooltip-settings"
           type="button"
-          className="inline-flex flex-col items-center justify-center px-5 "
+          className="inline-flex flex-col items-center justify-center px-5"
           onClick={() => handleNavigate(`/message`, "message")}
         >
           {activeTab === "message" ? (
@@ -116,7 +112,7 @@ const BottomBarCustom = () => {
         <button
           data-tooltip-target="tooltip-profile"
           type="button"
-          className="inline-flex flex-col items-center justify-center px-5 rounded-e-full "
+          className="inline-flex flex-col items-center justify-center px-5 rounded-e-full"
           onClick={() => handleNavigate(`/profile`, "profile")}
         >
           {activeTab === "profile" ? (
