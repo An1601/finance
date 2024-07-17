@@ -76,17 +76,17 @@ const LoanItem: React.FC<{ loanItem: LoanItemType | RecordItemType }> = ({
           className="h-[44px] min-w-[44px] xl:h-[4.5rem] xl:min-w-[4.5rem] rounded-full overflow-hidden"
         />
         <div className="max-w-full flex flex-col justify-center">
-          <div className="font-HelveticaNeue font-medium text-[10px] md:text-xs leading-4 text-light_finance-primary text-truncate">
+          <div className="flex justify-start font-HelveticaNeue font-medium text-[10px] md:text-xs leading-4 text-light_finance-primary text-truncate">
             {isLoanItemType
               ? loanItem?.survey_answers?.property_address[0]
               : loanItem?.loan_offer?.survey_answers?.property_address[0]}
           </div>
-          <div className="font-HelveticaNeue font-normal text-xs md:text-sm leading-4 tracking-tight text-light_finance-textsub text-truncate">
+          <div className="flex justify-start font-HelveticaNeue font-normal text-xs md:text-sm leading-4 tracking-tight text-light_finance-textsub text-truncate">
             {isLoanItemType
               ? loanItem?.loans?.bank?.name
               : loanItem?.loan_offer?.loans?.user?.bank?.name}
           </div>
-          <div className="font-HelveticaNeue font-bold text-base md:text-xl leading-7 text-light_finance-textbody text-truncate">
+          <div className="flex justify-start font-HelveticaNeue font-bold text-base md:text-xl leading-7 text-light_finance-textbody text-truncate">
             {isLoanItemType
               ? loanItem?.loans?.name
               : loanItem?.loan_offer?.loans?.name}
