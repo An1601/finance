@@ -16,12 +16,14 @@ import BankTabHeader from "@components/common/bank-tab-header";
 import Breadcrumb from "@components/common/breadcrumb";
 import CustomAddBtn from "@components/common/button/custom-add-btn";
 import BankLoanItem from "./BankLoanItem";
+import { useNavigate } from "react-router-dom";
 
 const BankLoanList = () => {
   const windowWidth = useWindowWidth();
   const { t } = useTranslation();
   const [loans, setLoans] = useState([]);
   const { isLoading, toggleLoading } = useLoading();
+  const navigate = useNavigate();
 
   const handleGetLoans = async () => {
     toggleLoading(true);
@@ -80,16 +82,19 @@ const BankLoanList = () => {
 
   return windowWidth < 480 ? (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 pt-7 pb-10">
+      <div className=" z-10 relative mx-6 py-7">
         <div className="flex justify-between">
           <ProfileHeader />
           <Notification />
         </div>
-        <div className="my-8 flex flex-col gap-6">
+        <div className="mt-8 flex flex-col gap-6">
           <BankTabHeader />
           <LoanFilter />
           <div className="w-full inline-flex justify-center">
-            <CustomAddBtn name={t("createLoanForm.addLoan")} />
+            <CustomAddBtn
+              name={t("createLoanForm.addLoan")}
+              handleOnclick={() => navigate("/bank/loan-create")}
+            />
           </div>
           <div className="flex flex-col gap-3">
             {loans.map((loanitem, index) => {

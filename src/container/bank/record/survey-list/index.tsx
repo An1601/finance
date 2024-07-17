@@ -40,7 +40,7 @@ const SurveyBankIndex = () => {
   return (
     <div className="min-h-screen relative overflow-hidden">
       <BottomBarCustom />
-      <div className=" z-10 relative mx-6 pt-7 pb-14">
+      <div className=" z-10 relative mx-6 py-7">
         <div className="flex flex-col gap-8 sm:gap-5">
           <div className="flex sm:hidden justify-between">
             <ProfileHeader />

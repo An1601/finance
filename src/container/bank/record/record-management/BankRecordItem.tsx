@@ -7,13 +7,16 @@ import { formatCreditLimit } from "@constant/Constant";
 import { useUser } from "@redux/useSelector";
 
 const BankRecordItem: React.FC<{
-  loanItem: BankRecordItemType;
-}> = ({ loanItem }) => {
+  recordItem: BankRecordItemType;
+}> = ({ recordItem }) => {
   const { t } = useTranslation();
   const user = useUser();
 
   return (
-    <div className="p-4 bg-white rounded-xl w-full flex flex-col md:flex-row md:justify-between gap-3">
+    <a
+      href={`/bank/process/loan-form-submit?loanId=${recordItem.loan_id}&recordId=${recordItem.id}&formId=${recordItem.application_form_id}`}
+      className="p-4 bg-white rounded-xl w-full flex flex-col md:flex-row md:justify-between gap-3"
+    >
       <div className="flex gap-2 max-w-[85%] md:max-w-[30%]">
         <img
           src={
@@ -27,7 +30,7 @@ const BankRecordItem: React.FC<{
             {user.business_profile?.name}
           </div>
           <div className="font-HelveticaNeue font-bold text-base md:text-xl leading-7 text-light_finance-textbody text-truncate">
-            {loanItem?.loan_name}
+            {recordItem?.loan_name}
           </div>
         </div>
       </div>
@@ -36,7 +39,7 @@ const BankRecordItem: React.FC<{
           <div className="flex items-center gap-4 max-[415px]:gap-2">
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
-                ${formatCreditLimit(loanItem?.credit_limit)}
+                ${formatCreditLimit(recordItem?.credit_limit)}
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
                 {t("home.creditLimit")}
@@ -44,7 +47,7 @@ const BankRecordItem: React.FC<{
             </div>
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
-                {loanItem?.interest_rate}%
+                {recordItem?.interest_rate}%
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
                 {t("consulting.rate")}
@@ -52,7 +55,7 @@ const BankRecordItem: React.FC<{
             </div>
             <div className="px-3 py-1 bg-light_finance-background1 rounded-[20px] justify-center items-center gap-1 flex flex-col xl:flex-row text-center whitespace-nowrap">
               <div className="text-light_finance-textbody text-xs md:text-sm font-bold font-['Helvetica Neue'] leading-none tracking-tight">
-                {loanItem?.origination_fee}%
+                {recordItem?.origination_fee}%
               </div>
               <div className="text-light_finance-textsub text-[10px] md:text-xs font-normal font-['Helvetica Neue'] leading-none tracking-tight">
                 {t("process.loanDetail.originalFee")}
@@ -61,11 +64,11 @@ const BankRecordItem: React.FC<{
           </div>
           <div className="lg:flex hidden gap-1">
             <img className="h-5 w-5" src={calendar} />
-            <div>{loanItem?.time_submit}</div>
+            <div>{recordItem?.time_submit}</div>
           </div>
         </div>
         {(() => {
-          switch (loanItem?.state) {
+          switch (recordItem?.state) {
             case LoanStatus.APPROVED:
               return (
                 <div className="bg-[#CCFFF1] rounded-sm inline-flex items-center justify-center">
@@ -93,7 +96,7 @@ const BankRecordItem: React.FC<{
           }
         })()}
       </div>
-    </div>
+    </a>
   );
 };
 

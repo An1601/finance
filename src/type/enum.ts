@@ -7,6 +7,7 @@ export enum MeetingStatus {
   PENDING = 0,
   CONNECT = 1,
   REJECT = 2,
+  DONE = 3,
 }
 
 export enum FilterOption {

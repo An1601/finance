@@ -170,13 +170,13 @@ const LoanSubmitConfirm = () => {
                   {section?.order_num}. {section?.name}
                 </div>
                 {section?.field_application_forms?.map((question, index) => (
-                  <div className="flex flex-col gap-4 px-4 " key={index}>
-                    <div className="flex justify-between flex-wrap ">
-                      <div className="font-HelveticaNeue font-normal text-[18px] leading-5 text-light_finance-textsub dot-before">
+                  <div className="flex flex-col px-4 mb-2 " key={index}>
+                    <div className="flex items-center">
+                      <div className="w-2/3 font-HelveticaNeue font-normal text-[18px] leading-5 text-light_finance-textsub dot-before">
                         {question.field_name} :
                       </div>
                       <div
-                        className="font-medium text-[16px] leading-5 tracking-tight text-light_finance-textbody py-2 "
+                        className="flex justify-end w-1/3 font-medium text-[16px] leading-5 tracking-tight text-light_finance-textbody py-2 "
                         dangerouslySetInnerHTML={{
                           __html: Array.isArray(
                             loanForm.answers[`${question.id}`],

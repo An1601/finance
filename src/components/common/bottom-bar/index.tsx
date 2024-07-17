@@ -16,6 +16,8 @@ const BottomBarCustom = () => {
   const [activeTab, setActiveTab] = useState<string>("home");
   const user = useUser();
 
+  const [isVisible, setIsVisible] = useState(true);
+
   const handleNavigate = (path: string, tab: string) => {
     setActiveTab(tab);
     navigate(path);
@@ -37,9 +39,33 @@ const BottomBarCustom = () => {
       setActiveTab("profile");
     }
   }, [location.pathname]);
+  useEffect(() => {
+    let lastScrollY = window.scrollY;
+
+    const handleScroll = () => {
+      if (window.scrollY > lastScrollY) {
+        // Trượt xuống
+        setIsVisible(false);
+      } else {
+        // Trượt lên
+        setIsVisible(true);
+      }
+      lastScrollY = window.scrollY;
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   return (
-    <div className="fixed z-50 w-screen sm:hidden max-w-[380px] h-[76px] -translate-x-1/2 bg-white border border-gray-200 rounded-full bottom-4 left-1/2 dark:bg-gray-700 dark:border-gray-600 shadow ">
+    <div
+      className={`fixed z-50 w-screen sm:hidden max-w-[380px] h-[76px] bg-white border border-gray-200 rounded-full bottom-0 dark:bg-gray-700 dark:border-gray-600 shadow transition-transform duration-300 ease-in-out ${
+        isVisible ? "transform translate-y-0" : "transform translate-y-full"
+      }`}
+    >
       <div className="grid h-full max-w-lg grid-cols-4 mx-auto">
         <button
           data-tooltip-target="tooltip-home"

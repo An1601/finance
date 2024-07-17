@@ -151,15 +151,12 @@ const BookingModal = ({
   const handleUpdateMeeting = async () => {
     toggleLoading(true);
     try {
-      const response = await api.post(
-        `/meeting/${meetingData?.meeting.id}/update`,
-        {
-          id: meetingData?.meeting.id,
-          date_meeting: formatValueToISOString(date),
-          start_time: startTime,
-          note: note,
-        },
-      );
+      const response = await api.post(`/meeting/${meetingData?.id}/update`, {
+        id: meetingData?.id,
+        date_meeting: formatValueToISOString(date),
+        start_time: startTime,
+        note: note,
+      });
       if (response.status === 200) {
         toast.success(t("process.bookMeeting.updateSucess"));
         if (reFetchMeeeting) {
@@ -177,8 +174,8 @@ const BookingModal = ({
   const handleSubmit = () => {
     if (meetingData) {
       if (
-        startTime === formatInitDate(meetingData.meeting.start_time) &&
-        note === meetingData.meeting.note
+        startTime === formatInitDate(meetingData.start_time) &&
+        note === meetingData.note
       ) {
         toast.info(t("process.bookMeeting.existed"));
       } else {
@@ -204,10 +201,10 @@ const BookingModal = ({
 
   useEffect(() => {
     if (meetingData) {
-      setNote(meetingData.meeting?.note);
-      choosenDate = new Date(meetingData.meeting.date_meeting);
-      setDate(new Date(meetingData.meeting.date_meeting));
-      setStartTime(formatInitDate(meetingData.meeting.start_time));
+      setNote(meetingData?.note);
+      choosenDate = new Date(meetingData.date_meeting);
+      setDate(new Date(meetingData.date_meeting));
+      setStartTime(formatInitDate(meetingData.start_time));
     }
   }, [meetingData]);
 
@@ -262,9 +259,7 @@ const BookingModal = ({
                                 compareTime(availableTime?.start_time)) ||
                               (meetingData &&
                                 availableTime.start_time ===
-                                  formatInitDate(
-                                    meetingData?.meeting.start_time,
-                                  ))
+                                  formatInitDate(meetingData?.start_time))
                             )
                               setStartTime(availableTime.start_time);
                           }}
@@ -277,9 +272,7 @@ const BookingModal = ({
                                 compareTime(availableTime?.start_time)) ||
                               (meetingData &&
                                 availableTime.start_time ===
-                                  formatInitDate(
-                                    meetingData?.meeting.start_time,
-                                  ))
+                                  formatInitDate(meetingData?.start_time))
                                 ? "text-light_finance-primary"
                                 : "text-light_finance-red"
                             }`}

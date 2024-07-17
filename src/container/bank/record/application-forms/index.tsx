@@ -44,15 +44,11 @@ const BankApplicationForms = () => {
     handleGetForms();
   }, []);
 
-  useEffect(() => {
-    console.log(forms);
-  }, [forms]);
-
   if (isLoading) return <Loader />;
   return (
     <div className="min-h-screen relative overflow-hidden">
       <BottomBarCustom />
-      <div className=" z-10 relative mx-6 sm:mx-0 pt-7 pb-14">
+      <div className=" z-10 relative mx-6 sm:mx-0 py-7">
         <div className="flex flex-col gap-8 sm:gap-5">
           <div className="flex sm:hidden justify-between">
             <ProfileHeader />

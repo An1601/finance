@@ -10,7 +10,7 @@ const TermItem: FC<TermComponentProps> = ({ fileName, handleDownTerm }) => {
   const { t } = useTranslation();
 
   return (
-    <div className="w-full flex justify-between items-center bg-white p-4 rounded-md border-[1px] border-stroke mt-3">
+    <div className="w-full flex flex-col sm:flex-row items-start justify-between sm:items-center bg-white p-4 rounded-md border-[1px] border-stroke mt-3">
       <div className="flex items-center gap-2">
         <div className="w-1 h-5 bg-danger rounded-sm" />
         <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
@@ -21,7 +21,7 @@ const TermItem: FC<TermComponentProps> = ({ fileName, handleDownTerm }) => {
         <>
           <div className="flex items-center gap-1">
             <img className="w-6 h-6" src={Pdf} alt="PDF icon" />
-            <div className="text-sm md:text-base font-normal font-['Helvetica Neue'] leading-tight">
+            <div className="text-sm md:text-base font-normal font-['Helvetica Neue'] leading-tight text-truncate">
               {fileName}
             </div>
           </div>

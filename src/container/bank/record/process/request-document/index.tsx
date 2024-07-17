@@ -23,6 +23,8 @@ const RequestDocument = () => {
   const formdId = searchParams.get("formId");
   const [note, setNote] = useState("");
   const [dataRequest, setDataRequest] = useState<DataRequestDoc[]>([]);
+  const isIOS =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
 
   const handleSendRequest = async () => {
     if (!note.trim()) {
@@ -71,7 +73,20 @@ const RequestDocument = () => {
       const response = await api.get(`/signed-url/${path}`);
       if (response.status === 200) {
         const url = response.data.url;
-        window.open(url, "_blank");
+        if (isIOS) {
+          window.location.href = url;
+        } else {
+          const newWindow = window.open(url, "_blank");
+          if (
+            !newWindow ||
+            newWindow.closed ||
+            typeof newWindow.closed == "undefined"
+          ) {
+            toast.error("Pop-up blocked! Please allow pop-ups for this site.");
+          }
+        }
+      } else {
+        throw new Error("Failed to fetch URL");
       }
     } catch (error) {
       console.error("Error fetching data:", error);

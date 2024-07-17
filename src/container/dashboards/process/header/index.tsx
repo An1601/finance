@@ -55,7 +55,7 @@ const ProcessHeader = () => {
           </div>
         </div>
       </div>
-      <div className="w-full overflow-x-hidden ml-[18px]">
+      <div className="w-full overflow-x-hidden">
         <div className="relative flex items-center justify-between max-[600px]:overflow-scroll">
           {MENU_PROCESS.map((item, index) => (
             <Fragment key={item.id}>

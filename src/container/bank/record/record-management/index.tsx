@@ -48,17 +48,17 @@ const BankRecordManagement = () => {
 
   return windowWidth < 480 ? (
     <div className="min-h-screen relative overflow-hidden">
-      <div className=" z-10 relative mx-6 pt-7 pb-10">
+      <div className=" z-10 relative mx-6 py-7">
         <div className="flex justify-between">
           <ProfileHeader />
           <Notification />
         </div>
-        <div className="my-8 flex flex-col gap-6">
+        <div className="mt-8 flex flex-col gap-6">
           <BankTabHeader />
           <LoanFilter />
           <div className="flex flex-col gap-3">
             {loanRecords.map((loanitem, index) => {
-              return <BankRecordItem key={index} loanItem={loanitem} />;
+              return <BankRecordItem key={index} recordItem={loanitem} />;
             })}
           </div>
         </div>

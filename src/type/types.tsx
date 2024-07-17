@@ -176,33 +176,22 @@ export type Meeting = {
   note: string;
 };
 
-export type Loans = {
-  interest_rate_type: number;
-  name: string;
-  credit_limit: number;
-  interest_rate: string;
-  bank: {
-    name: string;
-  };
-};
-
-export type SurveyAnswers = {
-  property_address: string;
-};
-
-export type LoanOffer = {
-  loans: Loans;
-  survey_answers: SurveyAnswers;
-};
-
 export type ConsultingMeeting = {
   id: number;
-  business_id: number;
-  loan_id: number;
-  time_submit: string;
-  state: number;
-  meeting: Meeting;
-  loan_offer: LoanOffer;
+  record_id: number;
+  bank_name: string;
+  survey_name: string;
+  loan_name: string;
+  interest_rate_type: number;
+  type: number;
+  credit_limit: number;
+  interest_rate: number;
+  date_meeting: string;
+  start_time: string;
+  end_time: string;
+  zoom_meeting: string;
+  state_meeting: number;
+  note: string;
 };
 export interface ProjectItemType {
   id: string;

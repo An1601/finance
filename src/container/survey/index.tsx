@@ -223,6 +223,7 @@ const SurveyIndex: React.FC = () => {
           ? error.response.data.message
           : t("login.messageError"),
       );
+      setAnswers(Array.from({ length: surveyQuestion.length }, () => []));
     } finally {
       toggleLoading(false);
     }
