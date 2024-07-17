@@ -28,7 +28,7 @@ const BankMobileHome = ({
     <div className="w-full min-h-screen relative overflow-hidden">
       <div className="w-full z-10 relative">
         <BottomBarCustom />
-        <div className="mx-6 mt-7 mb-16 flex flex-col gap-6">
+        <div className="mx-6 py-7 flex flex-col gap-6">
           <div className="h-fit flex flex-col gap-5">
             <div className="flex justify-between">
               <ProfileHeader />
@@ -43,7 +43,7 @@ const BankMobileHome = ({
                 <div className="flex items-center gap-2 sm:hidden">
                   <div className="w-1 h-5 bg-danger rounded-sm" />
                   <div className="text-light_finance-textbody text-lg font-bold font-HelveticaNeue leading-7">
-                    {t("sideBar.applicationForms")}
+                    {t("sideBar.applyLoanList")}
                   </div>
                 </div>
                 <div

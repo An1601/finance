@@ -71,7 +71,7 @@ const ProcessHeaderBank = () => {
           </div>
         </div>
       </div>
-      <div className="w-full ml-[18px]">
+      <div className="w-full overflow-hidden">
         <div
           className={`relative flex items-center justify-between right-[${148 * (activeIndex - 1)}px]`}
         >

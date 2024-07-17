@@ -62,9 +62,9 @@ const BankLoanItem = ({
   return (
     <a
       href={`/bank/loan-detail?loanId=${loanItem.id}`}
-      className="w-full bg-white rounded-xl p-4 justify-between flex items-end"
+      className="w-full bg-white rounded-xl p-4 justify-between flex flex-col xxs:flex-row items-end"
     >
-      <div className="max-w-[75%] flex flex-col md:flex-row md:justify-between gap-3">
+      <div className="w-full xxs:max-w-[75%] flex flex-col md:flex-row md:justify-between gap-3">
         <div className="flex gap-2">
           <img
             src={

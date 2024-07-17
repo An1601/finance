@@ -24,7 +24,7 @@ export const getAllForm = createAsyncThunk<
 >("createLoan/getForm", async (_, { rejectWithValue }) => {
   try {
     const response = await api.get("/application-form/list-reuse");
-    const data = await response.data;
+    const data = await response.data.data;
     return data;
   } catch (error: any) {
     return rejectWithValue(error.response.data);

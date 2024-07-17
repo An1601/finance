@@ -31,6 +31,8 @@ const LoanReview = () => {
   const [term, setTerm] = useState<ViewTerm>();
   const [file, setfile] = useState<any[]>([]);
   const { isLoading, toggleLoading } = useLoading();
+  const isIOS =
+    /iPad|iPhone|iPod/.test(navigator.userAgent) && !(window as any).MSStream;
 
   const transformData = (data: {
     [key: string]: any;
@@ -87,6 +89,35 @@ const LoanReview = () => {
     }
   };
 
+  const fetchDataViewFileDoc = async (path: string) => {
+    toggleLoading(true);
+    try {
+      const response = await api.get(`/signed-url/${path}`);
+      if (response.status === 200) {
+        const url = response.data.url;
+        if (isIOS) {
+          window.location.href = url;
+        } else {
+          const newWindow = window.open(url, "_blank");
+          if (
+            !newWindow ||
+            newWindow.closed ||
+            typeof newWindow.closed == "undefined"
+          ) {
+            toast.error("Pop-up blocked! Please allow pop-ups for this site.");
+          }
+        }
+      } else {
+        throw new Error("Failed to fetch URL");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      toast.error("Failed to fetch data");
+    } finally {
+      toggleLoading(false);
+    }
+  };
+
   const fetchDataTerm = async () => {
     toggleLoading(true);
     try {
@@ -122,22 +153,6 @@ const LoanReview = () => {
         setfile(response.data.data);
       }
     } catch (error) {
-    } finally {
-      toggleLoading(false);
-    }
-  };
-
-  const fetchDataViewFileDoc = async (path: string) => {
-    toggleLoading(true);
-    try {
-      const response = await api.get(`/signed-url/${path}`);
-      if (response.status === 200) {
-        const url = response.data.url;
-        window.open(url, "_blank");
-      }
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      toast.error("Failed to fetch data");
     } finally {
       toggleLoading(false);
     }
@@ -255,13 +270,13 @@ const LoanReview = () => {
                   {section?.order_num}. {section?.name}
                 </div>
                 {section?.field_application_forms?.map((question, index) => (
-                  <div className="flex flex-col gap-4 px-4" key={index}>
-                    <div className="flex justify-between flex-wrap">
-                      <div className="font-HelveticaNeue font-normal text-[16px] md:text-[18px] leading-5 text-light_finance-textsub dot-before">
+                  <div className="flex flex-col px-4 mb-2" key={index}>
+                    <div className="flex items-center">
+                      <div className="w-2/3 font-HelveticaNeue font-normal text-[16px] md:text-[18px] leading-5 text-light_finance-textsub dot-before">
                         {question.field_name} :
                       </div>
                       <div
-                        className="font-medium text-[14px] md:text-[16px] leading-5 tracking-tight text-light_finance-textbody py-2"
+                        className="flex w-1/3 justify-end font-medium text-[14px] md:text-[16px] leading-5 tracking-tight text-light_finance-textbody py-2"
                         dangerouslySetInnerHTML={{
                           __html: Array.isArray(
                             transformData(answerData.answers)[`${question.id}`],

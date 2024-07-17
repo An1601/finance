@@ -35,7 +35,7 @@ const MeetingItem = ({
       check.current_step === StatusProcess.BOOK_MEETING &&
       check.status === Status.APPROVAL
     ) {
-      window.open(loanDetails.meeting.zoom_meeting, "_blank");
+      window.open(loanDetails.zoom_meeting, "_blank");
     }
   };
 
@@ -59,10 +59,10 @@ const MeetingItem = ({
           <div className="flex flex-col justify-start items-start gap-1">
             <div className="flex flex-col justify-start items-start">
               <div className="text-slate-600 text-xs font-normal leading-none tracking-tight">
-                {loanDetails?.loan_offer?.loans?.bank?.name}
+                {loanDetails?.bank_name}
               </div>
               <div className="text-slate-900 text-lg font-bold leading-7">
-                {loanDetails?.loan_offer?.loans?.name}
+                {loanDetails.loan_name}
               </div>
             </div>
           </div>
@@ -99,9 +99,9 @@ const MeetingItem = ({
                 disabled={
                   (check.current_step === StatusProcess.BOOK_MEETING &&
                     check.status === Status.APPROVAL) ||
-                  loanDetails?.meeting.state === MeetingStatus.REJECT
+                  loanDetails?.state_meeting === MeetingStatus.REJECT
                 }
-                data-hs-overlay={`#modal_${loanDetails?.meeting.id}`}
+                data-hs-overlay={`#modal_${loanDetails?.id}`}
               >
                 <DeleteIcon
                   color={
@@ -136,10 +136,7 @@ const MeetingItem = ({
                     {t("consulting.projectName")}:
                   </div>
                   <div className="text-slate-900 text-sm font-medium leading-tight">
-                    {
-                      loanDetails?.loan_offer?.survey_answers
-                        ?.property_address[0]
-                    }
+                    {loanDetails?.survey_name}
                   </div>
                 </div>
                 <div className="w-full flex justify-between items-start">
@@ -148,7 +145,7 @@ const MeetingItem = ({
                   </div>
                   <div className="text-slate-900 text-sm font-medium leading-tight">
                     {`${
-                      loanDetails?.loan_offer?.loans?.interest_rate_type
+                      loanDetails?.interest_rate_type
                         ? InterestRateType.ADJUSTABLE_RATE
                         : InterestRateType.FIXED_RATE
                     }`}
@@ -159,7 +156,7 @@ const MeetingItem = ({
                     {t("consulting.creditLimit")}:
                   </div>
                   <div className="text-slate-900 text-sm font-medium leading-tight">
-                    {loanDetails?.loan_offer?.loans?.credit_limit}
+                    {loanDetails?.credit_limit}
                   </div>
                 </div>
                 <div className="w-full flex justify-between items-center">
@@ -167,7 +164,7 @@ const MeetingItem = ({
                     {t("consulting.interestRate")}:
                   </div>
                   <div className="text-slate-900 text-sm font-medium leading-tight">
-                    {loanDetails?.loan_offer?.loans?.interest_rate}
+                    {loanDetails?.interest_rate}
                   </div>
                 </div>
               </div>
@@ -184,7 +181,7 @@ const MeetingItem = ({
                     </div>
                   </div>
                   <div className="text-slate-900 text-sm font-medium leading-tight">
-                    {loanDetails?.meeting?.date_meeting}
+                    {loanDetails?.date_meeting}
                   </div>
                 </div>
                 <div className="flex justify-start items-center gap-1">
@@ -196,8 +193,8 @@ const MeetingItem = ({
                     />
                   </div>
                   <div className="text-slate-900 text-sm font-medium leading-tight">
-                    {formatDate(loanDetails?.meeting?.start_time)} to{" "}
-                    {formatDate(loanDetails?.meeting?.end_time)}
+                    {formatDate(loanDetails?.start_time)} to{" "}
+                    {formatDate(loanDetails?.end_time)}
                   </div>
                 </div>
               </div>
@@ -248,25 +245,25 @@ const MeetingItem = ({
           )}
         </div>
         <AlertModal
-          id={`modal_${loanDetails?.meeting.id}`}
+          id={`modal_${loanDetails?.id}`}
           title={t("consulting.consulting")}
           content={t("consulting.comfirmDelete")}
           submitLabel={t("consulting.delete")}
           cancelLabel={t("survey.submit_modal_close")}
           handleSubmit={() => {
-            handleDelete(loanDetails?.meeting?.id);
+            handleDelete(loanDetails?.id);
             setIsModalOpen(false);
           }}
         />
       </div>
       <AlertModal
-        id={`modal_${loanDetails.meeting.id}`}
+        id={`modal_${loanDetails.id}`}
         title={t("consulting.consulting")}
         content={t("consulting.comfirmDelete")}
         submitLabel={t("consulting.delete")}
         cancelLabel={t("survey.submit_modal_close")}
         handleSubmit={() => {
-          handleDelete(loanDetails?.meeting?.id);
+          handleDelete(loanDetails?.id);
           setIsModalOpen(false);
         }}
       />
